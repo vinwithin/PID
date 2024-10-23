@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
+use App\Http\Controllers\dashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -16,6 +17,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', function(){
         return view('welcome');
+    });
+    Route::prefix('admin')->group(function () {
+        Route::get('/', [dashboardController::class, 'index'])->name('admin.dashboard');
     });
 
 });

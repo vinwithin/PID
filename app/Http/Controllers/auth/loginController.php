@@ -19,7 +19,7 @@ class loginController extends Controller
         ]);
         if(Auth::attempt($validateData)){
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with("success","Login Success");
+            return redirect()->route('admin.dashboard')->with("success","Login Success");
         }
         return back()->withInput()->with('error', 'Wrong Email and Password!');
     }
