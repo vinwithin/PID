@@ -10,18 +10,24 @@
             </li>
 
             <li class="sidebar-item active">
-                <a class="sidebar-link" href="index.html">
+                @role('mahasiswa')
+                    <a class="sidebar-link" href="{{route('mahasiswa.dashboard')}}">
+                @elserole('reviewer')
+                    <a class="sidebar-link" href="{{route('reviewer.dashboard')}}">
+                @else
+                    <a class="sidebar-link" href="{{route('admin.dashboard')}}">
+                @endrole
                     <i class="align-middle" data-feather="sliders"></i> <span
                         class="align-middle">Dashboard</span>
                 </a>
             </li>
-
+            @role('mahasiswa')
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                <a class="sidebar-link" href="{{route('mahasiswa.daftar')}}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Daftar Pro-IDe</span>
                 </a>
             </li>
-
+            @endrole
             <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-sign-in.html">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
