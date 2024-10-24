@@ -1,9 +1,10 @@
 <?php
 
-
+use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
-use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\mhs\mhsController;
+use App\Http\Controllers\reviewer\reviewerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -15,11 +16,23 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/', function(){
         return view('welcome');
     });
-    Route::prefix('admin')->group(function () {
-        Route::get('/', [dashboardController::class, 'index'])->name('admin.dashboard');
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/admin/dashboard', [dashboardController::class, 'index'])->name('admin.dashboard');
     });
+    Route::middleware(['role:reviewer'])->group(function () {
+        Route::get('/reviewer/dashboard', [reviewerController::class, 'index'])->name('reviewer.dashboard');
+    });
+    Route::middleware(['role:mahasiswa'])->group(function () {
+        Route::get('/dashboard', [mhsController::class, 'index'])->name('mahasiswa.dashboard');
+    });
+    
+    
+    
+
 
 });
+
