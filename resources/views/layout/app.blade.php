@@ -41,7 +41,7 @@
     </div>
 
     <script src="/js/app.js"></script>
-
+    <script src="https://kit.fontawesome.com/f10456a175.js" crossorigin="anonymous"></script>
 
 </body>
 

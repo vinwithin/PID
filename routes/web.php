@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [mhsController::class, 'index'])->name('mahasiswa.dashboard');
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
-        Route::post('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
+        Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
 
     });
     

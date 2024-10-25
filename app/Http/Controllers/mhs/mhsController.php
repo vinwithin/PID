@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 class mhsController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         return view('mahasiswa.dashboard');
+        
+       
     }
 }

@@ -7,13 +7,15 @@ use App\Models\Bidang;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class regisProgramController extends Controller
 {
     public function index()
     {
         return view('mahasiswa.register-program', [
-            'bidang' => Bidang::all()
+            'bidang' => Bidang::all(),
+            'registrationExists' => Registration::where('user_id', auth()->user()->id)->exists(),
         ]);
     }
     public function step(Request $request)
@@ -33,8 +35,18 @@ class regisProgramController extends Controller
                         'bidang_id' => 'required',
                     ]);
 
-                    // Store in session for next step
+                    // Store in session for next stepif
+                    // Registration::create($validatedData);
                     $request->session()->put('registration_step1', $validatedData);
+
+                    // if ($result) {
+                    //     return 'berhasil';
+                    // } else {
+                    //     return response()->json([
+                    //         'success' => false,
+                    //         'message' => 'kontol: '
+                    //     ], 500);
+                    // }
                     break;
 
                 case 2:
@@ -42,17 +54,21 @@ class regisProgramController extends Controller
                         'sk_organisasi' => 'required|file|mimes:pdf|max:2048',
                         'surat_kerjasama' => 'required|file|mimes:pdf|max:2048',
                         'surat_rekomendasi_pembina' => 'required|file|mimes:pdf|max:2048',
-                        'proposal' => 'required|file|mimes:pdf|max:5048'
+                        'proposal' => 'required|file|mimes:pdf|max:2048'
                     ]);
-
-                    // Store files and save paths in session
                     $filePaths = [];
                     foreach ($validatedData as $key => $file) {
-                        $path = $file->store('registration-documents');
+                        // $path = $file->store('registration-documents');
+                        $filename = $key . '_' . time() . '_' . $file->getClientOriginalName();
+                        $path = $file->storeAs('public', $filename);
+                        // $path = $request->file('registration-documents')->store('public');
                         $filePaths[$key] = $path;
                     }
                     $request->session()->put('registration_step2', $filePaths);
                     break;
+
+
+
 
                 case 3:
                     $validatedData = $request->validate([
@@ -65,14 +81,12 @@ class regisProgramController extends Controller
                     ]);
                     $request->session()->put('registration_step3', $validatedData);
                     break;
-                
             }
             // return response()->json([
             //     'success' => true,
             //     'message' => 'Step ' . $step . ' saved successfully'
             // ]);
-            $step1Data = $request->session()->get('registration_step1');
-            dd($step1Data['nama_ketua']);
+
 
         } catch (\Exception $e) {
             return response()->json([
@@ -84,58 +98,70 @@ class regisProgramController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama_dosen_pembimbing' => 'required|string',
-            'nidn_dosen_pembimbing' => 'required|string',
-            'nohp_dosen_pembimbing' => 'required|string'
-        ]);
+        // dd($request->all());
+        // $request->session()->put('registration_step4', $request->all());
+        try {
+            // Validasi data input dari form
+            $validatedData = $request->validate([
+                'nama_dosen_pembimbing' => 'required|string',
+                'nidn_dosen_pembimbing' => 'required|string',
+                'nohp_dosen_pembimbing' => 'required|string'
+            ]);
 
-        // Get data from previous steps
-        $step1Data = $request->session()->get('registration_step1');
-        $step2Data = $request->session()->get('registration_step2');
-        $step3Data = $request->session()->get('registration_step3');
+            // Ambil data dari langkah sebelumnya yang disimpan di session
+            $step1Data = $request->session()->get('registration_step1');
+            $step2Data = $request->session()->get('registration_step2');
+            $step3Data = $request->session()->get('registration_step3');
 
-        // // Create registration
-        $registration = Registration::create([
-            'user_id' => auth()->user()->id,
-            'nama_ketua' => $step1Data['nama_ketua'],
-            'nim_ketua' => $step1Data['nim_ketua'],
-            'prodi_ketua' => $step1Data['prodi_ketua'],
-            'fakultas_ketua' => $step1Data['fakultas_ketua'],
-            'nohp_ketua' => $step1Data['nohp_ketua'],
-            'nama_ormawa' => $step1Data['nama_ormawa'],
-            'judul' => $step1Data['judul'],
-            'bidang_id' => $step1Data['bidang_id'],
-        ]);
+            // Gabungkan data yang sudah divalidasi dengan data dari session
+            // $registrationData = array_merge($step1Data, $step2Data, $validatedData);
 
-        // // Save team members
-        foreach ($step3Data['team_members'] as $member) {
-            $registration->teamMembers()->create($member);
+            // Tambahkan user_id dan informasi ketua ke dalam array data
+            $registrationData = Registration::create([
+                'user_id' => auth()->user()->id,
+                'nama_ketua' => $step1Data['nama_ketua'],
+                'nim_ketua' => $step1Data['nim_ketua'],
+                'prodi_ketua' => $step1Data['prodi_ketua'],
+                'fakultas_ketua' => $step1Data['fakultas_ketua'],
+                'nohp_ketua' => $step1Data['nohp_ketua'],
+                'nama_ormawa' => $step1Data['nama_ormawa'],
+                'judul' => $step1Data['judul'],
+                'bidang_id' => $step1Data['bidang_id'],
+                'sk_organisasi' => $step2Data['sk_organisasi'],
+                'surat_kerjasama' => $step2Data['surat_kerjasama'],
+                'surat_rekomendasi_pembina' => $step2Data['surat_rekomendasi_pembina'],
+                'proposal' => $step2Data['proposal'],
+                'nama_dosen_pembimbing' => $validatedData["nama_dosen_pembimbing"],
+                'nidn_dosen_pembimbing' => $validatedData["nidn_dosen_pembimbing"],
+                'nohp_dosen_pembimbing' => $validatedData["nohp_dosen_pembimbing"]
+            ]);
+
+            // Buat entri baru di tabel registrations
+            // $registration = Registration::create($registrationData);
+
+            // Simpan anggota tim ke tabel terkait
+            foreach ($step3Data['anggota_tim'] as $member) {
+                $registrationData->teamMembers()->create($member);
+            }
+
+            // Hapus data dari session setelah berhasil disimpan
+            $request->session()->forget([
+                'registration_step1',
+                'registration_step2',
+                'registration_step3'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil Mendaftar'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error occurred: ' . $e->getMessage()
+            ], 500);
         }
 
-        // Save all documents
-        $allDocuments = array_merge(
-            $step2Data,
-            array_map(function($file) {
-                return $file->store('registration-documents');
-            }, $validatedData)
-        );
-
-        // foreach ($allDocuments as $type => $path) {
-        //     RegistrationDocument::create([
-        //         'registration_id' => $registration->id,
-        //         'document_type' => $type,
-        //         'file_path' => $path
-        //     ]);
-        // }
-
-        // // Clear session data
-        // $request->session()->forget([
-        //     'registration_step1',
-        //     'registration_step2'
-        // ]);
-
-        // DB::commit();
-        // return redirect()->route('registration.success');
+        // Redirect ke halaman dashboard mahasiswa
+        // return redirect()->route('mahasiswa.dashboard')->with('success', 'Registrasi berhasil disimpan.');
     }
 }
