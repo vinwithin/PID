@@ -27,10 +27,12 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/admin/dashboard', [dashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/admin/listPendaftaran', [listPendaftaranController::class, 'index'])->name('admin.listPendaftaran');
+        Route::get('/admin/approve/{id}', [listPendaftaranController::class, 'approve'])->name('admin.approve');
     });
     Route::middleware(['role:reviewer'])->group(function () {
         Route::get('/reviewer/dashboard', [reviewerController::class, 'index'])->name('reviewer.dashboard');
         Route::get('/reviewer/listPendaftaran', [reviewerListPendaftaranController::class, 'index'])->name('reviewer.listPendaftaran');
+        Route::get('/reviewer/nilai/{id}', [reviewerListPendaftaranController::class, 'nilai'])->name('reviewer.nilai');
 
     });
     Route::middleware(['role:mahasiswa'])->group(function () {
