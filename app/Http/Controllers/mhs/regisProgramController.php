@@ -143,6 +143,11 @@ class regisProgramController extends Controller
             foreach ($step3Data['anggota_tim'] as $member) {
                 $registrationData->teamMembers()->create($member);
             }
+            $registrationData->registration_validation()->create([
+                'status' => 'Belum valid', // atau status yang sesuai
+                'catatan' => 'Menunggu di validasi',
+                'validator_id' => '', // misalnya pengguna yang memvalidasi
+            ]);
 
             // Hapus data dari session setelah berhasil disimpan
             $request->session()->forget([

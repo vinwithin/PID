@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\admin\dashboardController;
+use App\Http\Controllers\admin\listPendaftaranController;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
+
 use App\Http\Controllers\reviewer\reviewerController;
+use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -23,9 +26,12 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/admin/dashboard', [dashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/admin/listPendaftaran', [listPendaftaranController::class, 'index'])->name('admin.listPendaftaran');
     });
     Route::middleware(['role:reviewer'])->group(function () {
         Route::get('/reviewer/dashboard', [reviewerController::class, 'index'])->name('reviewer.dashboard');
+        Route::get('/reviewer/listPendaftaran', [reviewerListPendaftaranController::class, 'index'])->name('reviewer.listPendaftaran');
+
     });
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/dashboard', [mhsController::class, 'index'])->name('mahasiswa.dashboard');

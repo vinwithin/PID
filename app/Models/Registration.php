@@ -19,4 +19,12 @@ class Registration extends Model
     {
         return $this->hasMany(TeamMember::class);
     }
+    public function registration_validation()
+    {
+        return $this->hasOne(Registrasi_validation::class);
+    }
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
 }

@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <div class="container mt-5">
+    <div class="w-100">
         <div class="card">
             @if (!$registrationExists)
                 <div class="card-header">
@@ -404,34 +404,34 @@
             }
 
             const template = `
-             <div class="team-member">
-                                <div class="row g-2">
-                                    <div class="col-lg-2 mb-3">
-                                        <label for="nama" class="form-label">Nama</label>
-                                        <input type="text" name="anggota_tim[0][nama]" class="form-control">
-                                    </div>
-                                    <div class="col-lg-2 mb-3">
-                                        <label for="nim" class="form-label">NIM</label>
-                                        <input type="text" name="anggota_tim[0][nim]" class="form-control">
-                                    </div>
-                                    <div class="col-lg-2 mb-3">
-                                        <label for="prodi" class="form-label">Prodi</label>
-                                        <input type="text" name="anggota_tim[0][prodi]" class="form-control">
-                                    </div>
-                                    <div class="col-lg-2 mb-3">
-                                        <label for="fakultas" class="form-label">Fakultas</label>
-                                        <input type="text" name="anggota_tim[0][fakultas]" class="form-control">
-                                    </div>
-                                    <div class="col-lg-2 mb-3">
-                                        <label for="jabatan" class="form-label">Jabatan</label>
-                                        <input type="text" name="anggota_tim[0][jabatan]" class="form-control">
-                                    </div>
-                                   <div class="col-lg-2 mb-3 d-flex align-items-end">
-                                        <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
-                                    </div>
-                                </div>
-                            </div>
-        `;
+        <div class="team-member">
+            <div class="row g-2">
+                <div class="col-lg-2 mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" name="anggota_tim[${memberCount}][nama]" class="form-control">
+                </div>
+                <div class="col-lg-2 mb-3">
+                    <label for="nim" class="form-label">NIM</label>
+                    <input type="text" name="anggota_tim[${memberCount}][nim]" class="form-control">
+                </div>
+                <div class="col-lg-2 mb-3">
+                    <label for="prodi" class="form-label">Prodi</label>
+                    <input type="text" name="anggota_tim[${memberCount}][prodi]" class="form-control">
+                </div>
+                <div class="col-lg-2 mb-3">
+                    <label for="fakultas" class="form-label">Fakultas</label>
+                    <input type="text" name="anggota_tim[${memberCount}][fakultas]" class="form-control">
+                </div>
+                <div class="col-lg-2 mb-3">
+                    <label for="jabatan" class="form-label">Jabatan</label>
+                    <input type="text" name="anggota_tim[${memberCount}][jabatan]" class="form-control">
+                </div>
+                <div class="col-lg-2 mb-3 d-flex align-items-end">
+                    <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
+                </div>
+            </div>
+        </div>
+    `;
 
             document.getElementById('team-members').insertAdjacentHTML('beforeend', template);
             memberCount++;

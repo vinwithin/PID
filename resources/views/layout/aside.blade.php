@@ -16,7 +16,7 @@
                     </a>
                 </li>
             @elserole('reviewer')
-                <li class="sidebar-item {{ Request::is('reviewer/dashboard') ? 'active' : '' }}>
+                <li class="sidebar-item {{ Request::is('reviewer/dashboard') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('reviewer.dashboard') }}">
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
@@ -34,6 +34,20 @@
                             <a class="sidebar-link" href="{{ route('mahasiswa.daftar') }}">
                                 <i class="align-middle" data-feather="user"></i> <span class="align-middle">Daftar
                                     Pro-IDe</span>
+                            </a>
+                        </li>
+                    @endrole
+                    @role('admin')
+                        <li class="sidebar-item {{ Request::is('admin/listPendaftaran*') ? 'active' : '' }}">
+                            <a class="sidebar-link" href="{{ route('admin.listPendaftaran') }}">
+                                <i class="align-middle" data-feather="user"></i> <span class="align-middle">List Pendaftaran</span>
+                            </a>
+                        </li>
+                    @endrole
+                    @role('reviewer')
+                        <li class="sidebar-item {{ Request::is('reviewer/listPendaftaran*') ? 'active' : '' }}">
+                            <a class="sidebar-link" href="{{ route('reviewer.listPendaftaran') }}">
+                                <i class="align-middle" data-feather="user"></i> <span class="align-middle">List Pendaftaran</span>
                             </a>
                         </li>
                     @endrole
