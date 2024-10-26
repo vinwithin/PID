@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\listPendaftaranController;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
 use App\Http\Controllers\mhs\mhsController;
+use App\Http\Controllers\mhs\publikasiController;
 use App\Http\Controllers\mhs\regisProgramController;
 
 use App\Http\Controllers\reviewer\reviewerController;
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
+        Route::get('/publikasi', [publikasiController::class, 'index'])->name('mahasiswa.publikasi');
+        Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('mahasiswa.publikasi.tambah');
+        Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
 
     });
     
