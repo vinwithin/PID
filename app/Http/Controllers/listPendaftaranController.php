@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Registrasi_validation;
 use App\Models\Registration;
 use Illuminate\Http\Request;
@@ -10,7 +9,7 @@ use Illuminate\Http\Request;
 class listPendaftaranController extends Controller
 {
     public function index(){
-        return view('admin.pendaftaran.list_pendaftaran',[
+        return view('list_pendaftaran',[
             'data' => Registration::all(),
         ]);
     }

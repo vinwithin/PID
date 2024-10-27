@@ -9,25 +9,13 @@
                 Pages
             </li>
 
-            @role('mahasiswa')
+           
                 <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('mahasiswa.dashboard') }}">
+                    <a class="sidebar-link" href="{{ route('dashboard') }}">
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                @elserole('reviewer')
-                <li class="sidebar-item {{ Request::is('reviewer/dashboard') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('reviewer.dashboard') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
-            @else
-                <li class="sidebar-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('admin.dashboard') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
-            @endrole
+            {{-- @endrole --}}
 
             @role('mahasiswa')
                 <li class="sidebar-item {{ Request::is('daftarProgram*') ? 'active' : '' }}">
@@ -43,26 +31,22 @@
                     </a>
                 </li>
             @endrole
-            @role('admin')
-                <li class="sidebar-item {{ Request::is('admin/listPendaftaran*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('admin.listPendaftaran') }}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">List Pendaftaran</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Request::is('admin/publikasi*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('mahasiswa.publikasi') }}">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
-                    </a>
-                </li>
-            @endrole
-            @role('reviewer')
-                <li class="sidebar-item {{ Request::is('reviewer/listPendaftaran*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('reviewer.listPendaftaran') }}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">List Pendaftaran</span>
-                    </a>
-                </li>
-            @endrole
 
+            @role('admin|reviewer')
+                <li class="sidebar-item {{ Request::is('listPendaftaran*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('listPendaftaran') }}">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">List Pendaftaran</span>
+                    </a>
+                </li>
+                
+            @endrole
+            @role('admin')
+            <li class="sidebar-item {{ Request::is('admin/publikasi*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('mahasiswa.publikasi') }}">
+                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
+                </a>
+            </li>
+            @endrole
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-sign-up.html">

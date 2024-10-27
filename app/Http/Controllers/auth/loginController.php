@@ -22,23 +22,9 @@ class loginController extends Controller
         if(Auth::attempt($validateData)){
             $request->session()->regenerate();
             $user = Auth::user();
-            
-            if ($user->hasRole('admin')) {
-                return redirect()->route('admin.dashboard')->with("success", "Login Success as Admin");
-            } elseif ($user->hasRole('reviewer')) {
-                return redirect()->route('reviewer.dashboard')->with("success", "Login Success as Reviewer");
-            } elseif ($user->hasRole('mahasiswa')) {
-                return redirect()->route('mahasiswa.dashboard')->with("success", "Login Success as Mahasiswa");
-            } else {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-                return redirect()->route('login')->with('error', 'Invalid user role!');
-            }
+            return redirect()->route('dashboard')->with("success", "Login Success as Admin");
             
         }
-            // return redirect()->route('admin.dashboard')->with("success","Login Success");
-
         return back()->withInput()->with('error', 'Wrong Email and Password!');
     }
     

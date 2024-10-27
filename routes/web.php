@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\admin\dashboardController;
-use App\Http\Controllers\admin\listPendaftaranController;
+
+
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
+use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\publikasiController;
 use App\Http\Controllers\mhs\regisProgramController;
@@ -25,19 +27,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function(){
         return view('welcome');
     });
+    Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
+    Route::get('/listPendaftaran', [listPendaftaranController::class, 'index'])->name('listPendaftaran');
+
     Route::middleware(['role:admin'])->group(function () {
-        Route::get('/admin/dashboard', [dashboardController::class, 'index'])->name('admin.dashboard');
-        Route::get('/admin/listPendaftaran', [listPendaftaranController::class, 'index'])->name('admin.listPendaftaran');
+        // Route::get('/admin/listPendaftaran', [listPendaftaranController::class, 'index'])->name('admin.listPendaftaran');
         Route::get('/admin/approve/{id}', [listPendaftaranController::class, 'approve'])->name('admin.approve');
     });
     Route::middleware(['role:reviewer'])->group(function () {
-        Route::get('/reviewer/dashboard', [reviewerController::class, 'index'])->name('reviewer.dashboard');
-        Route::get('/reviewer/listPendaftaran', [reviewerListPendaftaranController::class, 'index'])->name('reviewer.listPendaftaran');
         Route::get('/reviewer/nilai/{id}', [reviewerListPendaftaranController::class, 'nilai'])->name('reviewer.nilai');
 
     });
     Route::middleware(['role:mahasiswa'])->group(function () {
-        Route::get('/dashboard', [mhsController::class, 'index'])->name('mahasiswa.dashboard');
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
