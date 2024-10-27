@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class mhsController extends Controller
 {
     public function index(Request $request){
-       
+        // $gambar = $request->session()->get('image');
+        // dd($gambar);
         return view('mahasiswa.dashboard');
         
        

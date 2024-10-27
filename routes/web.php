@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('mahasiswa.publikasi');
         Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('mahasiswa.publikasi.tambah');
+        Route::get('/publikasi/detail/{id}', [publikasiController::class, 'detail'])->name('mahasiswa.publikasi.detail');
+        Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('mahasiswa.publikasi.tambah');
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
 
     });

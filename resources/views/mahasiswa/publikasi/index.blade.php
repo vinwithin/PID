@@ -25,11 +25,11 @@
                             <td class="d-none d-xl-table-cell">{{ $item->status }}</td>
                             <td>
                                
-                                @if ($item->registration_validation->status === 'Belum valid')
+                                {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
                                     <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
                                         class="btn btn-success">Setujui</a>
-                                @endif
-                                <a href="" class="btn btn-primary">CEK</a>
+                                {{-- @endif --}}
+                                <a href="/publikasi/detail/{{$item->id}}" class="btn btn-primary">CEK</a>
                             </td>
                         </tr>
                     @endforeach

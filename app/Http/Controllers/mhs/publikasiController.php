@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Publikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class publikasiController extends Controller
 {
@@ -28,23 +30,60 @@ class publikasiController extends Controller
         $filepath = [];
 
         if ($request->hasFile('upload')) {
-            $filepath = $request->file;
-            $request->session()->put('image', $filepath);
+            $file = $request->file('upload')->getClientOriginalName();
 
-            $originName = $request->file('upload')->getClientOriginalName();
+            // $originName = $request->file('upload')->getClientOriginalName();
             // $imageName = pathinfo($originName, PATHINFO_FILENAME);
             // $extension = $request->file('upload')->getClientOriginalExtension();
-            $imageName = time() . '.' . $originName;
-            // $url = Storage::temporaryUrl(
-            //     $request->file, now()->addMinutes(5)
-            // );
-            // $request->file('upload')->move(public_path('media'), $imageName);
-            // $request->file('upload')->storeAs('uploads', $imageName, 'public');
-
-            // $request->file('upload')->storeAs('public/publikasi/', $imageName);
-            $gambar = $request->session()->get('image', []);
-            return response()->json(['fileName' => $imageName, 'uploaded' => 1, "url" => $gambar]);
-            // $url = asset('storage/publikasi/' . $imageName);
+            $imageName = time() . '.' . $file;
+            $filepath = $imageName;
+            // $request->file('upload')->storeAs('public', $imageName);
+            // $url = asset('storage/' . $imageName);
+            $request->session()->put('images', $filepath);
+            $gambar = $request->session()->get('images');
+            $url = asset('storage/'. $gambar);
+            return response()->json(['fileName' => $imageName, 'uploaded' => 1, "url" => $url]);
         }
+    }
+
+    public function store(Request $request){
+        $validateData = $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        $validateData['user_id'] = auth()->user()->id;
+        $validateData['status'] = 'Belum valid';
+        preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
+        $imageTags = $matches[0];
+            if (count($imageTags) > 0) {
+                foreach ($imageTags as $tagImage) {
+                    $image = preg_replace('/^data:image\/\w+;base64,/', '', $tagImage);
+                    $extension = explode('/', explode(':', substr($tagImage, 0, strpos($tagImage, ';')))[1])[1];
+                    $allowedTypes = ['jpeg', 'jpg', 'png', 'gif'];
+                    if (!in_array($extension, $allowedTypes)) {
+                        return response()->json([
+                            'message' => 'Invalid image type. Allowed types: ' . implode(', ', $allowedTypes)
+                        ], 422);
+                    }
+                    $imageName = Str::random(10) . '.' . $extension;
+                    Storage::disk('public')->put('media/' . $imageName, base64_decode($image));
+                    $validateData['content'] = str_replace($tagImage,  asset('/storage/media/'.$imageName), $validateData['content']);
+                }
+            }
+
+        $result = Publikasi::create($validateData);
+        if ($result) {
+            return redirect()->route('mahasiswa.publikasi')->with('success', 'Berhasil menambahkan data');
+        } else {
+            return redirect()->route('mahasiswa.publikasi')->with("error", "Gagal menambahkan data!");
+        }
+
+    }
+
+    public function detail($id){
+        $publikasi = Publikasi::find($id);
+        return view('mahasiswa.publikasi.detail',[
+            'data' => $publikasi
+        ]);
     }
 }
