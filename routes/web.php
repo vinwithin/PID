@@ -7,9 +7,8 @@ use App\Http\Controllers\auth\registerController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\mhs\mhsController;
-use App\Http\Controllers\mhs\publikasiController;
 use App\Http\Controllers\mhs\regisProgramController;
-
+use App\Http\Controllers\publikasiController;
 use App\Http\Controllers\reviewer\reviewerController;
 use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +28,10 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
     Route::get('/listPendaftaran', [listPendaftaranController::class, 'index'])->name('listPendaftaran');
+    Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
+    Route::get('/publikasi/edit/{id}', [publikasiController::class, 'edit'])->name('publikasi.edit');
+    Route::get('/publikasi/update/{id}', [publikasiController::class, 'update'])->name('publikasi.update');
+
 
     Route::middleware(['role:admin'])->group(function () {
         // Route::get('/admin/listPendaftaran', [listPendaftaranController::class, 'index'])->name('admin.listPendaftaran');
@@ -42,7 +45,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
-        Route::get('/publikasi', [publikasiController::class, 'index'])->name('mahasiswa.publikasi');
         Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('mahasiswa.publikasi.tambah');
         Route::get('/publikasi/detail/{id}', [publikasiController::class, 'detail'])->name('mahasiswa.publikasi.detail');
         Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('mahasiswa.publikasi.tambah');

@@ -4,7 +4,9 @@
     <div class="w-100">
         <div class="card flex-fill">
             <div class="card-header">
-
+                @if (auth()->user()->hasRole('mahasiswa') && )
+                    
+                @endif
                 <a class="btn btn-primary" href="{{route('mahasiswa.publikasi.tambah')}}">Tambah Publikasi</a>
             </div>
             <table class="table table-hover my-0">

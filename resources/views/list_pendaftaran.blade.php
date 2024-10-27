@@ -63,7 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($dataNilai as $item)
                             <tr>
                                 <td>{{ $item->nama_ketua }}</td>
                                 <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>

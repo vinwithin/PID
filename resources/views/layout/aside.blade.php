@@ -40,9 +40,9 @@
                 </li>
                 
             @endrole
-            @role('admin')
-            <li class="sidebar-item {{ Request::is('admin/publikasi*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('mahasiswa.publikasi') }}">
+            @role('admin|mahasiswa')
+            <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('publikasi') }}">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
                 </a>
             </li>
