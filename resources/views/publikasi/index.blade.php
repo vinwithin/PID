@@ -4,9 +4,6 @@
     <div class="w-100">
         <div class="card flex-fill">
             <div class="card-header">
-                @if (auth()->user()->hasRole('mahasiswa') && )
-                    
-                @endif
                 <a class="btn btn-primary" href="{{route('mahasiswa.publikasi.tambah')}}">Tambah Publikasi</a>
             </div>
             <table class="table table-hover my-0">
@@ -31,6 +28,7 @@
                                     <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
                                         class="btn btn-success">Setujui</a>
                                 {{-- @endif --}}
+                                <a href="/publikasi/edit/{{$item->id}}" class="btn btn-warning">Edit</a>
                                 <a href="/publikasi/detail/{{$item->id}}" class="btn btn-primary">CEK</a>
                             </td>
                         </tr>

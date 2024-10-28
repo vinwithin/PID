@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/listPendaftaran', [listPendaftaranController::class, 'index'])->name('listPendaftaran');
     Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
     Route::get('/publikasi/edit/{id}', [publikasiController::class, 'edit'])->name('publikasi.edit');
-    Route::get('/publikasi/update/{id}', [publikasiController::class, 'update'])->name('publikasi.update');
+    Route::post('/publikasi/update/{id}', [publikasiController::class, 'update'])->name('publikasi.update');
 
 
     Route::middleware(['role:admin'])->group(function () {
