@@ -25,8 +25,11 @@
                             <td>
                                
                                 {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
+                                @can('agree publication')
                                     <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
                                         class="btn btn-success">Setujui</a>
+                                @endcan
+                                    
                                 {{-- @endif --}}
                                 <a href="/publikasi/edit/{{$item->id}}" class="btn btn-warning">Edit</a>
                                 <a href="/publikasi/detail/{{$item->id}}" class="btn btn-primary">CEK</a>

@@ -77,11 +77,15 @@ class roleSeeder extends Seeder
             ['name' => 'edit publication'],
             ['name' => 'edit publication'],
         );
+        $permission5 = Permission::updateOrCreate(
+            ['name' => 'agree publication'],
+            ['name' => 'agree publication'],
+        );
         // $user1->assignRole('mahasiswa');
         // $user2->assignRole('reviewer');
         // $user3->assignRole('admin');
         $role1->givePermissionTo($permission1, $permission2, $permission4);
-        $role3->givePermissionTo($permission2, $permission3, $permission4);
+        $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5);
         // $role1->givePermissionTo($permission2);
     }
 }

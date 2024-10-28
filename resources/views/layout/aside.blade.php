@@ -17,7 +17,7 @@
                 </li>
             {{-- @endrole --}}
 
-            @role('mahasiswa')
+            @can('register program')
                 <li class="sidebar-item {{ Request::is('daftarProgram*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('mahasiswa.daftar') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Daftar
@@ -30,7 +30,7 @@
                         <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
                     </a>
                 </li> --}}
-            @endrole
+            @endcan
 
             @role('admin|reviewer')
                 <li class="sidebar-item {{ Request::is('listPendaftaran*') ? 'active' : '' }}">
@@ -40,13 +40,13 @@
                 </li>
                 
             @endrole
-            @role('admin|mahasiswa')
+            @can('create publication')
             <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('publikasi') }}">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
                 </a>
             </li>
-            @endrole
+            @endcan
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-sign-up.html">
