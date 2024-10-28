@@ -28,9 +28,28 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
     Route::get('/listPendaftaran', [listPendaftaranController::class, 'index'])->name('listPendaftaran');
-    Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
-    Route::get('/publikasi/edit/{id}', [publikasiController::class, 'edit'])->name('publikasi.edit');
-    Route::post('/publikasi/update/{id}', [publikasiController::class, 'update'])->name('publikasi.update');
+
+    Route::middleware(['can:create publication'])->group(function () {
+        Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
+        Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('publikasi.tambah');
+        Route::get('/publikasi/detail/{id}', [publikasiController::class, 'detail'])->name('publikasi.detail');
+        Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('publikasi.tambah');
+    });
+
+    Route::middleware(['can:edit publication'])->group(function () {
+        Route::get('/publikasi/edit/{id}', [publikasiController::class, 'edit'])->name('publikasi.edit');
+        Route::post('/publikasi/update/{id}', [publikasiController::class, 'update'])->name('publikasi.update');
+
+    });
+    Route::middleware(['can:delete publication'])->group(function () {
+        Route::get('/publikasi/delete/{id}', [publikasiController::class, 'destroy'])->name('publikasi.delete');
+    });
+
+    Route::middleware(['can:agree publication'])->group(function () {
+        Route::get('/publikasi/approve/{id}', [publikasiController::class, 'approve'])->name('publikasi.approve');
+    });
+
+   
 
 
     Route::middleware(['role:admin'])->group(function () {
@@ -45,11 +64,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
-        Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('mahasiswa.publikasi.tambah');
-        Route::get('/publikasi/detail/{id}', [publikasiController::class, 'detail'])->name('mahasiswa.publikasi.detail');
-        Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('mahasiswa.publikasi.tambah');
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
-
     });
     
     

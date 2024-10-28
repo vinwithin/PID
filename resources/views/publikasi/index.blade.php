@@ -4,7 +4,7 @@
     <div class="w-100">
         <div class="card flex-fill">
             <div class="card-header">
-                <a class="btn btn-primary" href="{{route('mahasiswa.publikasi.tambah')}}">Tambah Publikasi</a>
+                <a class="btn btn-primary" href="{{route('publikasi.tambah')}}">Tambah Publikasi</a>
             </div>
             <table class="table table-hover my-0">
                 <thead>
@@ -26,13 +26,16 @@
                                
                                 {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
                                 @can('agree publication')
-                                    <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
+                                    <a href="{{ route('publikasi.approve', ['id' => $item->id]) }}"
                                         class="btn btn-success">Setujui</a>
                                 @endcan
                                     
                                 {{-- @endif --}}
                                 <a href="/publikasi/edit/{{$item->id}}" class="btn btn-warning">Edit</a>
                                 <a href="/publikasi/detail/{{$item->id}}" class="btn btn-primary">CEK</a>
+                                @can('delete publication')
+                                    <a href="/publikasi/delete/{{$item->id}}" class="btn btn-danger">Delete</a>                                 
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
