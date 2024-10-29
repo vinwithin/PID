@@ -11,6 +11,7 @@ class Publikasi extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'slug',
         'status',
         'content',
     ];

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('status')->default('belum valid');
-            $table->text('title');
+            $table->string('title');
+            $table->string('slug');
             $table->text('content');
             $table->timestamps();
         });
