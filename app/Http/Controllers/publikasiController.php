@@ -6,6 +6,7 @@ use App\Models\Publikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 
 class publikasiController extends Controller
@@ -36,6 +37,7 @@ class publikasiController extends Controller
             'content' => 'required'
         ]);
         $validateData['user_id'] = auth()->user()->id;
+        $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         $validateData['status'] = 'Belum valid';
         preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
         $imageTags = $matches[0];
@@ -78,6 +80,7 @@ class publikasiController extends Controller
             'content' => 'required'
         ]);
         $validateData['user_id'] = auth()->user()->id;
+        $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         $validateData['status'] = 'Belum valid';
         preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
         $imageTags = $matches[0];
