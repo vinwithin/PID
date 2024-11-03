@@ -41,6 +41,7 @@
                                             <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
                                                 class="btn btn-success">Setujui</a>
                                         @endif
+                                    <a href="" class="btn btn-success">Tahap 3</a>
                                     <a href="" class="btn btn-primary">CEK</a>
                                 </td>
                             </tr>

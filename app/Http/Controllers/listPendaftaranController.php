@@ -17,6 +17,12 @@ class listPendaftaranController extends Controller
             'dataNilai' => $dataNilai
         ]);
     }
+    public function show($id){
+        $data = Registration::find($id);
+        return view('pendaftaran.detail_pendaftaran',[
+            "data" => $data
+        ]);
+    }
 
     public function approve($id){
         $result = Registrasi_validation::where('registration_id', $id)
