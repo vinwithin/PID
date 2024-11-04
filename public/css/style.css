@@ -7,12 +7,103 @@
     text-decoration: none;
 }
 body{
-    
+}
+.wrapper{
+    background:url('/img/Vector 1.png') 100% 0% no-repeat;
+    background-size:65% 100%;
+    height:100vh;
+
 }
 .navbar{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    flex-direction: row;
+
+    gap:14rem;
     align-items: center;
     padding: 1.4rem 10%;
-    
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+
+}
+
+/* hero */
+.hero{
+    min-height:80vh;
+    display:flex;
+    padding: 1.4rem 10%;
+    /* justify-content: space-between; */
+    align-items:center;
+    position:relative;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
+}
+
+.content h1{
+    font-size:3rem;
+}
+
+.content h3{
+    font-size:1.5rem;
+}
+
+.content button{
+    width:6rem;
+    height:2.5rem;
+    color:white;
+    border-radius:0.5rem;
+    background-color:blue;
+}
+/* .hero::after{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(0deg, rgba(1, 1, 3, 1) 3%, rgba(255, 255, 255, 0) 25%);
+    /* z-index: -1;  */
+
+
+.publikasi{
+    min-height: 100vh;
+    display:flex;
+    padding:8rem 7% 1.4rem;
+    left:0;
+    background:url('/img/Vector 2.png') 100% 0% no-repeat;
+    background-size: 100% 50%;
+
+}
+.publikasi-content h1{
+    font-size:2.5rem;   
+}
+.publikasi-content p{
+    font-size:1.4rem;   
+}
+
+/* media queries */
+/* Laptop */
+@media (max-width: 1366px) {
+    html{
+        font-size:75%;
+    }
+}
+/* Tablet */
+@media (max-width: 758px) {
+    html{
+        font-size:62.5%;
+    }
+}
+/* Mobile Phone */
+@media (max-width: 450px) {
+    html{
+        font-size:55%;
+    }
 }
