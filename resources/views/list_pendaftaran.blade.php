@@ -85,8 +85,8 @@
                                 </td>
                                 <td>
                                     {{-- <a href="" class="btn btn-warning"></a> --}}
-                                        @if ($item->penilaian->where('user_id', auth()->user()->id)->isEmpty())
-                                            <a href="" class="btn btn-primary">Beri Nilai</a>        
+                                        @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
+                                            <a href="/reviewer/nilai/{{$item->id}}" class="btn btn-primary">Beri Nilai</a>        
                                         @else
                                         @endif
                                     <a href="" class="btn btn-primary">CEK</a>

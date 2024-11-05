@@ -47,15 +47,16 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware(['can:assessing proposal'])->group(function () {
         Route::get('/reviewer/nilai/{id}', [ProposalReviewController::class, 'index'])->name('reviewer.nilai');
+        Route::post('/reviewer/nilai/{id}', [ProposalReviewController::class, 'store'])->name('reviewer.nilai');
     });
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/admin/approve/{id}', [listPendaftaranController::class, 'approve'])->name('admin.approve');
     });
 
     Route::middleware(['role:reviewer'])->group(function () {
-        Route::get('/reviewer/nilai/{id}', [reviewerListPendaftaranController::class, 'nilai'])->name('reviewer.nilai');
+        // Route::get('/reviewer/nilai/{id}', [reviewerListPendaftaranController::class, 'nilai'])->name('reviewer.nilai');
     });
-    
+
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
