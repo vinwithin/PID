@@ -87,6 +87,12 @@ body{
 .publikasi-content p{
     font-size:1.4rem;   
 }
+.card{
+    margin-top:6rem;
+    background-color:rgba(186, 186, 186, 1);
+    border-radius:1.5rem;
+    height:20rem;
+}
 
 /* media queries */
 /* Laptop */

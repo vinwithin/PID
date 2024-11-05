@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proposal_score', function (Blueprint $table) {
-            $table->id();   
-            $table->string('user_id');
-            $table->string('registration_id');
-            $table->string('sub_kriteria_penilaian_id');
-            $table->string('nilai');
+        Schema::create('sub_kriteria_penilaian', function (Blueprint $table) {
+            $table->id();
+            $table->string('kriteria_penilaian_id');
+            $table->string('nama');
             $table->timestamps();
         });
     }

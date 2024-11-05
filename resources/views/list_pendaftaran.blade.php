@@ -31,17 +31,22 @@
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
                                 <td>
-                                    @foreach ($item->penilaian as $penilaian)
+                                    {{-- @foreach ($item->penilaian as $penilaian)
                                         {{ $penilaian->nilai }}
                                         <br>
-                                    @endforeach
+                                    @endforeach --}}
                                 </td>
                                 <td>
                                         @if ($item->registration_validation->status === 'Belum valid')
                                             <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
                                                 class="btn btn-success">Setujui</a>
                                         @endif
-                                    <a href="" class="btn btn-success">Tahap 3</a>
+                                        @can('assessing proposal')
+                                        @endcan
+                                        @if ($item->registration_validation->status === 'valid')
+                                            <a href="" class="btn btn-success">Tahap 3</a>
+                                        @endif
+
                                     <a href="" class="btn btn-primary">CEK</a>
                                 </td>
                             </tr>
@@ -73,50 +78,15 @@
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
                                 <td>
-                                    @foreach ($item->penilaian as $penilaian)
+                                    {{-- @foreach ($item->penilaian as $penilaian)
                                         {{ $penilaian->nilai }}
                                         <br>
-                                    @endforeach
+                                    @endforeach --}}
                                 </td>
                                 <td>
                                     {{-- <a href="" class="btn btn-warning"></a> --}}
                                         @if ($item->penilaian->where('user_id', auth()->user()->id)->isEmpty())
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop">
-                                                Beri Nilai
-                                            </button>
-
-                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Beri Nilai
-                                                            </h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <form action="/reviewer/nilai/{{ $item->id }}">
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="quantity"
-                                                                        class="form-label font-weight-bold">Rentang 1 -
-                                                                        100:</label>
-                                                                    <input type="number" id="quantity" name="nilai"
-                                                                        min="1" max="100" class="form-control"
-                                                                        placeholder="Enter quantity" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <a href="" class="btn btn-primary">Beri Nilai</a>        
                                         @else
                                         @endif
                                     <a href="" class="btn btn-primary">CEK</a>

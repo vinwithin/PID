@@ -16,36 +16,27 @@ class roleSeeder extends Seeder
      */
     public function run(): void
     {
-        // $user1 = User::updateOrCreate(
-        //     [
-        //         'email' => 'user@gmail.com',
-        //     ],
-        //     [
-        //         'name' => 'user',
-        //         'email' => 'user@gmail.com',
-        //         'password' => Hash::make("user123"),
-        //     ],
-        // );
-        // $user2 = User::updateOrCreate(
-        //     [
-        //         'email' => 'reviewer@gmail.com',
-        //     ],
-        //     [
-        //         'email' => 'reviewer@gmail.com',
-        //     ],
-        // );
-        // $user3 = User::updateOrCreate(
-        //     [
-        //         'name' => 'admin',
-        //         'email' => 'admin@gmail.com',
-        //         'password' => Hash::make("admin123"),
-        //     ],
-        //     [
-        //         'name' => 'admin',
-        //         'email' => 'admin@gmail.com',
-        //         'password' => Hash::make("admin123"),
-        //     ]
-        // );
+        $user1 = User::Create(
+            [
+                'name' => 'user',
+                'email' => 'user@gmail.com',
+                'password' => Hash::make("user123"),
+            ]
+        );
+        $user2 = User::Create(
+            [
+                'name' => 'reviewer',
+                'email' => 'reviewer@gmail.com',
+                'password' => Hash::make("reviewer123"),
+            ],
+        );
+        $user3 = User::Create(
+            [
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make("admin123"),
+            ]
+        );
 
 
         $role1 = Role::updateOrCreate(
@@ -81,10 +72,15 @@ class roleSeeder extends Seeder
             ['name' => 'agree publication'],
             ['name' => 'agree publication'],
         );
-        // $user1->assignRole('mahasiswa');
-        // $user2->assignRole('reviewer');
-        // $user3->assignRole('admin');
+        $permission6 = Permission::updateOrCreate(
+            ['name' => 'assessing proposal'],
+            ['name' => 'assessing proposal'],
+        );
+        $user1->assignRole('mahasiswa');
+        $user2->assignRole('reviewer');
+        $user3->assignRole('admin');
         $role1->givePermissionTo($permission1, $permission2, $permission4);
+        $role2->givePermissionTo($permission6);
         $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5);
         // $role1->givePermissionTo($permission2);
     }

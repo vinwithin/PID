@@ -48,7 +48,7 @@
             </li>
             @endcan
 
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-sign-up.html">
                     <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign
                         Up</span>
@@ -109,7 +109,7 @@
                 <a class="sidebar-link" href="maps-google.html">
                     <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
 
     </div>

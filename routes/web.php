@@ -10,6 +10,7 @@ use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
 use App\Http\Controllers\publikasiController;
+use App\Http\Controllers\reviewer\ProposalReviewController;
 use App\Http\Controllers\reviewer\reviewerController;
 use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
 use Illuminate\Support\Facades\Route;
@@ -44,13 +45,17 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:agree publication'])->group(function () {
         Route::get('/publikasi/approve/{id}', [publikasiController::class, 'approve'])->name('publikasi.approve');
     });
+    Route::middleware(['can:assessing proposal'])->group(function () {
+        Route::get('/reviewer/nilai/{id}', [ProposalReviewController::class, 'index'])->name('reviewer.nilai');
+    });
     Route::middleware(['role:admin'])->group(function () {
-        // Route::get('/admin/listPendaftaran', [listPendaftaranController::class, 'index'])->name('admin.listPendaftaran');
         Route::get('/admin/approve/{id}', [listPendaftaranController::class, 'approve'])->name('admin.approve');
     });
+
     Route::middleware(['role:reviewer'])->group(function () {
         Route::get('/reviewer/nilai/{id}', [reviewerListPendaftaranController::class, 'nilai'])->name('reviewer.nilai');
     });
+    
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');

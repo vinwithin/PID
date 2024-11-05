@@ -19,9 +19,9 @@ class Registration extends Model
     {
         return $this->hasMany(TeamMember::class);
     }
-    public function penilaian()
+    public function proposal_score()
     {
-        return $this->hasMany(Penilaian::class);
+        return $this->hasMany(Proposal_score::class);
     }
     public function registration_validation()
     {

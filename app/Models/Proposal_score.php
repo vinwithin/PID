@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Penilaian extends Model
+class Proposal_score extends Model
 {
-    protected $table = 'penilaian';
-    public $penilaian = 'penilaian';
+    protected $table = 'proposal_score';
+    public $proposal_score = 'proposal_score';
     protected $fillable = [
         'user_id',
         'registration_id',
+        'sub_kriteria_penilaian_id',
         'nilai',
     ];
 }

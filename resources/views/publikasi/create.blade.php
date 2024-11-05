@@ -9,7 +9,7 @@
         <div class="card">
 
             <div class="card-header">
-                <h3>Pendaftaran</h3>
+                <h3>Publikasi</h3>
             </div>
             <div class="card-body">
                 <!-- Step Indicator -->

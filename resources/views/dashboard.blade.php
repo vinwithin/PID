@@ -8,8 +8,8 @@
         @elserole('mahasiswa')
         <h1 class="h3 mb-3"><strong>Mahasiswa</strong> Dashboard</h1>
     @endrole
-    <div class="row">
-        {{-- <div class="col-xl-6 col-xxl-5 d-flex"> --}}
+    {{-- <div class="row">
+  
         <div class="w-100">
             <div class="row">
                 <div class="col-sm-6">
@@ -98,20 +98,6 @@
                 </div>
             </div>
         </div>
-        {{-- </div> --}}
-
-        {{-- <div class="col-xl-6 col-xxl-7">
-            <div class="card flex-fill w-100">
-                <div class="card-header">
-
-                    <h5 class="card-title mb-0">Recent Movement</h5>
-                </div>
-                <div class="card-body py-3">
-                    <div class="chart chart-sm">
-                        <canvas id="chartjs-dashboard-line"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-    </div>
+       
+    </div> --}}
 @endsection

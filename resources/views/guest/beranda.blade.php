@@ -41,6 +41,14 @@
                 Mahasiswa yang tergabung dalam ORMAWA memiliki hak mengikuti pembelajaran di luar
                 program studinya dapat memanfaatkan program ini, melalui berbagai aktivitas membangun desa
                 yang dapat di rekognisi menjadi kegiatan akademik. </p>
+            <div class="card">
+                <div class="row">
+                    <div class="content">
+                        <h1>coba</h1>
+
+                    </div>
+                </div>
+            </div>
         </main>
     </section>
 
