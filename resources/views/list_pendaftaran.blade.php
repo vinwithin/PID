@@ -30,26 +30,34 @@
                                 <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
-                                <td class="text-primary">{{ $total }}</td>
+                                <td>
+                                    @foreach ($total as $val => $value)
+                                        <ul>
+                                            <li>{{ $value }}</li>
+                                        </ul>
+                                    @endforeach
+
+                                </td>
                                 <td>
                                     @if ($item->registration_validation->status === 'Belum valid')
                                         <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
                                             class="btn btn-success">Setujui</a>
                                     @elseif ($item->registration_validation->status === 'valid')
                                         <a href="" class="btn btn-success">Tahap 3</a>
-                                    @elseif (!$total == '')
-                                        <a href="" class="btn btn-warning">Cek Nilai</a>
                                     @endif
-                                    {{-- @can('assessing proposal')
+                                    @can('assessing proposal')
                                         @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
                                             <a href="/reviewer/nilai/{{ $item->id }}" class="btn btn-primary">Beri Nilai</a>
-                                        @else
-                                    @endcan --}}
+                                        @endif
+                                    @endcan
 
 
+                                    @if (!empty($total))
+                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
+                                            Nilai</a>
+                                    @endif
 
-
-                                    <a href="/pendaftaran/detail/{{$item->id}}" class="btn btn-primary">CEK</a>
+                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-primary">CEK</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -79,15 +87,25 @@
                                 <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
-                                <td>{{ $total }}</td>
+                                <td>
+                                    @foreach ($total as $val => $value)
+                                        <ul>
+                                            <li>{{ $value }}</li>
+                                        </ul>
+                                    @endforeach
+
+                                </td>
                                 <td>
                                     {{-- <a href="" class="btn btn-warning"></a> --}}
                                     @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
                                         <a href="/reviewer/nilai/{{ $item->id }}" class="btn btn-primary">Beri Nilai</a>
-                                    @elseif ($total)
-                                        <a href="" class="btn btn-warning">Cek Nilai</a>
                                     @endif
-                                    <a href="/pendaftaran/detail/{{$item->id}}" class="btn btn-primary">CEK</a>
+
+                                    @if (!empty($total))
+                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
+                                            Nilai</a>
+                                    @endif
+                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-primary">CEK</a>
                                 </td>
                             </tr>
                         @endforeach

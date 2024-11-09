@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kriteria_penilaian;
+use App\Models\Proposal_score;
 use App\Models\Registrasi_validation;
 use App\Models\Registration;
 use App\Models\Sub_kriteria_penilaian;
@@ -10,36 +11,62 @@ use Illuminate\Http\Request;
 
 class listPendaftaranController extends Controller
 {
-    public function index()
+    public function calculateScores()
     {
         $nilais = [];
         $jumlah = [];
         $kriterias = [];
         $total = [];
-        $dataNilai = Registration::with('registration_validation')->whereHas('registration_validation', function ($query) {
-            $query->where('status', 'valid'); // Kondisi yang ingin dicek
-        })->get();
+        $totalScores = [];
+        $rubrik = [];
+
         foreach (Kriteria_penilaian::all() as $kriteria) {
             $kriterias[$kriteria->id] = $kriteria->bobot;
         }
-        foreach (Sub_kriteria_penilaian::with('kriteria_penilaian', 'proposal_score')->get() as $nilai) {
-            $nilais[$nilai->kriteria_penilaian_id][$nilai->id] = $nilai->proposal_score[0]->nilai;
+        foreach (Sub_kriteria_penilaian::with('kriteria_penilaian', 'proposal_score')->get() as $value) {
+            if ($value->proposal_score->isNotEmpty()) {
+                foreach ($value->proposal_score as $proposalScore) {
+                    $nilais[$proposalScore->user_id][$value->kriteria_penilaian_id][$value->id] = $proposalScore->nilai;
+                    $rubrik[$proposalScore->user->name][$value->kriteria_penilaian->nama][$value->nama] = $proposalScore->nilai;
+                }
+            }
         }
 
-        foreach ($nilais as $key => $val) {
-            foreach ($val as $k => $v) {
-                $jumlah[$key][$k] = $v * $kriterias[$key];
+        foreach ($nilais as $key => $value) {
+            foreach ($value as $val => $v) {
+                foreach ($v as $k => $nilai) {
+                    $jumlah[$key][$val][$k] = $nilai * $kriterias[$val];
+                }
             }
         }
         foreach ($jumlah as $key => $val) {
-            $total[$key] = array_sum($val);
+            foreach ($val as $k => $v) {
+                $total[$key][$k] = array_sum($v);
+            }
         }
+        foreach($total as $value => $val){
+            $totalScores[$value] = array_sum($val);
+        }
+        return [
+            'total' => $totalScores,
+            'nilais' => $nilais,
+            'rubrik' => $rubrik
+        ];
+    }
+    public function index()
+    {
+        $dataNilai = Registration::with('registration_validation')->whereHas('registration_validation', function ($query) {
+            $query->where('status', 'valid'); // Kondisi yang ingin dicek
+        })->get();
+        $total = $this->calculateScores();
+        // dd($total['total']);
         return view('list_pendaftaran', [
             'data' => Registration::all(),
             'dataNilai' => $dataNilai,
-            'total' => array_sum($total),
+            'total' => $total['total'] ,
         ]);
     }
+
     public function show($id)
     {
         $data = Registration::find($id);
@@ -48,6 +75,17 @@ class listPendaftaranController extends Controller
         ]);
     }
 
+    public function scoreDetail($id)
+    {
+        $rubrik = $this->calculateScores();
+        $total = $this->calculateScores();
+        return view('pendaftaran.nilai', [
+            'reviewer' => Proposal_score::with('user')->where('registration_id', $id)->get(),
+            'data' => $rubrik['rubrik'],
+            'total' => array_sum($total['total'])
+
+        ]);
+    }
     public function approve($id)
     {
         $result = Registrasi_validation::where('registration_id', $id)

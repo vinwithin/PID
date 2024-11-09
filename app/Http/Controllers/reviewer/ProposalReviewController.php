@@ -34,7 +34,7 @@ class ProposalReviewController extends Controller
                     'nilai' => $nilai,
                 ]);
             }
-            return redirect()->route('listPendaftaran')->with('success', 'Berhasil menambahkan data');
+            return redirect()->route('pendaftaran')->with('success', 'Berhasil menambahkan data');
         // } catch (\Exception $e) {
         //     return redirect()->route('listPendaftaran')->with('error', 'Gagal menambahkan data');
         // }

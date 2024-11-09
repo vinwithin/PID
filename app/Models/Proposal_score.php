@@ -14,4 +14,10 @@ class Proposal_score extends Model
         'sub_kriteria_penilaian_id',
         'nilai',
     ];
+    public function sub_kriteria_penilaian(){
+        return $this->belongsTo(Sub_kriteria_penilaian::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

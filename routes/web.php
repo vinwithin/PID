@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pendaftaran', [listPendaftaranController::class, 'index'])->name('pendaftaran');
 
     Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
+    Route::get('/pendaftaran/detail-nilai/{id}', [listPendaftaranController::class, 'scoreDetail'])->name('pendaftaran.detail-nilai');
 
     Route::middleware(['can:create publication'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
