@@ -253,10 +253,41 @@
                     </form>
                 </div>
             @else
-                <div class="alert alert-info"
-                    style="display: flex; align-items: center; padding: 10px; border: 1px solid #007bff; border-radius: 5px; background-color: #e7f3ff; color: #007bff;">
-                    <i class="fas fa-check-circle" style="font-size: 24px; margin-right: 10px;"></i>
-                    <span>You have already registered. Please check your dashboard for more information.</span>
+                <div class="w-100">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Status Pendaftaran</h5>
+                        </div>
+                        <table class="table table-hover my-0">
+                            <thead>
+                                <tr>
+                                    <th>Nama Ketua</th>
+                                    <th class="d-none d-xl-table-cell">NIM Ketua</th>
+                                    <th class="d-none d-xl-table-cell">Fakultas Ketua</th>
+                                    <th>Bidang</th>
+                                    <th class="d-none d-md-table-cell">Judul</th>
+                                    <th class="d-none d-md-table-cell">Status</th>
+                                    <th class="d-none d-md-table-cell">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $item->nama_ketua }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->fakultas_ketua }}</td>
+                                        <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
+                                        <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
+                                        <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}
+                                        </td>
+                                        <td> <a href="/program/cek/{{$item->id}}" class="btn btn-primary">Cek</a></td>
+
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             @endif
         </div>

@@ -16,4 +16,7 @@ class Sub_kriteria_penilaian extends Model
     {
         return $this->belongsTo(Kriteria_penilaian::class);
     }
+    public function proposal_score(){
+        return $this->hasMany(Proposal_score::class);
+    }
 }

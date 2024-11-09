@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
+        Route::get('/program/cek/{id}', [regisProgramController::class, 'show'])->name('program.cek');
     });
 });
 

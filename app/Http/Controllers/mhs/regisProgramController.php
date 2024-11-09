@@ -16,6 +16,12 @@ class regisProgramController extends Controller
         return view('mahasiswa.register-program', [
             'bidang' => Bidang::all(),
             'registrationExists' => Registration::where('user_id', auth()->user()->id)->exists(),
+            'data' => Registration::with('registration_validation')->where('user_id', auth()->user()->id)->get(),
+        ]);
+    }
+    public function show($id){
+        return view('mahasiswa.cekPendaftaran',[
+            'data' => Registration::with('registration_validation')->where('id', $id)->first()
         ]);
     }
     public function step(Request $request)

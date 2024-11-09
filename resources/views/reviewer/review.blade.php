@@ -14,7 +14,7 @@
                                 <p class="fw-bold">{{ $item->nama }}</p>
                                 @foreach ($item->sub_kriteria_penilaian as $data)
                                     <label for="{{$data->id}}" class="form-label">{{ $data->nama }}</label>
-                                    <input type="text" class="form-control" id="{{$data->id}}" name="nilai[{{$data->id}}]" required>
+                                    <input type="number" class="form-control" id="nilai_{{$data->id}}" min="1" max="7" name="nilai[{{$data->id}}]" required>
                                     <br>
                                 @endforeach
                             </div>
