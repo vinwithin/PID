@@ -13,13 +13,12 @@
                                 <th>Aspek Penilaian</th>
                                 <th>Skor Maksimum</th>
                                 <th>Skor yang Diberikan</th>
-
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    @foreach ($value as $key => $item)
+                            @foreach ($value as $key => $item)
+                                <tr>
+                                    <td>
                                         <strong>{{ $key }}</strong>
                                         @foreach ($item as $subKriteria => $nilai)
                                             <ul>
@@ -27,38 +26,29 @@
 
                                             </ul>
                                         @endforeach
-                                    @endforeach
-
-
-                                </td>
-                                <td>30</td>
-                                <td>
-                                    @foreach ($value as $key => $item)
-                                        <strong>{{ $key }}</strong>
-
+                                    </td>
+                                    <td>
+                                        <p class="text-center fw-bold">{{ $bobot[$key] }}</p>
+                                    </td>
+                                 <td>
                                         @foreach ($item as $subKriteria => $nilai)
-                                            <ul>
-                                                <li>{{ $nilai }}</li>
-
-                                            </ul>
+                                            <p class="text-center">{{ $nilai }}</p>
                                         @endforeach
-                                    @endforeach
+                                    </td>
 
-                                </td>
+                                </tr>
+                            @endforeach
 
-                            </tr>
+                            {{-- @foreach ($total as $item => $value) --}}
                             <tr>
                                 <td>Skor Total</td>
-                                <td class="text-center" colspan="2">{{ $total }}</td>
+                                <td class="text-center" colspan="2">{{ $total[$reviewer] }}</td>
                             </tr>
+                            {{-- @endforeach --}}
                             <tr>
                                 <td>Reviewer</td>
-                                <td class="text-center" colspan="2">{{ $reviewer }}</td>
+                                <td class="text-center fw-bold" colspan="2">{{ $reviewer }}</td>
                             </tr>
-
-
-
-
                         </tbody>
                     </table>
                 @endforeach

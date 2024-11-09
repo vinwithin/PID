@@ -19,6 +19,7 @@ class listPendaftaranController extends Controller
         $total = [];
         $totalScores = [];
         $rubrik = [];
+        $bobot = [];
 
         foreach (Kriteria_penilaian::all() as $kriteria) {
             $kriterias[$kriteria->id] = $kriteria->bobot;
@@ -26,8 +27,9 @@ class listPendaftaranController extends Controller
         foreach (Sub_kriteria_penilaian::with('kriteria_penilaian', 'proposal_score')->get() as $value) {
             if ($value->proposal_score->isNotEmpty()) {
                 foreach ($value->proposal_score as $proposalScore) {
-                    $nilais[$proposalScore->user_id][$value->kriteria_penilaian_id][$value->id] = $proposalScore->nilai;
+                    $nilais[$proposalScore->user->name][$value->kriteria_penilaian_id][$value->id] = $proposalScore->nilai;
                     $rubrik[$proposalScore->user->name][$value->kriteria_penilaian->nama][$value->nama] = $proposalScore->nilai;
+                    $bobot[$value->kriteria_penilaian->nama] = $value->kriteria_penilaian->bobot;
                 }
             }
         }
@@ -50,7 +52,8 @@ class listPendaftaranController extends Controller
         return [
             'total' => $totalScores,
             'nilais' => $nilais,
-            'rubrik' => $rubrik
+            'rubrik' => $rubrik,
+            'bobot' => $bobot,
         ];
     }
     public function index()
@@ -59,7 +62,6 @@ class listPendaftaranController extends Controller
             $query->where('status', 'valid'); // Kondisi yang ingin dicek
         })->get();
         $total = $this->calculateScores();
-        // dd($total['total']);
         return view('list_pendaftaran', [
             'data' => Registration::all(),
             'dataNilai' => $dataNilai,
@@ -79,10 +81,14 @@ class listPendaftaranController extends Controller
     {
         $rubrik = $this->calculateScores();
         $total = $this->calculateScores();
+        $bobot = $this->calculateScores();
+        // dd($total['total']);
+
         return view('pendaftaran.nilai', [
             'reviewer' => Proposal_score::with('user')->where('registration_id', $id)->get(),
             'data' => $rubrik['rubrik'],
-            'total' => array_sum($total['total'])
+            'total' => $total['total'],
+            'bobot' => $bobot['bobot']
 
         ]);
     }
