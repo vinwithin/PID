@@ -278,7 +278,7 @@
                                         <td class="d-none d-xl-table-cell">{{ $item->fakultas_ketua }}</td>
                                         <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
                                         <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
-                                        <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}
+                                        <td class="d-none d-md-table-cell text-warning">{{ $item->registration_validation->status === 'valid' ? "valid dan menunggu penilaian" : $item->registration_validation->status }}
                                         </td>
                                         <td> <a href="/program/cek/{{$item->id}}" class="btn btn-primary">Cek</a></td>
 

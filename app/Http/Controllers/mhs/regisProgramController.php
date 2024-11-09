@@ -68,7 +68,7 @@ class regisProgramController extends Controller
                         $filename = $key . '_' . time() . '_' . $file->getClientOriginalName();
                         $path = $file->storeAs('public', $filename);
                         // $path = $request->file('registration-documents')->store('public');
-                        $filePaths[$key] = $path;
+                        $filePaths[$key] = $filename;
                     }
                     $request->session()->put('registration_step2', $filePaths);
                     break;

@@ -1,9 +1,9 @@
 @extends('layout.app')
 @section('content')
-    <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1>
     <div class="w-100">
         <div class="card flex-fill">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Daftar Publikasi</h5>
                 <a class="btn btn-primary" href="{{route('publikasi.tambah')}}">Tambah Publikasi</a>
             </div>
             <table class="table table-hover my-0">

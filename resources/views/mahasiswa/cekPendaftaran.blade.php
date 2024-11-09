@@ -28,23 +28,25 @@
                 <p>{{ $data->judul }}</p>
 
                 <p><strong>SK Organisasi :</strong></p>
-               <p> <a href="{{ asset($data->sk_organisasi) }}">{{$data->sk_organisasi}}</a></p>
+                <p> <a href="/storage/{{ $data->sk_organisasi }}">{{ $data->sk_organisasi }}</a></p>
 
                 <p><strong>File Surat Kerjasama :</strong></p>
-                <p><a href="{{ asset($data->surat_kerjasama) }}">{{$data->surat_kerjasama}}</a></p>
+                <p><a href="/storage/{{ $data->surat_kerjasama }}">{{ $data->surat_kerjasama }}</a></p>
 
                 <p><strong>File Surat Rekomendasi Pembina:</strong></p>
-                <p><a href="{{ asset($data->surat_rekomendasi_pembina) }}">{{$data->surat_rekomendasi_pembina}}</a></p>
+                <p><a href="/storage/{{ $data->surat_rekomendasi_pembina }}">{{ $data->surat_rekomendasi_pembina }}</a></p>
 
                 <p><strong>File Proposal:</strong></p>
-                <p><a href="{{ asset($data->proposal) }}">{{$data->proposal}}</a></p>
-
-
+                <p><a href="/storage/{{ $data->proposal }}">{{ $data->proposal }}</a></p>
 
                 <p><strong>Status Validasi:</strong></p>
-                <p class="text-warning">{{ $data->registration_validation->status === 'valid' ? 'Menunggu Penilaian' : $data->registration_validation->status }}
+                <p class="text-warning">
+                    {{ $data->registration_validation->status === 'valid' ? 'Menunggu Penilaian' : $data->registration_validation->status }}
                 </p>
+                <a href="/daftarProgram" class="btn btn-primary">Kembali</a>
+
             </div>
+
         </div>
     </div>
 @endsection

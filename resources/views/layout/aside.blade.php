@@ -33,8 +33,8 @@
             @endcan
 
             @role('admin|reviewer')
-                <li class="sidebar-item {{ Request::is('listPendaftaran*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('listPendaftaran') }}">
+                <li class="sidebar-item {{ Request::is('pendaftaran*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('pendaftaran') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">List Pendaftaran</span>
                     </a>
                 </li>

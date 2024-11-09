@@ -1,47 +1,52 @@
 @extends('layout.app')
 @section('content')
-    <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1>
     <div class="w-100">
         <div class="card flex-fill">
             <div class="card-header">
-                <a class="btn btn-primary" href="{{route('publikasi.tambah')}}">Tambah Publikasi</a>
+                <h5 class="card-title mb-0">Cek Pendaftaran</h5>
             </div>
-            <table class="table table-hover my-0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th class="d-none d-xl-table-cell">Title</th>
-                        <th class="d-none d-xl-table-cell">Status</th>
-                        <th>Aksi</th>
+            <div class="card-body">
+                <p><strong>Nama Ketua Tim:</strong></p>
+                <p>{{ $data->nama_ketua }}</p>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($data as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $item->title }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $item->status }}</td>
-                            <td>
-                               
-                                {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
-                                @can('agree publication')
-                                    <a href="{{ route('publikasi.approve', ['id' => $item->id]) }}"
-                                        class="btn btn-success">Setujui</a>
-                                @endcan
-                                    
-                                {{-- @endif --}}
-                                <a href="/publikasi/edit/{{$item->id}}" class="btn btn-warning">Edit</a>
-                                <a href="/publikasi/detail/{{$item->id}}" class="btn btn-primary">CEK</a>
-                                @can('delete publication')
-                                    <a href="/publikasi/delete/{{$item->id}}" class="btn btn-danger">Delete</a>                                 
-                                @endcan
-                            </td>
-                        </tr>
-                    @endforeach
+                <p><strong>Nama Tim:</strong></p>
+                <p>{{ $data->nama_tim }}</p>
 
-                </tbody>
-            </table>
+                <p><strong>Prodi Ketua:</strong></p>
+                <p>{{ $data->prodi_ketua }}</p>
+
+                <p><strong>Fakultas Ketua:</strong></p>
+                <p>{{ $data->fakultas_ketua }}</p>
+
+                <p><strong>No hp Ketua:</strong></p>
+                <p>{{ $data->nohp_ketua }}</p>
+
+                <p><strong>Nama Ormawa Ketua:</strong></p>
+                <p>{{ $data->nama_ormawa }}</p>
+
+                <p><strong>Judul :</strong></p>
+                <p>{{ $data->judul }}</p>
+
+                <p><strong>SK Organisasi :</strong></p>
+                <a href="/storage/{{ $data->sk_organisasi }}" class="btn btn-warning">Lihat File</a>
+
+                <p><strong>File Surat Kerjasama :</strong></p>
+                <a class="btn btn-warning" href="/storage/{{ $data->surat_kerjasama }}">Lihat File</a>
+
+                <p><strong>File Surat Rekomendasi Pembina:</strong></p>
+                <a class="btn btn-warning" href="/storage/{{ $data->surat_rekomendasi_pembina }}">Lihat File</a>
+
+                <p><strong>File Proposal:</strong></p>
+                <a class="btn btn-warning" href="/storage/{{ $data->proposal }}">Lihat File</a>
+
+                <p><strong>Status Validasi:</strong></p>
+                <p class="text-warning">
+                    {{ $data->registration_validation->status }}
+                </p>
+                <a href="/pendaftaran" class="btn btn-primary">Kembali</a>
+
+            </div>
+
         </div>
     </div>
 @endsection

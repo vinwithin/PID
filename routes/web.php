@@ -27,7 +27,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
-    Route::get('/listPendaftaran', [listPendaftaranController::class, 'index'])->name('listPendaftaran');
+    Route::get('/pendaftaran', [listPendaftaranController::class, 'index'])->name('pendaftaran');
+
+    Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
 
     Route::middleware(['can:create publication'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
