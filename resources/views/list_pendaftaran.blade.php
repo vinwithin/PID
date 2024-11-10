@@ -31,7 +31,7 @@
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
                                 <td>
-                                    @foreach ($total as $val => $value)
+                                    @foreach ($totalId[$item->id] as $val => $value)
                                         <ul>
                                             <li>{{ $value }}</li>
                                         </ul>
@@ -52,7 +52,7 @@
                                     @endcan
 
 
-                                    @if (!empty($total))
+                                    @if (!empty($totalId))
                                         <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
                                             Nilai</a>
                                     @endif
@@ -88,7 +88,7 @@
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
                                 <td>
-                                    @foreach ($total as $val => $value)
+                                    @foreach ($totalId[$item->id] as $val => $value)
                                         <ul>
                                             <li>{{ $value }}</li>
                                         </ul>
@@ -101,7 +101,7 @@
                                         <a href="/reviewer/nilai/{{ $item->id }}" class="btn btn-primary">Beri Nilai</a>
                                     @endif
 
-                                    @if (!empty($total))
+                                    @if (!empty($totalId))
                                         <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
                                             Nilai</a>
                                     @endif
