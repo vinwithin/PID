@@ -21,7 +21,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td class="d-none d-xl-table-cell">{{ $item->title }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $item->status }}</td>
+                            <td class="badge text-bg-primary m-2">{{ $item->status }}</td>
                             <td>
                                
                                 {{-- @if ($item->registration_validation->status === 'Belum valid') --}}

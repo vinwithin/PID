@@ -3,11 +3,37 @@
     <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1>
     <div class="w-100">
         <div class="card flex-fill">
-            <div class="card-header">
-
-                <h5 class="card-title mb-0">Latest Projects</h5>
-            </div>
             @role('admin')
+                <div class="card-header">
+
+                    {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
+                    <form method="GET" action="{{ route('pendaftaran.search') }}">
+                        <label class="form-label">Filter berdasarkan status:</label>
+                        <div class="d-flex align-items-center">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="Belum valid"
+                                    id="filterManager">
+                                <label class="form-check-label" for="filterManager">Belum Valid</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="valid"
+                                    id="filterEngineer">
+                                <label class="form-check-label" for="filterEngineer">Valid</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos tahap 3"
+                                    id="filterAnalyst1">
+                                <label class="form-check-label" for="filterAnalyst1">Lolos Tahap 3</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos program"
+                                    id="filterAnalyst2">
+                                <label class="form-check-label" for="filterAnalyst2">Lolos Program</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
+                    </form>
+                </div>
                 <table class="table table-hover my-0">
                     <thead>
                         <tr>
@@ -65,6 +91,36 @@
                     </tbody>
                 </table>
                 @elserole('reviewer')
+                <div class="card-header">
+
+                    {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
+                    <form method="GET" action="{{ route('pendaftaran.search') }}">
+                        <label class="form-label">Filter berdasarkan status:</label>
+                        <div class="d-flex align-items-center">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="Belum valid"
+                                    id="filterManager">
+                                <label class="form-check-label" for="filterManager">Belum Valid</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="valid"
+                                    id="filterEngineer">
+                                <label class="form-check-label" for="filterEngineer">Valid</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos tahap 3"
+                                    id="filterAnalyst1">
+                                <label class="form-check-label" for="filterAnalyst1">Lolos Tahap 3</label>
+                            </div>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos program"
+                                    id="filterAnalyst2">
+                                <label class="form-check-label" for="filterAnalyst2">Lolos Program</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
+                    </form>
+                </div>
                 <table class="table table-hover my-0">
                     <thead>
                         <tr>

@@ -27,10 +27,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
-    Route::get('/pendaftaran', [listPendaftaranController::class, 'index'])->name('pendaftaran');
-
-    Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
-    Route::get('/pendaftaran/detail-nilai/{id}', [listPendaftaranController::class, 'scoreDetail'])->name('pendaftaran.detail-nilai');
 
     Route::middleware(['can:create publication'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
@@ -56,7 +52,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/approve/{id}', [listPendaftaranController::class, 'approve'])->name('admin.approve');
     });
 
-    Route::middleware(['role:reviewer'])->group(function () {
+    Route::middleware(['role:admin|reviewer'])->group(function () {
+        Route::get('/pendaftaran', [listPendaftaranController::class, 'index'])->name('pendaftaran');
+        Route::get('/pendaftaran/cari', [listPendaftaranController::class, 'filter'])->name('pendaftaran.search');
+        Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
+        Route::get('/pendaftaran/detail-nilai/{id}', [listPendaftaranController::class, 'scoreDetail'])->name('pendaftaran.detail-nilai');
         // Route::get('/reviewer/nilai/{id}', [reviewerListPendaftaranController::class, 'nilai'])->name('reviewer.nilai');
     });
 

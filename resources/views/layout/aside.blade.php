@@ -35,7 +35,7 @@
             @role('admin|reviewer')
                 <li class="sidebar-item {{ Request::is('pendaftaran*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">List Pendaftaran</span>
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola Pendaftaran</span>
                     </a>
                 </li>
                 
