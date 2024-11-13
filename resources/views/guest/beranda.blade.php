@@ -14,7 +14,7 @@
 
 <body>
     <div class="wrapper">
-        <nav class="navbar">
+        <nav class="navbar ">
             <a href="#home">Logo</a>
             <div class="navbar-extra">
                 <a href="#" id="search"><i data-feather="search"></i></a>
@@ -45,12 +45,42 @@
                 yang dapat di rekognisi menjadi kegiatan akademik. </p>
             <div class="card">
                 <div class="row">
-                    <div class="content">
-                        <h1>coba</h1>
-
+                    <div class="col">
+                        <div class="card small-card">
+                            <img src="..." class="card-img-top small-img" alt="...">
+                            <div class="card-body">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
+                                    to additional content.</p>
+                          
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card small-card">
+                            <img src="..." class="card-img-top small-img" alt="...">
+                            <div class="card-body">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
+                                    to additional content.</p>
+                          
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card small-card">
+                            <img src="..." class="card-img-top small-img" alt="...">
+                            <div class="card-body">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
+                                    to additional content.</p>
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </main>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

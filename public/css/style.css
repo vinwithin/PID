@@ -93,6 +93,19 @@ body{
     border-radius:1.5rem;
     height:20rem;
 }
+.small-card {
+    max-width: 20rem; /* Menentukan lebar maksimum card */
+}
+
+.small-img {
+    height: 150px; /* Menentukan tinggi gambar */
+    object-fit: cover; /* Menjaga proporsi gambar */
+}
+
+.small-text {
+    font-size: 0.875rem; /* Mengecilkan ukuran teks */
+}
+
 
 /* media queries */
 /* Laptop */
