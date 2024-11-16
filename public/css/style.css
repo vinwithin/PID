@@ -14,7 +14,7 @@ body{
     height:100vh;
 
 }
-.navbar{
+.navigasi{
     display: flex;
     /* justify-content: space-between; */
     flex-direction: row;
@@ -104,6 +104,11 @@ body{
 
 .small-text {
     font-size: 0.875rem; /* Mengecilkan ukuran teks */
+}
+.footer{
+    background-color:grey;
+    left:0;
+    right:0;
 }
 
 

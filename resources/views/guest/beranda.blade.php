@@ -14,7 +14,7 @@
 
 <body>
     <div class="wrapper">
-        <nav class="navbar ">
+        <nav class="navigasi">
             <a href="#home">Logo</a>
             <div class="navbar-extra">
                 <a href="#" id="search"><i data-feather="search"></i></a>
@@ -44,7 +44,12 @@
                 program studinya dapat memanfaatkan program ini, melalui berbagai aktivitas membangun desa
                 yang dapat di rekognisi menjadi kegiatan akademik. </p>
             <div class="card">
-                <div class="row">
+                <div class="d-flex justify-content-between align-items-baseline px-4 ">
+                    <p class="badge text-bg-secondary">Publikasi Kegiatan Pro-Ide</p>
+                    <a href="">Lihat Lainnya</a>
+                </div>
+
+                <div class="row mx-2 py-4">
                     <div class="col">
                         <div class="card small-card">
                             <img src="..." class="card-img-top small-img" alt="...">
@@ -52,7 +57,7 @@
                                 <h6 class="card-title">Card title</h6>
                                 <p class="card-text small-text">This card has supporting text below as a natural lead-in
                                     to additional content.</p>
-                          
+
                             </div>
                         </div>
                     </div>
@@ -63,7 +68,7 @@
                                 <h6 class="card-title">Card title</h6>
                                 <p class="card-text small-text">This card has supporting text below as a natural lead-in
                                     to additional content.</p>
-                          
+
                             </div>
                         </div>
                     </div>
@@ -74,7 +79,18 @@
                                 <h6 class="card-title">Card title</h6>
                                 <p class="card-text small-text">This card has supporting text below as a natural lead-in
                                     to additional content.</p>
-                                
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card small-card">
+                            <img src="..." class="card-img-top small-img" alt="...">
+                            <div class="card-body">
+                                <h6 class="card-title">Card title</h6>
+                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
+                                    to additional content.</p>
+
                             </div>
                         </div>
                     </div>
@@ -82,7 +98,24 @@
             </div>
 
         </main>
+
     </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col" >
+                    <img class="img-thumbnail rounded-circle" src="/img/photos/unsplash-1.jpg" alt="" srcset="" style="width: 20rem">
+                </div>
+                <div class="col">
+                    <h3 class="fw-bold">Link Utama</h3>
+                </div>
+                <div class="col">
+                    <h3 class="fw-bold">Kontak Kami</h3>
+                </div>
+
+            </div>
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
