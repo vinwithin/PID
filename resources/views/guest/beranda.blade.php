@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <title>Document</title>
 </head>
 
@@ -36,6 +37,7 @@
 
     <section class="publikasi" id="publikasi">
         <main class="publikasi-content">
+           <div class="mb-8">    
             <h1>Pro-IDe</h1>
             <p>Pro IDE adalah kegiatan pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
                 mahasiswa melalui Badan Eksekutif Mahasiswa (BEM), Unit Kegiatan Mahasiswa (UKM),
@@ -45,56 +47,40 @@
                 Mahasiswa yang tergabung dalam ORMAWA memiliki hak mengikuti pembelajaran di luar
                 program studinya dapat memanfaatkan program ini, melalui berbagai aktivitas membangun desa
                 yang dapat di rekognisi menjadi kegiatan akademik. </p>
-            <div class="card">
+            </div>
+            <div class="card pt-8">
                 <div class="d-flex justify-content-between align-items-baseline px-4 ">
                     <p class="badge text-bg-secondary">Publikasi Kegiatan Pro-Ide</p>
                     <a href="">Lihat Lainnya</a>
                 </div>
-
-                <div class="row mx-2 pb-4">
-                    <div class="col">
-                        <div class="card small-card">
-                            <img src="..." class="card-img-top small-img" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">Card title</h6>
-                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
-                                    to additional content.</p>
-
+                <div class="container swiper">
+                    <div class="slider-wrapper">
+                        <div class="card-list swiper-wrapper">
+                            <div class="card-item swiper-slide">
+                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
+                                <h2 class="user-name">James Wilson</h2>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card small-card">
-                            <img src="..." class="card-img-top small-img" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">Card title</h6>
-                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
-                                    to additional content.</p>
-
+                            <div class="card-item swiper-slide">
+                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
+                                <h2 class="user-name">James Wilson</h2>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card small-card">
-                            <img src="..." class="card-img-top small-img" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">Card title</h6>
-                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
-                                    to additional content.</p>
-
+                            <div class="card-item swiper-slide">
+                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
+                                <h2 class="user-name">James Wilson</h2>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card small-card">
-                            <img src="..." class="card-img-top small-img" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">Card title</h6>
-                                <p class="card-text small-text">This card has supporting text below as a natural lead-in
-                                    to additional content.</p>
-
+                            <div class="card-item swiper-slide">
+                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
+                                <h2 class="user-name">James Wilson</h2>
                             </div>
+                            <div class="card-item swiper-slide">
+                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
+                                <h2 class="user-name">James Wilson</h2>
+                            </div>
+                           
                         </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-slide-button swiper-button-prev"></div>
+                        <div class="swiper-slide-button swiper-button-next"></div>
                     </div>
                 </div>
             </div>
@@ -124,7 +110,8 @@
                     <h3 class="fw-bold border-bottom">Kontak Kami</h3>
                     <div class="d-flex flex-row g-8 ">
                         <p class="text-white mb-0 me-2">Alamat</p>
-                        <p class="text-white mb-0">Jl. Raya Jambi - Muara Bulian Km. 15, Mendalo Indah, Jambi Luar Kota,
+                        <p class="text-white mb-0">Jl. Raya Jambi - Muara Bulian Km. 15, Mendalo Indah, Jambi Luar
+                            Kota,
                             Jambi 36361</p>
                     </div>
                     <div class="d-flex flex-row align-items-center mt-2">
@@ -140,6 +127,37 @@
     </script>
     <script>
         feather.replace();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.slider-wrapper', {
+            loop: true,
+            grabCursor: true,
+            spaceBetween: 30,
+            // Pagination bullets
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            // Responsive breakpoints
+            breakpoints: {
+                0: {
+                    slidesPerView: 1
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 4
+                }
+            }
+        });
     </script>
 </body>
 
