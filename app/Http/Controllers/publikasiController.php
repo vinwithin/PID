@@ -30,6 +30,21 @@ class publikasiController extends Controller
         ]);
     }
 
+    public function filter(Request $request)
+    {
+        $filters = $request->input('filters', []);
+
+        if (empty($filters)) {
+            $data = Publikasi::all();
+        } else {
+            $data = Publikasi::where('status', $filters)->get();
+        }
+
+        return view('publikasi.index', [
+            'data' => $data,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -68,7 +83,7 @@ class publikasiController extends Controller
     public function detail($id)
     {
         $publikasi = Publikasi::find($id);
-        return view('mahasiswa.publikasi.detail', [
+        return view('publikasi.detail', [
             'data' => $publikasi
         ]);
     }

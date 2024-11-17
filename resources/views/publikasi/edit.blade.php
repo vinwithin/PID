@@ -31,6 +31,7 @@
                         style="display: none"></textarea>
 
                     <button type="submit" class="btn btn-success">Submit</button>
+                    <a href="/publikasi" class="btn btn-warning">Kembali</a>
 
                 </form>
             </div>

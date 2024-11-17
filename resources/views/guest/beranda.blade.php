@@ -27,7 +27,9 @@
                 <h1>Pro-IDe Universitas Jambi</h1>
                 <h3>Program Inovasi Berbasis</h3>
                 <h3>Kearifan Lokal Desa</h3>
-                <button>Login</button>
+                <div>
+                    <a href="/login" class="btn btn-primary">Login</a>
+                </div>
             </main>
         </section>
     </div>
@@ -49,7 +51,7 @@
                     <a href="">Lihat Lainnya</a>
                 </div>
 
-                <div class="row mx-2 py-4">
+                <div class="row mx-2 pb-4">
                     <div class="col">
                         <div class="card small-card">
                             <img src="..." class="card-img-top small-img" alt="...">
@@ -100,19 +102,36 @@
         </main>
 
     </section>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col" >
-                    <img class="img-thumbnail rounded-circle" src="/img/photos/unsplash-1.jpg" alt="" srcset="" style="width: 20rem">
-                </div>
+    <footer class="bg-secondary p-4">
+        <div class="container d-flex justify-content-between">
+            <div class="row g-4">
                 <div class="col">
-                    <h3 class="fw-bold">Link Utama</h3>
+                    <img class="img-thumbnail rounded-circle" src="/img/photos/unsplash-1.jpg" alt=""
+                        style="width: 15rem; height: 15rem; object-fit: cover;">
                 </div>
-                <div class="col">
-                    <h3 class="fw-bold">Kontak Kami</h3>
-                </div>
+                <div class="col ">
+                    <h3 class="fw-bold border-bottom">Link Utama</h3>
+                    <div class="d-flex flex-column mb-3 ">
+                        <a href="#" class="text-white py-1">WEB UNJA</a>
+                        <a href="#" class="text-white py-1">PORTAL GERBANG UNJA</a>
+                        <a href="#" class="text-white py-1">SISTEM INFORMASI AKADEMIK</a>
+                        <a href="#" class="text-white py-1">PERPUSTAKAAN</a>
+                    </div>
 
+
+                </div>
+                <div class="col">
+                    <h3 class="fw-bold border-bottom">Kontak Kami</h3>
+                    <div class="d-flex flex-row g-8 ">
+                        <p class="text-white mb-0 me-2">Alamat</p>
+                        <p class="text-white mb-0">Jl. Raya Jambi - Muara Bulian Km. 15, Mendalo Indah, Jambi Luar Kota,
+                            Jambi 36361</p>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mt-2">
+                        <p class="text-white mb-0 me-2">Email</p>
+                        <p class="text-white mb-0">lptik@unja.ac.id</p>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

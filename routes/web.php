@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware(['can:agree publication'])->group(function () {
         Route::get('/publikasi/approve/{id}', [publikasiController::class, 'approve'])->name('publikasi.approve');
+        Route::get('/publikasi/cari', [publikasiController::class, 'filter'])->name('publikasi.search');
+
     });
     Route::middleware(['can:assessing proposal'])->group(function () {
         Route::get('/reviewer/nilai/{id}', [ProposalReviewController::class, 'index'])->name('reviewer.nilai');
