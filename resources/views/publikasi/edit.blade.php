@@ -23,6 +23,16 @@
                         <input type="text" class="form-control" id="title" name="title" value="{{ $data->title }}"
                             required>
                     </div>
+                    <div class="input-group mb-3">
+                        <input type="file" onchange="loadFile(event)" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail"
+                            name="thumbnail" accept="image/png, image/jpeg, image/jpg">
+                        <label class="input-group-text" for="thumbnail">Upload Thumbnails</label>
+                        @error('thumbnail')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <div id="editor">
                         {!! $data->content !!}
                     </div>

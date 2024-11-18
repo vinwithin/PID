@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light navbar-bg">
+<nav class="navbar navbar-expand navbar-bg" style="background: rgba(217, 217, 217, 1);">
     <a class="sidebar-toggle js-sidebar-toggle">
         <i class="hamburger align-self-center"></i>
     </a>

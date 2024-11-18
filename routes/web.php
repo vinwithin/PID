@@ -20,9 +20,9 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [loginController::class, 'store'])->name('login.create');
     Route::get('/register', [registerController::class, 'index'])->name('register');
     Route::post('/register', [registerController::class, 'store'])->name('register.create');
-    Route::get('/', [berandaController::class, 'index'])->name('beranda');
 
 });
+Route::get('/', [berandaController::class, 'index'])->name('beranda');
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');

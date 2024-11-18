@@ -14,7 +14,7 @@ class publikasiController extends Controller
     public function index()
     {
         return view('publikasi.index', [
-            "data" => Publikasi::all()
+            "data" => Publikasi::where('user_id', auth()->user()->id)->get()
         ]);
     }
 
@@ -49,11 +49,16 @@ class publikasiController extends Controller
     {
         $validateData = $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'thumbnail' => 'required|image|mimes:png,jpg,jpeg|max:2024',
         ]);
         $validateData['user_id'] = auth()->user()->id;
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         $validateData['status'] = 'Belum valid';
+        $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();
+        // $request->thumbnail->storeAs('storage/media/thumbnails', $thumbnail_name);
+        Storage::disk('public')->put('media/thumbnails/' . $thumbnail_name, $request->thumbnail);
+        $validateData['thumbnail'] = $thumbnail_name;
         preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
         $imageTags = $matches[0];
         if (count($imageTags) > 0) {

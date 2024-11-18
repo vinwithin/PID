@@ -90,7 +90,7 @@ body {
 }
 .card-list .card-item {
     height: auto;
-    color: #fff;
+    color: black;
     user-select: none;
     padding: 15px;
     display: flex;
@@ -99,38 +99,24 @@ body {
     justify-content: center;
     border-radius: 10px;
     backdrop-filter: blur(30px);
-    background: black;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: white;
+    border: 1px solid black;
 }
 .card-list .card-item .user-image {
     width: 250px;
     height: 150px;
     margin-bottom: 40px;
-    border: 3px solid #fff;
+    border: 3px solid black;
     padding: 4px;
 }
 .card-list .card-item .user-profession {
     font-size: 1.15rem;
-    color: #e3e3e3;
+    color: black;
     font-weight: 500;
     margin: 14px 0 40px;
 }
-.card-list .card-item .message-button {
-    font-size: 1.25rem;
-    padding: 10px 35px;
-    color: #030728;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    background: #fff;
-    border: 1px solid transparent;
-    transition: 0.2s ease;
-}
-.card-list .card-item .message-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid #fff;
-    color: #fff;
-}
+
+
 .slider-wrapper .swiper-pagination-bullet {
     background: black;
     height: 13px;

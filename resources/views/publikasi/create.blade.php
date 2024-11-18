@@ -21,12 +21,22 @@
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
+                    <div class="input-group mb-3">
+                        <input type="file" onchange="loadFile(event)" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail"
+                            name="thumbnail" accept="image/png, image/jpeg, image/jpg">
+                        <label class="input-group-text" for="thumbnail">Upload Thumbnails</label>
+                        @error('thumbnail')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <div class="mb-3">
                         <div id="editor">
 
                         </div>
                     </div>
-
+                    
                     <textarea class="form-control" id="hiddenContent" placeholder="Enter the Description" rows="5" name="content"
                         style="display: none"></textarea>
 

@@ -1,20 +1,36 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="index.html">
-            <span class="align-middle">AdminKit</span>
+        <a class="sidebar-brand text-center" href="{{route('beranda')}}">
+            <span class="align-middle">Logo</span>
         </a>
+        <div class="text-center my-3">
+            <img class="img-thumbnail rounded-circle" src="/img/photos/unsplash-1.jpg" alt=""
+                style="width: 10rem; height: 10rem; object-fit: cover;">
+        </div>
 
-        <ul class="sidebar-nav">
-            <li class="sidebar-header">
-                Pages
+
+        <ul class="sidebar-nav ">
+            <div class="border-top border-bottom">
+                <div class="d-flex justify-content-around mx-3 my-3  ">
+                    <a href="" class="sidebar-baseline text-dark"><i class="me-2" data-feather="settings"></i><span>Pengaturan</span></a>
+                    <a href="/logout" class="sidebar-baseline text-dark"><i class="me-2" data-feather="log-out"></i><span>Keluar</span></a>
+    
+                </div>
+            </div>
+            
+            {{-- <li class="sidebar-header">
+                Pengaturan
             </li>
+            <li class="sidebar-header">
+                Keluar
+            </li> --}}
 
-           
-                <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('dashboard') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
+
+            <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('dashboard') }}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                </a>
+            </li>
             {{-- @endrole --}}
 
             @can('register program')
@@ -35,17 +51,17 @@
             @role('admin|reviewer')
                 <li class="sidebar-item {{ Request::is('pendaftaran*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola Pendaftaran</span>
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola
+                            Pendaftaran</span>
                     </a>
                 </li>
-                
             @endrole
             @can('create publication')
-            <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('publikasi') }}">
-                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
-                </a>
-            </li>
+                <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('publikasi') }}">
+                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
+                    </a>
+                </li>
             @endcan
 
             {{-- <li class="sidebar-item">

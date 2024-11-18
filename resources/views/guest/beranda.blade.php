@@ -48,12 +48,12 @@
                 program studinya dapat memanfaatkan program ini, melalui berbagai aktivitas membangun desa
                 yang dapat di rekognisi menjadi kegiatan akademik. </p>
             </div>
-            <div class="card pt-8">
+            <div class="card mt-2">
                 <div class="d-flex justify-content-between align-items-baseline px-4 ">
                     <p class="badge text-bg-secondary">Publikasi Kegiatan Pro-Ide</p>
                     <a href="">Lihat Lainnya</a>
                 </div>
-                <div class="container swiper">
+                <div class="container swiper mt-4">
                     <div class="slider-wrapper">
                         <div class="card-list swiper-wrapper">
                             <div class="card-item swiper-slide">

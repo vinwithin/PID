@@ -17,6 +17,7 @@ class Publikasi extends Model
         'user_id',
         'title',
         'slug',
+        'thumbnail',
         'status',
         'content',
     ];

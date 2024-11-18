@@ -2,10 +2,15 @@
 @section('content')
     @role('admin')
         <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1>
-        @elserole('reviewer')
+        <div class="w-100 h-100">
+            <div class="card">
+                {{-- <h3>Informasi Penting</h3> --}}
+            </div>
+        </div>
+    @elserole('reviewer')
         <h1 class="h3 mb-3"><strong>Reviewer</strong> Dashboard</h1>
 
-        @elserole('mahasiswa')
+    @elserole('mahasiswa')
         <h1 class="h3 mb-3"><strong>Mahasiswa</strong> Dashboard</h1>
     @endrole
     {{-- <div class="row">
