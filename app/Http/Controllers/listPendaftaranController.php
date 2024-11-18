@@ -41,7 +41,7 @@ class listPendaftaranController extends Controller
             $query->where('status', 'valid'); // Kondisi yang ingin dicek
         })->get();
         $totalId = ProposalReviewController::calculateScores();
-        // dd($total['total']);
+        // dd($totalId['totalId']);
         return view('list_pendaftaran', [
             'data' => Registration::all(),
             'dataNilai' => $dataNilai,
@@ -77,9 +77,9 @@ class listPendaftaranController extends Controller
         $result = Registrasi_validation::where('registration_id', $id)
             ->update(['status' => 'valid']);
         if ($result) {
-            return redirect()->route('listPendaftaran')->with('success', 'berhasil mengubah data');
+            return redirect()->route('pendaftaran')->with('success', 'berhasil mengubah data');
         } else {
-            return redirect()->route('listPendaftaran')->with("error", "Gagal mengubah data!");
+            return redirect()->route('pendaftaran')->with("error", "Gagal mengubah data!");
         }
     }
 }

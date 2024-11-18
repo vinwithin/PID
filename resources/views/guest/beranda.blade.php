@@ -10,26 +10,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body>
     <div class="wrapper">
-        <nav class="navigasi">
-            <a href="#home">Logo</a>
-            <div class="navbar-extra">
-                <a href="#" id="search"><i data-feather="search"></i></a>
-                {{-- <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a> --}}
-            </div>
-        </nav>
+        {{-- nav --}}
+        @include('layout.guest.navbar')
 
         <section class="hero" id="home">
-            <main class="content">
-                <h1>Pro-IDe Universitas Jambi</h1>
-                <h3>Program Inovasi Berbasis</h3>
-                <h3>Kearifan Lokal Desa</h3>
-                <div>
-                    <a href="/login" class="btn btn-primary">Login</a>
+            <main class="content pt-4">
+                <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:800; line-height:72px;">Pro-IDe UNJA</h1>
+                <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Program Inovasi Berbasis</h3>
+                <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Kearifan Lokal Desa</h3>
+                <div class="mt-5">
+                    <a href="/login" class="btn btn-primary px-5" style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Masuk</a>
                 </div>
             </main>
         </section>
@@ -37,18 +37,19 @@
 
     <section class="publikasi" id="publikasi">
         <main class="publikasi-content">
-           <div class="mb-8">    
-            <h1>Pro-IDe</h1>
-            <p>Pro IDE adalah kegiatan pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
-                mahasiswa melalui Badan Eksekutif Mahasiswa (BEM), Unit Kegiatan Mahasiswa (UKM),
-                HImpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). Program yang sangat bermanfaat baik untuk
-                memajukan desa dan masyarakatnya, juga di
-                desain sebagai bagian dari implementasi Kebijakan Merdeka Belajar Kampus Merdeka (MBKM).
-                Mahasiswa yang tergabung dalam ORMAWA memiliki hak mengikuti pembelajaran di luar
-                program studinya dapat memanfaatkan program ini, melalui berbagai aktivitas membangun desa
-                yang dapat di rekognisi menjadi kegiatan akademik. </p>
+            <div class="mb-8">
+                <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:800;">Pro-IDe</h1>
+                <p style="font-family: Plus Jakarta Sans, sans-serif;">Pro IDE adalah kegiatan pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
+                    mahasiswa melalui Badan Eksekutif Mahasiswa (BEM), Unit Kegiatan Mahasiswa (UKM),
+                    HImpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). Program yang sangat bermanfaat baik
+                    untuk
+                    memajukan desa dan masyarakatnya, juga di
+                    desain sebagai bagian dari implementasi Kebijakan Merdeka Belajar Kampus Merdeka (MBKM).
+                    Mahasiswa yang tergabung dalam ORMAWA memiliki hak mengikuti pembelajaran di luar
+                    program studinya dapat memanfaatkan program ini, melalui berbagai aktivitas membangun desa
+                    yang dapat di rekognisi menjadi kegiatan akademik. </p>
             </div>
-            <div class="card mt-2">
+            <div class="card" style="margin-top: 4rem !important;">
                 <div class="d-flex justify-content-between align-items-baseline px-4 ">
                     <p class="badge text-bg-secondary">Publikasi Kegiatan Pro-Ide</p>
                     <a href="">Lihat Lainnya</a>
@@ -56,27 +57,15 @@
                 <div class="container swiper mt-4">
                     <div class="slider-wrapper">
                         <div class="card-list swiper-wrapper">
-                            <div class="card-item swiper-slide">
-                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
-                                <h2 class="user-name">James Wilson</h2>
-                            </div>
-                            <div class="card-item swiper-slide">
-                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
-                                <h2 class="user-name">James Wilson</h2>
-                            </div>
-                            <div class="card-item swiper-slide">
-                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
-                                <h2 class="user-name">James Wilson</h2>
-                            </div>
-                            <div class="card-item swiper-slide">
-                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
-                                <h2 class="user-name">James Wilson</h2>
-                            </div>
-                            <div class="card-item swiper-slide">
-                                <img src="images/img-1.jpg" alt="User Image" class="user-image">
-                                <h2 class="user-name">James Wilson</h2>
-                            </div>
-                           
+                            @foreach ($data as $item)
+                                <div class="card-item swiper-slide">
+                                    <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
+                                        alt="User Image" class="user-image">
+                                    <h2 class="user-name">{{ $item->title }}</h2>
+                                    <a class="message-button">Cek</a>
+
+                                </div>
+                            @endforeach
                         </div>
                         <div class="swiper-pagination"></div>
                         <div class="swiper-slide-button swiper-button-prev"></div>
@@ -84,44 +73,10 @@
                     </div>
                 </div>
             </div>
-
         </main>
-
     </section>
-    <footer class="bg-secondary p-4">
-        <div class="container d-flex justify-content-between">
-            <div class="row g-4">
-                <div class="col">
-                    <img class="img-thumbnail rounded-circle" src="/img/photos/unsplash-1.jpg" alt=""
-                        style="width: 15rem; height: 15rem; object-fit: cover;">
-                </div>
-                <div class="col ">
-                    <h3 class="fw-bold border-bottom">Link Utama</h3>
-                    <div class="d-flex flex-column mb-3 ">
-                        <a href="#" class="text-white py-1">WEB UNJA</a>
-                        <a href="#" class="text-white py-1">PORTAL GERBANG UNJA</a>
-                        <a href="#" class="text-white py-1">SISTEM INFORMASI AKADEMIK</a>
-                        <a href="#" class="text-white py-1">PERPUSTAKAAN</a>
-                    </div>
-
-
-                </div>
-                <div class="col">
-                    <h3 class="fw-bold border-bottom">Kontak Kami</h3>
-                    <div class="d-flex flex-row g-8 ">
-                        <p class="text-white mb-0 me-2">Alamat</p>
-                        <p class="text-white mb-0">Jl. Raya Jambi - Muara Bulian Km. 15, Mendalo Indah, Jambi Luar
-                            Kota,
-                            Jambi 36361</p>
-                    </div>
-                    <div class="d-flex flex-row align-items-center mt-2">
-                        <p class="text-white mb-0 me-2">Email</p>
-                        <p class="text-white mb-0">lptik@unja.ac.id</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {{-- footer --}}
+    @include('layout.guest.footer')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
@@ -154,6 +109,9 @@
                     slidesPerView: 2
                 },
                 1024: {
+                    slidesPerView: 3
+                },
+                1336: {
                     slidesPerView: 4
                 }
             }

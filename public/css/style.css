@@ -9,7 +9,7 @@
 body {
 }
 .wrapper {
-    background: url("/img/Vector 1.png") 100% 0% no-repeat;
+    background: url("/img/Vector 4.png") 100% 0% no-repeat;
     background-size: 65% 100%;
     height: 100vh;
 }
@@ -109,13 +109,30 @@ body {
     border: 3px solid black;
     padding: 4px;
 }
-.card-list .card-item .user-profession {
+.card-list .card-item .user-name {
     font-size: 1.15rem;
     color: black;
     font-weight: 500;
-    margin: 14px 0 40px;
+    /* margin: 14px 0 40px; */
 }
 
+.card-list .card-item .message-button {
+    font-size: 1.25rem;
+    padding: 5px 25px;
+    color: #030728;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid black;
+    transition: 0.2s ease;
+    text-decoration:none;
+}
+.card-list .card-item .message-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid black;
+    color: black;
+}
 
 .slider-wrapper .swiper-pagination-bullet {
     background: black;

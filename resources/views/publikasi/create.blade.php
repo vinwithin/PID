@@ -21,9 +21,11 @@
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
+                    <p>Thumbnail</p>
                     <div class="input-group mb-3">
-                        <input type="file" onchange="loadFile(event)" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail"
-                            name="thumbnail" accept="image/png, image/jpeg, image/jpg">
+                        <input type="file" onchange="loadFile(event)"
+                            class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail"
+                            accept="image/png, image/jpeg, image/jpg">
                         <label class="input-group-text" for="thumbnail">Upload Thumbnails</label>
                         @error('thumbnail')
                             <div class="invalid-feedback">
@@ -36,7 +38,7 @@
 
                         </div>
                     </div>
-                    
+
                     <textarea class="form-control" id="hiddenContent" placeholder="Enter the Description" rows="5" name="content"
                         style="display: none"></textarea>
 
@@ -135,6 +137,17 @@
 
             // Form akan submit secara normal ke backend
             return true;
+        };
+    </script>
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+
+            output.onload = function() {
+                URL.revokeObjectURL(output.src)
+                // free memory
+            }
         };
     </script>
 @endsection

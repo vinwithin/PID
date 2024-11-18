@@ -6,6 +6,7 @@ use App\Models\Publikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 
@@ -14,7 +15,8 @@ class publikasiController extends Controller
     public function index()
     {
         return view('publikasi.index', [
-            "data" => Publikasi::where('user_id', auth()->user()->id)->get()
+            "data" => Publikasi::where('user_id', auth()->user()->id)->get(),
+            "dataAll" => Publikasi::all(),
         ]);
     }
 
@@ -41,7 +43,7 @@ class publikasiController extends Controller
         }
 
         return view('publikasi.index', [
-            'data' => $data,
+            'dataAll' => $data,
         ]);
     }
 
@@ -54,10 +56,13 @@ class publikasiController extends Controller
         ]);
         $validateData['user_id'] = auth()->user()->id;
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
-        $validateData['status'] = 'Belum valid';
+        if (Auth::user()->hasRole('admin')) {
+            $validateData['status'] = 'valid';
+        }else{
+            $validateData['status'] = 'Belum valid';
+        }
         $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();
-        // $request->thumbnail->storeAs('storage/media/thumbnails', $thumbnail_name);
-        Storage::disk('public')->put('media/thumbnails/' . $thumbnail_name, $request->thumbnail);
+        $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
         $validateData['thumbnail'] = $thumbnail_name;
         preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
         $imageTags = $matches[0];
@@ -101,7 +106,9 @@ class publikasiController extends Controller
         ]);
         $validateData['user_id'] = auth()->user()->id;
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
-        $validateData['status'] = 'Belum valid';
+        $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();
+        $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
+        $validateData['thumbnail'] = $thumbnail_name;
         preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
         $imageTags = $matches[0];
         if (count($imageTags) > 0) {
