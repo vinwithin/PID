@@ -21,7 +21,23 @@
 <body>
     <div class="wrapper">
         {{-- nav --}}
-        @include('layout.guest.navbar')
+        <nav class="navigasi">
+            <a class="btn btn-secondary" href="#home">Logo</a>
+            <a href="" class="fw-bold">Tentang Kami</a>
+            <a href="" class="fw-bold">Publikasi</a>
+            <a href="" class="fw-bold">Hubungi Kami</a>
+            <div class="navbar-extra">
+                <div class="input-group border">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Cari..." name="cari">
+                    <div class="input-group-append ">
+                        <button class="btn btn-light" type="button">
+                            <i data-feather="search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
 
         <section class="hero" id="home">
             <main class="content pt-4">
@@ -29,7 +45,7 @@
                 <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Program Inovasi Berbasis</h3>
                 <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Kearifan Lokal Desa</h3>
                 <div class="mt-5">
-                    <a href="/login" class="btn btn-primary px-5" style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Masuk</a>
+                    <a href="/login" class="btn btn-success px-5" style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Masuk</a>
                 </div>
             </main>
         </section>
@@ -52,7 +68,7 @@
             <div class="card" style="margin-top: 4rem !important;">
                 <div class="d-flex justify-content-between align-items-baseline px-4 ">
                     <p class="badge text-bg-secondary">Publikasi Kegiatan Pro-Ide</p>
-                    <a href="">Lihat Lainnya</a>
+                    <a href="/daftar-publikasi" class="text-decoration-none text-dark">Lihat Lainnya</a>
                 </div>
                 <div class="container swiper mt-4">
                     <div class="slider-wrapper">

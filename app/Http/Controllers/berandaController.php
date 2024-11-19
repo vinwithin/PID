@@ -12,4 +12,10 @@ class berandaController extends Controller
             'data' => Publikasi::where('status', 'valid')->get()
         ]);
     }
+
+    public function detailPublikasi(){
+        return view('guest.publikasi.detail',[
+            'data' => Publikasi::where('status', 'valid')->paginate(8),
+        ]);
+    }
 }

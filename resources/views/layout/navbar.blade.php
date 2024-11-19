@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand navbar-bg" style="background: rgba(217, 217, 217, 1);">
+<nav class="navbar navbar-expand navbar-bg" style="background: linear-gradient(180deg, #2FA161 0%, #B4E4BE 100%);
+">
     <a class="sidebar-toggle js-sidebar-toggle">
         <i class="hamburger align-self-center"></i>
     </a>

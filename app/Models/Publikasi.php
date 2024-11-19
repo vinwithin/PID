@@ -20,6 +20,7 @@ class Publikasi extends Model
         'thumbnail',
         'status',
         'content',
+        'excerpt',
     ];
 
     public function sluggable(): array

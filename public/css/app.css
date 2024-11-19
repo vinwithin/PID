@@ -12142,7 +12142,7 @@ a.sidebar-link svg {
     outline: 0;
 }
 .sidebar-link:hover {
-    background: #222e3c;
+    background: rgba(47, 161, 97, 1);
     border-left-color: transparent;
 }
 .sidebar-link:hover,
@@ -12152,7 +12152,7 @@ a.sidebar-link svg {
 }
 .sidebar-item.active .sidebar-link:hover,
 .sidebar-item.active > .sidebar-link {
-    background: rgba(191, 191, 191, 1);
+    background: rgba(47, 161, 97, 1);
     border-left-color: #3b7ddd;
     color: #e9ecef;
 }

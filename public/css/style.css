@@ -9,22 +9,27 @@
 body {
 }
 .wrapper {
-    background: url("/img/Vector 4.png") 100% 0% no-repeat;
-    background-size: 65% 100%;
+    background: url("/img/Figure2.svg") no-repeat right center;
+    background-size: auto 100%; /* Menjaga proporsi gambar di sisi kanan */
     height: 100vh;
 }
 .navigasi {
     display: flex;
     /* justify-content: space-between; */
     flex-direction: row;
-
-    gap: 14rem;
+    gap: 20px;
     align-items: center;
     padding: 1.4rem 10%;
-    position: fixed;
+    /* position: fixed; */
     left: 0;
     right: 0;
     top: 0;
+}
+.navigasi a,
+.navigasi .navbar-extra {
+    margin: 0; /* Menghapus margin default */
+    text-decoration:none;
+    color:black;
 }
 
 /* hero */
@@ -74,7 +79,7 @@ body {
     display: flex;
     padding: 8rem 7% 1.4rem;
     left: 0;
-    background: url("/img/Vector 2.png") 100% 0% no-repeat;
+    background: url("/img/Vector 5.png") 100% 0% no-repeat;
     background-size: 100% 50%;
 }
 .publikasi-content h1 {
@@ -126,7 +131,7 @@ body {
     background: #fff;
     border: 1px solid black;
     transition: 0.2s ease;
-    text-decoration:none;
+    text-decoration: none;
 }
 .card-list .card-item .message-button:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -153,9 +158,15 @@ body {
 }
 
 .footer {
-    background-color: grey;
+    /* background-color: black; */
     left: 0;
     right: 0;
+}
+.list-publikasi{
+    margin:2rem;
+    padding: 2rem;
+    background-color:rgba(255, 255, 255, 1);
+    border: 1px solid black;
 }
 
 @media (max-width: 768px) {

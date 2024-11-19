@@ -14,12 +14,11 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        {{-- nav --}}
-        @include('layout.guest.navbar')
+    @include('layout.guest.navbar')
 
-        {{-- contet  --}}
+    <div class="container">
 
+        @yield('content')
 
     </div>
 

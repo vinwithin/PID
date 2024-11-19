@@ -83,7 +83,6 @@
                                     @endcan
 
                                     @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-
                                         <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
                                             Nilai</a>
                                     @endif
@@ -149,11 +148,15 @@
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
                                 <td>
-                                    @foreach ($totalId[$item->id] as $val => $value)
-                                        <ul>
-                                            <li>{{ $value }}</li>
-                                        </ul>
-                                    @endforeach
+                                    @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                        @foreach ($totalId[$item->id] as $val => $value)
+                                            <ul>
+                                                <li>{{ $value }}</li>
+                                            </ul>
+                                        @endforeach
+                                    @else
+                                        <p class="">Belum Ada Nilai</p>
+                                    @endif
 
                                 </td>
                                 <td>
@@ -162,7 +165,7 @@
                                         <a href="/reviewer/nilai/{{ $item->id }}" class="btn btn-primary">Beri Nilai</a>
                                     @endif
 
-                                    @if (!empty($totalId))
+                                    @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
                                         <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
                                             Nilai</a>
                                     @endif

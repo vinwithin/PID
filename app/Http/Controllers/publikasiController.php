@@ -58,9 +58,10 @@ class publikasiController extends Controller
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         if (Auth::user()->hasRole('admin')) {
             $validateData['status'] = 'valid';
-        }else{
+        } else {
             $validateData['status'] = 'Belum valid';
         }
+        $validateData["excerpt"] =  Str::limit(strip_tags($request->content), 100);
         $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();
         $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
         $validateData['thumbnail'] = $thumbnail_name;
@@ -106,9 +107,12 @@ class publikasiController extends Controller
         ]);
         $validateData['user_id'] = auth()->user()->id;
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
-        $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();
-        $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
-        $validateData['thumbnail'] = $thumbnail_name;
+        $validateData["excerpt"] =  Str::limit(strip_tags($request->content), 100);
+        if ($request->hasFile('thumbnail')) {
+            $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();
+            $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
+            $validateData['thumbnail'] = $thumbnail_name;
+        }
         preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
         $imageTags = $matches[0];
         if (count($imageTags) > 0) {
@@ -146,7 +150,8 @@ class publikasiController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $firstRow = Publikasi::select('content')->find($id);
         $imageTags = [];
         if ($firstRow) {
