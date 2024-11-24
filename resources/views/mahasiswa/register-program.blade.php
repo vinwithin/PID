@@ -2,6 +2,13 @@
 @extends('layout.app')
 
 @section('content')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 2. Load Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- 3. Load Select2 JS AFTER jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
         .step {
             display: none;
@@ -108,20 +115,35 @@
                                 <input type="text" class="form-control" id="nim" name="nim_ketua" required>
                             </div>
                             <div class="mb-3">
-                                <label for="prodi" class="form-label">Prodi Ketua Tim</label>
-                                <input type="text" class="form-control" id="prodi" name="prodi_ketua" required>
+                                <label for="fakultas" class="form-label">Fakultas</label>
+                                <select class="form-select" name="fakultas_ketua" id="fakultas" required>
+                                    <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
+                                    @foreach ($fakultas as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="fakultas" class="form-label">Fakultas Ketua Tim</label>
-                                <input type="text" class="form-control" id="fakultas" name="fakultas_ketua" required>
+                                <label for="program_studi" class="form-label">Program Studi</label>
+                                <select class="form-select" name="prodi_ketua" id="program_studi" required>
+                                    <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
+                                    @foreach ($program_studi as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="nohp" class="form-label">No.hp Ketua Tim</label>
                                 <input type="text" class="form-control" id="nohp" name="nohp_ketua" required>
                             </div>
                             <div class="mb-3">
-                                <label for="ormawa" class="form-label">Nama ORMAWA</label>
-                                <input type="text" class="form-control" id="ormawa" name="nama_ormawa" required>
+                                <label for="ormawa" class="form-label">Ormawa</label>
+                                <select class="form-select" name="nama_ormawa" id="ormawa" required>
+                                    <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
+                                    @foreach ($ormawa as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="judul" class="form-label">Judul</label>
@@ -134,6 +156,33 @@
                                     @foreach ($bidang as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                            <p>Pilih Lokasi</p>
+                            <div class="mb-1">
+                                <label for="province">Provinsi:</label>
+                                <select class="form-select" id="province" name="province"
+                                    aria-label="Default select example" required>
+                                   
+                                </select>
+                            </div>
+                            <div class="mb-1">
+                                <label for="regency">Kabupaten:</label>
+                                <select class="form-select" id="regency" name="regency" disabled>
+                                    <option value="">Pilih Kabupaten</option>
+                                </select>
+                            </div>
+                            <div class="mb-1">
+
+                                <label for="district">Kecamatan:</label>
+                                <select class="form-select" id="district" name="district" disabled>
+                                    <option value="">Pilih Kecamatan</option>
+                                </select>
+                            </div>
+                            <div class="mb-1">
+                                <label for="village">Desa:</label>
+                                <select class="form-select" id="village" name="village" disabled>
+                                    <option value="">Pilih Desa</option>
                                 </select>
                             </div>
                             {{-- <button type="button" id="next" class="btn btn-primary" onclick="nextStep()">Next</button> --}}
@@ -246,8 +295,8 @@
                             </div>
                             {{-- <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button> --}}
                         </div>
-                        <button type="button" id="prevStep" class="btn btn-secondary">Back</button>
-                        <button type="button" id="next" class="btn btn-primary">Next</button>
+                        <button type="button" id="prevStep" class="btn btn-secondary mt-2">Back</button>
+                        <button type="button" id="next" class="btn btn-primary mt-2">Next</button>
                         <button type="submit" id="submitForm" class="btn btn-success">Submit</button>
 
                     </form>
@@ -278,9 +327,11 @@
                                         <td class="d-none d-xl-table-cell">{{ $item->fakultas_ketua }}</td>
                                         <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
                                         <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
-                                        <td><span class="badge text-bg-warning">{{ $item->registration_validation->status === 'valid' ? "valid dan menunggu penilaian" : $item->registration_validation->status }}</span>
+                                        <td><span
+                                                class="badge text-bg-warning">{{ $item->registration_validation->status === 'valid' ? 'valid dan menunggu penilaian' : $item->registration_validation->status }}</span>
                                         </td>
-                                        <td> <a href="/program/cek/{{$item->id}}" class="btn btn-primary">Cek</a></td>
+                                        <td> <a href="/program/cek/{{ $item->id }}" class="btn btn-primary">Cek</a>
+                                        </td>
 
                                     </tr>
                                 @endforeach
@@ -292,6 +343,11 @@
             @endif
         </div>
     </div>
+
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script> --}}
+
+
 
     <script>
         let currentStep = 1;
@@ -406,23 +462,6 @@
 
             }
         });
-
-
-
-        // Optional form submission handler
-        // document.getElementById('registrationForm').addEventListener('submit', function(event) {
-        //     event.preventDefault();
-
-        //     // Gather all form data
-        //     const formData = new FormData(this);
-
-        //     // Example output in console (replace with your form handling logic)
-        //     for (let [name, value] of formData.entries()) {
-        //         console.log(`${name}: ${value}`);
-        //     }
-
-        //     alert('Form Submitted Successfully!');
-        // });
         updateVisibility();
     </script>
     <script>
@@ -475,5 +514,157 @@
             }
             memberCount--;
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Utility function to initialize Select2
+            function initializeSelect2(elementId, placeholder) {
+                return $(`#${elementId}`).select2({
+                    placeholder: placeholder,
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
+            // Utility function to handle API errors
+            function handleApiError(context) {
+                return function(jqXHR, textStatus, errorThrown) {
+                    console.error(`Error loading ${context}:`, textStatus, errorThrown);
+                    alert(`Gagal memuat data ${context}. Silakan coba lagi.`);
+                }
+            }
+
+            // Initialize Province dropdown
+            $("#province").select2({
+                placeholder: 'Pilih Provinsi',
+                allowClear: true,
+                ajax: {
+                    url: "/api/provinces",
+                    dataType: 'json',
+                    delay: 250,
+                    cache: true,
+                    processResults: function(data) {
+                        return {
+                            results: data.map(function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.name
+                                };
+                            })
+                        };
+                    },
+                    error: handleApiError('provinsi')
+                }
+            });
+
+            // Initialize other dropdowns (initially disabled)
+            initializeSelect2('regency', 'Pilih Kabupaten');
+            initializeSelect2('district', 'Pilih Kecamatan');
+            initializeSelect2('village', 'Pilih Desa/Kelurahan');
+
+            // Handle Province Change
+            $("#province").on('change', function() {
+                const provinceId = $(this).val();
+                const regencySelect = $("#regency");
+
+                // Reset and disable dependent dropdowns
+                ['regency', 'district', 'village'].forEach(type => {
+                    $(`#${type}`).val(null).trigger('change').prop('disabled', true);
+                });
+
+                if (!provinceId) return;
+
+                // Enable and configure regency dropdown
+                regencySelect.prop('disabled', false);
+                regencySelect.select2({
+                    placeholder: 'Pilih Kabupaten',
+                    allowClear: true,
+                    ajax: {
+                        url: `/api/regencies/${provinceId}`,
+                        dataType: 'json',
+                        delay: 250,
+                        cache: true,
+                        processResults: function(data) {
+                            return {
+                                results: data.map(item => ({
+                                    id: item.id,
+                                    text: item.name
+                                }))
+                            };
+                        },
+                        error: handleApiError('kabupaten')
+                    }
+                });
+            });
+
+            // Handle Regency Change
+            $("#regency").on('change', function() {
+                const regencyId = $(this).val();
+                const districtSelect = $("#district");
+
+                // Reset and disable dependent dropdowns
+                ['district', 'village'].forEach(type => {
+                    $(`#${type}`).val(null).trigger('change').prop('disabled', true);
+                });
+
+                if (!regencyId) return;
+
+                // Enable and configure district dropdown
+                districtSelect.prop('disabled', false);
+                districtSelect.select2({
+                    placeholder: 'Pilih Kecamatan',
+                    allowClear: true,
+                    ajax: {
+                        url: `/api/districts/${regencyId}`,
+                        dataType: 'json',
+                        delay: 250,
+                        cache: true,
+                        processResults: function(data) {
+                            return {
+                                results: data.map(item => ({
+                                    id: item.id,
+                                    text: item.name
+                                }))
+                            };
+                        },
+                        error: handleApiError('kecamatan')
+                    }
+                });
+            });
+
+            // Handle District Change
+            $("#district").on('change', function() {
+                const districtId = $(this).val();
+                const villageSelect = $("#village");
+
+                // Reset and disable village dropdown
+                villageSelect.val(null).trigger('change').prop('disabled', true);
+
+                if (!districtId) return;
+
+                // Enable and configure village dropdown
+                villageSelect.prop('disabled', false);
+                villageSelect.select2({
+                    placeholder: 'Pilih Desa/Kelurahan',
+                    allowClear: true,
+                    ajax: {
+                        url: `/api/villages/${districtId}`,
+                        dataType: 'json',
+                        delay: 250,
+                        cache: true,
+                        processResults: function(data) {
+                            return {
+                                results: data.map(item => ({
+                                    id: item.id,
+                                    text: item.name
+                                }))
+                            };
+                        },
+                        error: handleApiError('desa/kelurahan')
+                    }
+                });
+            });
+        });
     </script>
 @endsection

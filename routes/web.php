@@ -13,6 +13,7 @@ use App\Http\Controllers\publikasiController;
 use App\Http\Controllers\reviewer\ProposalReviewController;
 use App\Http\Controllers\reviewer\reviewerController;
 use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -69,6 +70,29 @@ Route::middleware('auth')->group(function () {
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
         Route::get('/program/cek/{id}', [regisProgramController::class, 'show'])->name('program.cek');
+    });
+
+
+    
+    Route::get('/api/provinces', function () {
+        $response = Http::get('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
+        return response()->json($response->json());
+    });
+    Route::get('/api/regencies/{provinceId}', function ($provinceId) {
+        $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{$provinceId}.json");
+        return response()->json($response->json());
+    });
+    
+    // Untuk Kecamatan
+    Route::get('/api/districts/{regencyId}', function ($regencyId) {
+        $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/districts/{$regencyId}.json");
+        return response()->json($response->json());
+    });
+    
+    // Untuk Desa
+    Route::get('/api/villages/{districtId}', function ($districtId) {
+        $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/villages/{$districtId}.json");
+        return response()->json($response->json());
     });
 });
 

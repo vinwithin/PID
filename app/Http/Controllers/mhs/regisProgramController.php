@@ -4,6 +4,9 @@ namespace App\Http\Controllers\mhs;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bidang;
+use App\Models\Fakultas;
+use App\Models\Ormawa;
+use App\Models\ProgramStudi;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +18,9 @@ class regisProgramController extends Controller
     {
         return view('mahasiswa.register-program', [
             'bidang' => Bidang::all(),
+            'fakultas' => Fakultas::all(),
+            'program_studi' => ProgramStudi::all(),
+            'ormawa' => Ormawa::all(),
             'registrationExists' => Registration::where('user_id', auth()->user()->id)->exists(),
             'data' => Registration::with('registration_validation')->where('user_id', auth()->user()->id)->get(),
         ]);
