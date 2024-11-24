@@ -21,6 +21,7 @@ class registerController extends Controller
         ]);
         $validateData['password'] = Hash::make($validateData['password']);
         $user = User::create($validateData);
+        $user->assignRole('mahasiswa');
         if($user){
             return redirect()->route('login')->with('success', 'Registered successfully');
         }else{
