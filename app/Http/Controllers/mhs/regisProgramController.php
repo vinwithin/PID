@@ -45,6 +45,10 @@ class regisProgramController extends Controller
                         'nama_ormawa' => 'required|string',
                         'judul' => 'required|string',
                         'bidang_id' => 'required',
+                        'province' => 'required',
+                        'regency' => 'required',
+                        'district' => 'required',
+                        'village' => 'required',
                     ]);
 
                     // Store in session for next stepif
@@ -159,6 +163,12 @@ class regisProgramController extends Controller
                 'status' => 'Belum valid', // atau status yang sesuai
                 'catatan' => 'Menunggu di validasi',
                 'validator_id' => '', // misalnya pengguna yang memvalidasi
+            ]);
+            $registrationData->lokasi()->create([
+                'province' => $step1Data['province'], 
+                'regency' => $step1Data['regency'],
+                'district' => $step1Data['district'], 
+                'village' => $step1Data['village'], 
             ]);
 
             // Hapus data dari session setelah berhasil disimpan

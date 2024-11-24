@@ -27,6 +27,10 @@ class Registration extends Model
     {
         return $this->hasOne(Registrasi_validation::class);
     }
+    public function lokasi()
+    {
+        return $this->belongsTo(Lokasi::class);
+    }
     public function bidang()
     {
         return $this->belongsTo(Bidang::class);
