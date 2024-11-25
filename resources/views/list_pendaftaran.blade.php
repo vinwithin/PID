@@ -52,7 +52,7 @@
                             <tr>
                                 <td>{{ $item->nama_ketua }}</td>
                                 <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
-                                <td class="d-none d-xl-table-cell">{{ $item->fakultas_ketua }}</td>
+                                <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
                                 <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
@@ -64,7 +64,7 @@
                                             </ul>
                                         @endforeach
                                     @else
-                                        <p class="">Belum Ada Nilai</p>
+                                        <p class="">{{ $item->reviewAssignments->status }}</p>
                                     @endif
 
 
@@ -74,7 +74,7 @@
                                         <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
                                             class="btn btn-success">Setujui</a>
                                     @elseif ($item->registration_validation->status === 'valid')
-                                        <a href="" class="btn btn-success">Tahap 3</a>
+                                        <a href="" class="btn btn-success">LOLOS</a>
                                     @endif
                                     @can('assessing proposal')
                                         @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
@@ -83,22 +83,21 @@
                                     @endcan
 
                                     @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
+                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Lihat
                                             Nilai</a>
                                     @endif
 
-                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-primary">CEK</a>
+                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-primary">Lihat Data</a>
                                 </td>
                             </tr>
                         @endforeach
 
                     </tbody>
                 </table>
-                @elserole('reviewer')
+            @elserole('reviewer')
                 <div class="card-header">
-
                     {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-                    <form method="GET" action="{{ route('pendaftaran.search') }}">
+                    {{-- <form method="GET" action="{{ route('pendaftaran.search') }}">
                         <label class="form-label">Filter berdasarkan status:</label>
                         <div class="d-flex align-items-center">
                             <div class="form-check me-3">
@@ -123,7 +122,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
-                    </form>
+                    </form> --}}
                 </div>
                 <table class="table table-hover my-0">
                     <thead>
@@ -143,7 +142,7 @@
                             <tr>
                                 <td>{{ $item->nama_ketua }}</td>
                                 <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
-                                <td class="d-none d-xl-table-cell">{{ $item->fakultas_ketua }}</td>
+                                <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
                                 <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
                                 <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
@@ -155,7 +154,7 @@
                                             </ul>
                                         @endforeach
                                     @else
-                                        <p class="">Belum Ada Nilai</p>
+                                        <p class="badge bg-warning">{{ $item->reviewAssignments[0]->status }}</p>
                                     @endif
 
                                 </td>

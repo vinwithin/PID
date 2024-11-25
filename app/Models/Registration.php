@@ -35,6 +35,18 @@ class Registration extends Model
     {
         return $this->belongsTo(Bidang::class);
     }
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class, 'fakultas_ketua');
+    }
+    public function program_studi()
+    {
+        return $this->belongsTo(ProgramStudi::class, 'prodi_ketua');
+    }
+    public function ormawa()
+    {
+        return $this->belongsTo(Ormawa::class, 'nama_ormawa');
+    }
     public function reviewAssignments()
     {
         return $this->hasMany(ReviewAssignment::class, 'registration_id');

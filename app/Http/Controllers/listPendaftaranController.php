@@ -40,13 +40,13 @@ class listPendaftaranController extends Controller
 
     public function index()
     {
-        $dataNilai = Registration::with('reviewAssignments')->whereHas('reviewAssignments', function ($query) {
+        $dataNilai = Registration::with(['reviewAssignments','bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
             $query->where('reviewer_id', auth()->user()->id); // Kondisi yang ingin dicek
         })->get();
         $totalId = ProposalReviewController::calculateScores();
         // dd($totalId['totalId']);
         return view('list_pendaftaran', [
-            'data' => Registration::all(),
+            'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'proposal_score'])->get(),
             'dataNilai' => $dataNilai,
             'totalId' => $totalId['totalId'],
         ]);
@@ -54,7 +54,7 @@ class listPendaftaranController extends Controller
 
     public function show($id)
     {
-        $data = Registration::find($id);
+        $data = Registration::with(['bidang', 'fakultas', 'program_studi', 'teamMembers', 'reviewAssignments'])->find($id);
         return view('pendaftaran.detail_pendaftaran', [
             "data" => $data
         ]);
@@ -68,7 +68,7 @@ class listPendaftaranController extends Controller
         // dd($total['total']);
 
         return view('pendaftaran.nilai', [
-            'reviewer' => Proposal_score::with('user')->where('registration_id', $id)->get(),
+            'data_review' => ReviewAssignment::where('registration_id', $id)->get(),
             'data' => $rubrik['rubrik'],
             'total' => $total['total'],
             'bobot' => $bobot['bobot']

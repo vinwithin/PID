@@ -15,4 +15,12 @@ class TeamMember extends Model
         'fakultas',
         'jabatan'
     ];
+    public function fakultas_model()
+    {
+        return $this->belongsTo(Fakultas::class, 'fakultas');
+    }
+    public function program_studi()
+    {
+        return $this->belongsTo(ProgramStudi::class, 'prodi');
+    }
 }

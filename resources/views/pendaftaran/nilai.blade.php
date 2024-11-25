@@ -10,9 +10,12 @@
                     <table class="table table-bordered">
                         <thead class="table-light">
                             <tr>
-                                <th>Aspek Penilaian</th>
-                                <th>Skor Maksimum</th>
-                                <th>Skor yang Diberikan</th>
+                                <th colspan="3">Reviewer {{ $loop->iteration }}</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 60%">Aspek Penilaian</th> 
+                                <th style="width: 20%">Bobot</th>
+                                <th style="width: 20%">Skor yang Diberikan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -20,31 +23,38 @@
                                 <tr>
                                     <td>
                                         <strong>{{ $key }}</strong>
-                                        @foreach ($item as $subKriteria => $nilai)
-                                            <ul>
+                                        <ul>
+                                            @foreach ($item as $subKriteria => $nilai)
                                                 <li>{{ $subKriteria }}</li>
-
-                                            </ul>
-                                        @endforeach
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td class="text-center fw-bold">
+                                        {{ $bobot[$key] ?? '-' }} {{-- Tampilkan '-' jika bobot tidak ditemukan --}}
                                     </td>
                                     <td>
-                                        <p class="text-center fw-bold">{{ $bobot[$key] }}</p>
+                                        <ul class="list-unstyled text-center">
+                                            @foreach ($item as $subKriteria => $nilai)
+                                                <li>{{ $nilai }}</li>
+                                            @endforeach
+                                        </ul>
                                     </td>
-                                 <td>
-                                        @foreach ($item as $subKriteria => $nilai)
-                                            <p class="text-center">{{ $nilai }}</p>
-                                        @endforeach
-                                    </td>
-
                                 </tr>
                             @endforeach
 
-                            {{-- @foreach ($total as $item => $value) --}}
+                            {{-- Skor Total --}}
                             <tr>
                                 <td>Skor Total</td>
-                                <td class="text-center" colspan="2">{{ $total[$reviewer] }}</td>
+                                <td class="text-center" colspan="2">{{ $total[$reviewer] ?? '-' }}</td>
                             </tr>
-                            {{-- @endforeach --}}
+
+                            {{-- Feedback --}}
+                            <tr>
+                                <td>Feedback</td>
+                                <td colspan="2">{{ $data_review[$loop->index]->status ?? 'Tidak ada feedback' }}</td>
+                            </tr>
+
+                            {{-- Reviewer --}}
                             <tr>
                                 <td>Reviewer</td>
                                 <td class="text-center fw-bold" colspan="2">{{ $reviewer }}</td>
@@ -53,7 +63,9 @@
                     </table>
                 @endforeach
 
+
                 <a href="/pendaftaran" class="btn btn-primary">Kembali</a>
+
             </div>
 
         </div>

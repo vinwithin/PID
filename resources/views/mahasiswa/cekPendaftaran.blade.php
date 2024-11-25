@@ -13,10 +13,10 @@
                 <p>{{ $data->nama_tim }}</p>
 
                 <p><strong>Prodi Ketua:</strong></p>
-                <p>{{ $data->prodi_ketua }}</p>
+                <p>{{ $data->program_studi->nama }}</p>
 
                 <p><strong>Fakultas Ketua:</strong></p>
-                <p>{{ $data->fakultas_ketua }}</p>
+                <p>{{ $data->fakultas->nama }}</p>
 
                 <p><strong>No hp Ketua:</strong></p>
                 <p>{{ $data->nohp_ketua }}</p>
