@@ -40,7 +40,7 @@ class listPendaftaranController extends Controller
 
     public function index()
     {
-        $dataNilai = Registration::with(['reviewAssignments','bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
+        $dataNilai = Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
             $query->where('reviewer_id', auth()->user()->id); // Kondisi yang ingin dicek
         })->get();
         $totalId = ProposalReviewController::calculateScores();
@@ -77,24 +77,24 @@ class listPendaftaranController extends Controller
     }
     public function approve($id)
     {
-        try{   
+        try {
             Registrasi_validation::where('registration_id', $id)
-                ->update(['status' => 'valid']);
+                ->update(['status' => 'valid', 'validator_id' => auth()->user()->id]);
             $availableReviewers = User::role('reviewer')
-                    ->withCount(['reviewAssignments' => function ($query) {
-                        $query->where('status', 'pending');
-                    }])
-                    ->get();
+                ->withCount(['reviewAssignments' => function ($query) {
+                    $query->where('status', 'pending');
+                }])
+                ->get();
 
             if ($availableReviewers->count() < 2) {
                 throw new \Exception('Jumlah reviewer yang tersedia kurang dari 2');
             }
 
-                // Pilih 2 reviewer dengan beban tugas paling sedikit
+            // Pilih 2 reviewer dengan beban tugas paling sedikit
             $selectedReviewers = $availableReviewers
                 ->sortBy('review_assignments_count')
                 ->take(2);
-                // Buat assignment untuk kedua reviewer terpilih
+            // Buat assignment untuk kedua reviewer terpilih
             foreach ($selectedReviewers as $reviewer) {
                 ReviewAssignment::create([
                     'registration_id' => $id,
@@ -102,12 +102,21 @@ class listPendaftaranController extends Controller
                     'status' => 'pending',
                     'feedback' => ''
                 ]);
-               
-            } 
+            }
 
             return redirect()->route('pendaftaran')->with('success', 'berhasil mengubah data');
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('pendaftaran')->with("error", "Gagal mengubah data!");
         };
+    }
+    public function approveUserForProgram($id)
+    {
+        $result = Registrasi_validation::where('registration_id', $id)
+            ->update(['status' => 'lolos', 'validator_id' => auth()->user()->name]);
+        if ($result) {
+            return redirect()->route('pendaftaran')->with('success', 'berhasil mengubah data');
+        } else {
+            return redirect()->route('pendaftaran')->with("error", "Gagal mengubah data!");
+        }
     }
 }

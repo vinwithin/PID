@@ -67,10 +67,9 @@
                 <p><strong>File Proposal:</strong></p>
                 <a class="btn btn-warning" href="/storage/{{ $data->proposal }}">Lihat File</a>
 
-                <p><strong>Status Validasi:</strong></p>
+                <p class="mt-2"><strong>Status Validasi:</strong></p>
                 <p class="text-warning">
-                    {{ $data->registration_validation->status }}
-                </p>
+                    {{ $data->registration_validation->status === 'lolos' ? $data->registration_validation->status . 'validator => ' . $data->registration_validation->validator_id :  $data->registration_validation->status}}</p>
                 <a href="/pendaftaran" class="btn btn-primary">Kembali</a>
 
             </div>

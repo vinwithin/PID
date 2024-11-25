@@ -51,7 +51,7 @@
                             {{-- Feedback --}}
                             <tr>
                                 <td>Feedback</td>
-                                <td colspan="2">{{ $data_review[$loop->index]->status ?? 'Tidak ada feedback' }}</td>
+                                <td colspan="2">{{ $data_review[$loop->index]->feedback ?? 'Tidak ada feedback' }}</td>
                             </tr>
 
                             {{-- Reviewer --}}

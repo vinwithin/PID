@@ -127,7 +127,7 @@ class ProposalReviewController extends Controller
 
         if ($existingReview) {
             $existingReview->update([
-                'status' => $validatedData['feedback'],
+                'feedback' => $validatedData['feedback'],
             ]);
         } else {
             return back()->withErrors(['error' => 'Review assignment tidak terdaftar.']);

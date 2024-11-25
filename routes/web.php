@@ -53,7 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/reviewer/nilai/{id}', [ProposalReviewController::class, 'store'])->name('reviewer.nilai');
     });
     Route::middleware(['role:admin'])->group(function () {
-        Route::get('/admin/approve/{id}', [listPendaftaranController::class, 'approve'])->name('admin.approve');
+        Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
+        Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
     });
 
     Route::middleware(['role:admin|reviewer'])->group(function () {

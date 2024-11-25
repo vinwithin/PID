@@ -21,12 +21,7 @@
                                 <label class="form-check-label" for="filterEngineer">Valid</label>
                             </div>
                             <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos tahap 3"
-                                    id="filterAnalyst1">
-                                <label class="form-check-label" for="filterAnalyst1">Lolos Tahap 3</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos program"
+                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos"
                                     id="filterAnalyst2">
                                 <label class="form-check-label" for="filterAnalyst2">Lolos Program</label>
                             </div>
@@ -71,10 +66,10 @@
                                 </td>
                                 <td>
                                     @if ($item->registration_validation->status === 'Belum valid')
-                                        <a href="{{ route('admin.approve', ['id' => $item->id]) }}"
+                                        <a href="{{ route('approve', ['id' => $item->id]) }}"
                                             class="btn btn-success">Setujui</a>
-                                    @elseif ($item->registration_validation->status === 'valid')
-                                        <a href="" class="btn btn-success">LOLOS</a>
+                                    @elseif ($item->registration_validation->status === 'valid' && count($totalId) > 1)
+                                        <a href="/approve-to-program/{{$item->id}}" class="btn btn-success">LOLOS</a>
                                     @endif
                                     @can('assessing proposal')
                                         @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
@@ -87,7 +82,7 @@
                                             Nilai</a>
                                     @endif
 
-                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-primary">Lihat Data</a>
+                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-success">Lihat Data</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -165,10 +160,10 @@
                                     @endif
 
                                     @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Cek
+                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Lihat
                                             Nilai</a>
                                     @endif
-                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-primary">CEK</a>
+                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-success">Lihat Data</a>
                                 </td>
                             </tr>
                         @endforeach
