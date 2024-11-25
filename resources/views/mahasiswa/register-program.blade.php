@@ -108,11 +108,13 @@
                         <div class="step active">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Ketua Tim</label>
-                                <input type="text" class="form-control" id="name" name="nama_ketua" required>
+                                <input type="text" class="form-control" id="name" name="nama_ketua"
+                                    value="{{ auth()->user()->name }}" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="nim" class="form-label">NIM Ketua Tim</label>
-                                <input type="text" class="form-control" id="nim" name="nim_ketua" required>
+                                <input type="text" class="form-control" id="nim" name="nim_ketua"
+                                    value="{{ auth()->user()->nim }}" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="fakultas" class="form-label">Fakultas</label>
@@ -163,7 +165,7 @@
                                 <label for="province">Provinsi:</label>
                                 <select class="form-select" id="province" name="province"
                                     aria-label="Default select example" required>
-                                   
+
                                 </select>
                             </div>
                             <div class="mb-1">
@@ -244,29 +246,41 @@
                                 <div class="team-member">
                                     <div class="row g-2">
                                         <div class="col-lg-2 mb-3">
-                                            <label for="nama" class="form-label">Nama</label>
-                                            <input type="text" id="nama" name="anggota_tim[0][nama]"
-                                                class="form-control">
-                                        </div>
-                                        <div class="col-lg-2 mb-3">
                                             <label for="nim" class="form-label">NIM</label>
                                             <input type="text" id="nim" name="anggota_tim[0][nim]"
-                                                class="form-control">
+                                                class="form-control" value="{{ auth()->user()->nim }}" readonly>
                                         </div>
                                         <div class="col-lg-2 mb-3">
-                                            <label for="prodi" class="form-label">Prodi</label>
-                                            <input type="text" id="prodi" name="anggota_tim[0][prodi]"
-                                                class="form-control">
+                                            <label for="nama" class="form-label">Nama</label>
+                                            <input type="text" id="nama" name="anggota_tim[0][nama]"
+                                                class="form-control" value="{{ auth()->user()->name }}" readonly>
                                         </div>
                                         <div class="col-lg-2 mb-3">
                                             <label for="fakultas" class="form-label">Fakultas</label>
-                                            <input type="text" id="fakultas" name="anggota_tim[0][fakultas]"
-                                                class="form-control">
+                                            <select class="form-select" name="anggota_tim[0][fakultas]" id="fakultas"
+                                                required>
+                                                <option value="" selected="selected" hidden="hidden">Pilih Fakultas
+                                                </option>
+                                                @foreach ($fakultas as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2 mb-3">
+                                            <label for="prodi" class="form-label">Program Studi</label>
+                                            <select class="form-select" name="anggota_tim[0][prodi]" id="prodi"
+                                                required>
+                                                <option value="" selected="selected" hidden="hidden">Pilih Program
+                                                    Studi</option>
+                                                @foreach ($program_studi as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-lg-2 mb-3">
                                             <label for="jabatan" class="form-label">Jabatan</label>
                                             <input type="text" id="jabatan" name="anggota_tim[0][jabatan]"
-                                                class="form-control">
+                                                class="form-control" value="Ketua" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -466,6 +480,10 @@
     </script>
     <script>
         let memberCount = 1;
+        const fakultas = @json($fakultas);
+        const programStudi = @json($program_studi);
+
+
 
         function addTeamMember() {
             if (memberCount >= 13) {
@@ -474,34 +492,40 @@
             }
 
             const template = `
-        <div class="team-member">
-            <div class="row g-2">
-                <div class="col-lg-2 mb-3">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" name="anggota_tim[${memberCount}][nama]" class="form-control">
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <label for="nim" class="form-label">NIM</label>
-                    <input type="text" name="anggota_tim[${memberCount}][nim]" class="form-control">
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <label for="prodi" class="form-label">Prodi</label>
-                    <input type="text" name="anggota_tim[${memberCount}][prodi]" class="form-control">
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <label for="fakultas" class="form-label">Fakultas</label>
-                    <input type="text" name="anggota_tim[${memberCount}][fakultas]" class="form-control">
-                </div>
-                <div class="col-lg-2 mb-3">
-                    <label for="jabatan" class="form-label">Jabatan</label>
-                    <input type="text" name="anggota_tim[${memberCount}][jabatan]" class="form-control">
-                </div>
-                <div class="col-lg-2 mb-3 d-flex align-items-end">
-                    <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
+            <div class="team-member">
+                <div class="row g-2">
+                    <div class="col-lg-2 mb-3">
+                        <label for="nim" class="form-label">NIM</label>
+                         <input type="text" id="nim" name="anggota_tim[${memberCount}][nim]" class="form-control">
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <label for="nama" class="form-label">Nama</label>
+                        <input type="text"  id="nama" name="anggota_tim[${memberCount}][nama]" class="form-control" readonly>
+                    </div>     
+                    <div class="col-lg-2 mb-3">
+                        <label for="fakultas" class="form-label">Fakultas</label>
+                        <select class="form-select" name="anggota_tim[${memberCount}][fakultas]" id="fakultas" required>
+                            <option value="" selected="selected" hidden="hidden">Pilih Fakultas</option>
+                            ${fakultas.map(item => `<option value="${item.id}">${item.nama}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <label for="prodi" class="form-label">Program Studi</label>
+                        <select class="form-select" name="anggota_tim[${memberCount}][prodi]" id="prodi" required>
+                            <option value="" selected="selected" hidden="hidden">Pilih Program Studi</option>
+                            ${programStudi.map(item => `<option value="${item.id}">${item.nama}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <label for="jabatan" class="form-label">Jabatan</label>
+                        <input type="text" name="anggota_tim[${memberCount}][jabatan]" class="form-control">
+                    </div>
+                    <div class="col-lg-2 mb-3 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
+        `;
 
             document.getElementById('team-members').insertAdjacentHTML('beforeend', template);
             memberCount++;
@@ -514,6 +538,132 @@
             }
             memberCount--;
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle untuk semua input NIM yang ada dan yang akan ditambahkan
+            document.body.addEventListener('input', function(e) {
+                if (e.target && e.target.id === 'nim') {
+                    handleNimSearch(e.target);
+                }
+            });
+        });
+
+        function handleNimSearch(nimInput) {
+            const parentDiv = nimInput.closest('.team-member');
+            const namaInput = parentDiv.querySelector('#nama');
+
+            // Dapatkan nilai NIM
+            const nim = nimInput.value.trim();
+
+            // Hanya lakukan pencarian jika NIM memiliki panjang yang cukup
+            if (nim.length >= 5) { // Sesuaikan dengan panjang minimum NIM
+                // Tambahkan loading indicator
+                nimInput.classList.add('loading');
+
+                // Persiapkan headers
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+
+                // Tambahkan CSRF token jika tersedia
+                const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                if (csrfToken) {
+                    headers['X-CSRF-TOKEN'] = csrfToken.content;
+                }
+
+                // Lakukan AJAX request
+                fetch(`/search-users?nim=${nim}`, {
+                        method: 'GET',
+                        headers: headers
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status && data.name) {
+                            // Isi otomatis field nama
+                            namaInput.value = data.name;
+                            showSuccess('Data ditemukan', parentDiv, 'alert-successs');
+
+                        } else {
+                            // Reset field jika data tidak ditemukan
+                            namaInput.value = '';
+                            // Tampilkan pesan error
+                            if (data.is_registered) {
+                                showError('NIM sudah Mendaftar Program', parentDiv, 'alert-warning');
+                            } else {
+                                showError('Data mahasiswa tidak ditemukan', parentDiv, 'alert-danger');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showError('Terjadi kesalahan saat mencari data');
+                    })
+                    .finally(() => {
+                        // Hapus loading indicator
+                        nimInput.classList.remove('loading');
+                    });
+            } else {
+                // Reset field jika NIM terlalu pendek
+                namaInput.value = '';
+            }
+        }
+
+        // Fungsi untuk menampilkan error
+        function showError(message, parentElement, className = 'alert-danger') {
+            // Hapus error yang sudah ada
+            removeError(parentElement);
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = `alert ${className} mt-2 error-message`;
+            errorDiv.textContent = message;
+
+            // Tambahkan pesan error baru
+            parentElement.appendChild(errorDiv);
+
+            // Hapus pesan error setelah beberapa detik
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 3000);
+        }
+
+        function showSuccess(message, parentElement, className = 'alert-success') {
+            // Hapus error yang sudah ada
+            removeError(parentElement);
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = `alert ${className} mt-2 error-message`;
+            errorDiv.textContent = message;
+
+            // Tambahkan pesan error baru
+            parentElement.appendChild(errorDiv);
+
+            // Hapus pesan error setelah beberapa detik
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 3000);
+        }
+
+        function removeError(parentElement) {
+            const existingError = parentElement.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+
+
+        // Tambahkan CSS untuk loading indicator
+        const style = document.createElement('style');
+        style.textContent = `
+            .loading {
+                background-image: url('data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==');
+                background-repeat: no-repeat;
+                background-position: right center;
+                background-size: 20px 20px;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 
     <script>

@@ -8,6 +8,8 @@ use App\Models\Fakultas;
 use App\Models\Ormawa;
 use App\Models\ProgramStudi;
 use App\Models\Registration;
+use App\Models\TeamMember;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -25,8 +27,9 @@ class regisProgramController extends Controller
             'data' => Registration::with('registration_validation')->where('user_id', auth()->user()->id)->get(),
         ]);
     }
-    public function show($id){
-        return view('mahasiswa.cekPendaftaran',[
+    public function show($id)
+    {
+        return view('mahasiswa.cekPendaftaran', [
             'data' => Registration::with('registration_validation')->where('id', $id)->first()
         ]);
     }
@@ -54,15 +57,6 @@ class regisProgramController extends Controller
                     // Store in session for next stepif
                     // Registration::create($validatedData);
                     $request->session()->put('registration_step1', $validatedData);
-
-                    // if ($result) {
-                    //     return 'berhasil';
-                    // } else {
-                    //     return response()->json([
-                    //         'success' => false,
-                    //         'message' => 'kontol: '
-                    //     ], 500);
-                    // }
                     break;
 
                 case 2:
@@ -165,10 +159,10 @@ class regisProgramController extends Controller
                 'validator_id' => '', // misalnya pengguna yang memvalidasi
             ]);
             $registrationData->lokasi()->create([
-                'province' => $step1Data['province'], 
+                'province' => $step1Data['province'],
                 'regency' => $step1Data['regency'],
-                'district' => $step1Data['district'], 
-                'village' => $step1Data['village'], 
+                'district' => $step1Data['district'],
+                'village' => $step1Data['village'],
             ]);
 
             // Hapus data dari session setelah berhasil disimpan
@@ -190,5 +184,37 @@ class regisProgramController extends Controller
 
         // Redirect ke halaman dashboard mahasiswa
         // return redirect()->route('mahasiswa.dashboard')->with('success', 'Registrasi berhasil disimpan.');
+    }
+    public function search(Request $request)
+    {
+        $nim = $request->input('nim');
+    
+        // Cari user berdasarkan NIM
+        $user = User::where('nim', $nim)->first();
+        
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+                'status' => 'error',
+            ]);
+        }
+        
+        // Cek apakah NIM sudah terdaftar di tabel registration
+        $isRegistered = TeamMember::where('nim', $nim)->exists();
+        
+        if ($isRegistered) {
+            return response()->json([
+                'message' => 'NIM sudah terdaftar dalam kompetisi',
+                'status' => 'error',
+                'is_registered' => true
+            ]);
+        }
+        
+        // Jika user ditemukan dan belum terdaftar
+        return response()->json([
+            'name' => $user->name,
+            'status' => 'success',
+            'is_registered' => false
+        ]);
     }
 }

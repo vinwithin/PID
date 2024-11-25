@@ -29,6 +29,14 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                             <div class="form-group">
+                                <label for="nim">NIM</label>
+                                <input type="text" class="form-control @error('nim') is-invalid @enderror"
+                                    id="nim" name="nim" value="{{ old('nim') }}" required>
+                            </div>
+                            @error('nim')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            <div class="form-group">
                                 <label for="email">Email Address</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     id="email" name="email" value="{{ old('email') }}" required>
@@ -56,7 +64,7 @@
                            
 
                             <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </form>
                     </div>
                 </div>

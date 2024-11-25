@@ -94,5 +94,6 @@ Route::middleware('auth')->group(function () {
         $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/villages/{$districtId}.json");
         return response()->json($response->json());
     });
+    Route::get('/search-users', [regisProgramController::class, 'search'])->name('users.search');
 });
 

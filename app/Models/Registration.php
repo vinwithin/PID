@@ -35,4 +35,8 @@ class Registration extends Model
     {
         return $this->belongsTo(Bidang::class);
     }
+    public function reviewAssignments()
+    {
+        return $this->hasMany(ReviewAssignment::class, 'registration_id');
+    }
 }
