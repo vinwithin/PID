@@ -74,20 +74,20 @@
                     <li class="sidebar-header">
                         Laporan Akhir
                     </li>
-                    <li class="sidebar-item {{ Request::is('') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('publikasi') }}">
+                    <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
                             <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
                                 Teknis</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ Request::is('') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('publikasi') }}">
+                    <li class="sidebar-item {{ Request::is('dokumen-publikasi*') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('dokumen-publikasi') }}">
                             <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Dokumen
                                 Publikasi</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ Request::is('') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('publikasi') }}">
+                    <li class="sidebar-item {{ Request::is('dokumentasi-kegiatan*') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('dokumentasi-kegiatan') }}">
                             <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Dokumentasi
                                 Kegiatan</span>
                         </a>

@@ -24,7 +24,6 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [loginController::class, 'store'])->name('login.create');
     Route::get('/register', [registerController::class, 'index'])->name('register');
     Route::post('/register', [registerController::class, 'store'])->name('register.create');
-
 });
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
 Route::get('/daftar-publikasi', [berandaController::class, 'detailPublikasi'])->name('daftar-publikasi');
@@ -40,10 +39,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('publikasi.tambah');
 
         Route::get('/dokumen-teknis', [DokumenTeknisController::class, 'index'])->name('dokumen-teknis');
+        Route::post('/dokumen-teknis', [DokumenTeknisController::class, 'store'])->name('dokumen-teknis');
         Route::get('/dokumen-publikasi', [DokumenPublikasiController::class, 'index'])->name('dokumen-publikasi');
+        Route::post('/dokumen-publikasi', [DokumenPublikasiController::class, 'store'])->name('dokumen-publikasi');
         Route::get('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'index'])->name('dokumentasi-kegiatan');
-
-
+        Route::post('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'store'])->name('dokumentasi-kegiatan');
     });
     Route::middleware(['can:edit publication'])->group(function () {
         Route::get('/publikasi/edit/{id}', [publikasiController::class, 'edit'])->name('publikasi.edit');
@@ -55,7 +55,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:agree publication'])->group(function () {
         Route::get('/publikasi/approve/{id}', [publikasiController::class, 'approve'])->name('publikasi.approve');
         Route::get('/publikasi/cari', [publikasiController::class, 'filter'])->name('publikasi.search');
-
     });
     Route::middleware(['can:assessing proposal'])->group(function () {
         Route::get('/reviewer/nilai/{id}', [ProposalReviewController::class, 'index'])->name('reviewer.nilai');
@@ -80,10 +79,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
         Route::get('/program/cek/{id}', [regisProgramController::class, 'show'])->name('program.cek');
+        Route::get('/search-users', [regisProgramController::class, 'search'])->name('users.search');
     });
 
 
-    
+
     Route::get('/api/provinces', function () {
         $response = Http::get('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
         return response()->json($response->json());
@@ -92,18 +92,16 @@ Route::middleware('auth')->group(function () {
         $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{$provinceId}.json");
         return response()->json($response->json());
     });
-    
+
     // Untuk Kecamatan
     Route::get('/api/districts/{regencyId}', function ($regencyId) {
         $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/districts/{$regencyId}.json");
         return response()->json($response->json());
     });
-    
+
     // Untuk Desa
     Route::get('/api/villages/{districtId}', function ($districtId) {
         $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/villages/{$districtId}.json");
         return response()->json($response->json());
     });
-    Route::get('/search-users', [regisProgramController::class, 'search'])->name('users.search');
 });
-
