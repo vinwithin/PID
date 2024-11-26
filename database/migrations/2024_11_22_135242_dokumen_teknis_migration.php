@@ -19,12 +19,6 @@ return new class extends Migration
             $table->string('status_publikasi');
             $table->string('file_proposal');
             $table->string('file_laporan_keuangan');
-
-            $table->string('file_artikel');
-            $table->string('status_artikel');
-            $table->string('link_artikel');
-            $table->string('file_haki');
-            $table->string('status_haki');
            
             $table->timestamps();
         });

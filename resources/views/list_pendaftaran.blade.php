@@ -68,8 +68,8 @@
                                     @if ($item->registration_validation->status === 'Belum valid')
                                         <a href="{{ route('approve', ['id' => $item->id]) }}"
                                             class="btn btn-success">Setujui</a>
-                                    @elseif ($item->registration_validation->status === 'valid' && count($totalId) > 1)
-                                        <a href="/approve-to-program/{{$item->id}}" class="btn btn-success">LOLOS</a>
+                                    @elseif ($item->registration_validation->status === 'valid' && count($totalId[$item->id]) >= 2)
+                                        <a href="/approve-to-program/{{ $item->id }}" class="btn btn-success">LOLOS</a>
                                     @endif
                                     @can('assessing proposal')
                                         @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
@@ -89,35 +89,9 @@
 
                     </tbody>
                 </table>
-            @elserole('reviewer')
+                @elserole('reviewer')
                 <div class="card-header">
-                    {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-                    {{-- <form method="GET" action="{{ route('pendaftaran.search') }}">
-                        <label class="form-label">Filter berdasarkan status:</label>
-                        <div class="d-flex align-items-center">
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="Belum valid"
-                                    id="filterManager">
-                                <label class="form-check-label" for="filterManager">Belum Valid</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="valid"
-                                    id="filterEngineer">
-                                <label class="form-check-label" for="filterEngineer">Valid</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos tahap 3"
-                                    id="filterAnalyst1">
-                                <label class="form-check-label" for="filterAnalyst1">Lolos Tahap 3</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos program"
-                                    id="filterAnalyst2">
-                                <label class="form-check-label" for="filterAnalyst2">Lolos Program</label>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
-                    </form> --}}
+
                 </div>
                 <table class="table table-hover my-0">
                     <thead>
@@ -143,11 +117,7 @@
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
                                 <td>
                                     @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                        @foreach ($totalId[$item->id] as $val => $value)
-                                            <ul>
-                                                <li>{{ $value }}</li>
-                                            </ul>
-                                        @endforeach
+                                       <span class="badge bg-primary text-center">{{ $totalId[$item->id][auth()->user()->name] }}</span> 
                                     @else
                                         <p class="badge bg-warning">{{ $item->reviewAssignments[0]->status }}</p>
                                     @endif

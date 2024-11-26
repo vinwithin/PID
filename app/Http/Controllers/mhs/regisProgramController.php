@@ -23,8 +23,11 @@ class regisProgramController extends Controller
             'fakultas' => Fakultas::all(),
             'program_studi' => ProgramStudi::all(),
             'ormawa' => Ormawa::all(),
-            'registrationExists' => Registration::where('user_id', auth()->user()->id)->exists(),
-            'data' => Registration::with('registration_validation')->where('user_id', auth()->user()->id)->get(),
+            'registrationExists' => TeamMember::where('nim', auth()->user()->nim)->exists(),
+            'data' => Registration::with('registration_validation')
+                ->whereHas('teamMembers', function ($query) {
+                    $query->where('nim', auth()->user()->nim);  // Cek apakah NIM ada di tabel teammember
+                })->get()
         ]);
     }
     public function show($id)
@@ -188,20 +191,20 @@ class regisProgramController extends Controller
     public function search(Request $request)
     {
         $nim = $request->input('nim');
-    
+
         // Cari user berdasarkan NIM
         $user = User::where('nim', $nim)->first();
-        
+
         if (!$user) {
             return response()->json([
                 'message' => 'User not found',
                 'status' => 'error',
             ]);
         }
-        
+
         // Cek apakah NIM sudah terdaftar di tabel registration
         $isRegistered = TeamMember::where('nim', $nim)->exists();
-        
+
         if ($isRegistered) {
             return response()->json([
                 'message' => 'NIM sudah terdaftar dalam kompetisi',
@@ -209,7 +212,7 @@ class regisProgramController extends Controller
                 'is_registered' => true
             ]);
         }
-        
+
         // Jika user ditemukan dan belum terdaftar
         return response()->json([
             'name' => $user->name,

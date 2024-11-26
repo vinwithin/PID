@@ -2471,6 +2471,7 @@ textarea.form-control-lg {
         transition: none;
     }
 }
+
 .form-floating > .form-control,
 .form-floating > .form-control-plaintext {
     padding: 1rem 0.85rem;
@@ -12199,7 +12200,7 @@ a.sidebar-link svg {
 .sidebar-header {
     background: transparent;
     color: black;
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     padding: 1.5rem 1.5rem 0.375rem;
 }
 .sidebar-badge {

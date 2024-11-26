@@ -65,7 +65,6 @@ class listPendaftaranController extends Controller
         $rubrik = ProposalReviewController::calculateScoresById($id);
         $total = ProposalReviewController::calculateScoresById($id);
         $bobot = ProposalReviewController::calculateScoresById($id);
-        // dd($total['total']);
 
         return view('pendaftaran.nilai', [
             'data_review' => ReviewAssignment::where('registration_id', $id)->get(),

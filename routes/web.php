@@ -6,6 +6,9 @@ use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
 use App\Http\Controllers\berandaController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\DokumenKegiatanController;
+use App\Http\Controllers\DokumenPublikasiController;
+use App\Http\Controllers\DokumenTeknisController;
 use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
@@ -35,6 +38,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('publikasi.tambah');
         Route::get('/publikasi/detail/{id}', [publikasiController::class, 'detail'])->name('publikasi.detail');
         Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('publikasi.tambah');
+
+        Route::get('/dokumen-teknis', [DokumenTeknisController::class, 'index'])->name('dokumen-teknis');
+        Route::get('/dokumen-publikasi', [DokumenPublikasiController::class, 'index'])->name('dokumen-publikasi');
+        Route::get('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'index'])->name('dokumentasi-kegiatan');
+
+
     });
     Route::middleware(['can:edit publication'])->group(function () {
         Route::get('/publikasi/edit/{id}', [publikasiController::class, 'edit'])->name('publikasi.edit');
