@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('dokumen_teknis', function (Blueprint $table) {
             $table->id();
+            $table->string('team_id');
             $table->string('file_manual');
             $table->string('status_manual');
             $table->string('file_bukti_publikasi');

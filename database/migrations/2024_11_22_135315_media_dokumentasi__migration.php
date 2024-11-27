@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('media_dokumentasi', function (Blueprint $table) {
             $table->id();
+            $table->string('team_id');
             $table->string('link_youtube');
             $table->string('link_social_media');
             $table->string('link_dokumentasi');

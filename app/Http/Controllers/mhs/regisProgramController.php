@@ -80,9 +80,6 @@ class regisProgramController extends Controller
                     $request->session()->put('registration_step2', $filePaths);
                     break;
 
-
-
-
                 case 3:
                     $validatedData = $request->validate([
                         'anggota_tim' => 'required|array|min:1|max:13',
@@ -95,11 +92,6 @@ class regisProgramController extends Controller
                     $request->session()->put('registration_step3', $validatedData);
                     break;
             }
-            // return response()->json([
-            //     'success' => true,
-            //     'message' => 'Step ' . $step . ' saved successfully'
-            // ]);
-
 
         } catch (\Exception $e) {
             return response()->json([
@@ -111,8 +103,6 @@ class regisProgramController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $request->session()->put('registration_step4', $request->all());
         try {
             // Validasi data input dari form
             $validatedData = $request->validate([

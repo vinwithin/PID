@@ -23,4 +23,8 @@ class TeamMember extends Model
     {
         return $this->belongsTo(ProgramStudi::class, 'prodi');
     }
+    public function user()
+    {
+        return $this->hasMany(User::class, 'nim');
+    }
 }

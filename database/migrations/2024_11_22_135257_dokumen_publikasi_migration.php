@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('dokumen_publikasi', function (Blueprint $table) {
             $table->id();
+            $table->string('team_id');
             $table->string('file_artikel');
             $table->string('status_artikel');
             $table->string('link_artikel');

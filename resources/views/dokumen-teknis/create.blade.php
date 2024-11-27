@@ -10,7 +10,7 @@
                 <!-- Step Indicator -->
 
 
-                <form id="editorForm" method="POST" action="{{ route('publikasi.tambah') }}" enctype="multipart/form-data">
+                <form id="editorForm" method="POST" action="{{ route('dokumen-teknis') }}" enctype="multipart/form-data">
                     @csrf
                     <p>Dokumen Manual/Panduan</p>
                     <div class="input-group mb-3">
