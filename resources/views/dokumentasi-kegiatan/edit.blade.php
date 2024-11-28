@@ -7,7 +7,7 @@
                 <h3>Publikasi Dokumentasi Kegiatan</h3>
             </div>
             <div class="card-body">
-                <form id="editorForm" method="POST" action="/dokumentasi-kegiatan/update/{{$data->id}}" enctype="multipart/form-data">
+                <form method="POST" action="/dokumentasi-kegiatan/update/{{$data->id}}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="link_youtube" class="form-label">Link Tautan Video Youtube</label>

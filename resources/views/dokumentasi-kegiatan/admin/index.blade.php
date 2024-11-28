@@ -11,6 +11,7 @@
                     <thead class="table-light">
                         <tr>
                             <th style="width: 5%">No</th>
+                            <th style="width: 15%">Tim</th>
                             <th style="width: 20%" class="text-center">Link Tautan Video Youtube</th>
                             <th style="width: 20%" class="text-center">Tautan Sosial Media</th>
                             <th style="width: 20%" class="text-center">Link/tautan Google Drive dokumentasi kegiatan</th>
@@ -21,10 +22,36 @@
                         @foreach ($dataAdmin as $item)
                             <tr>
                                 <td >{{$loop->iteration}}</td>
-                                <td rowspan="2" class="text-center"><a href="{{$item->link_youtube}}" class="btn btn-warning" target="_blank">Link Youtube</a></td>
-                                <td rowspan="2" class="text-center"><a href="{{$item->link_social_media}}" class="btn btn-warning" target="_blank">Link Youtube</a></td>
-                                <td rowspan="2" class="text-center"><a href="{{$item->link_dokumentasi}}" class="btn btn-warning" target="_blank">Link Youtube</a></td>
-                                <td rowspan="2" class="text-center"><a href="/dokumentasi-kegiatan/edit/{{$item->id}}" class="btn btn-primary">Edit</a></td>
+                                <td class="fw-bold text-center">Tim {{ $item->judul }}</td>
+                                <td class="text-center">
+                                    @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_youtube)
+                                        <a href="{{$item->link_youtube}}" class="btn btn-success" target="_blank">Link Youtube</a>
+                                    @else
+                                        <span class="badge bg-danger">Belum Upload</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_social_media)
+                                        <a href="{{$item->link_social_media}}" class="btn btn-success" target="_blank">Link Youtube</a>
+                                    @else
+                                        <span class="badge bg-danger">Belum Upload</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
+                                        <a href="{{$item->link_dokumentasi}}" class="btn btn-success" target="_blank">Link Youtube</a>
+                                    @else
+                                        <span class="badge bg-danger">Belum Upload</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
+                                        <a href="/dokumentasi-kegiatan/{{$item->dokumentasiKegiatan->id}}" class="btn btn-primary">Lihat</a>
+                                        <a href="/dokumentasi-kegiatan/edit/{{$item->dokumentasiKegiatan->id}}" class="btn btn-warning">Edit</a>
+                                    @else
+                                        
+                                    @endif
+                                </td>
                             </tr>
                            
                         @endforeach

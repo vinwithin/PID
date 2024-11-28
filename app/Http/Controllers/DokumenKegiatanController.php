@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DokumentasiKegiatan;
+use App\Models\Registration;
 use App\Models\User;
 use App\Services\teamIdService;
 use Illuminate\Http\Request;
@@ -17,7 +18,10 @@ class DokumenKegiatanController extends Controller
     }
     public function index(){
         return view('dokumentasi-kegiatan.create',[
-            'dataAdmin' => DokumentasiKegiatan::with('teamMembers')->get(),
+           'dataAdmin' => Registration::with(['dokumentasiKegiatan', 'registration_validation'])
+            ->whereHas('registration_validation', function ($query) {
+                $query->where('status', 'lolos');
+            })->get(),
             'data' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->get(),
             'dokumenExist' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId()) 
                 ->exists()

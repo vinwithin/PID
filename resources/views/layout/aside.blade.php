@@ -121,10 +121,18 @@
                             Kegiatan</span>
                     </a>
                 </li>
+                <li class="sidebar-header">
+                    Kelola Konten
+                </li>
                 <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('publikasi') }}">
                         <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
                             Artikel</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('publikasi') }}">
+                        <i class="align-middle" data-feather="video"></i> <span class="align-middle">Konten Video</span>
                     </a>
                 </li>
             @endrole

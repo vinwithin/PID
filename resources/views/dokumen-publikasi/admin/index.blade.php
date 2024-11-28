@@ -10,26 +10,60 @@
                 <table class="table table-bordered">
                     <thead class="table-light">
                         <tr>
-                            <th style="width: 10%">Konten</th>
-                            <th style="width: 20%" class="text-center">File draf Artikel Berita Media Massa</th>
-                            <th style="width: 20%" class="text-center">Bukti Ketercapaian HAKI (Sertifikat Haki/Draft Pendaftaran HAKI)</th>
-                            <th style="width: 20%" class="text-center">Link Artikel</th>
+                            <th style="width: 5%" class="text-center">No</th>
+                            <th style="width: 15%" class="text-center">Tim</th>
+                            <th style="width: 15%" class="text-center">Konten</th>
+                            <th style="width: 15%" class="text-center">File draf Artikel Berita Media Massa</th>
+                            <th style="width: 15%" class="text-center">Bukti Ketercapaian HAKI (Sertifikat Haki/Draft Pendaftaran HAKI)</th>
+                            <th style="width: 15%" class="text-center">Link Artikel</th>
                             <th style="width: 15%" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($dataAdmin as $item)
                             <tr>
+                                <td rowspan="2" class="text-center">{{ $loop->iteration }}</td>
+                                <td rowspan="2" class="fw-bold text-center">Tim {{ $item->judul }}</td>
                                 <td >Dokumen</td>
-                                <td class="text-center"><a href="{{ asset('storage/dokumen-publikasi/' . $item->file_artikel) }}" class="btn btn-warning" target="_blank">Lihat File</a></td>
-                                <td class="text-center"><a href="{{ asset('storage/dokumen-publikasi/' . $item->file_haki) }}" class="btn btn-warning" target="_blank">Lihat File</a></td>
-                                <td rowspan="2" class="text-center"><a href="{{$item->link_artikel}}" class="btn btn-warning" target="_blank">Link Artikel</a></td>
-                                <td rowspan="2" class="text-center"><a href="/dokumen-publikasi/edit/{{$item->id}}" class="btn btn-primary">Edit</a></td>
+                                <td class="text-center">
+                                    @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_artikel)
+                                        <a href="{{ asset('storage/dokumen-publikasi/' . $item->file_artikel) }}" class="btn btn-success" target="_blank">Lihat File</a></td>
+                                    @else
+                                        <span class="badge bg-danger">Belum Upload</span>
+                                    @endif
+                                <td class="text-center">
+                                    @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_haki)
+                                        <a href="{{ asset('storage/dokumen-publikasi/' . $item->file_haki) }}" class="btn btn-success" target="_blank">Lihat File</a></td>
+                                    @else
+                                        <span class="badge bg-danger">Belum Upload</span>
+                                    @endif
+                                <td rowspan="2" class="text-center">
+                                    @if ($item->dokumenPublikasi && $item->dokumenPublikasi->link_artikel)
+                                        <a href="{{$item->link_artikel}}" class="btn btn-success" target="_blank">Link Artikel</a></td>
+                                    @else
+                                        <span class="badge bg-danger">Belum Upload</span>
+                                    @endif
+                                <td rowspan="2" class="text-center">
+                                    @if ($item->dokumenTeknis)
+                                        <a href="/dokumen-publikasi/{{$item->dokumenPublikasi->id}}" class="btn btn-primary">Lihat</a>
+
+                                        <a href="/dokumen-publikasi/edit/{{$item->dokumenPublikasi->id}}" class="btn btn-warning">Edit</a>
+                                    @else                                    
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Status</td>
-                                <td class="text-center"><span class="badge bg-primary">{{$item->status_artikel}}</span></td>
-                                <td class="text-center"><span class="badge bg-primary">{{$item->status_haki}}</span></td>
+                                <td class="text-center">
+                                    <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
+                                        {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_artikel : 'Belum Upload' }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
+                                        {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_haki : 'Belum Upload' }}
+                                    </span>
+                                </td>
                                 
                             </tr>
                         @endforeach

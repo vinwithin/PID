@@ -66,4 +66,12 @@ class Registration extends Model
     {
         return $this->hasOne(DokumenTeknis::class, 'team_id');
     }
+    public function dokumenPublikasi()
+    {
+        return $this->hasOne(DokumenPublikasi::class, 'team_id');
+    }
+    public function dokumentasiKegiatan()
+    {
+        return $this->hasOne(DokumentasiKegiatan::class, 'team_id');
+    }
 }

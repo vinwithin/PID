@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DokumenPublikasi;
+use App\Models\Registration;
 use App\Services\DokumenPublikasiService;
 use App\Services\teamIdService;
 use Illuminate\Http\Request;
@@ -19,7 +20,10 @@ class DokumenPublikasiController extends Controller
     }
     public function index(){
         return view('dokumen-publikasi.create',[
-            'dataAdmin' => DokumenPublikasi::with('teamMembers')->get(),
+            'dataAdmin' => Registration::with(['dokumenPublikasi', 'registration_validation'])
+            ->whereHas('registration_validation', function ($query) {
+                $query->where('status', 'lolos');
+            })->get(),
             'data' => DokumenPublikasi::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->get(),
             'dokumenExist' => DokumenPublikasi::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId()) 
             ->exists()
