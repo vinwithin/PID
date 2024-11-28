@@ -52,7 +52,7 @@
                                 <tr>
                                     <td>Skor Total</td>
 
-                                    <td class="text-center" colspan="2">{{ $total[auth()->user()->name] ?? '-' }}</td>
+                                    <td class="text-center" colspan="2">{{ $total[$reviewer] ?? '-' }}</td>
                                 </tr>
 
                                 {{-- Feedback --}}
@@ -129,7 +129,7 @@
                             <tr>
                                 <td>Feedback</td>
                                 {{-- {{dd($data_review)}} --}}
-                                <td colspan="2">{{ $data_review[0]->feedback ?? 'Tidak ada feedback' }}</td>
+                                <td colspan="2">{{ $dataReviewId[0]->feedback }}</td>
                             </tr>
                             {{-- Reviewer --}}
                             <tr>

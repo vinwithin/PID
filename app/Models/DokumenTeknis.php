@@ -17,4 +17,12 @@ class DokumenTeknis extends Model
         'file_proposal',
         'file_laporan_keuangan',
     ];
+    public function teamMembers()
+    {
+        return $this->belongsTo(TeamMember::class, 'team_id');
+    }
+    public function registration()
+    {
+        return $this->belongsTo(Registration::class, 'team_id');
+    }
 }

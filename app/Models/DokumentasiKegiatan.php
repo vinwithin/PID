@@ -14,4 +14,8 @@ class DokumentasiKegiatan extends Model
         'link_social_media',
         'link_dokumentasi',
     ];
+    public function teamMembers()
+    {
+        return $this->belongsTo(TeamMember::class, 'team_id');
+    }
 }

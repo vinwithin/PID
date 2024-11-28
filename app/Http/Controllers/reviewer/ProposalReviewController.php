@@ -43,6 +43,7 @@ class ProposalReviewController extends Controller
         foreach ($total as $val => $value) {
             $totalScores[$val] = array_sum($value);
         }
+
         return [
             'total' => $totalScores,
             'bobot' => $bobot,
@@ -65,37 +66,44 @@ class ProposalReviewController extends Controller
         foreach (Sub_kriteria_penilaian::with('kriteria_penilaian', 'proposal_score')->get() as $value) {
             if ($value->proposal_score->isNotEmpty()) {
                 foreach ($value->proposal_score as $proposalScore) {
-                    $nilais[$proposalScore->user->name][$value->kriteria_penilaian_id][$value->id] = $proposalScore->nilai;
+                    $nilais[$proposalScore->registration_id][$proposalScore->user->name][$value->kriteria_penilaian_id][$value->id] = $proposalScore->nilai;
                     $totalId[$proposalScore->registration_id] = [];
                 }
             }
         }
-        foreach ($nilais as $key => $value) {
-            foreach ($value as $val => $v) {
-                foreach ($v as $k => $nilai) {
-                    $jumlah[$key][$val][$k] = $nilai * $kriterias[$val];
+        foreach ($nilais as $key => $values) {
+            foreach ($values as $id => $value) {
+                foreach ($value as $val => $v) {
+                    foreach ($v as $k => $nilai) {
+                        $jumlah[$key][$id][$val][$k] = $nilai * $kriterias[$val];
+                    }
                 }
             }
         }
-        foreach ($jumlah as $key => $val) {
-            foreach ($val as $k => $v) {
-                $total[$key][$k] = array_sum($v);
+        foreach ($jumlah as $id => $values) {
+            foreach ($values as $key => $value) {
+                foreach ($value as $k => $val) {
+                    $total[$id][$key][$k] = array_sum($val);
+                }
             }
-        }
-        foreach ($total as $val => $value) {
-            $totalScores[$val] = array_sum($value);
         }
 
-        foreach ($totalId as $key => $k) {
-            foreach ($total as $value => $val) {
-                $totalId[$key][$value] = array_sum($val);
+        foreach ($total as $key => $val) {
+            foreach ($val as $k => $v) {
+                $totalId[$key][$k] = array_sum($v);
             }
         }
+        // dd($totalId);
+
 
         return [
             'totalId' => $totalId,
         ];
     }
+
+
+
+
 
     public function index($id)
     {

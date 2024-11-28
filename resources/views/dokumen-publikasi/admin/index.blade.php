@@ -18,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($dataAdmin as $item)
                             <tr>
                                 <td >Dokumen</td>
                                 <td class="text-center"><a href="{{ asset('storage/dokumen-publikasi/' . $item->file_artikel) }}" class="btn btn-warning" target="_blank">Lihat File</a></td>

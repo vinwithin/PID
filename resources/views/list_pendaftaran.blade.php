@@ -59,7 +59,7 @@
                                             </ul>
                                         @endforeach
                                     @else
-                                        <p class="">{{ $item->reviewAssignments->status }}</p>
+                                        <p class="">Belum ada Penilaian</p>
                                     @endif
 
 
@@ -68,9 +68,10 @@
                                     @if ($item->registration_validation->status === 'Belum valid')
                                         <a href="{{ route('approve', ['id' => $item->id]) }}"
                                             class="btn btn-success">Setujui</a>
-                                    @elseif ($item->registration_validation->status === 'valid' && count($totalId[$item->id]) >= 2)
+                                    @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
                                         <a href="/approve-to-program/{{ $item->id }}" class="btn btn-success">LOLOS</a>
                                     @endif
+
                                     @can('assessing proposal')
                                         @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
                                             <a href="/reviewer/nilai/{{ $item->id }}" class="btn btn-primary">Beri Nilai</a>
@@ -117,7 +118,8 @@
                                 <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
                                 <td>
                                     @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                       <span class="badge bg-primary text-center">{{ $totalId[$item->id][auth()->user()->name] }}</span> 
+                                        <span
+                                            class="badge bg-primary text-center">{{ $totalId[$item->id][auth()->user()->name] ?? '-'}}</span>
                                     @else
                                         <p class="badge bg-warning">{{ $item->reviewAssignments[0]->status }}</p>
                                     @endif

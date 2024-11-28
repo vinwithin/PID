@@ -19,18 +19,35 @@ class DokumenPublikasiController extends Controller
     }
     public function index(){
         return view('dokumen-publikasi.create',[
-            'dokumenExist' => DokumenPublikasi::with('teamMembers')->whereHas('teamMembers', function ($query) {
-                $query->where('registration_id', $this->teamIdService->getRegistrationId()); // Cek apakah NIM ada di tabel team_member
-            })->exists()
+            'dataAdmin' => DokumenPublikasi::with('teamMembers')->get(),
+            'data' => DokumenPublikasi::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->get(),
+            'dokumenExist' => DokumenPublikasi::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId()) 
+            ->exists()
         ]);
     }
     public function store(Request $request)
     {
         $result = $this->dokumenPublikasiService->storeDokumenPublikasi($request);
         if ($result) {
-            return redirect()->route('dokumen-teknis')->with('success', 'Berhasil menambahkan data');
+            return redirect()->route('dokumen-publikasi')->with('success', 'Berhasil menambahkan data');
         } else {
-            return redirect()->route('dokumen-teknis')->with("error", "Gagal menambahkan data!");
+            return redirect()->route('dokumen-publikasi')->with("error", "Gagal menambahkan data!");
+        }
+    }
+
+    public function edit($id){
+        return view('dokumen-publikasi.edit',[
+            'data' => DokumenPublikasi::find($id),
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $result = $this->dokumenPublikasiService->updateDokumenPublikasi($request, $id);
+        if ($result) {
+            return redirect()->route('dokumen-publikasi')->with('success', 'Berhasil menambahkan data');
+        } else {
+            return redirect()->route('dokumen-publikasi')->with("error", "Gagal menambahkan data!");
         }
     }
 }

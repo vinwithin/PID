@@ -23,8 +23,13 @@ class TeamMember extends Model
     {
         return $this->belongsTo(ProgramStudi::class, 'prodi');
     }
+    public function registration()
+    {
+        return $this->hasMany(Registration::class);
+    }
     public function user()
     {
         return $this->hasMany(User::class, 'nim');
     }
+   
 }

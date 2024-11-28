@@ -12,6 +12,7 @@ use App\Models\Sub_kriteria_penilaian;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class listPendaftaranController extends Controller
 {
@@ -65,9 +66,12 @@ class listPendaftaranController extends Controller
         $rubrik = ProposalReviewController::calculateScoresById($id);
         $total = ProposalReviewController::calculateScoresById($id);
         $bobot = ProposalReviewController::calculateScoresById($id);
+        // dd($total['total']);
+
 
         return view('pendaftaran.nilai', [
             'data_review' => ReviewAssignment::where('registration_id', $id)->get(),
+            'dataReviewId' => ReviewAssignment::where('registration_id', $id)->where('reviewer_id', Auth::user()->id)->get(),
             'data' => $rubrik['rubrik'],
             'total' => $total['total'],
             'bobot' => $bobot['bobot']

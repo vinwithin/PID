@@ -17,9 +17,10 @@ class DokumenKegiatanController extends Controller
     }
     public function index(){
         return view('dokumentasi-kegiatan.create',[
-            'dokumenExist' => DokumentasiKegiatan::with('teamMembers')->whereHas('teamMembers', function ($query) {
-                $query->where('registration_id', $this->teamIdService->getRegistrationId()); // Cek apakah NIM ada di tabel team_member
-            })->exists()
+            'dataAdmin' => DokumentasiKegiatan::with('teamMembers')->get(),
+            'data' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->get(),
+            'dokumenExist' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId()) 
+                ->exists()
         ]);
     }
     public function store(Request $request){
@@ -29,8 +30,29 @@ class DokumenKegiatanController extends Controller
             'link_social_media' => 'required|string',
             'link_dokumentasi' => 'required|string',
         ]);
-        $validateData['registration_id'] = $this->teamIdService->getRegistrationId();
+        $validateData['team_id'] = $this->teamIdService->getRegistrationId();
         $result = DokumentasiKegiatan::create($validateData);
+        if ($result) {
+            return redirect()->route('dokumentasi-kegiatan')->with('success', 'Berhasil menambahkan data');
+        } else {
+            return redirect()->route('dokumentasi-kegiatan')->with("error", "Gagal menambahkan data!");
+        }
+    }
+    public function edit($id){
+        return view('dokumentasi-kegiatan.edit',[
+            'data' => DokumentasiKegiatan::find($id),
+        ]);
+    }
+
+    public function update(Request $request, $id){
+        
+        $validateData = $request->validate([
+            'link_youtube' => 'required|string',
+            'link_social_media' => 'required|string',
+            'link_dokumentasi' => 'required|string',
+        ]);
+        $validateData['team_id'] = $this->teamIdService->getRegistrationId();
+        $result = DokumentasiKegiatan::where('id', $id)->update($validateData);
         if ($result) {
             return redirect()->route('dokumentasi-kegiatan')->with('success', 'Berhasil menambahkan data');
         } else {

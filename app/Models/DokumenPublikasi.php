@@ -16,4 +16,8 @@ class DokumenPublikasi extends Model
         'file_haki',
         'status_haki',
     ];
+    public function teamMembers()
+    {
+        return $this->belongsTo(TeamMember::class, 'team_id');
+    }
 }

@@ -12,7 +12,10 @@ class teamIdService
     public function getRegistrationId()
     {
         $user = Auth::user(); // Mendapatkan pengguna yang sedang login
-        return $user->teamMembers->registration_id; // Mengembalikan id dari team_member
-
+        if ($user && $user->teamMembers) {
+            return $user->teamMembers->registration_id; // Mengembalikan id team_member
+        } else {
+            return null;
+        }
     }
 }

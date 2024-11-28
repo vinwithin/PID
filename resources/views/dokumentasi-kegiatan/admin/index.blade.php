@@ -18,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($dataAdmin as $item)
                             <tr>
                                 <td >{{$loop->iteration}}</td>
                                 <td rowspan="2" class="text-center"><a href="{{$item->link_youtube}}" class="btn btn-warning" target="_blank">Link Youtube</a></td>
