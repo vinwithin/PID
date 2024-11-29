@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publikasi;
+use App\Services\teamIdService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -12,10 +13,18 @@ use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class publikasiController extends Controller
 {
+    protected $teamIdService;
+
+    public function __construct(teamIdService $teamIdService)
+    {
+        $this->teamIdService = $teamIdService;
+    }
     public function index()
     {
         return view('publikasi.index', [
-            "data" => Publikasi::where('user_id', auth()->user()->id)->get(),
+            "data" => Publikasi::where('user_id', Auth::user()->id)
+                ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
+                ->get(),
             "dataAll" => Publikasi::all(),
         ]);
     }
@@ -52,19 +61,23 @@ class publikasiController extends Controller
         $validateData = $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'thumbnail' => 'required|image|mimes:png,jpg,jpeg|max:2024',
+            'thumbnail' => 'required|image|mimes:png,jpg,jpeg|max:3024',
         ]);
-        $validateData['user_id'] = auth()->user()->id;
+        $validateData['user_id'] = Auth::user()->id;
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         if (Auth::user()->hasRole('admin')) {
             $validateData['status'] = 'valid';
+            $validateData['team_id'] = Auth::user()->id;
         } else {
             $validateData['status'] = 'Belum valid';
+            $validateData['team_id'] = $this->teamIdService->getRegistrationId();
+
         }
         $validateData["excerpt"] =  Str::limit(strip_tags($request->content), 100);
         $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();
         $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
         $validateData['thumbnail'] = $thumbnail_name;
+
         preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
         $imageTags = $matches[0];
         if (count($imageTags) > 0) {
@@ -103,9 +116,11 @@ class publikasiController extends Controller
     {
         $validateData = $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'thumbnail' => 'image|mimes:png,jpg,jpeg|max:2024',
+
         ]);
-        $validateData['user_id'] = auth()->user()->id;
+        $validateData['user_id'] = Auth::user()->id;
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         $validateData["excerpt"] =  Str::limit(strip_tags($request->content), 100);
         if ($request->hasFile('thumbnail')) {

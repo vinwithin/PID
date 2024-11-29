@@ -27,19 +27,19 @@
                                 <td >Dokumen</td>
                                 <td class="text-center">
                                     @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_artikel)
-                                        <a href="{{ asset('storage/dokumen-publikasi/' . $item->file_artikel) }}" class="btn btn-success" target="_blank">Lihat File</a></td>
+                                        <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_artikel) }}" class="btn btn-success" target="_blank">Lihat File</a></td>
                                     @else
                                         <span class="badge bg-danger">Belum Upload</span>
                                     @endif
                                 <td class="text-center">
                                     @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_haki)
-                                        <a href="{{ asset('storage/dokumen-publikasi/' . $item->file_haki) }}" class="btn btn-success" target="_blank">Lihat File</a></td>
+                                        <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_haki) }}" class="btn btn-success" target="_blank">Lihat File</a></td>
                                     @else
                                         <span class="badge bg-danger">Belum Upload</span>
                                     @endif
                                 <td rowspan="2" class="text-center">
                                     @if ($item->dokumenPublikasi && $item->dokumenPublikasi->link_artikel)
-                                        <a href="{{$item->link_artikel}}" class="btn btn-success" target="_blank">Link Artikel</a></td>
+                                        <a href="{{$item->dokumenPublikasi->link_artikel}}" class="btn btn-success" target="_blank">Link Artikel</a></td>
                                     @else
                                         <span class="badge bg-danger">Belum Upload</span>
                                     @endif

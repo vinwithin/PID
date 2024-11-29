@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('publikasi', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('team_id');
             $table->string('status')->default('belum valid');
             $table->string('title');
             $table->string('slug');

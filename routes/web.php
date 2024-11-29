@@ -92,12 +92,9 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('/api/provinces', function () {
-        $response = Http::get('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
-        return response()->json($response->json());
-    });
-    Route::get('/api/regencies/{provinceId}', function ($provinceId) {
-        $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{$provinceId}.json");
+    
+    Route::get('/api/regencies/jambi', function () {
+        $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/15.json");
         return response()->json($response->json());
     });
 

@@ -51,7 +51,6 @@ class regisProgramController extends Controller
                         'nama_ormawa' => 'required|string',
                         'judul' => 'required|string',
                         'bidang_id' => 'required',
-                        'province' => 'required',
                         'regency' => 'required',
                         'district' => 'required',
                         'village' => 'required',
@@ -152,7 +151,6 @@ class regisProgramController extends Controller
                 'validator_id' => '', // misalnya pengguna yang memvalidasi
             ]);
             $registrationData->lokasi()->create([
-                'province' => $step1Data['province'],
                 'regency' => $step1Data['regency'],
                 'district' => $step1Data['district'],
                 'village' => $step1Data['village'],

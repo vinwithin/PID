@@ -77,7 +77,7 @@
                                 <div class="card-item swiper-slide">
                                     <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
                                         alt="User Image" class="user-image">
-                                    <h2 class="user-name">{{ $item->title }}</h2>
+                                    <h2 class="user-name  ">{{ $item->title }}</h2>
                                     <a class="message-button">Cek</a>
 
                                 </div>

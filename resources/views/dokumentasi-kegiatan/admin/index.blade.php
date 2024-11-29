@@ -25,21 +25,21 @@
                                 <td class="fw-bold text-center">Tim {{ $item->judul }}</td>
                                 <td class="text-center">
                                     @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_youtube)
-                                        <a href="{{$item->link_youtube}}" class="btn btn-success" target="_blank">Link Youtube</a>
+                                        <a href="{{$item->dokumentasiKegiatan->link_youtube}}" class="btn btn-success" target="_blank">Link Youtube</a>
                                     @else
                                         <span class="badge bg-danger">Belum Upload</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
                                     @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_social_media)
-                                        <a href="{{$item->link_social_media}}" class="btn btn-success" target="_blank">Link Youtube</a>
+                                        <a href="{{$item->dokumentasiKegiatan->link_social_media}}" class="btn btn-success" target="_blank">Link Sosial Media</a>
                                     @else
                                         <span class="badge bg-danger">Belum Upload</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
                                     @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
-                                        <a href="{{$item->link_dokumentasi}}" class="btn btn-success" target="_blank">Link Youtube</a>
+                                        <a href="{{$item->dokumentasiKegiatan->link_dokumentasi}}" class="btn btn-success" target="_blank">Link Dokumentasi</a>
                                     @else
                                         <span class="badge bg-danger">Belum Upload</span>
                                     @endif

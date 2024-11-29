@@ -162,28 +162,21 @@
                             </div>
                             <p>Pilih Lokasi</p>
                             <div class="mb-1">
-                                <label for="province">Provinsi:</label>
-                                <select class="form-select" id="province" name="province"
-                                    aria-label="Default select example" required>
-
-                                </select>
-                            </div>
-                            <div class="mb-1">
-                                <label for="regency">Kabupaten:</label>
-                                <select class="form-select" id="regency" name="regency" disabled>
+                                <label for="regency_name">Kabupaten:</label>
+                                <select class="form-select" id="regency_name" name="regency_name">
                                     <option value="">Pilih Kabupaten</option>
                                 </select>
                             </div>
                             <div class="mb-1">
 
-                                <label for="district">Kecamatan:</label>
-                                <select class="form-select" id="district" name="district" disabled>
+                                <label for="district_name">Kecamatan:</label>
+                                <select class="form-select" id="district_name" name="district_name" disabled>
                                     <option value="">Pilih Kecamatan</option>
                                 </select>
                             </div>
                             <div class="mb-1">
-                                <label for="village">Desa:</label>
-                                <select class="form-select" id="village" name="village" disabled>
+                                <label for="village_name">Desa:</label>
+                                <select class="form-select" id="village_name" name="village_name" disabled>
                                     <option value="">Pilih Desa</option>
                                 </select>
                             </div>
@@ -395,14 +388,6 @@
             document.getElementById('next').classList.toggle('hidden', currentStep === totalSteps);
             document.getElementById('submitForm').classList.toggle('hidden', currentStep !== totalSteps);
         }
-
-        // function nextStep() {
-        //     if (currentStep < steps.length - 1) {
-        //         currentStep++;
-        //         showStep(currentStep);
-        //         updateVisibility();
-        //     }
-        // }
 
         document.getElementById('prevStep').addEventListener('click', () => {
             if (currentStep > 1) {
@@ -668,29 +653,16 @@
 
     <script>
         $(document).ready(function() {
-            // Utility function to initialize Select2
-            function initializeSelect2(elementId, placeholder) {
-                return $(`#${elementId}`).select2({
-                    placeholder: placeholder,
-                    allowClear: true,
-                    width: '100%'
-                });
-            }
+            // Tambahkan hidden input di bawah setiap select
+            $('#regency_name').after('<input type="hidden" name="regency" id="regency">');
+            $('#district_name').after('<input type="hidden" name="district" id="district">');
+            $('#village_name').after('<input type="hidden" name="village" id="village">');
 
-            // Utility function to handle API errors
-            function handleApiError(context) {
-                return function(jqXHR, textStatus, errorThrown) {
-                    console.error(`Error loading ${context}:`, textStatus, errorThrown);
-                    alert(`Gagal memuat data ${context}. Silakan coba lagi.`);
-                }
-            }
-
-            // Initialize Province dropdown
-            $("#province").select2({
-                placeholder: 'Pilih Provinsi',
+            $("#regency_name").select2({
+                placeholder: 'Pilih Kabupaten',
                 allowClear: true,
                 ajax: {
-                    url: "/api/provinces",
+                    url: "/api/regencies/jambi",
                     dataType: 'json',
                     delay: 250,
                     cache: true,
@@ -704,69 +676,32 @@
                             })
                         };
                     },
-                    error: handleApiError('provinsi')
+                    error: handleApiError('kabupaten')
                 }
-            });
+            }).on('change', function() {
+                // Perbarui hidden input dengan nama yang dipilih
+                const selectedOption = $(this).find(':selected');
+                $('#regency').val(selectedOption.text());
 
-            // Initialize other dropdowns (initially disabled)
-            initializeSelect2('regency', 'Pilih Kabupaten');
-            initializeSelect2('district', 'Pilih Kecamatan');
-            initializeSelect2('village', 'Pilih Desa/Kelurahan');
+                // Reset dan nonaktifkan dropdown berikutnya
+                const districtSelect = $("#district_name");
+                const villageSelect = $("#village_name");
 
-            // Handle Province Change
-            $("#province").on('change', function() {
-                const provinceId = $(this).val();
-                const regencySelect = $("#regency");
+                districtSelect.val(null).trigger('change').prop('disabled', true);
+                villageSelect.val(null).trigger('change').prop('disabled', true);
 
-                // Reset and disable dependent dropdowns
-                ['regency', 'district', 'village'].forEach(type => {
-                    $(`#${type}`).val(null).trigger('change').prop('disabled', true);
-                });
+                if (!$(this).val()) {
+                    $('#regency').val('');
+                    return;
+                }
 
-                if (!provinceId) return;
-
-                // Enable and configure regency dropdown
-                regencySelect.prop('disabled', false);
-                regencySelect.select2({
-                    placeholder: 'Pilih Kabupaten',
-                    allowClear: true,
-                    ajax: {
-                        url: `/api/regencies/${provinceId}`,
-                        dataType: 'json',
-                        delay: 250,
-                        cache: true,
-                        processResults: function(data) {
-                            return {
-                                results: data.map(item => ({
-                                    id: item.id,
-                                    text: item.name
-                                }))
-                            };
-                        },
-                        error: handleApiError('kabupaten')
-                    }
-                });
-            });
-
-            // Handle Regency Change
-            $("#regency").on('change', function() {
-                const regencyId = $(this).val();
-                const districtSelect = $("#district");
-
-                // Reset and disable dependent dropdowns
-                ['district', 'village'].forEach(type => {
-                    $(`#${type}`).val(null).trigger('change').prop('disabled', true);
-                });
-
-                if (!regencyId) return;
-
-                // Enable and configure district dropdown
+                // Aktifkan dropdown kecamatan
                 districtSelect.prop('disabled', false);
                 districtSelect.select2({
                     placeholder: 'Pilih Kecamatan',
                     allowClear: true,
                     ajax: {
-                        url: `/api/districts/${regencyId}`,
+                        url: `/api/districts/${$(this).val()}`,
                         dataType: 'json',
                         delay: 250,
                         cache: true,
@@ -784,22 +719,27 @@
             });
 
             // Handle District Change
-            $("#district").on('change', function() {
-                const districtId = $(this).val();
-                const villageSelect = $("#village");
+            $("#district_name").on('change', function() {
+                // Perbarui hidden input dengan nama kecamatan
+                const selectedOption = $(this).find(':selected');
+                $('#district').val(selectedOption.text());
 
-                // Reset and disable village dropdown
+                // Reset dan nonaktifkan dropdown desa
+                const villageSelect = $("#village_name");
                 villageSelect.val(null).trigger('change').prop('disabled', true);
 
-                if (!districtId) return;
+                if (!$(this).val()) {
+                    $('#district').val('');
+                    return;
+                }
 
-                // Enable and configure village dropdown
+                // Aktifkan dropdown desa
                 villageSelect.prop('disabled', false);
                 villageSelect.select2({
                     placeholder: 'Pilih Desa/Kelurahan',
                     allowClear: true,
                     ajax: {
-                        url: `/api/villages/${districtId}`,
+                        url: `/api/villages/${$(this).val()}`,
                         dataType: 'json',
                         delay: 250,
                         cache: true,
@@ -815,6 +755,25 @@
                     }
                 });
             });
+
+            // Handle Village Change
+            $("#village_name").on('change', function() {
+                // Perbarui hidden input dengan nama desa
+                const selectedOption = $(this).find(':selected');
+                $('#village').val(selectedOption.text());
+
+                if (!$(this).val()) {
+                    $('#village').val('');
+                }
+            });
+
+            // Utility function to handle API errors
+            function handleApiError(context) {
+                return function(jqXHR, textStatus, errorThrown) {
+                    console.error(`Error loading ${context}:`, textStatus, errorThrown);
+                    alert(`Gagal memuat data ${context}. Silakan coba lagi.`);
+                }
+            }
         });
     </script>
 @endsection

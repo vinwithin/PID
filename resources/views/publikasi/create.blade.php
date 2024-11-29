@@ -23,10 +23,9 @@
                     </div>
                     <p>Thumbnail</p>
                     <div class="input-group mb-3">
-                        <input type="file" onchange="loadFile(event)"
-                            class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail"
-                            accept="image/png, image/jpeg, image/jpg">
-                        <label class="input-group-text" for="thumbnail">Upload Thumbnails</label>
+                        <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail"
+                            name="thumbnail" accept="image/png, image/jpeg, image/jpg" onchange="validateFileSize(this)">
+                        <label class="input-group-text" for="thumbnail">Upload Thumbnail</label>
                         @error('thumbnail')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -80,8 +79,7 @@
                     handlers: {
                         image: imageHandler
                     }
-                },
-
+                }
             }
         });
 
@@ -96,8 +94,8 @@
                 const file = input.files[0];
 
                 // Validasi ukuran file (opsional)
-                if (file.size > 5000000) { // 5MB
-                    alert('Ukuran file terlalu besar! Maksimal 5MB');
+                if (file.size > 2024000) { // 5MB
+                    alert('Ukuran file terlalu besar! Maksimal 2MB');
                     return;
                 }
 
@@ -140,14 +138,15 @@
         };
     </script>
     <script>
-        var loadFile = function(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-
-            output.onload = function() {
-                URL.revokeObjectURL(output.src)
-                // free memory
+        function validateFileSize(input) {
+            const file = input.files[0];
+            if (file) {
+                const maxSize = 2024000; // 2MB in bytes
+                if (file.size > maxSize) {
+                    alert('Ukuran file terlalu besar! Maksimal 2MB');
+                    input.value = ''; // Clear the input
+                }
             }
-        };
+        }
     </script>
 @endsection
