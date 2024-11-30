@@ -22,10 +22,12 @@ class publikasiController extends Controller
     public function index()
     {
         return view('publikasi.index', [
-            "data" => Publikasi::where('user_id', Auth::user()->id)
+            "data" => Publikasi::with('registration')->where('team_id', $this->teamIdService->getRegistrationId())
                 ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
                 ->get(),
-            "dataAll" => Publikasi::all(),
+            "dataAll" => Publikasi::with('registration')
+                ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
+                ->get(),
         ]);
     }
 
@@ -46,9 +48,11 @@ class publikasiController extends Controller
         $filters = $request->input('filters', []);
 
         if (empty($filters)) {
-            $data = Publikasi::all();
+            $data = Publikasi::with('registration')
+                ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
+                ->get();
         } else {
-            $data = Publikasi::where('status', $filters)->get();
+            $data = Publikasi::with('registration')->where('status', $filters)->get();
         }
 
         return view('publikasi.index', [
@@ -71,7 +75,6 @@ class publikasiController extends Controller
         } else {
             $validateData['status'] = 'Belum valid';
             $validateData['team_id'] = $this->teamIdService->getRegistrationId();
-
         }
         $validateData["excerpt"] =  Str::limit(strip_tags($request->content), 100);
         $thumbnail_name = time() . '_' . $request->thumbnail->getClientOriginalName();

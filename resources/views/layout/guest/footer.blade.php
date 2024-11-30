@@ -1,4 +1,4 @@
-<footer class="bg-dark p-4">
+<footer class="bg-dark p-4" style="bottom: 0">
     <div class="container d-flex justify-content-between">
         <div class="row g-4">
             <div class="col">

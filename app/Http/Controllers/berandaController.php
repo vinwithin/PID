@@ -14,8 +14,14 @@ class berandaController extends Controller
     }
 
     public function detailPublikasi(){
-        return view('guest.publikasi.detail',[
+        return view('guest.publikasi.index',[
             'data' => Publikasi::where('status', 'valid')->paginate(8),
+        ]);
+    }
+
+    public function detail(Publikasi $publikasi){
+        return view('guest.publikasi.detail',[
+            'data' => $publikasi
         ]);
     }
 }

@@ -15,6 +15,7 @@ class Publikasi extends Model
     public $publikasi = 'publikasi';
     protected $fillable = [
         'user_id',
+        'team_id',
         'title',
         'slug',
         'thumbnail',
@@ -31,8 +32,8 @@ class Publikasi extends Model
             ]
         ];
     }
-    public function teamMembers()
+    public function registration()
     {
-        return $this->belongsTo(TeamMember::class, 'team_id');
+        return $this->belongsTo(Registration::class, 'team_id');
     }
 }

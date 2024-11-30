@@ -27,6 +27,7 @@ Route::middleware('guest')->group(function () {
 });
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
 Route::get('/daftar-publikasi', [berandaController::class, 'detailPublikasi'])->name('daftar-publikasi');
+Route::get('/publikasi/detail/{publikasi:slug}', [berandaController::class, 'detail'])->name('daftar-publikasi');
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');

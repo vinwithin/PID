@@ -1,8 +1,8 @@
-<nav class="navigasi" style="background: grey">
-    <a class="btn btn-secondary" href="#home">Logo</a>
-    <a href="" class="fw-bold">Tentang Kami</a>
-    <a href="" class="fw-bold">Publikasi</a>
-    <a href="" class="fw-bold">Hubungi Kami</a>
+<nav class="navigasi" style="background: grey; ">
+    <a class="btn btn-secondary text-white" href="/">Logo</a>
+    <a href="" class="fw-bold text-white">Tentang Kami</a>
+    <a href="" class="fw-bold text-white">Publikasi</a>
+    <a href="" class="fw-bold text-white">Hubungi Kami</a>
     <div class="navbar-extra">
         <div class="input-group border">
             <input type="text" class="form-control bg-light border-0 small" placeholder="Cari..." name="cari">

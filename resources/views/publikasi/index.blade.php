@@ -31,11 +31,12 @@
             <table class="table table-hover my-0">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th class="d-none d-xl-table-cell">Title</th>
-                        <th class="d-none d-xl-table-cell">Thumbnail</th>
-                        <th class="d-none d-xl-table-cell">Status</th>
-                        <th>Aksi</th>
+                        <th style="width: 5%">No</th>
+                        <th class="d-none d-xl-table-cell" style="width: 10%">Pembuat</th>
+                        <th class="d-none d-xl-table-cell" style="width: 35%">Title</th>
+                        <th class="d-none d-xl-table-cell" style="width: 10%">Thumbnail</th>
+                        <th class="d-none d-xl-table-cell" style="width: 10%">Status</th>
+                        <th style="width: 25%">Aksi</th>
 
                     </tr>
                 </thead>
@@ -44,6 +45,7 @@
                         @foreach ($dataAll as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->registration->judul ?? 'Admin' }}</td>
                                 <td class="d-none d-xl-table-cell">{{ $item->title }}</td>
                                 <td class="d-none d-xl-table-cell"><img class="img-thumbnail"
                                         src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}" alt=""
@@ -78,6 +80,7 @@
                     @foreach ($data as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>Tim {{ $item->registration->judul }}</td>
                             <td class="d-none d-xl-table-cell">{{ $item->title }}</td>
                             <td class="d-none d-xl-table-cell"><img class="img-thumbnail"
                                     src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}" alt=""
