@@ -309,44 +309,96 @@
                     </form>
                 </div>
             @else
-                <div class="w-100">
-                    <div class="card flex-fill">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Status Pendaftaran</h5>
-                        </div>
-                        <table class="table table-hover my-0">
-                            <thead>
-                                <tr>
-                                    <th>Nama Ketua</th>
-                                    <th class="d-none d-xl-table-cell">NIM Ketua</th>
-                                    <th class="d-none d-xl-table-cell">Fakultas Ketua</th>
-                                    <th>Bidang</th>
-                                    <th class="d-none d-md-table-cell">Judul</th>
-                                    <th class="d-none d-md-table-cell">Status</th>
-                                    <th class="d-none d-md-table-cell">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $item->nama_ketua }}</td>
-                                        <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
-                                        <td class="d-none d-xl-table-cell">{{ $item->fakultas_ketua }}</td>
-                                        <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
-                                        <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
-                                        <td><span
-                                                class="badge text-bg-warning">{{ $item->registration_validation->status === 'valid' ? 'valid dan menunggu penilaian' : $item->registration_validation->status }}</span>
-                                        </td>
-                                        <td> <a href="/program/cek/{{ $item->id }}" class="btn btn-primary">Cek</a>
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
+            <div class="container-fluid px-4 py-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0 text-light">Status Pendaftaran</h5>
                     </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th>Nama Ketua</th>
+                                        <th class="d-none d-xl-table-cell">NIM</th>
+                                        <th class="d-none d-xl-table-cell">Fakultas</th>
+                                        <th>Bidang</th>
+                                        <th class="d-none d-md-table-cell">Judul Proyek</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $index => $item)
+                                    <tr>
+                                        <td class="text-center fw-bold">{{ $index + 1 }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    {{ substr($item->nama_ketua, 0, 1) }}
+                                                </div>
+                                                <div>
+                                                    <div>{{ $item->nama_ketua }}</div>
+                                                    <small class="text-muted d-xl-none">{{ $item->nim_ketua }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
+                                        <td>
+                                            <span class="badge bg-success">{{ $item->bidang->nama }}</span>
+                                        </td>
+                                        <td class="d-none d-md-table-cell">
+                                            <div class="text-truncate" style="max-width: 200px;">
+                                                {{ $item->judul }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge {{ $item->registration_validation->status === 'valid' ? 'bg-warning text-dark' : 'bg-danger' }}">
+                                                {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="/program/cek/{{ $item->id }}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye me-1"></i>Cek
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+
                 </div>
+            </div>
+     
+            
+            @push('styles')
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+            <style>
+                body {
+                    background-color: #f4f6f9;
+                }
+                .table-responsive {
+                    max-height: 600px;
+                    overflow-y: auto;
+                }
+                .table thead {
+                    position: sticky;
+                    top: 0;
+                    background-color: #f8f9fa;
+                    z-index: 10;
+                }
+                .text-truncate {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            </style>
+            @endpush
             @endif
         </div>
     </div>

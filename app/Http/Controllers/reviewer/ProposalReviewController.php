@@ -9,6 +9,7 @@ use App\Models\Registration;
 use App\Models\ReviewAssignment;
 use App\Models\Sub_kriteria_penilaian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProposalReviewController extends Controller
 {
@@ -123,19 +124,20 @@ class ProposalReviewController extends Controller
         ]);
         foreach ($validatedData['nilai'] as $subKriteriaId => $nilai) {
             Proposal_score::create([
-                'user_id' => auth()->user()->id,
+                'user_id' => Auth::user()->id,
                 'registration_id' => $id,
                 'sub_kriteria_penilaian_id' => $subKriteriaId,
                 'nilai' => $nilai,
             ]);
         }
-        $existingReview = ReviewAssignment::where('reviewer_id', auth()->user()->id)
+        $existingReview = ReviewAssignment::where('reviewer_id', Auth::user()->id)
             ->where('registration_id', $id)
             ->first();
 
         if ($existingReview) {
             $existingReview->update([
                 'feedback' => $validatedData['feedback'],
+                'status' => 'Selesai Direview'
             ]);
         } else {
             return back()->withErrors(['error' => 'Review assignment tidak terdaftar.']);

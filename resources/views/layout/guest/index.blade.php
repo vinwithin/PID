@@ -16,11 +16,12 @@
 <body>
     @include('layout.guest.navbar')
 
-    <div class="container vh-100">
-
+    <main>
         @yield('content')
+    </main>
 
-    </div>
+
+
 
 
     {{-- footer --}}

@@ -4,144 +4,251 @@
     <div class="w-100">
         <div class="card flex-fill">
             @role('admin')
-                <div class="card-header">
-
-                    {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-                    <form method="GET" action="{{ route('pendaftaran.search') }}">
-                        <label class="form-label">Filter berdasarkan status:</label>
-                        <div class="d-flex align-items-center">
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="Belum valid"
-                                    id="filterManager">
-                                <label class="form-check-label" for="filterManager">Belum Valid</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="valid"
-                                    id="filterEngineer">
-                                <label class="form-check-label" for="filterEngineer">Valid</label>
-                            </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="lolos"
-                                    id="filterAnalyst2">
-                                <label class="form-check-label" for="filterAnalyst2">Lolos Program</label>
-                            </div>
+                <div class="card-header bg-primary text-white py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0 text-light">
+                            <i class="fas fa-clipboard-list me-3"></i>Daftar Pendaftaran
+                        </h3>
+                        <div class="filter-toggle">
+                            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#filterSection"
+                                aria-expanded="false" aria-controls="filterSection">
+                                <i class="fas fa-filter me-2"></i>Filter
+                            </button>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
-                    </form>
-                </div>
-                <table class="table table-hover my-0">
-                    <thead>
-                        <tr>
-                            <th>Nama Ketua</th>
-                            <th class="d-none d-xl-table-cell">NIM Ketua</th>
-                            <th class="d-none d-xl-table-cell">Fakultas Ketua</th>
-                            <th>Bidang</th>
-                            <th class="d-none d-md-table-cell">Judul</th>
-                            <th class="d-none d-md-table-cell">Status</th>
-                            <th class="d-none d-md-table-cell">Total Nilai</th>
-                            <th class="d-none d-md-table-cell">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $item)
-                            <tr>
-                                <td>{{ $item->nama_ketua }}</td>
-                                <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
-                                <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
-                                <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
-                                <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
-                                <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
-                                <td>
-                                    @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                        @foreach ($totalId[$item->id] as $val => $value)
-                                            <ul>
-                                                <li>{{ $value }} </li>
-                                            </ul>
+                    </div>
+                    <div class="collapse" id="filterSection">
+                        <form method="GET" action="{{ route('pendaftaran.search') }}" class="mt-3">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label text-white-50">Filter berdasarkan status:</label>
+                                    <div class="d-flex flex-wrap">
+                                        @php
+                                            $statuses = [
+                                                'Belum valid' => 'Belum Valid',
+                                                'valid' => 'Valid',
+                                                'lolos' => 'Lolos Program',
+                                            ];
+                                        @endphp
+                                        @foreach ($statuses as $value => $label)
+                                            <div class="form-check me-3 mb-2">
+                                                <input class="form-check-input" type="checkbox" name="filters[]"
+                                                    value="{{ $value }}" id="filter{{ ucfirst($value) }}">
+                                                <label class="form-check-label text-white" for="filter{{ ucfirst($value) }}">
+                                                    {{ $label }}
+                                                </label>
+                                            </div>
                                         @endforeach
-                                    @else
-                                        <p class="">Belum ada Penilaian</p>
-                                    @endif
-
-
-                                </td>
-                                <td>
-                                    @if ($item->registration_validation->status === 'Belum valid')
-                                        <a href="{{ route('approve', ['id' => $item->id]) }}"
-                                            class="btn btn-success">Setujui</a>
-                                    @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
-                                        <a href="/approve-to-program/{{ $item->id }}" class="btn btn-success">LOLOS</a>
-                                    @endif
-
-                                    @can('assessing proposal')
-                                        @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
-                                            <a href="/reviewer/nilai/{{ $item->id }}" class="btn btn-primary">Beri Nilai</a>
-                                        @endif
-                                    @endcan
-
-                                    @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Lihat
-                                            Nilai</a>
-                                    @endif
-
-                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-success">Lihat Data</a>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-                @elserole('reviewer')
-                <div class="card-header">
-
+                                    </div>
+                                    <div class="mt-3">
+                                        <button type="submit" class="btn btn-light">
+                                            <i class="fas fa-check-circle me-2"></i>Terapkan Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <table class="table table-hover my-0">
-                    <thead>
-                        <tr>
-                            <th>Nama Ketua</th>
-                            <th class="d-none d-xl-table-cell">NIM Ketua</th>
-                            <th class="d-none d-xl-table-cell">Fakultas Ketua</th>
-                            <th>Bidang</th>
-                            <th class="d-none d-md-table-cell">Judul</th>
-                            <th class="d-none d-md-table-cell">Status</th>
-                            <th class="d-none d-md-table-cell">Total Nilai</th>
-                            <th class="d-none d-md-table-cell">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($dataNilai as $item)
-                            <tr>
-                                <td>{{ $item->nama_ketua }}</td>
-                                <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
-                                <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
-                                <td><span class="badge bg-success">{{ $item->bidang->nama }}</span></td>
-                                <td class="d-none d-md-table-cell">{{ $item->judul }}</td>
-                                <td class="d-none d-md-table-cell">{{ $item->registration_validation->status }}</td>
-                                <td>
-                                    @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                        <span
-                                            class="badge bg-primary text-center">{{ $totalId[$item->id][auth()->user()->name] ?? '-'}}</span>
-                                    @else
-                                        <p class="badge bg-warning">{{ $item->reviewAssignments[0]->status }}</p>
-                                    @endif
 
-                                </td>
-                                <td>
-                                    {{-- <a href="" class="btn btn-warning"></a> --}}
-                                    @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
-                                        <a href="/reviewer/nilai/{{ $item->id }}" class="btn btn-primary">Beri Nilai</a>
-                                    @endif
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Nama Ketua</th>
+                                    <th class="d-none d-xl-table-cell">NIM</th>
+                                    <th class="d-none d-xl-table-cell">Fakultas</th>
+                                    <th>Bidang</th>
+                                    <th class="d-none d-md-table-cell">Judul</th>
+                                    <th class="d-none d-md-table-cell">Status</th>
+                                    <th class="text-center">Total Nilai</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($data as $item)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="ms-2">
+                                                    <div class="fw-bold">{{ $item->nama_ketua }}</div>
+                                                    <small class="text-muted">{{ $item->nim_ketua }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
+                                        <td>
+                                            <span class="badge bg-success">{{ $item->bidang->nama }}</span>
+                                        </td>
+                                        <td class="d-none d-md-table-cell">{{ Str::limit($item->judul, 30) }}</td>
+                                        <td class="d-none d-md-table-cell">
+                                            <span
+                                                class="badge 
+                                            @switch($item->registration_validation->status)
+                                                @case('Belum valid') bg-warning @break
+                                                @case('valid') bg-primary @break
+                                                @case('lolos') bg-success @break
+                                                @default bg-secondary
+                                            @endswitch
+                                        ">
+                                                {{ $item->registration_validation->status }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                                <span class="badge bg-info">
+                                                    {{ array_sum($totalId[$item->id]) }}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-light text-dark">Belum Dinilai</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                @if ($item->registration_validation->status === 'Belum valid')
+                                                    <a href="{{ route('approve', ['id' => $item->id]) }}"
+                                                        class="btn btn-sm btn-outline-success">
+                                                        <i class="fas fa-check me-1"></i>Setujui
+                                                    </a>
+                                                @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
+                                                    <a href="/approve-to-program/{{ $item->id }}"
+                                                        class="btn btn-sm btn-outline-success">
+                                                        <i class="fas fa-award me-1"></i>LOLOS
+                                                    </a>
+                                                @endif
 
-                                    @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
-                                        <a href="/pendaftaran/detail-nilai/{{ $item->id }}" class="btn btn-warning">Lihat
-                                            Nilai</a>
-                                    @endif
-                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-success">Lihat Data</a>
-                                </td>
-                            </tr>
-                        @endforeach
+                                                @can('assessing proposal')
+                                                    @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
+                                                        <a href="/reviewer/nilai/{{ $item->id }}"
+                                                            class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-star me-1"></i>Beri Nilai
+                                                        </a>
+                                                    @endif
+                                                @endcan
 
-                    </tbody>
-                </table>
+                                                @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                                    <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
+                                                        class="btn btn-sm btn-outline-warning">
+                                                        <i class="fas fa-eye me-1"></i>Lihat Nilai
+                                                    </a>
+                                                @endif
+
+                                                <a href="/pendaftaran/detail/{{ $item->id }}"
+                                                    class="btn btn-sm btn-outline-info">
+                                                    <i class="fas fa-info-circle me-1"></i>Detail
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted p-4">
+                                            <i class="fas fa-inbox fa-3x mb-3"></i>
+                                            <p>Tidak ada data pendaftaran</p>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @elserole('reviewer')
+                <div class="card-header bg-primary text-white py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0 text-light">
+                            <i class="fas fa-clipboard-list me-3"></i>Daftar Pendaftaran
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Nama Ketua</th>
+                                    <th class="d-none d-xl-table-cell">NIM</th>
+                                    <th class="d-none d-xl-table-cell">Fakultas</th>
+                                    <th>Bidang</th>
+                                    <th class="d-none d-md-table-cell">Judul</th>
+                                    <th class="d-none d-md-table-cell">Status Review</th>
+                                    <th class="text-center">Nilai Anda</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($dataNilai as $item)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="ms-2">
+                                                    <div class="fw-bold">{{ $item->nama_ketua }}</div>
+                                                    <small class="text-muted">{{ $item->nim_ketua }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
+                                        <td>
+                                            <span class="badge bg-success">{{ $item->bidang->nama }}</span>
+                                        </td>
+                                        <td class="d-none d-md-table-cell">{{ Str::limit($item->judul, 30) }}</td>
+                                        <td class="d-none d-md-table-cell">
+                                            <span
+                                                class="badge 
+                                            @switch($item->reviewAssignments[0]->status)
+                                                @case('Menunggu Review') bg-warning @break
+                                                @case('Selesai Direview') bg-success @break
+                                                @default bg-secondary
+                                            @endswitch
+                                        ">
+                                                {{ $item->reviewAssignments[0]->status }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                                <span class="badge bg-primary">
+                                                    {{ $totalId[$item->id][auth()->user()->name] ?? '-' }}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-light text-dark">Belum Dinilai</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
+                                                    <a href="/reviewer/nilai/{{ $item->id }}"
+                                                        class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-star me-1"></i>Beri Nilai
+                                                    </a>
+                                                @endif
+
+                                                @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                                    <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
+                                                        class="btn btn-sm btn-outline-warning">
+                                                        <i class="fas fa-eye me-1"></i>Lihat Nilai
+                                                    </a>
+                                                @endif
+
+                                                <a href="/pendaftaran/detail/{{ $item->id }}"
+                                                    class="btn btn-sm btn-outline-info">
+                                                    <i class="fas fa-info-circle me-1"></i>Detail
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted p-4">
+                                            <i class="fas fa-inbox fa-3x mb-3"></i>
+                                            <p>Tidak ada proposal untuk direview</p>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             @endrole
 
         </div>

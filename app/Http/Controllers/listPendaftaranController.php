@@ -102,7 +102,7 @@ class listPendaftaranController extends Controller
                 ReviewAssignment::create([
                     'registration_id' => $id,
                     'reviewer_id' => $reviewer->id,
-                    'status' => 'pending',
+                    'status' => 'Menunggu Review',
                     'feedback' => ''
                 ]);
             }

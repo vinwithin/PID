@@ -159,6 +159,8 @@ body {
 
 .footer {
     /* background-color: black; */
+    bottom:0;
+    margin-top: auto;
     left: 0;
     right: 0;
 }

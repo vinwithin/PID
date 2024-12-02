@@ -1,80 +1,156 @@
 @extends('layout.app')
 @section('content')
-    <div class="w-100">
-        <div class="card flex-fill">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Cek Pendaftaran</h5>
-            </div>
-            <div class="card-body">
-                <p><strong>Nama Ketua Tim:</strong></p>
-                <p>{{ $data->nama_ketua }}</p>
+<div class="container-fluid px-4 py-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">Cek Pendaftaran</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="bg-light p-3 rounded mb-3">
+                        <h6 class="text-primary mb-3">Informasi Ketua Tim</h6>
+                        <dl class="row">
+                            <dt class="col-5 text-muted">Nama Ketua Tim</dt>
+                            <dd class="col-7">{{ $data->nama_ketua }}</dd>
 
-                <p><strong>Nama Tim:</strong></p>
-                <p>{{ $data->nama_tim }}</p>
+                            <dt class="col-5 text-muted">Nama Tim</dt>
+                            <dd class="col-7">{{ $data->nama_tim }}</dd>
 
-                <p><strong>Prodi Ketua:</strong></p>
-                <p>{{ $data->program_studi->nama }}</p>
+                            <dt class="col-5 text-muted">Prodi Ketua</dt>
+                            <dd class="col-7">{{ $data->program_studi->nama }}</dd>
 
-                <p><strong>Fakultas Ketua:</strong></p>
-                <p>{{ $data->fakultas->nama }}</p>
+                            <dt class="col-5 text-muted">Fakultas Ketua</dt>
+                            <dd class="col-7">{{ $data->fakultas->nama }}</dd>
 
-                <p><strong>No hp Ketua:</strong></p>
-                <p>{{ $data->nohp_ketua }}</p>
+                            <dt class="col-5 text-muted">No HP Ketua</dt>
+                            <dd class="col-7">{{ $data->nohp_ketua }}</dd>
 
-                <p><strong>Nama Ormawa Ketua:</strong></p>
-                <p>{{ $data->ormawa->nama }}</p>
-
-                <p><strong>Judul :</strong></p>
-                <p>{{ $data->judul }}</p>
-
-                <table class="table table-bordered">
-                    <thead class="table-light">
-                        <tr>
-                            <th colspan="5" class="text-center">DAFTAR TIM</th>
-                        </tr>
-                    </thead>
-                    <thead class="table-light">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>NIM</th>
-                            <th>Fakultas</th>
-                            <th>Program Studi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data->teamMembers as $item)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$item->nama}}</td>
-                            <td>{{$item->nim}}</td>
-                            <td>{{$item->fakultas_model->nama}}</td>
-                            <td>{{$item->program_studi->nama}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
-                <p><strong>SK Organisasi :</strong></p>
-                <p> <a href="/storage/{{ $data->sk_organisasi }}">{{ $data->sk_organisasi }}</a></p>
-
-                <p><strong>File Surat Kerjasama :</strong></p>
-                <p><a href="/storage/{{ $data->surat_kerjasama }}">{{ $data->surat_kerjasama }}</a></p>
-
-                <p><strong>File Surat Rekomendasi Pembina:</strong></p>
-                <p><a href="/storage/{{ $data->surat_rekomendasi_pembina }}">{{ $data->surat_rekomendasi_pembina }}</a></p>
-
-                <p><strong>File Proposal:</strong></p>
-                <p><a href="/storage/{{ $data->proposal }}">{{ $data->proposal }}</a></p>
-
-                <p><strong>Status Validasi:</strong></p>
-                <p class="text-warning">
-                    {{ $data->registration_validation->status === 'valid' ? 'Menunggu Penilaian' : $data->registration_validation->status }}
-                </p>
-                <a href="/daftarProgram" class="btn btn-primary">Kembali</a>
-
+                            <dt class="col-5 text-muted">Nama Ormawa</dt>
+                            <dd class="col-7">{{ $data->ormawa->nama }}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-light p-3 rounded mb-3">
+                        <h6 class="text-primary mb-3">Informasi Proyek</h6>
+                        <dl class="row">
+                            <dt class="col-4 text-muted">Judul</dt>
+                            <dd class="col-8">{{ $data->judul }}</dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
 
+            <div class="card mb-3">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">Daftar Tim</h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NIM</th>
+                                    <th>Fakultas</th>
+                                    <th>Program Studi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->teamMembers as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->nim }}</td>
+                                    <td>{{ $item->fakultas_model->nama }}</td>
+                                    <td>{{ $item->program_studi->nama }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0 text-primary">Dokumen Pendukung</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    SK Organisasi
+                                    <a href="/storage/{{ $data->sk_organisasi }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                        Lihat File
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Surat Kerjasama
+                                    <a href="/storage/{{ $data->surat_kerjasama }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                        Lihat File
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Surat Rekomendasi Pembina
+                                    <a href="/storage/{{ $data->surat_rekomendasi_pembina }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                        Lihat File
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Proposal
+                                    <a href="/storage/{{ $data->proposal }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                        Lihat File
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0 text-primary">Status Validasi</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert {{ $data->registration_validation->status === 'valid' ? 'alert-warning' : 'alert-danger' }} mb-0">
+                                {{ $data->registration_validation->status === 'valid' ? 'Menunggu Penilaian' : $data->registration_validation->status }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="/daftarProgram" class="btn btn-secondary">
+                    Kembali
+                </a>
+            </div>
         </div>
     </div>
+</div>
 @endsection
+
+@push('styles')
+<style>
+    body {
+        background-color: #f4f6f9;
+    }
+    .card {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .card-header {
+        padding: 0.75rem 1.25rem;
+    }
+    dl dt {
+        font-weight: 500;
+    }
+    dl dd {
+        font-weight: 600;
+    }
+</style>
+@endpush
