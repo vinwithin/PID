@@ -36,7 +36,8 @@
                                         <td class="text-center">
                                             @if ($item->dokumenTeknis && $item->dokumenTeknis->file_manual)
                                                 <a href="{{ asset('storage/dokumen-teknis/' . $item->dokumenTeknis->file_manual) }}"
-                                                    class="btn btn-success" target="_blank">Lihat File</a>
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Lihat File</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif
@@ -44,7 +45,8 @@
                                         <td class="text-center">
                                             @if ($item->dokumenTeknis && $item->dokumenTeknis->file_bukti_publikasi)
                                                 <a href="{{ asset('storage/dokumen-teknis/' . $item->dokumenTeknis->file_bukti_publikasi) }}"
-                                                    class="btn btn-success" target="_blank">Lihat File</a>
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Lihat File</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif
@@ -52,7 +54,8 @@
                                         <td rowspan="2" class="text-center">
                                             @if ($item->dokumenTeknis && $item->dokumenTeknis->file_proposal)
                                                 <a href="{{ asset('storage/dokumen-teknis/' . $item->dokumenTeknis->file_proposal) }}"
-                                                    class="btn btn-success" target="_blank">Lihat File</a>
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Lihat File</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif
@@ -60,7 +63,8 @@
                                         <td rowspan="2" class="text-center">
                                             @if ($item->dokumenTeknis && $item->dokumenTeknis->file_laporan_keuangan)
                                                 <a href="{{ asset('storage/dokumen-teknis/' . $item->dokumenTeknis->file_laporan_keuangan) }}"
-                                                    class="btn btn-success" target="_blank">Lihat File</a>
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Lihat File</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif

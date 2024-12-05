@@ -24,8 +24,9 @@
                             required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="file" onchange="loadFile(event)" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail"
-                            name="thumbnail" accept="image/png, image/jpeg, image/jpg">
+                        <input type="file" onchange="loadFile(event)"
+                            class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail"
+                            accept="image/png, image/jpeg, image/jpg">
                         <label class="input-group-text" for="thumbnail">Upload Thumbnails</label>
                         @error('thumbnail')
                             <div class="invalid-feedback">
@@ -33,8 +34,10 @@
                             </div>
                         @enderror
                     </div>
-                    <div id="editor">
-                        {!! $data->content !!}
+                    <div class="mb-3">
+                        <div id="editor">
+                            {!! $data->content !!}
+                        </div>
                     </div>
 
                     <textarea class="form-control" id="hiddenContent" placeholder="Enter the Description" rows="5" name="content"
@@ -76,11 +79,11 @@
                         }],
                         ['image', 'code-block']
                     ],
-                handlers: {
-                    image: imageHandler
+                    handlers: {
+                        image: imageHandler
+                    }
                 }
             }
-        }
         });
 
         // Handler untuk upload gambar

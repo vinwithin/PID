@@ -33,26 +33,33 @@
                                         <td class="text-center">
                                             @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_artikel)
                                                 <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_artikel) }}"
-                                                    class="btn btn-success" target="_blank">Lihat File</a>
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Lihat File</a>
                                         </td>
                                     @else
-                                        <span class="badge bg-danger">Belum Upload</span>
+                                        <span class="badge bg-danger"><i
+                                                class="fa-solid fa-circle-exclamation me-1"></i>Belum Upload</span>
                                 @endif
                                 <td class="text-center">
                                     @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_haki)
                                         <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_haki) }}"
-                                            class="btn btn-success" target="_blank">Lihat File</a>
+                                            class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                class="fas fa-eye me-1"></i>Lihat
+                                            File</a>
                                 </td>
                             @else
-                                <span class="badge bg-danger">Belum Upload</span>
+                                <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
+                                    Upload</span>
                                 @endif
                                 <td rowspan="2" class="text-center">
                                     @if ($item->dokumenPublikasi && $item->dokumenPublikasi->link_artikel)
-                                        <a href="{{ $item->dokumenPublikasi->link_artikel }}" class="btn btn-success"
-                                            target="_blank">Link Artikel</a>
+                                        <a href="{{ $item->dokumenPublikasi->link_artikel }}"
+                                            class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                class="fas fa-eye me-1"></i>Link Artikel</a>
                                 </td>
                             @else
-                                <span class="badge bg-danger">Belum Upload</span>
+                                <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
+                                    Upload</span>
                                 @endif
                                 <td rowspan="2" class="text-center">
                                     @if ($item->dokumenTeknis)
@@ -69,12 +76,12 @@
                                     <td>Status</td>
                                     <td class="text-center">
                                         <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
-                                            {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_artikel : 'Belum Upload' }}
+                                           {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_artikel : 'Belum Upload' }}
                                         </span>
                                     </td>
                                     <td class="text-center">
                                         <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
-                                            {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_haki : 'Belum Upload' }}
+                                           {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_haki : 'Belum Upload' }}
                                         </span>
                                     </td>
 

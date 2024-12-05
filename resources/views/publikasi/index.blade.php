@@ -49,7 +49,7 @@
                                 <td class="d-none d-xl-table-cell">{{ $item->title }}</td>
                                 <td class="d-none d-xl-table-cell"><img class="img-thumbnail"
                                         src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}" alt=""
-                                        style="max-width: 80px"></td>
+                                        style="max-width: 80px; max-height:80px;"></td>
                                 <td class="">
                                     <p
                                         class="{{ $item->status === 'Belum valid' ? 'badge text-bg-warning' : 'badge text-bg-primary' }}">
@@ -67,7 +67,7 @@
 
                                     {{-- @endif --}}
                                     <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
-                                    <a href="/publikasi/detail/{{ $item->id }}" class="btn btn-primary">CEK</a>
+                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-primary">CEK</a>
                                     @can('delete publication')
                                         <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger">Delete</a>
                                     @endcan
@@ -103,7 +103,7 @@
 
                                 {{-- @endif --}}
                                 <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
-                                <a href="/publikasi/detail/{{ $item->id }}" class="btn btn-primary">CEK</a>
+                                <a href="/publikasi/{{ $item->id }}" class="btn btn-primary">CEK</a>
                                 @can('delete publication')
                                     <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger">Delete</a>
                                 @endcan

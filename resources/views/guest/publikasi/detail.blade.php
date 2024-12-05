@@ -4,7 +4,7 @@
         p img {
             display: block;
             margin: auto;
-            max-width: 90%;
+            max-width: 100%;
             /* Optional: Agar gambar tidak melebihi lebar kontainer */
             height: auto;
             /* Optional: Memastikan proporsi gambar tetap terjaga */
@@ -16,7 +16,7 @@
             <div class="card-header text-center mb-4 bg-transparent border-0">
                 <h1>{{ $data->title }}</h1>
             </div>
-            <div class="card-body">
+            <div class="card-body ">
                 <p style="text-align: justify;">{!! $data->content !!}</p>
             </div>
             @if ($data->updated_at)

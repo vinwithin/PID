@@ -12414,6 +12414,9 @@ text {
     justify-content: flex-start;
     position: relative;
 }
+.ql-editor {
+    font-size: 16px; /* Ubah ukuran sesuai kebutuhan */
+  }
 .simplebar-wrapper {
     height: inherit;
     max-height: inherit;

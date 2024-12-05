@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:create publication'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
         Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('publikasi.tambah');
-        Route::get('/publikasi/detail/{id}', [publikasiController::class, 'detail'])->name('publikasi.detail');
+        Route::get('/publikasi/{id}', [publikasiController::class, 'detail'])->name('publikasi.detail');
         Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('publikasi.tambah');
 
         Route::get('/dokumen-teknis', [DokumenTeknisController::class, 'index'])->name('dokumen-teknis');

@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('content')
-    {{-- <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" /> --}}
+
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     {{-- <link rel="stylesheet" href="../../css/ckeditor5.css"> --}}
 

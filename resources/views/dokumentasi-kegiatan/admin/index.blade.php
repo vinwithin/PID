@@ -31,7 +31,8 @@
                                         <td class="text-center">
                                             @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_youtube)
                                                 <a href="{{ $item->dokumentasiKegiatan->link_youtube }}"
-                                                    class="btn btn-success" target="_blank">Link Youtube</a>
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Link Youtube</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif
@@ -39,7 +40,8 @@
                                         <td class="text-center">
                                             @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_social_media)
                                                 <a href="{{ $item->dokumentasiKegiatan->link_social_media }}"
-                                                    class="btn btn-success" target="_blank">Link Sosial Media</a>
+                                                   class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Link Sosial Media</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif
@@ -47,7 +49,8 @@
                                         <td class="text-center">
                                             @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
                                                 <a href="{{ $item->dokumentasiKegiatan->link_dokumentasi }}"
-                                                    class="btn btn-success" target="_blank">Link Dokumentasi</a>
+                                                   class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Link Dokumentasi</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif

@@ -76,7 +76,7 @@
                             @foreach ($data as $item)
                                 <div class="card-item swiper-slide">
                                     <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
-                                        alt="User Image" class="user-image">
+                                        alt="User Image" class="user-image ">
                                     <h2 class="user-name  ">{!! Str::limit($item->title, 50) !!}</h2>
                                     <a class="message-button" href="publikasi/detail/{{$item->slug}}">Cek</a>
 
