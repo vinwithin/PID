@@ -27,7 +27,7 @@ class publikasiController extends Controller
                 ->get(),
             "dataAll" => Publikasi::with('registration')
                 ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
-                ->get(),
+                ->paginate(10),
         ]);
     }
 
@@ -71,7 +71,7 @@ class publikasiController extends Controller
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         if (Auth::user()->hasRole('admin')) {
             $validateData['status'] = 'valid';
-            $validateData['team_id'] = Auth::user()->id;
+            $validateData['team_id'] = '';
         } else {
             $validateData['status'] = 'Belum valid';
             $validateData['team_id'] = $this->teamIdService->getRegistrationId();

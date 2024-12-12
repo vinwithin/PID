@@ -7,6 +7,9 @@
             max-width: 100%;
             /* Optional: Agar gambar tidak melebihi lebar kontainer */
             height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             /* Optional: Memastikan proporsi gambar tetap terjaga */
         }
     </style>

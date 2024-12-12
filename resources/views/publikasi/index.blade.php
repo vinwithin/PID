@@ -74,6 +74,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                       
                     @endcan
 
                     @role('mahasiswa')
@@ -114,6 +115,9 @@
 
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center mt-4">
+                {{ $dataAll->links() }}
+            </div>
         </div>
     </div>
 @endsection
