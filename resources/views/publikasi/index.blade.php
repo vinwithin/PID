@@ -32,11 +32,11 @@
                 <thead>
                     <tr>
                         <th style="width: 5%">No</th>
-                        <th class="d-none d-xl-table-cell" style="width: 10%">Pembuat</th>
-                        <th class="d-none d-xl-table-cell" style="width: 35%">Title</th>
+                        <th class="d-none d-xl-table-cell" style="width: 6%">Pembuat</th>
+                        <th class="d-none d-xl-table-cell" style="width: 30%">Title</th>
                         <th class="d-none d-xl-table-cell" style="width: 10%">Thumbnail</th>
-                        <th class="d-none d-xl-table-cell" style="width: 10%">Status</th>
-                        <th style="width: 25%">Aksi</th>
+                        <th class="d-none d-xl-table-cell" style="width: 8%">Status</th>
+                        <th style="width: 18%">Aksi</th>
 
                     </tr>
                 </thead>
@@ -74,43 +74,43 @@
                                 </td>
                             </tr>
                         @endforeach
-                       
                     @endcan
 
                     @role('mahasiswa')
-                    @foreach ($data as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>Tim {{ $item->registration->judul }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $item->title }}</td>
-                            <td class="d-none d-xl-table-cell"><img class="img-thumbnail"
-                                    src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}" alt=""
-                                    style="max-width: 80px"></td>
-                            <td class="">
-                                <p
-                                    class="{{ $item->status === 'Belum valid' ? 'badge text-bg-warning' : 'badge text-bg-primary' }}">
-                                    {{ $item->status }}</p>
-                            </td>
+                        @foreach ($data as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>Tim {{ $item->registration->judul }}</td>
+                                <td class="d-none d-xl-table-cell">{{ $item->title }}</td>
+                                <td class="d-none d-xl-table-cell"><img class="img-thumbnail"
+                                        src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}" alt=""
+                                        style="max-width: 80px"></td>
+                                <td class="">
+                                    <p
+                                        class="{{ $item->status === 'Belum valid' ? 'badge text-bg-warning' : 'badge text-bg-primary' }}">
+                                        {{ $item->status }}</p>
+                                </td>
 
-                            <td>
+                                <td>
 
-                                {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
-                                @can('agree publication')
-                                    @if ($item->status === 'Belum valid')
-                                        <a href="{{ route('publikasi.approve', ['id' => $item->id]) }}"
-                                            class="btn btn-success">Setujui</a>
-                                    @endif
-                                @endcan
+                                    {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
+                                    @can('agree publication')
+                                        @if ($item->status === 'Belum valid')
+                                            <a href="{{ route('publikasi.approve', ['id' => $item->id]) }}"
+                                                class="btn btn-success">Setujui</a>
+                                        @endif
+                                    @endcan
 
-                                {{-- @endif --}}
-                                <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
-                                <a href="/publikasi/{{ $item->id }}" class="btn btn-primary">CEK</a>
-                                @can('delete publication')
-                                    <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger">Delete</a>
-                                @endcan
-                            </td>
-                        </tr>
-                    @endforeach
+                                    {{-- @endif --}}
+                                    <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
+                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-primary">CEK</a>
+                                    @can('delete publication')
+                                        <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger">Delete</a>
+                                    @endcan
+                                </td>
+                                <td></td>
+                            </tr>
+                        @endforeach
                     @endrole
 
                 </tbody>

@@ -16,10 +16,11 @@
                                 <tr>
                                     <th style="width: 5%">No</th>
                                     <th style="width: 15%">Tim</th>
-                                    <th style="width: 20%" class="text-center">Link Tautan Video Youtube</th>
-                                    <th style="width: 20%" class="text-center">Tautan Sosial Media</th>
-                                    <th style="width: 20%" class="text-center">Link/tautan Google Drive dokumentasi kegiatan
+                                    <th style="width: 15%" class="text-center">Link Tautan Video Youtube</th>
+                                    <th style="width: 15%" class="text-center">Tautan Sosial Media</th>
+                                    <th style="width: 15%" class="text-center">Link/tautan Google Drive dokumentasi kegiatan
                                     </th>
+                                    <th style="width: 15%" class="text-center">Album</th>
                                     <th style="width: 15%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -40,7 +41,7 @@
                                         <td class="text-center">
                                             @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_social_media)
                                                 <a href="{{ $item->dokumentasiKegiatan->link_social_media }}"
-                                                   class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
                                                         class="fas fa-eye me-1"></i>Link Sosial Media</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
@@ -49,7 +50,7 @@
                                         <td class="text-center">
                                             @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
                                                 <a href="{{ $item->dokumentasiKegiatan->link_dokumentasi }}"
-                                                   class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
                                                         class="fas fa-eye me-1"></i>Link Dokumentasi</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
@@ -57,8 +58,18 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
+                                                <a href="/dokumentasi-kegiatan/album/{{ $item->dokumentasiKegiatan->id }}"
+                                                    class="btn btn-sm btn-outline-info"><i
+                                                        class="fas fa-eye me-1"></i>Lihat Album</a>
+                                            @else
+                                                <span class="badge bg-danger">Belum Upload</span>
+                                            @endif
+                                           
+                                        </td>
+                                        <td class="text-center">
+                                            @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
                                                 <a href="/dokumentasi-kegiatan/{{ $item->dokumentasiKegiatan->id }}"
-                                                    class="btn btn-primary">Lihat</a>
+                                                    class="btn btn-primary">Hapus</a>
                                                 <a href="/dokumentasi-kegiatan/edit/{{ $item->dokumentasiKegiatan->id }}"
                                                     class="btn btn-warning">Edit</a>
                                             @else

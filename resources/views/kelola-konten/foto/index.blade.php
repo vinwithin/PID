@@ -44,50 +44,96 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
+
+        .overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover .overlay {
+            opacity: 1;
+            /* Menampilkan overlay saat card dihover */
+        }
+
+        .overlay h5,
+        .overlay p {
+            color: white;
+            /* Pastikan teks berwarna putih */
+            z-index: 2;
+            /* Pastikan teks di atas overlay */
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 0.5em 0.75em;
+            z-index: 3;
+            /* Pastikan badge di atas overlay */
+        }
     </style>
     <div class="w-100">
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Daftar Publikasi</h5>
+                <h5 class="card-title mb-0">Daftar Album</h5>
             </div>
-            <table class="table table-hover my-0 table-custom">
-                <thead>
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-light">
                     <tr>
                         <th style="width: 10%">No</th>
-                        <th class="d-none d-xl-table-cell" style="width: 20%">Pembuat</th>
-                        <th class="d-none d-xl-table-cell" style="width: 30%">Link Youtube</th>
-                        <th class="d-none d-xl-table-cell">Visibilitas</th>
+                        <th class="d-none d-md-table-cell"style="width: 15%">Pembuat</th>
+                        <th class="d-none d-md-table-cell" style="width: 30%">Album</th>
+                        <th class="d-none d-md-table-cell" style="width: 30%">Visibilitas</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td class="d-none d-xl-table-cell">Tim {{ $item->registration->judul }}</td>
-                            <td class="d-none d-xl-table-cell">
-                                <iframe width="180" height="100" src="{{ $item->link_youtube }}" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
-                                    onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';"></iframe>
 
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="d-none d-md-table-cell">Tim {{ $item->registration->judul }}</td>
+                            <td>
+                                <div class="card border-0 shadow-sm position-relative overflow-hidden custom-card"
+                                    style="max-width: 220px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                    <!-- Gambar Latar Belakang -->
+                                    <img src="{{ asset('/img/icons/image-regular.svg') }}" class="card-img-top"
+                                        alt="Gambar Tim" style="height: 150px; object-fit: cover; filter: grayscale(30%);">
+
+                                    <!-- Overlay -->
+                                    <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white"
+                                        style="background: rgba(240, 235, 235, 0.7); opacity: 1; transition: opacity 0.3s ease;">
+                                        <h5 class="fw-bold text-dark mb-2 fs-3">{{ $item->nama }}</h5>
+                                        <a class="text-center mb-0" style="font-size: 0.9rem; color: black;" href="/kelola-konten/foto/detail/{{$item->media_dokumentasi_id}}">Klik untuk
+                                            melihat detail</a>
+                                    </div>
+
+                                    <!-- Badge untuk Informasi Tambahan -->
+                                    <div class="position-absolute top-0 end-0 m-2">
+                                        <span class="badge bg-primary">Aktif</span>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="d-none d-xl-table-cell">
+
+
+
+
+
+                            <td class="d-none d-md-table-cell">
                                 <div class="form-check form-switch custom-toggle">
-                                    {{-- @dd($item->link_youtube); --}}
+
 
                                     <input class="form-check-input toggle-switch" type="checkbox"
                                         id="switch-{{ $item->id }}" data-id="{{ $item->id }}"
-                                        @if (!empty($item->video_konten->link_youtube)) checked @endif>
+                                        @if ($item->status == 'valid')) checked @endif>
                                     <label class="form-check-label" for="switch-{{ $item->id }}">
-                                        {{ !empty($item->video_konten->link_youtube) ? 'On' : 'Off' }}
+                                        {{ $item->status == 'valid' ? 'On' : 'Off' }}
                                     </label>
 
 
                                 </div>
-                                <!-- Input tersembunyi untuk menyimpan link_youtube -->
+
                                 <input type="hidden" id="link-youtube-{{ $item->id }}"
-                                    value="{{ $item->link_youtube }}">
+                                    value="{{ $item->status }}">
                             </td>
                         </tr>
                     @endforeach
@@ -105,18 +151,18 @@
             $('.toggle-switch').change(function() {
                 const itemId = $(this).data('id'); // Ambil ID item
                 const isChecked = $(this).is(':checked'); // Cek status toggle (On/Off)
-                const status = isChecked ? 'On' : 'Off'; // Tentukan status
-                const linkYoutube = $('#link-youtube-' + itemId).val(); // Ambil link_youtube dari input
+                const condition = isChecked ? 'On' : 'Off'; // Tentukan status
+                // const linkYoutube = $('#link-youtube-' + itemId).val(); // Ambil link_youtube dari input
 
                 // Kirim data ke server menggunakan AJAX
                 $.ajax({
-                    url: '/update-status-video', // Route untuk update status
+                    url: '/update-status-foto', // Route untuk update status
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}', // CSRF token untuk keamanan
                         id: itemId,
-                        status: status,
-                        link_youtube: linkYoutube // Kirim link_youtube ke server
+                        condition: condition,
+                        // status: linkYoutube // Kirim link_youtube ke server
                     },
                     success: function(response) {
                         if (response.success) {

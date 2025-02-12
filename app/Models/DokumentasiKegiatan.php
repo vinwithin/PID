@@ -18,4 +18,16 @@ class DokumentasiKegiatan extends Model
     {
         return $this->belongsTo(TeamMember::class, 'team_id');
     }
+    public function registration()
+    {
+        return $this->belongsTo(Registration::class, 'team_id');
+    }
+    public function album()
+    {
+        return $this->hasOne(Album::class, 'media_dokumentasi_id');
+    }
+    public function video_konten()
+    {
+        return $this->hasOne(VideoKonten::class, 'media_dokumentasi_id');
+    }
 }

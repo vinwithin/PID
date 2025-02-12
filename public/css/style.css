@@ -28,8 +28,8 @@ body {
 .navigasi a,
 .navigasi .navbar-extra {
     margin: 0; /* Menghapus margin default */
-    text-decoration:none;
-    color:black;
+    text-decoration: none;
+    color: black;
 }
 
 /* hero */
@@ -94,7 +94,7 @@ body {
     margin: 0 70px 55px;
 }
 .card-list .card-item {
-    height: auto;
+    height: 22rem;
     color: black;
     user-select: none;
     padding: 15px;
@@ -110,7 +110,7 @@ body {
 .card-list .card-item .user-image {
     width: 250px;
     height: 150px;
-    object-fit:contain;
+    object-fit: contain;
     margin-bottom: 10px;
     border: 3px solid black;
     padding: 4px;
@@ -123,7 +123,7 @@ body {
 }
 
 .card-list .card-item .message-button {
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 5px 25px;
     color: #030728;
     border-radius: 6px;
@@ -161,16 +161,78 @@ body {
 
 .footer {
     /* background-color: black; */
-    bottom:0;
+    bottom: 0;
     margin-top: auto;
     left: 0;
     right: 0;
 }
-.list-publikasi{
-    margin:2rem;
+.list-publikasi {
+    margin: 2rem;
     padding: 2rem;
-    background-color:rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 1);
     border: 1px solid black;
+}
+.video {
+    padding: 4rem 7% 1.4rem;
+    background-color: #2fa161;
+    color: white;
+    /* padding: 50px 15px; */
+}
+.video .card {
+}
+. .nav-tabs .nav-link {
+    color: white;
+}
+.nav-tabs .nav-link.active {
+    background-color: white;
+    color: #003399;
+    border-color: white;
+}
+.album-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px;
+}
+.album-title {
+    font-size: 14px;
+    margin-top: 8px;
+}
+.album-date {
+    font-size: 12px;
+    color: gray;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.artikel {
+    padding: 4rem 7% 1.4rem;
+}
+.artikel .card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    height: 100%;
+}
+.artikel .card:hover {
+    transform: translateY(-5px);
+}
+.icon-wrapper {
+    background-color: #eef6ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+.icon-wrapper i {
+    font-size: 30px;
+    color: #1e90ff;
 }
 
 @media (max-width: 768px) {

@@ -9,6 +9,8 @@ use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\DokumenKegiatanController;
 use App\Http\Controllers\DokumenPublikasiController;
 use App\Http\Controllers\DokumenTeknisController;
+use App\Http\Controllers\KelolaArtikel;
+use App\Http\Controllers\KelolaKontenController;
 use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
@@ -50,6 +52,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/dokumen-publikasi/update/{id}', [DokumenPublikasiController::class, 'update'])->name('dokumen-publikasi.update');
 
         Route::get('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'index'])->name('dokumentasi-kegiatan');
+        Route::get('/dokumentasi-kegiatan/album/{id}', [DokumenKegiatanController::class, 'detail'])->name('dokumentasi-kegiatan.album.detail');
         Route::post('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'store'])->name('dokumentasi-kegiatan');
         Route::get('/dokumentasi-kegiatan/edit/{id}', [DokumenKegiatanController::class, 'edit'])->name('dokumentasi-kegiatan.edit');
         Route::post('/dokumentasi-kegiatan/update/{id}', [DokumenKegiatanController::class, 'update'])->name('dokumentasi-kegiatan.update');
@@ -72,6 +75,16 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
         Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
+        Route::get('/kelola-konten/video', [KelolaKontenController::class, 'index'])->name('kelola-konten.video');
+        Route::post('/update-status-video', [KelolaKontenController::class, 'updateStatus'])->name('update.status-video');
+        Route::get('/kelola-konten/foto', [KelolaKontenController::class, 'foto'])->name('kelola-konten.foto');
+        Route::get('/kelola-konten/foto/detail/{id}', [KelolaKontenController::class, 'detail'])->name('kelola-konten.foto.detail');
+        Route::post('/update-status-foto', [KelolaKontenController::class, 'updateStatusFoto'])->name('update.status-foto');
+        Route::post('/update-status-artikel', [KelolaArtikel::class, 'updateStatus'])->name('update.status-artikel');
+        Route::get('/kelola-konten/artikel', [KelolaArtikel::class, 'index'])->name('kelola-konten.artikel');
+
+
+
     });
 
     Route::middleware(['role:admin|reviewer'])->group(function () {

@@ -19,12 +19,15 @@ class DokumenPublikasiService
         // Validate the incoming request
         $validatedData = $request->validate([
             'file_artikel' => 'required|file',
+            'judul_artikel' => 'required|string',
             'status_artikel' => 'required|string',
             'link_artikel' => 'required|string',
             'file_haki' => 'required|file',
             'status_haki' => 'required|string',
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
+        $validatedData['visibilitas'] = 'no';
+
         // Process file uploads
         $validatedData['file_artikel'] = $this->storeFile($request->file('file_artikel'), 'file_artikel');
         $validatedData['file_haki'] = $this->storeFile($request->file('file_haki'), 'file_haki');
@@ -38,12 +41,15 @@ class DokumenPublikasiService
         // Validate the incoming request
         $validatedData = $request->validate([
             'file_artikel' => 'required|file',
+            'judul_artikel' => 'required|string',
             'status_artikel' => 'required|string',
             'link_artikel' => 'required|string',
             'file_haki' => 'required|file',
             'status_haki' => 'required|string',
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
+        $validatedData['visibilitas'] = 'no';
+
         // Process file uploads
         $validatedData['file_artikel'] = $this->storeFile($request->file('file_artikel'), 'file_artikel');
         $validatedData['file_haki'] = $this->storeFile($request->file('file_haki'), 'file_haki');

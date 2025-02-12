@@ -130,9 +130,19 @@
                             Artikel</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('publikasi') }}">
+                <li class="sidebar-item {{ Request::is('kelola-konten/video*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('kelola-konten.video') }}">
                         <i class="align-middle" data-feather="video"></i> <span class="align-middle">Konten Video</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('kelola-konten/foto*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('kelola-konten.foto') }}">
+                        <i class="align-middle" data-feather="image"></i> <span class="align-middle">Konten Galeri</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('kelola-konten/artikel*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('kelola-konten.artikel') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelola Artikel</span>
                     </a>
                 </li>
             @endrole
