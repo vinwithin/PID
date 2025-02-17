@@ -10,7 +10,7 @@
                 <!-- Step Indicator -->
                 @role('admin')
                     @include('dokumen-teknis.admin.index')
-                @elserole('mahasiswa')
+                    @elserole('mahasiswa')
                     @if (!$dokumenExist)
                         <form id="editorForm" method="POST" action="{{ route('dokumen-teknis') }}" enctype="multipart/form-data">
                             @csrf
@@ -82,6 +82,7 @@
                             <button type="submit" class="btn btn-success">Submit</button>
 
                         </form>
+                    
                     @else
                         @include('dokumen-teknis.index')
                     @endif

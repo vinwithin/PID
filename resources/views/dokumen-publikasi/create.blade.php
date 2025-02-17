@@ -73,6 +73,8 @@
                             <button type="submit" class="btn btn-success">Submit</button>
 
                         </form>
+                    {{-- @elseif(!$registrationExists)
+                        <p>Kamu belom mendaftar</p> --}}
                     @else
                         @include('dokumen-publikasi.index')
                     @endif

@@ -14,6 +14,7 @@ use App\Http\Controllers\KelolaKontenController;
 use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
+use App\Http\Controllers\MonevController;
 use App\Http\Controllers\publikasiController;
 use App\Http\Controllers\reviewer\ProposalReviewController;
 use App\Http\Controllers\reviewer\reviewerController;
@@ -71,6 +72,11 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:assessing proposal'])->group(function () {
         Route::get('/reviewer/nilai/{id}', [ProposalReviewController::class, 'index'])->name('reviewer.nilai');
         Route::post('/reviewer/nilai/{id}', [ProposalReviewController::class, 'store'])->name('reviewer.nilai');
+    });
+
+    Route::middleware(['can:monitoring dan evaluasi'])->group(function () {
+        Route::get('/monitoring-evaluasi', [MonevController::class, 'index'])->name('monev.index');
+
     });
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');

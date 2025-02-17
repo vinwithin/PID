@@ -58,6 +58,16 @@
                     </a>
                 </li>
             @endrole
+            @can('monitoring dan evaluasi')
+                <li class="sidebar-header">
+                    Monitoring dan Evaluasi
+                </li>
+                <li class="sidebar-item {{ Request::is('monitoring-evaluasi*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('monev.index') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar Kelompok</span>
+                    </a>
+                </li>
+            @endcan
             @can('create publication')
                 @php
                     $hasAccessToPublication = App\Models\Registration::whereHas('registration_validation', function (

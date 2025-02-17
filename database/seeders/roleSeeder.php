@@ -76,12 +76,16 @@ class roleSeeder extends Seeder
             ['name' => 'assessing proposal'],
             ['name' => 'assessing proposal'],
         );
+        $permission7 = Permission::updateOrCreate(
+            ['name' => 'monitoring dan evaluasi'],
+            ['name' => 'monitoring dan evaluasi'],
+        );
         $user1->assignRole('mahasiswa');
         $user2->assignRole('reviewer');
         $user3->assignRole('admin');
         $role1->givePermissionTo($permission1, $permission2, $permission4);
         $role2->givePermissionTo($permission6);
-        $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5);
+        $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5, $permission7);
         // $role1->givePermissionTo($permission2);
     }
 }
