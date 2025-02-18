@@ -6,7 +6,7 @@
                 <h3>Penilaian</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="/reviewer/nilai/{{ $data->id }}" enctype="multipart/form-data">
+                <form method="POST" action="/monitoring-evaluasi/nilai/{{ $data->id }}" enctype="multipart/form-data">
                     @csrf
                     <table class="table table-bordered">
                         <thead class="table-light">
@@ -21,10 +21,11 @@
                                 <tr>
                                     <td>
                                         <p class="fw-bold">{{ $item->nama }}</p>
-                                        @foreach ($item->sub_kriteria_penilaian as $data)
-                                            <label for="nilai_{{ $data->id }}"
-                                                class="form-label">{{ $data->nama }}</label><br>
-                                        @endforeach
+                                        <p>{{$item->deskripsi}}</p>
+                            
+                                            <label for="nilai_{{ $item->id }}"
+                                                class="form-label">{{ $item->nama }}</label><br>
+                                      
                                     </td>
                                     <td>
 
@@ -32,27 +33,27 @@
 
                                     </td>
                                     <td>
-                                        @foreach ($item->sub_kriteria_penilaian as $data)
-                                            <input type="number" class="form-control mb-2" id="nilai_{{ $data->id }}"
-                                                min="1" max="{{ $data->skor_maksimum }}"
-                                                name="nilai[{{ $data->id }}]" required>
-                                        @endforeach
+                                        
+                                            <input type="number" class="form-control mb-2" id="nilai_{{ $item->id }}"
+                                                min="1" max="7"
+                                                name="nilai[{{ $item->id }}]" required>
+                                    
                                     </td>
                                 </tr>
                             @endforeach
                             <tr>
                                 <th>
-                                    <label for="feedback" class="form-label">Feedback</label><br>
+                                    <label for="catatan" class="form-label">Catatan</label><br>
                                 </th>
                                 <th colspan="2">
-                                    <textarea name="feedback" id="feedback" cols="55" rows="2"></textarea>
+                                    <textarea name="catatan" id="catatan" cols="55" rows="2"></textarea>
                                 </th>
                             </tr>
                         </tbody>
                     </table>
 
                     <button type="submit" class="btn btn-success">Submit</button>
-                    <a href="/pendaftaran" class="btn btn-primary">Kembali</a>
+                    <a href="/monitoring-evaluasi" class="btn btn-primary">Kembali</a>
                 </form>
             </div>
         </div>

@@ -21,6 +21,8 @@ use App\Http\Controllers\reviewer\reviewerController;
 use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [loginController::class, 'index'])->name('login');
@@ -74,10 +76,19 @@ Route::middleware('auth')->group(function () {
         Route::post('/reviewer/nilai/{id}', [ProposalReviewController::class, 'store'])->name('reviewer.nilai');
     });
 
-    Route::middleware(['can:monitoring dan evaluasi'])->group(function () {
+    Route::middleware(['role:admin|dosen'])->group(function () {
         Route::get('/monitoring-evaluasi', [MonevController::class, 'index'])->name('monev.index');
+        Route::get('//monitoring-evaluasi/detail/{id}', [MonevController::class, 'detail'])->name('monev.detail');
+
+        Route::middleware(['can:reviewer monev'])->group(function () {
+            Route::get('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'createScore'])->name('monev.create');
+            Route::post('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'store'])->name('monev.create');
+        });
 
     });
+
+   
+
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
         Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
@@ -88,6 +99,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/update-status-foto', [KelolaKontenController::class, 'updateStatusFoto'])->name('update.status-foto');
         Route::post('/update-status-artikel', [KelolaArtikel::class, 'updateStatus'])->name('update.status-artikel');
         Route::get('/kelola-konten/artikel', [KelolaArtikel::class, 'index'])->name('kelola-konten.artikel');
+        Route::get('/monitoring-evaluasi/reviewer-monev/{id}', [MonevController::class, 'createReviewer'])->name('monev.reviewer');
+        Route::post('/monitoring-evaluasi/reviewer-monev/{id}', [MonevController::class, 'storeReviewer'])->name('monev.reviewer');
+        Route::get('/monitoring-evaluasi/reviewer-monev/edit/{id}', [MonevController::class, 'edit'])->name('monev.edit');
+        Route::post('/monitoring-evaluasi/reviewer-monev/update/{id}', [MonevController::class, 'update'])->name('monev.update');
+        Route::get('/monitoring-evaluasi/approve/{id}', [MonevController::class, 'approve'])->name('monev.approve');
+        Route::get('/monitoring-evaluasi/reject/{id}', [MonevController::class, 'reject'])->name('monev.reject');
 
 
 

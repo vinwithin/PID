@@ -103,6 +103,8 @@ class regisProgramController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             // Validasi data input dari form
             $validatedData = $request->validate([
                 'nama_dosen_pembimbing' => 'required|string',
@@ -151,11 +153,12 @@ class regisProgramController extends Controller
                 'validator_id' => '', // misalnya pengguna yang memvalidasi
             ]);
             $registrationData->lokasi()->create([
+                'province' => 15,
                 'regency' => $step1Data['regency'],
                 'district' => $step1Data['district'],
                 'village' => $step1Data['village'],
             ]);
-
+            DB::commit();
             // Hapus data dari session setelah berhasil disimpan
             $request->session()->forget([
                 'registration_step1',

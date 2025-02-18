@@ -74,4 +74,12 @@ class Registration extends Model
     {
         return $this->hasOne(DokumentasiKegiatan::class, 'team_id');
     }
+    public function score_monev()
+    {
+        return $this->hasMany(ScoreMonev::class, 'registration_id');
+    }
+    public function status_monev()
+    {
+        return $this->hasMany(StatusMonev::class, 'registration_id');
+    }
 }

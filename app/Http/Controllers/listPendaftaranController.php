@@ -47,7 +47,9 @@ class listPendaftaranController extends Controller
         $totalId = ProposalReviewController::calculateScores();
         // dd($totalId['totalId']);
         return view('list_pendaftaran', [
-            'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'proposal_score'])->get(),
+            'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])->whereHas('registration_validation', function ($query) {
+                $query->whereIn('status', ['Belum valid', 'valid', 'lolos']);
+                })->get(),
             'dataNilai' => $dataNilai,
             'totalId' => $totalId['totalId'],
         ]);
@@ -82,10 +84,10 @@ class listPendaftaranController extends Controller
     {
         try {
             Registrasi_validation::where('registration_id', $id)
-                ->update(['status' => 'valid', 'validator_id' => auth()->user()->id]);
+                ->update(['status' => 'valid', 'validator_id' => auth()->user()->name]);
             $availableReviewers = User::role('reviewer')
-                ->withCount(['reviewAssignments' => function ($query) {
-                    $query->where('status', 'pending');
+                ->withCount(['reviewAssignments as pending_reviews_count' => function ($query) {
+                    $query->where('status', 'Menunggu Review');
                 }])
                 ->get();
 
@@ -95,8 +97,11 @@ class listPendaftaranController extends Controller
 
             // Pilih 2 reviewer dengan beban tugas paling sedikit
             $selectedReviewers = $availableReviewers
-                ->sortBy('review_assignments_count')
+                ->sortBy('pending_reviews_count')
                 ->take(2);
+            
+                // dd($selectedReviewers);
+
             // Buat assignment untuk kedua reviewer terpilih
             foreach ($selectedReviewers as $reviewer) {
                 ReviewAssignment::create([

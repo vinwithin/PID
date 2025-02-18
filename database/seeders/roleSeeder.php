@@ -51,6 +51,10 @@ class roleSeeder extends Seeder
             ['name' => 'admin'], // Kondisi untuk mencari data
             ['name' => 'admin']  // Data yang ingin dibuat atau diperbarui
         );
+        $role4 = Role::updateOrCreate(
+            ['name' => 'dosen'], // Kondisi untuk mencari data
+            ['name' => 'dosen']  // Data yang ingin dibuat atau diperbarui
+        );
 
         $permission1 = Permission::updateOrCreate(
             ['name' => 'register program'],
@@ -80,12 +84,17 @@ class roleSeeder extends Seeder
             ['name' => 'monitoring dan evaluasi'],
             ['name' => 'monitoring dan evaluasi'],
         );
+        $permission8 = Permission::updateOrCreate(
+            ['name' => 'reviewer monev'],
+            ['name' => 'reviewer monev'],
+        );
         $user1->assignRole('mahasiswa');
         $user2->assignRole('reviewer');
         $user3->assignRole('admin');
         $role1->givePermissionTo($permission1, $permission2, $permission4);
         $role2->givePermissionTo($permission6);
         $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5, $permission7);
+        $role4->givePermissionTo($permission8);
         // $role1->givePermissionTo($permission2);
     }
 }

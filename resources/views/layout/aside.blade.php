@@ -58,7 +58,7 @@
                     </a>
                 </li>
             @endrole
-            @can('monitoring dan evaluasi')
+            @role('admin|dosen')
                 <li class="sidebar-header">
                     Monitoring dan Evaluasi
                 </li>
@@ -67,7 +67,7 @@
                         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar Kelompok</span>
                     </a>
                 </li>
-            @endcan
+            @endrole
             @can('create publication')
                 @php
                     $hasAccessToPublication = App\Models\Registration::whereHas('registration_validation', function (

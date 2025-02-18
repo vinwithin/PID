@@ -99,7 +99,13 @@
                         <div class="col-md-6">
                             <h5 class="text-primary mb-3">Status Validasi</h5>
                             <div class="alert {{ $data->registration_validation->status === 'lolos' ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
-                                <i class="fas {{ $data->registration_validation->status === 'lolos' ? 'fa-check-circle' : 'fa-exclamation-triangle' }} me-2"></i>
+                                <i class="fas 
+                                    @switch ($data->registration_validation->status)
+                                        @case('Belum valid') fa-exclamation-triangle @break
+                                        @case('valid') fa-check-circle @break
+                                        @case('lolos') fa-check-circle @break
+                                    @endswitch
+                                me-2"></i>
                                 <span>
                                     {{ $data->registration_validation->status === 'lolos' 
                                         ? 'Lolos Validator: ' . $data->registration_validation->validator_id 

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('review_assignments', function (Blueprint $table) {
-            $table->id();   
-            $table->string('reviewer_id');
-            $table->string('registration_id');
-            $table->string('status')->default('pending');
-            $table->text('feedback');
+        Schema::create('kriteria_monev', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->string('deskripsi');
+            $table->string('bobot');
             $table->timestamps();
         });
     }
