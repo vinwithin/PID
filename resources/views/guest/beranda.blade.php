@@ -21,54 +21,62 @@
 <body>
     <div class="wrapper">
         {{-- nav --}}
-        <nav class="navigasi">
-            <a class="btn btn-secondary" href="#home">Logo</a>
-            <a href="" class="fw-bold">Tentang Kami</a>
-            <a href="" class="fw-bold">Publikasi</a>
-            <a href="" class="fw-bold">Hubungi Kami</a>
-            <div class="navbar-extra">
-                <div class="input-group border">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Cari..."
-                        name="cari">
-                    <div class="input-group-append ">
-                        <button class="btn btn-light" type="button">
-                            <i data-feather="search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        @include('layout.guest.navbar')
 
 
         <section class="hero" id="home">
             <main class="content pt-4">
-                <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:800; line-height:72px;">Pro-IDe UNJA
+                <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:800;">PRO-IDE
                 </h1>
-                <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Program Inovasi Berbasis</h3>
-                <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Kearifan Lokal Desa</h3>
-                <div class="mt-5">
-                    <a href="/login" class="btn btn-success px-5"
-                        style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Masuk</a>
-                </div>
-            </main>
-        </section>
-    </div>
-
-    <section class="publikasi" id="publikasi">
-        <main class="publikasi-content">
-            <div class="mb-8">
-                <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:800;">Pro-IDe</h1>
-                <p style="font-family: Plus Jakarta Sans, sans-serif;">Pro IDE adalah kegiatan pembinaan dan
-                    pemberdayaan masyarakat yang dilakukan oleh
+                <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Pro IDE adalah kegiatan pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
                     mahasiswa melalui Badan Eksekutif Mahasiswa (BEM), Unit Kegiatan Mahasiswa (UKM),
-                    HImpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). Program yang sangat bermanfaat baik
-                    untuk
-                    memajukan desa dan masyarakatnya, juga di
-                    desain sebagai bagian dari implementasi Kebijakan Merdeka Belajar Kampus Merdeka (MBKM).
-                    Mahasiswa yang tergabung dalam ORMAWA memiliki hak mengikuti pembelajaran di luar
-                    program studinya dapat memanfaatkan program ini, melalui berbagai aktivitas membangun desa
-                    yang dapat di rekognisi menjadi kegiatan akademik. </p>
+                    HImpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). </h3>
+                
+                
+            </main>
+           
+        </section>
+        <div class="wave-container">
+            <img class="wave left" src="/assets/wave.svg" alt="Wave Left">
+            <img class="wave right" src="/assets/wave.svg" alt="Wave Right">
+        </div>
+    </div>
+    
+    <section class="publikasi" id="publikasi">
+
+        <main class="publikasi-content">
+            <div class="container-fluid ">
+                <div class="container-box p-4">
+                    <h2 class="text-center fw-bold text-success">PENGUMUMAN</h2>
+                    
+                    <div class="row mt-4">
+                        <!-- Card Pendaftaran -->
+                        <div class="col-md-6">
+                            <div class="card p-3">
+                                <h3 class="card-title">Pendaftaran</h3>
+                                <div class="announcement mt-3">
+                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2023 - <small>Juni, 2023</small></p>
+                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2024 - <small>Juni, 2024</small></p>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Card Hasil Seleksi -->
+                        <div class="col-md-6">
+                            <div class="card p-3">
+                                <h3 class="card-title">Hasil Seleksi</h3>
+                                <div class="announcement mt-3">
+                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2023 - <small>Juni, 2023</small></p>
+                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2024 - <small>Juni, 2024</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
+            
+            
             <div class="card" style="margin-top: 4rem !important;">
                 <div class="d-flex justify-content-between align-items-baseline px-4 ">
                     <p class="badge text-bg-secondary">Publikasi Kegiatan Pro-Ide</p>
