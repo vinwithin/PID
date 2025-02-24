@@ -14,7 +14,8 @@ class berandaController extends Controller
     {
         return view('guest.beranda', [
             'data' => Publikasi::where('status', 'valid')
-                ->orderBy('created_at', 'desc') // 'desc' untuk urutan terbaru ke lama
+                ->orderBy('created_at', 'desc') // Urutkan dari terbaru ke lama
+                ->take(8) // Ambil hanya 8 data
                 ->get(),
             'video' => VideoKonten::paginate(10),
             'foto' => Album::where('status', 'valid')->paginate(10),

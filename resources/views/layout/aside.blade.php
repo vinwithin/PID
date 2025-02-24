@@ -1,7 +1,7 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand text-center btn btn-secondary" href="{{ route('beranda') }}">
-            <span class=" align-middle">Logo</span>
+        <a class="sidebar-brand text-center" href="{{ route('beranda') }}">
+            <img src="/assets/Logo.png" alt="" srcset="" style="width: 186px; height:60px;">
         </a>
         <div class="text-center my-3">
             <img class="img-thumbnail rounded-circle" src="/img/photos/unsplash-1.jpg" alt=""

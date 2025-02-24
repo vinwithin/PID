@@ -11911,10 +11911,12 @@ footer.footer ul {
 .hamburger,
 .hamburger:after,
 .hamburger:before {
-    background: #495057;
+    background: white;
     border-radius: 1px;
     content: "";
     cursor: pointer;
+    
+
     display: block;
     height: 3px;
     transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
@@ -11936,12 +11938,14 @@ footer.footer ul {
 .sidebar-toggle:hover .hamburger,
 .sidebar-toggle:hover .hamburger:after,
 .sidebar-toggle:hover .hamburger:before {
-    background: #3b7ddd;
+    background:white;
+
 }
 .hamburger-right,
 .hamburger-right:after,
 .hamburger-right:before {
     right: 0;
+
 }
 a.list-group-item {
     text-decoration: none;

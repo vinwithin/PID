@@ -28,152 +28,130 @@
             <main class="content pt-4">
                 <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:800;">PRO-IDE
                 </h1>
-                <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Pro IDE adalah kegiatan pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
+                <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Pro IDE adalah kegiatan
+                    pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
                     mahasiswa melalui Badan Eksekutif Mahasiswa (BEM), Unit Kegiatan Mahasiswa (UKM),
                     HImpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). </h3>
-                
-                
+
+
             </main>
-           
+
         </section>
         <div class="wave-container">
-            <img class="wave left" src="/assets/wave.svg" alt="Wave Left">
             <img class="wave right" src="/assets/wave.svg" alt="Wave Right">
+            <img class="wave left" src="/assets/wave.svg" alt="Wave Left">
+
         </div>
     </div>
-    
+
     <section class="publikasi" id="publikasi">
 
         <main class="publikasi-content">
             <div class="container-fluid ">
                 <div class="container-box p-4">
                     <h2 class="text-center fw-bold text-success">PENGUMUMAN</h2>
-                    
-                    <div class="row mt-4">
+
+                    <div class="row mt-4" id="container-card">
                         <!-- Card Pendaftaran -->
                         <div class="col-md-6">
-                            <div class="card p-3">
-                                <h3 class="card-title">Pendaftaran</h3>
+                            <div class="card p-3" id="card-announce">
+                                <h3 class="card-title" id="card-title">Pendaftaran</h3>
                                 <div class="announcement mt-3">
-                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2023 - <small>Juni, 2023</small></p>
-                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2024 - <small>Juni, 2024</small></p>
+                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2023 - <small>Juni,
+                                            2023</small></p>
+                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2024 - <small>Juni,
+                                            2024</small></p>
                                 </div>
                             </div>
                         </div>
-            
+
                         <!-- Card Hasil Seleksi -->
                         <div class="col-md-6">
-                            <div class="card p-3">
-                                <h3 class="card-title">Hasil Seleksi</h3>
+                            <div class="card p-3" id="card-announce">
+                                <h3 class="card-title" id="card-title">Hasil Seleksi</h3>
                                 <div class="announcement mt-3">
-                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2023 - <small>Juni, 2023</small></p>
-                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2024 - <small>Juni, 2024</small></p>
+                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2023 - <small>Juni,
+                                            2023</small></p>
+                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2024 - <small>Juni,
+                                            2024</small></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
-            
-            
-            <div class="card" style="margin-top: 4rem !important;">
-                <div class="d-flex justify-content-between align-items-baseline px-4 ">
-                    <p class="badge text-bg-secondary">Publikasi Kegiatan Pro-Ide</p>
-                    <a href="/daftar-publikasi" class="text-decoration-none text-dark">Lihat Lainnya</a>
+
+
+            <div class="container-fluid mt-4">
+                <div class="container-title my-5">
+                    <h2 class="text-center fw-bold text-success">PUBLIKASI</h2>
                 </div>
-                <div class="container-fluid swiper mt-4 w-full">
-                    <div class="slider-wrapper">
-                        <div class="card-list swiper-wrapper">
-                            @foreach ($data as $item)
-                                <div class="card-item swiper-slide">
-                                    <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
-                                        alt="User Image" class="user-image ">
-                                    <h2 class="user-name  ">{!! Str::limit($item->title, 50) !!}</h2>
-                                    <a class="message-button" href="publikasi/detail/{{ $item->slug }}">Lihat
-                                        Selengkapnya</a>
+                <div class="row row-cols-1 row-cols-md-4 row-gap-5  g-2">
+                    @foreach ($data as $item)
+                        <div class="col" id="card-list">
+                            <div class="card" id="card-item">
+                                <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
+                                    class="user-image" alt="...">
+                                <div class="card-body" id="card-name">
+                                    <h5 class="card-title">{!! Str::limit($item->title, 50) !!}</h5>
 
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-slide-button swiper-button-prev"></div>
-                        <div class="swiper-slide-button swiper-button-next"></div>
-                    </div>
+                    @endforeach
+
                 </div>
+
+            </div>
+            <div class="more-button my-5">
+                <a href="/daftar-publikasi">Selengkapnya<i data-feather="arrow-right"></i></a>
             </div>
         </main>
     </section>
-    <section class="video vh-100">
+    <section class="video ">
         <main>
-            <h1 class="">Galeri Kegiatan Pro-IDe</h1>
-            <ul class="nav nav-tabs justify-content-center mt-4" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#foto" role="tab">Foto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#video" role="tab">Video</a>
-                </li>
-            </ul>
+            <h1 class="text-dark text-center fw-bold text-success mb-5">VIDEO</h1>
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+                <!-- Video Cards -->
+                @foreach ($video as $item)
+                    <div class="col">
+                        <div class="album-card">
+                            <iframe width="397" height="222" src="{{ $item->link_youtube }}" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
+                                onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';"></iframe>
 
-            <div class="tab-content mt-4">
-                <div class="tab-pane fade show active" id="foto" role="tabpanel">
-                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-                        <!-- Album Cards -->
-                        @foreach ($foto as $item)
-                            <div class="col">
-                                <div class="album-card">
-                                    <img src="/storage/{{$item->album_photos[0]->path_photos}}" alt="">
-                                    <div class="album-title text-dark">{{$item->nama}}</div>
-                                    <div class="album-date"><i class="bi bi-calendar"></i> 9 Juli 2024</div>
-                                </div>
-                            </div>
-                        @endforeach
-                       
+                        </div>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="video" role="tabpanel">
-                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-                        <!-- Video Cards -->
-                         @foreach ($video as $item)
-                            <div class="col">
-                                <div class="album-card">
-                                    <iframe width="375" height="220" src="{{ $item->link_youtube }}"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
-                                        onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';"></iframe>
-                                    <div class="album-title">Nama album</div>
-                                    <div class="album-date"><i class="bi bi-calendar"></i> 9 Juli 2024</div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                @endforeach
+            </div>
+            <div class="more-button my-5">
+                <a href="">Selengkapnya<i data-feather="arrow-right"></i></a>
             </div>
         </main>
     </section>
-    <section class="artikel vh-100">
+    {{-- <section class="artikel vh-100">
         <main class="">
             <h1 class="mb-5">Artikel Kegiatan Pro-IDe</h1>
             <div class="row row-cols-1 row-cols-md-4 g-4">
 
                 <!-- Card 1 -->
-                @foreach ($artikel as $item)              
-                <div class="col">
-                    <div class="card p-4">
-                        <div class="icon-wrapper">
-                            <i class="align-middle" data-feather="book"></i>
+                @foreach ($artikel as $item)
+                    <div class="col">
+                        <div class="card p-4">
+                            <div class="icon-wrapper">
+                                <i class="align-middle" data-feather="book"></i>
+                            </div>
+                            <h5 class="card-title">{{ $item->judul_artikel }}</h5>
+                            <p class="card-text">{{ $item->status_artikel }}</p>
+                            <a href="#" class="btn btn-outline-primary mt-2">Lihat Selengkapnya</a>
                         </div>
-                        <h5 class="card-title">{{$item->judul_artikel}}</h5>
-                        <p class="card-text">{{$item->status_artikel}}</p>
-                        <a href="#" class="btn btn-outline-primary mt-2">Lihat Selengkapnya</a>
                     </div>
-                </div>
                 @endforeach
             </div>
         </main>
-    </section>
+    </section> --}}
     {{-- footer --}}
     @include('layout.guest.footer')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

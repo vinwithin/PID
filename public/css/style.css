@@ -104,12 +104,12 @@ body {
     height: 30%;
     background: linear-gradient(0deg, rgba(1, 1, 3, 1) 3%, rgba(255, 255, 255, 0) 25%);
     /* z-index: -1;  */
+
 .wave-container {
     position: relative;
     width: 100%;
-    height: 200px; /* Sesuaikan tinggi gelombang */
+    height: 300px; /* Sesuaikan tinggi gelombang */
     margin-top: -85px;
-    margin-bottom: -85px;
     overflow: hidden;
 }
 
@@ -118,13 +118,14 @@ body {
     width: 90%; /* Atur lebar agar setengah layar */
     height: auto;
     top: 0;
+    /* filter: brightness(90%); */
     
 }
 
 .wave.left {
     left: 0;
     top: 20px;
-    z-index:100;
+    /* z-index:1; */
 
 }
 
@@ -140,13 +141,13 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50px; /* Sesuaikan tinggi efek */
+    height: 40px; /* Sesuaikan tinggi efek */
     
     /* Gradient dari warna wave ke putih */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
 }
 .publikasi {
-    height: 100vh;
+    max-height: 1900px;
     padding: 4rem 7% 1.4rem;
     left: 0;
     /* position:relative; */
@@ -154,24 +155,41 @@ body {
 .container-box {
     background: white;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 4px 0px;
     padding: 30px;
     max-width: 100rem;
-
-    margin: auto;
-    border: 2px solid #3b5d48;
+    gap:2rem;
+    /* margin: auto; */
+}
+#container-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; /* Memastikan card berada di tengah */
+    align-items: center;
+    gap: 20px; /* Beri jarak antar card */
+    padding: 20px; /* Opsional: beri padding agar tidak terlalu mepet */
 }
 
-.card {
-    background: #f2f2f2;
+#container-card .col-md-6 {
+    display: flex; /* Membantu card tetap proporsional */
+    justify-content:space-evenly;
+    max-width: 548px; /* Batasi lebar agar lebih rapi */
+}
+
+#card-announce {
+    /* background: #f2f2f2; */
+    background: rgba(240, 240, 240, 1);
     border-radius: 10px;
     border: none;
+    height: 338px;
+    width:548px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    border: solid 0.5px rgba(0, 0, 0, 1);
 }
-
-.card-title {
+#card-title {
     font-size: 18px;
     font-weight: bold;
+
     border-bottom: 3px solid black;
     display: inline-block;
     padding-bottom: 5px;
@@ -187,6 +205,28 @@ body {
     font-size: 14px;
 }
 
+.more-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Memastikan parent mengisi lebar penuh */
+}
+
+.more-button a {
+    background: rgba(6, 77, 63, 1);
+    box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.25);
+    width: 227px;
+    height: 56px;
+    color: white; /* Pastikan teks terlihat */
+    text-decoration: none;
+    display: flex; /* Flex agar teks berada di tengah vertikal */
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px; /* Opsional, buat sudut lebih halus */
+    font-size:22px;
+    font-weight: bold;
+}
 
 
 .publikasi-content h1 {
@@ -195,13 +235,17 @@ body {
 .publikasi-content p {
     font-size: 1.4rem;
 }
-.slider-wrapper {
-    overflow: hidden;
-    max-width: 100rem;
-    margin: 0 70px 55px;
+
+#card-list{
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
 }
-.card-list .card-item {
-    height: 22rem;
+
+#card-item {
+    height: 20rem;
+    width: 18rem;
     color: black;
     user-select: none;
     padding: 15px;
@@ -210,25 +254,32 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    backdrop-filter: blur(30px);
-    background: white;
-    border: 1px solid black;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid rgba(188, 225, 148, 1);
+    background: rgba(250, 250, 250, 1);
+
 }
-.card-list .card-item .user-image {
-    width: 250px;
-    height: 150px;
-    object-fit: contain;
+.user-image {
+    width: 18rem;
+    height: 190px;
+    object-fit:  cover;
     margin-bottom: 10px;
-    border: 3px solid black;
-    padding: 4px;
+    border-radius: 10px;
+
+    /* border: 3px solid black; */
+    /* padding: 4px; */
 }
-.card-list .card-item .user-name {
-    font-size: 1.15rem;
+#card-name {
     color: black;
-    font-weight: 500;
+    padding:0;
     /* margin: 14px 0 40px; */
 }
 
+#card-name h5{
+    font-size: 18px;
+    font-weight: 500;
+
+}
 .card-list .card-item .message-button {
     font-size: 1rem;
     padding: 5px 25px;
@@ -266,12 +317,20 @@ body {
     color: #4658ff;
 }
 
-.footer {
-    /* background-color: black; */
+footer {
+    
     bottom: 0;
+    height:440px;
     margin-top: auto;
-    left: 0;
-    right: 0;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+}
+#link-utama a{
+    font-size:22px;
+}
+#kontak-kami p{
+    font-size:22px;
 }
 .list-publikasi {
     margin: 2rem;
@@ -281,25 +340,17 @@ body {
 }
 .video {
     padding: 4rem 7% 1.4rem;
-    background-color: #2fa161;
+    background: rgba(241, 255, 225, 1);
+    max-height:560px;
     color: white;
     /* padding: 50px 15px; */
 }
 .video .card {
 }
-. .nav-tabs .nav-link {
-    color: white;
-}
-.nav-tabs .nav-link.active {
-    background-color: white;
-    color: #003399;
-    border-color: white;
-}
-.album-card {
-    background-color: white;
+
+.album-card iframe{
     border-radius: 10px;
-    overflow: hidden;
-    padding: 10px;
+
 }
 .album-title {
     font-size: 14px;
