@@ -63,6 +63,7 @@
                                             <th class="d-none d-xl-table-cell">Fakultas</th>
                                             <th>Bidang</th>
                                             <th class="d-none d-md-table-cell">Judul</th>
+                                            <th class="d-none d-md-table-cell">Juri</th>
                                             <th class="d-none d-md-table-cell">Status</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
@@ -84,6 +85,11 @@
                                                     <span class="badge bg-success">{{ $item->bidang->nama }}</span>
                                                 </td>
                                                 <td class="d-none d-md-table-cell">{{ Str::limit($item->judul, 30) }}</td>
+                                                <td class="d-none d-md-table-cell">
+                                                    @foreach ($item->status_monev as $status)
+                                                       <p>{{ $status->user->name }}</p>
+                                                    @endforeach
+                                                </td>
                                                 <td class="d-none d-md-table-cell">
                                                     <span
                                                         class="badge 
@@ -110,17 +116,15 @@
                                                                 <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                             </a>
                                                             @if ($item->registration_validation->status === 'lolos')
-                                                            <a href="/monitoring-evaluasi/approve/{{ $item->id }}"
-                                                                class="btn btn-sm btn-outline-success">
-                                                                <i class="fas fa-check me-1"></i>Lanjutkan
-                                                            </a>
-                                                            <a href="/monitoring-evaluasi/reject/{{ $item->id }}"
-                                                                class="btn btn-sm btn-outline-danger">
-                                                                <i class="fas fa-exclamation-triangle me-1"></i>Tolak
-                                                            </a>
+                                                                <a href="/monitoring-evaluasi/approve/{{ $item->id }}"
+                                                                    class="btn btn-sm btn-outline-success">
+                                                                    <i class="fas fa-check me-1"></i>Lanjutkan
+                                                                </a>
+                                                                <a href="/monitoring-evaluasi/reject/{{ $item->id }}"
+                                                                    class="btn btn-sm btn-outline-danger">
+                                                                    <i class="fas fa-exclamation-triangle me-1"></i>Tolak
+                                                                </a>
                                                             @endif
-                                                            
-                                                            
                                                         @else
                                                             <a href="/monitoring-evaluasi/reviewer-monev/edit/{{ $item->id }}"
                                                                 class="btn btn-sm btn-outline-success">
@@ -128,8 +132,8 @@
                                                             </a>
                                                         @endif
 
-                                                       
-                                                       
+
+
 
 
                                                     </div>
@@ -147,7 +151,7 @@
                                 </table>
                             </div>
                         </div>
-                    @elserole('dosen')
+                        @elserole('dosen')
                         <div class="card-header bg-primary text-white py-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3 class="mb-0 text-light">

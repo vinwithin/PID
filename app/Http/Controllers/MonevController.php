@@ -23,7 +23,7 @@ class MonevController extends Controller
         return view('monitoring-evaluasi.index', [
             'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])->whereHas('registration_validation', function ($query) {
                 $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
-                })->get(),
+            })->get(),
             'dataNilai' => Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('status_monev', function ($query) {
                 $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
             })->get(),
@@ -81,17 +81,36 @@ class MonevController extends Controller
 
     public function storeReviewer(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'reviewer_id' => 'required',
-        ]);
-        $result = StatusMonev::create([
-            'user_id' => $validatedData['reviewer_id'],
-            'registration_id' => $id,
-        ]);
-        if ($result) {
-            return redirect()->route('monev.index')->with('success', 'Berhasil menambahkan data');
-        } else {
-            return back()->withErrors(['error' => 'Review assignment tidak terdaftar.']);
+        try {
+            DB::beginTransaction();
+            // Validasi input
+            $data = $request->validate([
+                'reviewer_id' => 'required|array|min:2|max:2', // Harus memilih 2 reviewer
+                'reviewer_id.*' => 'required',
+            ]);
+            // Ambil reviewer dari request
+            $reviewer_1 = $data['reviewer_id'][0];
+            $reviewer_2 = $data['reviewer_id'][1];
+
+            // Pastikan reviewer_1 dan reviewer_2 tidak sama
+            if ($reviewer_1 === $reviewer_2) {
+                return back()->withErrors(['error' => 'Reviewer 1 dan 2 tidak boleh sama']);
+            }
+            // Simpan ke database
+            StatusMonev::create([
+                'user_id' => $reviewer_1,
+                'registration_id' => $id,
+            ]);
+            StatusMonev::create([
+                'user_id' => $reviewer_2,
+                'registration_id' => $id,
+            ]);
+
+            DB::commit();
+            return redirect()->route('monev.index')->with('success', 'Berhasil menambah data');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('monev.index')->with("error", "Gagal mengubah data!");
         }
     }
     public function edit($id)
@@ -105,16 +124,34 @@ class MonevController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'reviewer_id' => 'required',
-        ]);
-        $result = StatusMonev::where('registration_id', $id)->update([
-            'user_id' => $validatedData['reviewer_id'],
-        ]);
-        if ($result) {
-            return redirect()->route('monev.index')->with('success', 'Berhasil menambahkan data');
-        } else {
-            return back()->withErrors(['error' => 'Review assignment tidak terdaftar.']);
+        try {
+            DB::beginTransaction();
+            $data = $request->validate([
+                'reviewer_id' => 'required|array|min:2|max:2', // Harus memilih 2 reviewer
+                'reviewer_id.*' => 'required',
+            ]);
+            $reviewer_1 = $data['reviewer_id'][0];
+            $reviewer_2 = $data['reviewer_id'][1];
+
+            // Pastikan reviewer_1 dan reviewer_2 tidak sama
+            if ($reviewer_1 === $reviewer_2) {
+                return back()->withErrors(['error' => 'Reviewer 1 dan 2 tidak boleh sama']);
+            }
+            StatusMonev::where('registration_id', $id)->delete();
+            // Simpan reviewer baru
+            StatusMonev::create([
+                'user_id' => $reviewer_1,
+                'registration_id' => $id,
+            ]);
+            StatusMonev::create([
+                'user_id' => $reviewer_2,
+                'registration_id' => $id,
+            ]);
+            DB::commit();
+            return redirect()->route('monev.index')->with('success', 'Berhasil menambah data');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('monev.index')->with("error", "Gagal mengubah data!");
         }
     }
 
@@ -139,8 +176,7 @@ class MonevController extends Controller
             DB::beginTransaction();
             StatusMonev::where('registration_id', $id)
                 ->update(['status' => 'Lanjutkan Program']);
-            $result = Registrasi_validation::where('registration_id', $id)->
-            update(['status' => 'Lanjutkan Program']);
+            $result = Registrasi_validation::where('registration_id', $id)->update(['status' => 'Lanjutkan Program']);
             DB::commit();
             if ($result) {
                 return redirect()->route('monev.index')->with('success', 'berhasil mengubah data');
@@ -157,18 +193,18 @@ class MonevController extends Controller
     {
         try {
             DB::beginTransaction();
-        
+
             // Update status pada StatusMonev
             StatusMonev::where('registration_id', $id)
                 ->update(['status' => 'Hentikan Program']);
-        
+
             // Update status pada RegistrasiValidation
             $result = Registrasi_validation::where('registration_id', $id)
                 ->update(['status' => 'Hentikan Program']);
-        
+
             // Commit transaksi jika berhasil
             DB::commit();
-        
+
             if ($result) {
                 return redirect()->route('monev.index')->with('success', 'Berhasil mengubah data');
             } else {
@@ -176,7 +212,7 @@ class MonevController extends Controller
             }
         } catch (Exception $e) {
             DB::rollBack(); // Rollback transaksi jika terjadi kesalahan
-        
+
             return redirect()->route('monev.index')->with("error", "Terjadi kesalahan, silakan coba lagi!");
         }
     }

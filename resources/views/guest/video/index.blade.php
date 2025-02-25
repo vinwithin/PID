@@ -37,28 +37,38 @@
 
         .wave {
             position: relative;
-            
+
             bottom: 0;
             overflow: hidden;
 
         }
+
         .wave-left {
-            width: 1150px;
-            height: 122px;
+            width: auto;
+            height: 182px;
             position: relative;
             margin-right: -55%;
-           
-
-            z-index: 1;
-        }  
-        .wave-right {
-            right: 0;   
-            position: relative;
-            width: 1150px;
-            height: 181px;
+            bottom: -50px;
+            z-index: -1;
         }
-        .wave-left img{
-            /* height: 118px; */
+
+        .wave-left img {
+            bottom: -50px;
+        }
+
+        .wave-right {
+            right: 0;
+            overflow: hidden;
+            z-index: 1;
+            position: relative;
+            width: auto;
+            bottom: 0;
+            height: 181px;
+
+        }
+
+        .wave-right img {
+            bottom: 0;
         }
 
         /* Search Box Styling */
@@ -85,7 +95,8 @@
             color: white;
             opacity: 0.7;
         }
-        #card{
+
+        #card {
             position: relative;
             margin-top: -70px;
         }
@@ -127,7 +138,7 @@
     <!-- Wave Background -->
     <div class="wave-container">
         <div class="wave-left">
-            <img class="" src="/assets/Vector 8.svg" alt="Wave Left">   
+            <img class="" src="/assets/Vector 8.svg" alt="Wave Left">
         </div>
         <div class="wave-right">
             <img class="" src="/assets/Vector 8.svg" alt="Wave Right">
@@ -186,7 +197,7 @@
 @include('layout.guest.footer')
 <script>
     feather.replace();
-  </script>
+</script>
 </body>
 
 </html>

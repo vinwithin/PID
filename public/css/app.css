@@ -12232,6 +12232,14 @@ a.sidebar-link svg {
 .vh-50 {
     height: 50vh !important;
 }
+.w-100{
+    position:relative;
+    margin-top:-100px;
+}
+.w-full{
+    position:relative;
+    margin-top:-100px;
+}
 .stat {
     align-items: center;
     background: #d3e2f7;

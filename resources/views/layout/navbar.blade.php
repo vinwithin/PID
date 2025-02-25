@@ -36,15 +36,19 @@
         height: 182px;
         position: relative;
         margin-right: -50%;
+        bottom: -50px;
 
 
-        z-index: 1;
+        z-index: -1;
+    }
+    .wave-left img{
+        bottom: -50px;
     }
 
     .wave-right {
         right: 0;
         overflow: hidden;
-
+        z-index: 1;
         position: relative;
         width: auto;
         height: 181px;

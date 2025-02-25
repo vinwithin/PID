@@ -32,24 +32,38 @@
 
                                         <dt class="col-5">Ormawa Ketua</dt>
                                         <dd class="col-7">{{ $data->ormawa->nama }}</dd>
+
+                                        <dt class="col-5">Juri</dt>
+                                        <dd class="col-7">
+                                            @foreach ($data->status_monev as $item)
+                                               <p>{{ $item->user->name }}</p> 
+                                            @endforeach
+                                        </dd>
+
                                     </dl>
                                 </div>
-                                <form method="POST" action="/monitoring-evaluasi/reviewer-monev/update/{{ $data->id }}" enctype="multipart/form-data">
+                                <form method="POST" action="/monitoring-evaluasi/reviewer-monev/update/{{ $data->id }}"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-4">
-                                        <label for="reviewer_id" class="form-label">Pilih Juri</label>
-                                        <select class="form-select" name="reviewer_id" id="reviewer_id" required>
-                                            @if (!empty($reviewer) && isset($reviewer[0]))
-                                                <option value="{{ $reviewer[0]->user_id }}" selected hidden>
-                                                    {{ $reviewer[0]->user->name }}
-                                                </option>
-                                            @endif
-                                        
-                                            @foreach ($reviewer_monev as $rev)
-                                                <option value="{{ $rev->id }}">{{ $rev->name }}</option>
+                                        <label for="reviewer_1" class="form-label">Pilih Juri 1</label>
+                                        <select class="form-select" name="reviewer_id[]" id="reviewer_1" required>
+                                            <option value="" selected="selected" hidden="hidden">Pilih Reviewer
+                                            </option>
+                                            @foreach ($reviewer_monev as $reviewer)
+                                                <option value="{{ $reviewer->id }}">{{ $reviewer->name }}</option>
                                             @endforeach
                                         </select>
-                                        
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="reviewer_2" class="form-label">Pilih Juri 2</label>
+                                        <select class="form-select" name="reviewer_id[]" id="reviewer_2" required>
+                                            <option value="" selected="selected" hidden="hidden">Pilih Reviewer
+                                            </option>
+                                            @foreach ($reviewer_monev as $reviewer)
+                                                <option value="{{ $reviewer->id }}">{{ $reviewer->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <button type="submit" class="btn btn-success">Submit</button>
                                     <a href="/monitoring-evaluasi" class="btn btn-primary">Kembali</a>

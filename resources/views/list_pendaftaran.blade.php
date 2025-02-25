@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
-    <div class="w-100">
+    <div class="w-100" id="conntainer-card">
         <div class="card">
             <div class="container-fluid px-4 py-4">
                 <div class="card shadow-sm border-0">

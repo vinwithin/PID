@@ -37,28 +37,37 @@
 
         .wave {
             position: relative;
-            
+
             bottom: 0;
             overflow: hidden;
-
         }
+
         .wave-left {
-            width: 1150px;
-            height: 122px;
+            width: auto;
+            height: 182px;
             position: relative;
             margin-right: -55%;
-           
-
-            z-index: 1;
-        }  
-        .wave-right {
-            right: 0;   
-            position: relative;
-            width: 1150px;
-            height: 181px;
+            bottom: -50px;
+            z-index: -1;
         }
-        .wave-left img{
-            /* height: 118px; */
+
+        .wave-left img {
+            bottom: -50px;
+        }
+
+        .wave-right {
+            right: 0;
+            overflow: hidden;
+            z-index: 1;
+            position: relative;
+            width: auto;
+            bottom: 0;
+            height: 181px;
+
+        }
+
+        .wave-right img {
+            bottom: 0;
         }
 
         /* Search Box Styling */
@@ -85,7 +94,8 @@
             color: white;
             opacity: 0.7;
         }
-        #card{
+
+        #card {
             position: relative;
             margin-top: -70px;
         }
@@ -128,7 +138,7 @@
     <!-- Wave Background -->
     <div class="wave-container">
         <div class="wave-left">
-            <img class="" src="/assets/Vector 8.svg" alt="Wave Left">   
+            <img class="" src="/assets/Vector 8.svg" alt="Wave Left">
         </div>
         <div class="wave-right">
             <img class="" src="/assets/Vector 8.svg" alt="Wave Right">
@@ -136,9 +146,9 @@
         </div>
     </div>
 </nav>
-<section class="container vh-100  py-4">
+<section class="container vh-100 py-4">
 
-    <div class="card w-full p-4 shadow" id="card">
+    <div class="card w-full p-5 shadow" id="card">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">
             @foreach ($data as $item)
                 <div class="col">
@@ -160,7 +170,7 @@
                             </div>
                             <div class="col-8">
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title mb-2" style="font-size: 20px;">{!! Str::limit($item->title, 50) !!}</h5>
+                                    <h5 class="card-title mb-2" style="font-size: 18px;">{!! Str::limit($item->title, 80) !!}</h5>
                                     {{-- <p class="card-text flex-grow-1 text-muted">
                                         {!! Str::limit($item->excerpt, 82) !!}
                                     </p> --}}
@@ -179,7 +189,7 @@
             @endforeach
         </div>
 
-        <div class="d-flex justify-content-center mt-4">
+        <div class="d-flex justify-content-center mt-5">
             {{ $data->links() }}
         </div>
     </div>
@@ -187,7 +197,7 @@
 @include('layout.guest.footer')
 <script>
     feather.replace();
-  </script>
+</script>
 </body>
 
 </html>
