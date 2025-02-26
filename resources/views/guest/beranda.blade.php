@@ -53,30 +53,36 @@
 
                     <div class="row mt-4" id="container-card">
                         <!-- Card Pendaftaran -->
+
+                        @if ($announce->isEmpty())
                         <div class="col-md-6">
                             <div class="card p-3" id="card-announce">
-                                <h3 class="card-title" id="card-title">Pendaftaran</h3>
+                                <h3 class="card-title" id="card-title">Belum Ada Pengumuman</h3>
                                 <div class="announcement mt-3">
-                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2023 - <small>Juni,
-                                            2023</small></p>
-                                    <p><i class="fa fa-calendar"></i> Pendaftaran Pro-IDE Tahun 2024 - <small>Juni,
-                                            2024</small></p>
+                                   
                                 </div>
                             </div>
                         </div>
+                        @else
+                            @foreach ($announce as $item)
+                                <div class="col-md-6">
+                                    <div class="card p-3" id="card-announce">
+                                        <h3 class="card-title" id="card-title">{{ $item->title }}</h3>
+                                        <div class="announcement mt-3">
+                                            <p>{{ $item->content }}</p>
+                                            <p><i class="fa fa-calendar"></i>
+                                                <small>{{ $item->start_date }}</small> -
+                                                <small>{{ $item->end_date }}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+
 
                         <!-- Card Hasil Seleksi -->
-                        <div class="col-md-6">
-                            <div class="card p-3" id="card-announce">
-                                <h3 class="card-title" id="card-title">Hasil Seleksi</h3>
-                                <div class="announcement mt-3">
-                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2023 - <small>Juni,
-                                            2023</small></p>
-                                    <p><i class="fa fa-calendar"></i> Hasil Seleksi Pro-IDE Tahun 2024 - <small>Juni,
-                                            2024</small></p>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
 
                 </div>

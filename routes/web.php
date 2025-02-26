@@ -1,7 +1,6 @@
 <?php
 
-
-
+use App\Http\Controllers\annouceController;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
 use App\Http\Controllers\berandaController;
@@ -92,6 +91,14 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
         Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
+        Route::get('announcement', [annouceController::class, 'index'])->name('announcement');
+        Route::get('announcement/tambah', [annouceController::class, 'create'])->name('announcement.tambah');
+        Route::post('announcement/tambah', [annouceController::class, 'store'])->name('announcement.tambah');
+        Route::get('announcement/edit/{id}', [annouceController::class, 'edit'])->name('announcement.edit');
+        Route::post('announcement/update/{id}', [annouceController::class, 'update'])->name('announcement.update');
+        Route::get('announcement/destroy/{id}', [annouceController::class, 'destroy'])->name('announcement.destroy');
+        Route::get('announcement/publish/{id}', [annouceController::class, 'publish'])->name('announcement.publish');
+        Route::get('announcement/draft/{id}', [annouceController::class, 'draft'])->name('announcement.draft');
         Route::get('/kelola-konten/video', [KelolaKontenController::class, 'index'])->name('kelola-konten.video');
         Route::post('/update-status-video', [KelolaKontenController::class, 'updateStatus'])->name('update.status-video');
         Route::get('/kelola-konten/foto', [KelolaKontenController::class, 'foto'])->name('kelola-konten.foto');

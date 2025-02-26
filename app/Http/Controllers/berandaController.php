@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Announcement;
 use App\Models\DokumenPublikasi;
 use App\Models\Publikasi;
 use App\Models\VideoKonten;
@@ -20,6 +21,7 @@ class berandaController extends Controller
             'video' => VideoKonten::paginate(10),
             'foto' => Album::where('status', 'valid')->paginate(10),
             'artikel' => DokumenPublikasi::where('visibilitas', 'yes')->with(['teamMembers', 'registration'])->paginate(10),
+            'announce' => Announcement::where('status', 'published')->latest()->take(2)->get()
 
         ]);
     }

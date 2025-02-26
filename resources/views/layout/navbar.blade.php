@@ -69,6 +69,6 @@
         </div>
     </div>
     <div class="navbar-collapse collapse">
-
+        <h1 class="text-white">{{ $title ?? '' }}</h1>
     </div>
 </nav>

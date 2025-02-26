@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Kelola Pendaftaran')
 @section('content')
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
     <div class="w-100" id="conntainer-card">
@@ -110,15 +111,30 @@
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group">
                                                         @if ($item->registration_validation->status === 'Belum valid')
-                                                            <a href="{{ route('approve', ['id' => $item->id]) }}"
-                                                                class="btn btn-sm btn-outline-success">
-                                                                <i class="fas fa-check me-1"></i>Setujui
-                                                            </a>
+                                                            <!-- Tombol untuk membuka modal -->
+                                                            <button type="button" class="btn btn-sm btn-outline-success"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#approveModal{{ $item->id }}">
+                                                                <i class="fas fa-check me-1"></i> Setujui
+                                                            </button>
+
+                                                            <!-- Gunakan komponen modal -->
+                                                            <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                                title="Konfirmasi Persetujuan"
+                                                                message="Apakah Anda yakin ingin menyetujui proposal ini?"
+                                                                action-url="{{ route('approve', ['id' => $item->id]) }}"
+                                                                confirm-text="Ya, Setujui" />
                                                         @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
-                                                            <a href="/approve-to-program/{{ $item->id }}"
-                                                                class="btn btn-sm btn-outline-success">
-                                                                <i class="fas fa-award me-1"></i>LOLOS
-                                                            </a>
+                                                            <button type="button" class="btn btn-sm btn-outline-success"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#lolosModal{{ $item->id }}">
+                                                                <i class="fas fa-award me-1"></i> Lolos
+                                                            </button>
+                                                            <x-confirm-modal modal-id="lolosModal{{ $item->id }}"
+                                                                title="Konfirmasi Persetujuan"
+                                                                message="Apakah Anda yakin ingin meloloskan proposa ini?"
+                                                                action-url="/approve-to-program/{{ $item->id }}"
+                                                                confirm-text="Ya, Setujui" />
                                                         @endif
 
                                                         @can('assessing proposal')

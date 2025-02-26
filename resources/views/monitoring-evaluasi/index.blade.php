@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Monev')
 @section('content')
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
     <div class="w-100">
@@ -87,7 +88,7 @@
                                                 <td class="d-none d-md-table-cell">{{ Str::limit($item->judul, 30) }}</td>
                                                 <td class="d-none d-md-table-cell">
                                                     @foreach ($item->status_monev as $status)
-                                                       <p>{{ $status->user->name }}</p>
+                                                        <p>{{ $status->user->name }}</p>
                                                     @endforeach
                                                 </td>
                                                 <td class="d-none d-md-table-cell">
@@ -116,14 +117,30 @@
                                                                 <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                             </a>
                                                             @if ($item->registration_validation->status === 'lolos')
-                                                                <a href="/monitoring-evaluasi/approve/{{ $item->id }}"
-                                                                    class="btn btn-sm btn-outline-success">
-                                                                    <i class="fas fa-check me-1"></i>Lanjutkan
-                                                                </a>
-                                                                <a href="/monitoring-evaluasi/reject/{{ $item->id }}"
-                                                                    class="btn btn-sm btn-outline-danger">
-                                                                    <i class="fas fa-exclamation-triangle me-1"></i>Tolak
-                                                                </a>
+                                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#approveModal{{ $item->id }}">
+                                                                    <i class="fas fa-check me-1"></i> Lanjutkan
+                                                                </button>
+                                                                <!-- Gunakan komponen modal -->
+                                                                <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                                    title="Konfirmasi Persetujuan"
+                                                                    message="Apakah Anda yakin ingin menyetujui proposal ini?"
+                                                                    action-url="/monitoring-evaluasi/approve/{{ $item->id }}"
+                                                                    confirm-text="Ya, Setujui" />
+
+                                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#rejectModal{{ $item->id }}">
+                                                                    <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                                </button>
+                                                                <!-- Gunakan komponen modal -->
+                                                                <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
+                                                                    title="Konfirmasi Persetujuan"
+                                                                    message="Apakah Anda yakin ingin menolak proposal ini?"
+                                                                    action-url="/monitoring-evaluasi/reject/{{ $item->id }}"
+                                                                    confirm-text="Iya" />
+
                                                             @endif
                                                         @else
                                                             <a href="/monitoring-evaluasi/reviewer-monev/edit/{{ $item->id }}"

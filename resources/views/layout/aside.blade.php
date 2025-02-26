@@ -150,9 +150,9 @@
                         <i class="align-middle" data-feather="image"></i> <span class="align-middle">Konten Galeri</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Request::is('kelola-konten/artikel*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('kelola-konten.artikel') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelola Artikel</span>
+                <li class="sidebar-item {{ Request::is('announcement*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('announcement') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelola Pengumuman</span>
                     </a>
                 </li>
             @endrole

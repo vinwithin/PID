@@ -27,7 +27,7 @@
       @include('layout.aside')
 
         <div class="main">
-           @include('layout.navbar')
+            @include('layout.navbar', ['title' => View::yieldContent('title')])
 
             <main class="content">
                 <div class="container-fluid p-0">

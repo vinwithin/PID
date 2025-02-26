@@ -1,4 +1,6 @@
 @extends('layout.app')
+@section('title', 'Publikasi Artikel')
+
 @section('content')
     <div class="w-100">
         <div class="card flex-fill">
@@ -60,8 +62,16 @@
                                     {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
                                     @can('agree publication')
                                         @if ($item->status === 'Belum valid')
-                                            <a href="{{ route('publikasi.approve', ['id' => $item->id]) }}"
-                                                class="btn btn-success">Setujui</a>
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#approveModal{{ $item->id }}">
+                                                Setujui
+                                            </button>
+                                            <!-- Gunakan komponen modal -->
+                                            <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                title="Konfirmasi Persetujuan"
+                                                message="Apakah Anda yakin ingin menyetujui artikel ini?"
+                                                action-url="{{ route('publikasi.approve', ['id' => $item->id]) }}"
+                                                confirm-text="Iya, Setujui" />
                                         @endif
                                     @endcan
 
@@ -69,7 +79,17 @@
                                     <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
                                     <a href="/publikasi/{{ $item->id }}" class="btn btn-primary">CEK</a>
                                     @can('delete publication')
-                                        <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger">Delete</a>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal{{ $item->id }}">
+                                            Delete
+                                        </button>
+                                        <!-- Gunakan komponen modal -->
+                                        <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
+                                            message="Apakah Anda yakin ingin menghapus artikel ini?"
+                                            action-url="/publikasi/delete/{{ $item->id }}"
+                                            confirm-text="Iya, Setujui" />
+
+            
                                     @endcan
                                 </td>
                             </tr>
