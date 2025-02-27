@@ -63,26 +63,28 @@
                                     Upload</span>
                                 @endif
                                 <td rowspan="2" class="text-center">
-                                    @if ($item->dokumenTeknis)
-                                        <a href="/dokumen-publikasi/{{ $item->dokumenPublikasi->id }}"
-                                            class="btn btn-primary">Lihat</a>
+                                    @can('create publication')
+                                        @if ($item->dokumenTeknis)
+                                            <a href="/dokumen-publikasi/{{ $item->dokumenPublikasi->id }}"
+                                                class="btn btn-primary">Lihat</a>
 
-                                        <a href="/dokumen-publikasi/edit/{{ $item->dokumenPublikasi->id }}"
-                                            class="btn btn-warning">Edit</a>
-                                    @else
-                                    @endif
+                                            <a href="/dokumen-publikasi/edit/{{ $item->dokumenPublikasi->id }}"
+                                                class="btn btn-warning">Edit</a>
+                                        @else
+                                        @endif
+                                    @endcan
                                 </td>
                                 </tr>
                                 <tr>
                                     <td>Status</td>
                                     <td class="text-center">
                                         <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
-                                           {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_artikel : 'Belum Upload' }}
+                                            {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_artikel : 'Belum Upload' }}
                                         </span>
                                     </td>
                                     <td class="text-center">
                                         <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
-                                           {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_haki : 'Belum Upload' }}
+                                            {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_haki : 'Belum Upload' }}
                                         </span>
                                     </td>
 

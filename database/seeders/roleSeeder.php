@@ -80,6 +80,10 @@ class roleSeeder extends Seeder
             ['name' => 'assessing proposal'],
             ['name' => 'assessing proposal'],
         );
+        $permission10 = Permission::updateOrCreate(
+            ['name' => 'approve proposal'],
+            ['name' => 'approve proposal'],
+        );
         $permission7 = Permission::updateOrCreate(
             ['name' => 'monitoring dan evaluasi'],
             ['name' => 'monitoring dan evaluasi'],
@@ -88,13 +92,25 @@ class roleSeeder extends Seeder
             ['name' => 'reviewer monev'],
             ['name' => 'reviewer monev'],
         );
+        $permission9 = Permission::updateOrCreate(
+            ['name' => 'show final report'],
+            ['name' => 'show final report'],
+        );
+        $permission11 = Permission::updateOrCreate(
+            ['name' => 'manage monev'],
+            ['name' => 'manage monev'],
+        );
+        $permission12 = Permission::updateOrCreate(
+            ['name' => 'show monev'],
+            ['name' => 'show monev'],
+        );
         $user1->assignRole('mahasiswa');
         $user2->assignRole('reviewer');
         $user3->assignRole('admin');
-        $role1->givePermissionTo($permission1, $permission2, $permission4);
-        $role2->givePermissionTo($permission6);
-        $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5, $permission7);
-        $role4->givePermissionTo($permission8);
+        $role1->givePermissionTo($permission1, $permission2, $permission4, $permission9);
+        $role2->givePermissionTo($permission6, $permission9, $permission12);
+        $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5, $permission7, $permission9, $permission10, $permission11);
+        $role4->givePermissionTo($permission8, $permission9);
         // $role1->givePermissionTo($permission2);
     }
 }

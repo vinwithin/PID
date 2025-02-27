@@ -61,21 +61,23 @@
                                         <td class="text-center">
                                             @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
                                                 <a href="/dokumentasi-kegiatan/album/{{ $item->dokumentasiKegiatan->id }}"
-                                                    class="btn btn-sm btn-outline-info"><i
-                                                        class="fas fa-eye me-1"></i>Lihat Album</a>
+                                                    class="btn btn-sm btn-outline-info"><i class="fas fa-eye me-1"></i>Lihat
+                                                    Album</a>
                                             @else
                                                 <span class="badge bg-danger">Belum Upload</span>
                                             @endif
-                                           
+
                                         </td>
                                         <td class="text-center">
-                                            @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
-                                                <a href="/dokumentasi-kegiatan/{{ $item->dokumentasiKegiatan->id }}"
-                                                    class="btn btn-primary">Hapus</a>
-                                                <a href="/dokumentasi-kegiatan/edit/{{ $item->dokumentasiKegiatan->id }}"
-                                                    class="btn btn-warning">Edit</a>
-                                            @else
-                                            @endif
+                                            @can('create publication')
+                                                @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
+                                                    <a href="/dokumentasi-kegiatan/{{ $item->dokumentasiKegiatan->id }}"
+                                                        class="btn btn-primary">Hapus</a>
+                                                    <a href="/dokumentasi-kegiatan/edit/{{ $item->dokumentasiKegiatan->id }}"
+                                                        class="btn btn-warning">Edit</a>
+                                                @else
+                                                @endif
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

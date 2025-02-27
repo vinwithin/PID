@@ -72,13 +72,15 @@
                                             @endif
                                         </td>
                                         <td rowspan="2" class="text-center">
-                                            @if ($item->dokumenTeknis)
-                                                <a href="/dokumen-teknis/{{ $item->dokumenTeknis->id }}"
-                                                    class="btn btn-primary">Lihat</a>
-                                                <a href="/dokumen-teknis/edit/{{ $item->dokumenTeknis->id }}"
-                                                    class="btn btn-warning">Edit</a>
-                                            @else
-                                            @endif
+                                            @can('create publication')
+                                                @if ($item->dokumenTeknis)
+                                                    <a href="/dokumen-teknis/{{ $item->dokumenTeknis->id }}"
+                                                        class="btn btn-primary">Lihat</a>
+                                                    <a href="/dokumen-teknis/edit/{{ $item->dokumenTeknis->id }}"
+                                                        class="btn btn-warning">Edit</a>
+                                                @else
+                                                @endif
+                                            @endcan
                                         </td>
                                     </tr>
                                     <tr>

@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('content')
-<div class="container-fluid px-4 py-4">
+<div class=" w-full container-fluid ">
     <div class="card shadow-sm border-0">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="card-title mb-0">Cek Pendaftaran</h5>

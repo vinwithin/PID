@@ -50,7 +50,7 @@
                 </li> --}}
             @endcan
 
-            @role('admin|reviewer')
+            @role('admin|reviewer|dosen')
                 <li class="sidebar-item {{ Request::is('pendaftaran*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola
@@ -58,7 +58,7 @@
                     </a>
                 </li>
             @endrole
-            @role('admin|dosen')
+            @role('admin|dosen|reviewer')
                 <li class="sidebar-header">
                     Monitoring dan Evaluasi
                 </li>
@@ -68,55 +68,24 @@
                     </a>
                 </li>
             @endrole
-            @can('create publication')
-                @php
-                    $hasAccessToPublication = App\Models\Registration::whereHas('registration_validation', function (
-                        $query,
-                    ) {
-                        $query->where('status', 'lolos'); // Cek status validasi
+            @php
+                $hasAccessToPublication =
+                    auth()->user()->hasRole('mahasiswa') &&
+                    App\Models\Registration::whereHas('registration_validation', function ($query) {
+                        $query->where('status', 'lolos');
                     })
                         ->whereHas('teamMembers', function ($query) {
-                            $query->where('nim', auth()->user()->nim); // Cek apakah NIM ada di tabel team_member
+                            $query->where('nim', auth()->user()->nim);
                         })
                         ->exists();
-                @endphp
-                @if ($hasAccessToPublication)
-                    <li class="sidebar-header">
-                        Laporan Akhir
-                    </li>
-                    <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
-                                Teknis</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item {{ Request::is('dokumen-publikasi*') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('dokumen-publikasi') }}">
-                            <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Dokumen
-                                Publikasi</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item {{ Request::is('dokumentasi-kegiatan*') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('dokumentasi-kegiatan') }}">
-                            <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Dokumentasi
-                                Kegiatan</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('publikasi') }}">
-                            <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
-                                Artikel</span>
-                        </a>
-                    </li>
-                @endif
-            @endcan
-            @role('admin')
-                <li class="sidebar-header">
-                    Laporan Akhir
-                </li>
+            @endphp
+
+            @if ($hasAccessToPublication || auth()->user()->hasAnyRole('admin', 'reviewer', 'dosen'))
+                <li class="sidebar-header">Laporan Akhir</li>
                 <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen Teknis</span>
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
+                            Teknis</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('dokumen-publikasi*') ? 'active' : '' }}">
@@ -131,6 +100,17 @@
                             Kegiatan</span>
                     </a>
                 </li>
+            @endif
+
+            @role('mahasiswa')
+                <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('publikasi') }}">
+                        <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
+                            Artikel</span>
+                    </a>
+                </li>
+            @endrole
+            @role('admin')
                 <li class="sidebar-header">
                     Kelola Konten
                 </li>
@@ -152,7 +132,8 @@
                 </li>
                 <li class="sidebar-item {{ Request::is('announcement*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('announcement') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelola Pengumuman</span>
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelola
+                            Pengumuman</span>
                     </a>
                 </li>
             @endrole

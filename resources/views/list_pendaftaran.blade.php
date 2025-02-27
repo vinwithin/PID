@@ -6,7 +6,7 @@
         <div class="card">
             <div class="container-fluid px-4 py-4">
                 <div class="card shadow-sm border-0">
-                    @role('admin')
+                    @role('admin|dosen')
                         <div class="card-header bg-primary text-white py-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3 class="mb-0 text-light">
@@ -110,33 +110,34 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group">
-                                                        @if ($item->registration_validation->status === 'Belum valid')
-                                                            <!-- Tombol untuk membuka modal -->
-                                                            <button type="button" class="btn btn-sm btn-outline-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#approveModal{{ $item->id }}">
-                                                                <i class="fas fa-check me-1"></i> Setujui
-                                                            </button>
+                                                        @can('approve proposal')
+                                                            @if ($item->registration_validation->status === 'Belum valid')
+                                                                <!-- Tombol untuk membuka modal -->
+                                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#approveModal{{ $item->id }}">
+                                                                    <i class="fas fa-check me-1"></i> Setujui
+                                                                </button>
 
-                                                            <!-- Gunakan komponen modal -->
-                                                            <x-confirm-modal modal-id="approveModal{{ $item->id }}"
-                                                                title="Konfirmasi Persetujuan"
-                                                                message="Apakah Anda yakin ingin menyetujui proposal ini?"
-                                                                action-url="{{ route('approve', ['id' => $item->id]) }}"
-                                                                confirm-text="Ya, Setujui" />
-                                                        @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
-                                                            <button type="button" class="btn btn-sm btn-outline-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#lolosModal{{ $item->id }}">
-                                                                <i class="fas fa-award me-1"></i> Lolos
-                                                            </button>
-                                                            <x-confirm-modal modal-id="lolosModal{{ $item->id }}"
-                                                                title="Konfirmasi Persetujuan"
-                                                                message="Apakah Anda yakin ingin meloloskan proposa ini?"
-                                                                action-url="/approve-to-program/{{ $item->id }}"
-                                                                confirm-text="Ya, Setujui" />
-                                                        @endif
-
+                                                                <!-- Gunakan komponen modal -->
+                                                                <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                                    title="Konfirmasi Persetujuan"
+                                                                    message="Apakah Anda yakin ingin menyetujui proposal ini?"
+                                                                    action-url="{{ route('approve', ['id' => $item->id]) }}"
+                                                                    confirm-text="Ya, Setujui" />
+                                                            @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
+                                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#lolosModal{{ $item->id }}">
+                                                                    <i class="fas fa-award me-1"></i> Lolos
+                                                                </button>
+                                                                <x-confirm-modal modal-id="lolosModal{{ $item->id }}"
+                                                                    title="Konfirmasi Persetujuan"
+                                                                    message="Apakah Anda yakin ingin meloloskan proposa ini?"
+                                                                    action-url="/approve-to-program/{{ $item->id }}"
+                                                                    confirm-text="Ya, Setujui" />
+                                                            @endif
+                                                        @endcan
                                                         @can('assessing proposal')
                                                             @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
                                                                 <a href="/reviewer/nilai/{{ $item->id }}"

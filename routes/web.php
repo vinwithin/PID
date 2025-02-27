@@ -38,23 +38,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware(['can:create publication'])->group(function () {
-        Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
         Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('publikasi.tambah');
         Route::get('/publikasi/{id}', [publikasiController::class, 'detail'])->name('publikasi.detail');
         Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('publikasi.tambah');
 
-        Route::get('/dokumen-teknis', [DokumenTeknisController::class, 'index'])->name('dokumen-teknis');
         Route::post('/dokumen-teknis', [DokumenTeknisController::class, 'store'])->name('dokumen-teknis');
         Route::get('/dokumen-teknis/edit/{id}', [DokumenTeknisController::class, 'edit'])->name('dokumen-teknis.edit');
         Route::post('/dokumen-teknis/update/{id}', [DokumenTeknisController::class, 'update'])->name('dokumen-teknis.update');
 
-        Route::get('/dokumen-publikasi', [DokumenPublikasiController::class, 'index'])->name('dokumen-publikasi');
         Route::post('/dokumen-publikasi', [DokumenPublikasiController::class, 'store'])->name('dokumen-publikasi');
         Route::get('/dokumen-publikasi/edit/{id}', [DokumenPublikasiController::class, 'edit'])->name('dokumen-publikasi.edit');
         Route::post('/dokumen-publikasi/update/{id}', [DokumenPublikasiController::class, 'update'])->name('dokumen-publikasi.update');
 
-        Route::get('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'index'])->name('dokumentasi-kegiatan');
-        Route::get('/dokumentasi-kegiatan/album/{id}', [DokumenKegiatanController::class, 'detail'])->name('dokumentasi-kegiatan.album.detail');
         Route::post('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'store'])->name('dokumentasi-kegiatan');
         Route::get('/dokumentasi-kegiatan/edit/{id}', [DokumenKegiatanController::class, 'edit'])->name('dokumentasi-kegiatan.edit');
         Route::post('/dokumentasi-kegiatan/update/{id}', [DokumenKegiatanController::class, 'update'])->name('dokumentasi-kegiatan.update');
@@ -74,8 +69,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/reviewer/nilai/{id}', [ProposalReviewController::class, 'index'])->name('reviewer.nilai');
         Route::post('/reviewer/nilai/{id}', [ProposalReviewController::class, 'store'])->name('reviewer.nilai');
     });
+    Route::middleware(['can:approve proposal'])->group(function () {
+        Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
+        Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
+    });
 
-    Route::middleware(['role:admin|dosen'])->group(function () {
+    Route::middleware(['role:admin|dosen|reviewer'])->group(function () {
         Route::get('/monitoring-evaluasi', [MonevController::class, 'index'])->name('monev.index');
         Route::get('//monitoring-evaluasi/detail/{id}', [MonevController::class, 'detail'])->name('monev.detail');
 
@@ -83,14 +82,26 @@ Route::middleware('auth')->group(function () {
             Route::get('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'createScore'])->name('monev.create');
             Route::post('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'store'])->name('monev.create');
         });
-
+    });
+    Route::middleware(['can:manage monev'])->group(function () {
+        Route::get('/monitoring-evaluasi/reviewer-monev/{id}', [MonevController::class, 'createReviewer'])->name('monev.reviewer');
+        Route::post('/monitoring-evaluasi/reviewer-monev/{id}', [MonevController::class, 'storeReviewer'])->name('monev.reviewer');
+        Route::get('/monitoring-evaluasi/reviewer-monev/edit/{id}', [MonevController::class, 'edit'])->name('monev.edit');
+        Route::post('/monitoring-evaluasi/reviewer-monev/update/{id}', [MonevController::class, 'update'])->name('monev.update');
+        Route::get('/monitoring-evaluasi/approve/{id}', [MonevController::class, 'approve'])->name('monev.approve');
+        Route::get('/monitoring-evaluasi/reject/{id}', [MonevController::class, 'reject'])->name('monev.reject');
+    });
+    
+    Route::middleware(['can:show final report'])->group(function () {
+        Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
+        Route::get('/dokumen-teknis', [DokumenTeknisController::class, 'index'])->name('dokumen-teknis');
+        Route::get('/dokumen-publikasi', [DokumenPublikasiController::class, 'index'])->name('dokumen-publikasi');
+        Route::get('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'index'])->name('dokumentasi-kegiatan');
+        Route::get('/dokumentasi-kegiatan/album/{id}', [DokumenKegiatanController::class, 'detail'])->name('dokumentasi-kegiatan.album.detail');
     });
 
-   
-
     Route::middleware(['role:admin'])->group(function () {
-        Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
-        Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
+
         Route::get('announcement', [annouceController::class, 'index'])->name('announcement');
         Route::get('announcement/tambah', [annouceController::class, 'create'])->name('announcement.tambah');
         Route::post('announcement/tambah', [annouceController::class, 'store'])->name('announcement.tambah');
@@ -106,18 +117,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/update-status-foto', [KelolaKontenController::class, 'updateStatusFoto'])->name('update.status-foto');
         Route::post('/update-status-artikel', [KelolaArtikel::class, 'updateStatus'])->name('update.status-artikel');
         Route::get('/kelola-konten/artikel', [KelolaArtikel::class, 'index'])->name('kelola-konten.artikel');
-        Route::get('/monitoring-evaluasi/reviewer-monev/{id}', [MonevController::class, 'createReviewer'])->name('monev.reviewer');
-        Route::post('/monitoring-evaluasi/reviewer-monev/{id}', [MonevController::class, 'storeReviewer'])->name('monev.reviewer');
-        Route::get('/monitoring-evaluasi/reviewer-monev/edit/{id}', [MonevController::class, 'edit'])->name('monev.edit');
-        Route::post('/monitoring-evaluasi/reviewer-monev/update/{id}', [MonevController::class, 'update'])->name('monev.update');
-        Route::get('/monitoring-evaluasi/approve/{id}', [MonevController::class, 'approve'])->name('monev.approve');
-        Route::get('/monitoring-evaluasi/reject/{id}', [MonevController::class, 'reject'])->name('monev.reject');
-
-
-
+        
     });
 
-    Route::middleware(['role:admin|reviewer'])->group(function () {
+    Route::middleware(['role:admin|reviewer|dosen'])->group(function () {
         Route::get('/pendaftaran', [listPendaftaranController::class, 'index'])->name('pendaftaran');
         Route::get('/pendaftaran/cari', [listPendaftaranController::class, 'filter'])->name('pendaftaran.search');
         Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
@@ -136,7 +139,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-    
+
     Route::get('/api/regencies/jambi', function () {
         $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/15.json");
         return response()->json($response->json());
