@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('link_artikel');
             $table->string('file_haki');
             $table->string('status_haki');
+            $table->string('status');
            
             $table->timestamps();
         });

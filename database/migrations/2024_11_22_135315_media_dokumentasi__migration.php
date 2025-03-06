@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('link_youtube');
             $table->string('link_social_media');
             $table->string('link_dokumentasi');
+            $table->string('status');
             $table->timestamps();
         });
     }

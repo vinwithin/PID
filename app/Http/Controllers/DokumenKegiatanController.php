@@ -8,6 +8,7 @@ use App\Models\DokumentasiKegiatan;
 use App\Models\Registration;
 use App\Models\User;
 use App\Services\teamIdService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,7 @@ class DokumenKegiatanController extends Controller
         return view('dokumentasi-kegiatan.create', [
             'dataAdmin' => Registration::with(['dokumentasiKegiatan', 'registration_validation'])
                 ->whereHas('registration_validation', function ($query) {
-                    $query->where('status', 'lolos');
+                    $query->where('status', 'Lanjutkan Program');
                 })->get(),
             'data' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->get(),
             'dokumenExist' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())
@@ -64,6 +65,7 @@ class DokumenKegiatanController extends Controller
 
         // Menambahkan team_id dan link_video ke dalam array validatedData
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
+        $validatedData['status'] = 'pending';
         $validatedData['link_youtube'] = "https://www.youtube.com/embed/" . $videoId;
 
         // Mulai transaksi database
@@ -114,6 +116,8 @@ class DokumenKegiatanController extends Controller
 
         // Ekstrak video ID dari link YouTube
         $videoId = $this->extractYouTubeVideoId($validatedData['link_youtube']);
+        $validatedData['status'] = 'pending';
+
         if (!$videoId) {
             return redirect()->route('dokumentasi-kegiatan')->with('error', 'Link video tidak valid!');
         }
@@ -151,6 +155,43 @@ class DokumenKegiatanController extends Controller
         //     return redirect()->route('dokumentasi-kegiatan')->with('error', 'Gagal menambahkan data!');
         // }
 
+    }
+    public function approve($id)
+    {
+        try {
+            DB::beginTransaction();
+            $result = DokumentasiKegiatan::where('id', $id)
+                ->update(['status' => 'Valid']);
+            
+            DB::commit();
+            if ($result) {
+                return redirect()->route('dokumentasi-kegiatan')->with('success', 'berhasil mengubah data');
+            } else {
+                return redirect()->route('dokumentasi-kegiatan')->with("error", "Gagal mengubah data!");
+            }
+        } catch (Exception $e) {
+            DB::rollBack(); // Rollback transaksi jika terjadi kesalahan
 
+            return redirect()->route('dokumentasi-kegiatan')->with("error", "Gagal mengubah data!");
+        };
+    }
+    public function reject($id)
+    {
+        try {
+            DB::beginTransaction();
+            $result = DokumentasiKegiatan::where('id', $id)
+                ->update(['status' => 'Ditolak']);
+            
+            DB::commit();
+            if ($result) {
+                return redirect()->route('dokumentasi-kegiatan')->with('success', 'berhasil mengubah data');
+            } else {
+                return redirect()->route('dokumentasi-kegiatan')->with("error", "Gagal mengubah data!");
+            }
+        } catch (Exception $e) {
+            DB::rollBack(); // Rollback transaksi jika terjadi kesalahan
+
+            return redirect()->route('dokumentasi-kegiatan')->with("error", "Gagal mengubah data!");
+        };
     }
 }

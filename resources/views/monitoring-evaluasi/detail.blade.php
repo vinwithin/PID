@@ -1,12 +1,11 @@
 @extends('layout.app')
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     @php
         $curentUser = auth()->user()->name;
     @endphp
 
-        <div class="container-fluid">
+        <div class="w-full container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow-sm border-0">

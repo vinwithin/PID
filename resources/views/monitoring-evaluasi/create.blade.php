@@ -13,7 +13,7 @@
                             <tr>
                                 <th>Aspek Penilaian</th>
                                 <th>Bobot</th>
-                                <th>Skor yang Diberikan</th>
+                                <th>Skor yang Diberikan (DI ISI DENGAN RENTANG SKOR 1 - 7)</th>
                             </tr>
                         </thead>
                         <tbody>

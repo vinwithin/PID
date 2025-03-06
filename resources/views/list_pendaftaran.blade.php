@@ -30,6 +30,7 @@
                                                         'Belum valid' => 'Belum Valid',
                                                         'valid' => 'Valid',
                                                         'lolos' => 'Lolos Program',
+            
                                                     ];
                                                 @endphp
                                                 @foreach ($statuses as $value => $label)

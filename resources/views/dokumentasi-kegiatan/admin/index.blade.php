@@ -17,13 +17,16 @@
                             <thead class="table-light">
                                 <tr>
                                     <th style="width: 5%">No</th>
-                                    <th style="width: 15%">Tim</th>
+                                    <th style="width: 10%">Tim</th>
                                     <th style="width: 15%" class="text-center">Link Tautan Video Youtube</th>
                                     <th style="width: 15%" class="text-center">Tautan Sosial Media</th>
                                     <th style="width: 15%" class="text-center">Link/tautan Google Drive dokumentasi kegiatan
                                     </th>
                                     <th style="width: 15%" class="text-center">Album</th>
-                                    <th style="width: 15%" class="text-center">Aksi</th>
+                                    <th style="width: 10%" class="text-center">Status</th>
+                                    @can('agree publication')
+                                        <th style="width: 15%" class="text-center">Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,17 +71,37 @@
                                             @endif
 
                                         </td>
-                                        <td class="text-center">
-                                            @can('create publication')
+                                        <td rowspan="2" class="text-center">
+                                            {{ $item->dokumentasiKegiatan->status }}
+                                        </td>
+                                        @can('agree publication')
+                                            <td class="text-center">
                                                 @if ($item->dokumentasiKegiatan && $item->dokumentasiKegiatan->link_dokumentasi)
-                                                    <a href="/dokumentasi-kegiatan/{{ $item->dokumentasiKegiatan->id }}"
-                                                        class="btn btn-primary">Hapus</a>
-                                                    <a href="/dokumentasi-kegiatan/edit/{{ $item->dokumentasiKegiatan->id }}"
-                                                        class="btn btn-warning">Edit</a>
+                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#approveModal{{ $item->dokumentasiKegiatan->id }}">
+                                                        <i class="fas fa-check me-1"></i> Terima
+                                                    </button>
+                                                    <x-confirm-modal modal-id="approveModal{{ $item->dokumentasiKegiatan->id }}"
+                                                        title="Konfirmasi Persetujuan"
+                                                        message="Apakah Anda yakin ingin menerima laporan akhir ini?"
+                                                        action-url="/dokumentasi-kegiatan/approve/{{ $item->dokumentasiKegiatan->id }}"
+                                                        confirm-text="Ya, Setujui" />
+
+                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#rejectModal{{ $item->dokumentasiKegiatan->id }}">
+                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                    </button>
+                                                    <x-confirm-modal modal-id="rejectModal{{ $item->dokumentasiKegiatan->id }}"
+                                                        title="Konfirmasi Persetujuan"
+                                                        message="Apakah Anda yakin ingin menolak laporan akhir ini?"
+                                                        action-url="/dokumentasi-kegiatan/reject/{{ $item->dokumentasiKegiatan->id }}"
+                                                        confirm-text="Ya, Tolak" />
                                                 @else
                                                 @endif
-                                            @endcan
-                                        </td>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>

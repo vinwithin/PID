@@ -31,7 +31,7 @@
                 <h3 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600;">Pro IDE adalah kegiatan
                     pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
                     mahasiswa melalui Badan Eksekutif Mahasiswa (BEM), Unit Kegiatan Mahasiswa (UKM),
-                    HImpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). </h3>
+                    Himpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). </h3>
 
 
             </main>
@@ -49,7 +49,7 @@
         <main class="publikasi-content">
             <div class="container-fluid ">
                 <div class="container-box p-4">
-                    <h2 class="text-center fw-bold text-success">PENGUMUMAN</h2>
+                    <h2 class="text-center fw-bold text-dark">PENGUMUMAN</h2>
 
                     <div class="row mt-4" id="container-card">
                         <!-- Card Pendaftaran -->
@@ -91,7 +91,7 @@
 
             <div class="container-fluid mt-4">
                 <div class="container-title my-5">
-                    <h2 class="text-center fw-bold text-success">PUBLIKASI</h2>
+                    <h2 class="text-center fw-bold text-dark">PUBLIKASI</h2>
                 </div>
                 <div class="row row-cols-1 row-cols-md-4 row-gap-5  g-2">
                     @foreach ($data as $item)
@@ -118,88 +118,68 @@
     <section class="video ">
         <main>
             <h1 class="text-dark text-center fw-bold text-success mb-5">VIDEO</h1>
-            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-                <!-- Video Cards -->
-                @foreach ($video as $item)
-                    <div class="col">
-                        <div class="album-card">
-                            <iframe width="397" height="222" src="{{ $item->link_youtube }}" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
-                                onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';"></iframe>
-
+            <div class="video-container">
+                <div class="row flex-nowrap">
+                    @foreach ($video as $item)
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="album-card">
+                                <iframe width="397" height="222" src="{{ $item->link_youtube }}" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
             <div class="more-button my-5">
-                <a href="">Selengkapnya<i data-feather="arrow-right"></i></a>
+                <a href="/video">Selengkapnya<i data-feather="arrow-right"></i></a>
             </div>
         </main>
     </section>
-    {{-- <section class="artikel vh-100">
-        <main class="">
-            <h1 class="mb-5">Artikel Kegiatan Pro-IDe</h1>
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-
-                <!-- Card 1 -->
-                @foreach ($artikel as $item)
-                    <div class="col">
-                        <div class="card p-4">
-                            <div class="icon-wrapper">
-                                <i class="align-middle" data-feather="book"></i>
-                            </div>
-                            <h5 class="card-title">{{ $item->judul_artikel }}</h5>
-                            <p class="card-text">{{ $item->status_artikel }}</p>
-                            <a href="#" class="btn btn-outline-primary mt-2">Lihat Selengkapnya</a>
-                        </div>
+    
+    <footer class="p-4 d-flex justify-content-center" style="bottom: 0; background: rgba(195, 191, 182, 1);">
+        <div class="container my-auto">
+            <div class="row row-cols-1 row-cols-md-3  g-4 d-flex justify-content-center">
+                <div class="col">
+                    <img class=" rounded-circle" src="/assets/footer.png" alt=""
+                        style="width: 269px; height: 269px; object-fit: cover;">
+                </div>
+                <div class="col ">
+                    <h3 class="fw-bold border-bottom text-dark border-black py-3">LINK UTAMA</h3>
+                    <div class="d-flex flex-column mb-3" id="link-utama">
+                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">WEB UNJA</a>
+                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">PORTAL GERBANG UNJA</a>
+                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">SISTEM INFORMASI AKADEMIK</a>
+                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">PERPUSTAKAAN</a>
+                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">LABORATORIUM</a>
+                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">REPOSITORY</a>
                     </div>
-                @endforeach
+    
+    
+                </div>
+                <div class="col">
+                    <h3 class="fw-bold border-bottom border-black text-dark py-3">KONTAK KAMI </h3>
+                    <div class="d-flex flex-row g-8 " id="kontak-kami">
+                        <p class="text-dark mb-0 me-2 fs-5 text-decoration-none">Alamat</p>
+                        <p class="text-dark mb-0 fs-5 text-decoration-none">Jl. Raya Jambi - Muara Bulian Km. 15, Mendalo Indah, Jambi Luar
+                            Kota,
+                            Jambi 36361</p>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mt-2" id="kontak-kami">
+                        <p class="text-dark mb-0 me-4 fs-5 text-decoration-none">Email</p>
+                        <p class="text-dark mb-0 fs-5 text-decoration-none">lptik@unja.ac.id</p>
+                    </div>
+                </div>
             </div>
-        </main>
-    </section> --}}
-    {{-- footer --}}
-    @include('layout.guest.footer')
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
         feather.replace();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        const swiper = new Swiper('.slider-wrapper', {
-            loop: true,
-            grabCursor: true,
-            spaceBetween: 30,
-            // Pagination bullets
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-                dynamicBullets: true
-            },
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            // Responsive breakpoints
-            breakpoints: {
-                0: {
-                    slidesPerView: 1
-                },
-                768: {
-                    slidesPerView: 2
-                },
-                1024: {
-                    slidesPerView: 3
-                },
-                1336: {
-                    slidesPerView: 5
-                }
-            }
-        });
-    </script>
+    
 </body>
 
 </html>

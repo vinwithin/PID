@@ -18,7 +18,7 @@ class berandaController extends Controller
                 ->orderBy('created_at', 'desc') // Urutkan dari terbaru ke lama
                 ->take(8) // Ambil hanya 8 data
                 ->get(),
-            'video' => VideoKonten::paginate(10),
+            'video' => VideoKonten::take(4)->get(),
             'foto' => Album::where('status', 'valid')->paginate(10),
             'artikel' => DokumenPublikasi::where('visibilitas', 'yes')->with(['teamMembers', 'registration'])->paginate(10),
             'announce' => Announcement::where('status', 'published')->latest()->take(2)->get()
@@ -37,6 +37,13 @@ class berandaController extends Controller
     {
         return view('guest.publikasi.detail', [
             'data' => $publikasi
+        ]);
+    }
+
+    public function video()
+    {
+        return view('guest.video.index', [
+            'data' => VideoKonten::paginate(12),
         ]);
     }
 }

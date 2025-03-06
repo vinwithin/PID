@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckProgressAcceptAccess;
 use Fruitcake\Cors\CorsService;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -19,6 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+            'checkProgressAccess' => \App\Http\Middleware\CheckProgressAccess::class,
+            'checkProgressAcceptAccess' => CheckProgressAcceptAccess::class,
             
         ]);
     })

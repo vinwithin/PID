@@ -5,8 +5,8 @@
     @php
         $curentUser = auth()->user()->name;
     @endphp
-    @role('admin')
-        <div class="container-fluid">
+    @role('admin|dosen')
+        <div class="w-full container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow-sm border-0">

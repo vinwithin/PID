@@ -7,8 +7,10 @@ use App\Models\Registration;
 use App\Models\TeamMember;
 use App\Services\DokumenTeknisService;
 use App\Services\teamIdService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DokumenTeknisController extends Controller
 {
@@ -26,7 +28,7 @@ class DokumenTeknisController extends Controller
         return view('dokumen-teknis.create',[
             'dataAdmin' => Registration::with(['dokumenTeknis', 'registration_validation'])
             ->whereHas('registration_validation', function ($query) {
-                $query->where('status', 'lolos');
+                $query->where('status', 'Lanjutkan Program');
             })->get(),
             'data' => DokumenTeknis::where('team_id', $this->teamIdService->getRegistrationId())->get(),
             'dokumenExist' => DokumenTeknis::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->exists()
@@ -57,5 +59,43 @@ class DokumenTeknisController extends Controller
         } else {
             return redirect()->route('dokumen-teknis')->with("error", "Gagal menambahkan data!");
         }
+    }
+    public function approve($id)
+    {
+        try {
+            DB::beginTransaction();
+            $result = DokumenTeknis::where('id', $id)
+                ->update(['status' => 'Valid']);
+            
+            DB::commit();
+            if ($result) {
+                return redirect()->route('dokumen-teknis')->with('success', 'berhasil mengubah data');
+            } else {
+                return redirect()->route('dokumen-teknis')->with("error", "Gagal mengubah data!");
+            }
+        } catch (Exception $e) {
+            DB::rollBack(); // Rollback transaksi jika terjadi kesalahan
+
+            return redirect()->route('dokumen-teknis')->with("error", "Gagal mengubah data!");
+        };
+    }
+    public function reject($id)
+    {
+        try {
+            DB::beginTransaction();
+            $result = DokumenTeknis::where('id', $id)
+                ->update(['status' => 'Ditolak']);
+            
+            DB::commit();
+            if ($result) {
+                return redirect()->route('dokumen-teknis')->with('success', 'berhasil mengubah data');
+            } else {
+                return redirect()->route('dokumen-teknis')->with("error", "Gagal mengubah data!");
+            }
+        } catch (Exception $e) {
+            DB::rollBack(); // Rollback transaksi jika terjadi kesalahan
+
+            return redirect()->route('dokumen-teknis')->with("error", "Gagal mengubah data!");
+        };
     }
 }

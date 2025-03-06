@@ -25,6 +25,7 @@ class DokumenTeknisService
             'file_laporan_keuangan' => 'required|file',
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
+        $validatedData['status'] = 'pending';
         // Process file uploads
         $validatedData['file_manual'] = $this->storeFile($request->file('file_manual'), 'file_manual');
         $validatedData['file_bukti_publikasi'] = $this->storeFile($request->file('file_bukti_publikasi'), 'file_bukti_publikasi');
@@ -47,6 +48,8 @@ class DokumenTeknisService
             'file_laporan_keuangan' => 'required|file',
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
+        $validatedData['status'] = 'pending';
+
         // Process file uploads
         $validatedData['file_manual'] = $this->storeFile($request->file('file_manual'), 'file_manual');
         $validatedData['file_bukti_publikasi'] = $this->storeFile($request->file('file_bukti_publikasi'), 'file_bukti_publikasi');

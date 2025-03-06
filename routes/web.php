@@ -10,6 +10,7 @@ use App\Http\Controllers\DokumenPublikasiController;
 use App\Http\Controllers\DokumenTeknisController;
 use App\Http\Controllers\KelolaArtikel;
 use App\Http\Controllers\KelolaKontenController;
+use App\Http\Controllers\LaporanKemajuanController;
 use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\publikasiController;
 use App\Http\Controllers\reviewer\ProposalReviewController;
 use App\Http\Controllers\reviewer\reviewerController;
 use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
+use App\Models\LaporanKemajuan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -31,13 +33,14 @@ Route::middleware('guest')->group(function () {
 });
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
 Route::get('/daftar-publikasi', [berandaController::class, 'detailPublikasi'])->name('daftar-publikasi');
+Route::get('/video', [berandaController::class, 'video'])->name('video');
 Route::get('/publikasi/detail/{publikasi:slug}', [berandaController::class, 'detail'])->name('daftar-publikasi');
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
 
-    Route::middleware(['can:create publication'])->group(function () {
+    Route::middleware(['can:create publication', 'checkProgressAcceptAccess'])->group(function () {
         Route::get('/publikasi/tambah', [publikasiController::class, 'show'])->name('publikasi.tambah');
         Route::get('/publikasi/{id}', [publikasiController::class, 'detail'])->name('publikasi.detail');
         Route::post('/publikasi/tambah', [publikasiController::class, 'store'])->name('publikasi.tambah');
@@ -64,6 +67,16 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:agree publication'])->group(function () {
         Route::get('/publikasi/approve/{id}', [publikasiController::class, 'approve'])->name('publikasi.approve');
         Route::get('/publikasi/cari', [publikasiController::class, 'filter'])->name('publikasi.search');
+
+        Route::get('/dokumen-teknis/approve/{id}', [DokumenTeknisController::class, 'approve'])->name('dokumen-teknis.approve');
+        Route::get('/dokumen-teknis/reject/{id}', [DokumenTeknisController::class, 'reject'])->name('dokumen-teknis.reject');
+
+        Route::get('/dokumen-publikasi/approve/{id}', [DokumenPublikasiController::class, 'approve'])->name('dokumen-publikasi.approve');
+        Route::get('/dokumen-publikasi/reject/{id}', [DokumenPublikasiController::class, 'reject'])->name('dokumen-publikasi.reject');
+
+        Route::get('/dokumentasi-kegiatan/approve/{id}', [DokumenKegiatanController::class, 'approve'])->name('dokumentasi-kegiatan.approve');
+        Route::get('/dokumentasi-kegiatan/reject/{id}', [DokumenKegiatanController::class, 'reject'])->name('dokumentasi-kegiatan.reject');
+
     });
     Route::middleware(['can:assessing proposal'])->group(function () {
         Route::get('/reviewer/nilai/{id}', [ProposalReviewController::class, 'index'])->name('reviewer.nilai');
@@ -76,7 +89,12 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['role:admin|dosen|reviewer'])->group(function () {
         Route::get('/monitoring-evaluasi', [MonevController::class, 'index'])->name('monev.index');
-        Route::get('//monitoring-evaluasi/detail/{id}', [MonevController::class, 'detail'])->name('monev.detail');
+        Route::get('/monitoring-evaluasi/detail/{id}', [MonevController::class, 'detail'])->name('monev.detail');
+
+        Route::get('/pendaftaran', [listPendaftaranController::class, 'index'])->name('pendaftaran');
+        Route::get('/pendaftaran/cari', [listPendaftaranController::class, 'filter'])->name('pendaftaran.search');
+        Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
+        Route::get('/pendaftaran/detail-nilai/{id}', [listPendaftaranController::class, 'scoreDetail'])->name('pendaftaran.detail-nilai');
 
         Route::middleware(['can:reviewer monev'])->group(function () {
             Route::get('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'createScore'])->name('monev.create');
@@ -92,7 +110,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/monitoring-evaluasi/reject/{id}', [MonevController::class, 'reject'])->name('monev.reject');
     });
     
-    Route::middleware(['can:show final report'])->group(function () {
+    Route::middleware(['can:show final report', 'checkProgressAcceptAccess'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
         Route::get('/dokumen-teknis', [DokumenTeknisController::class, 'index'])->name('dokumen-teknis');
         Route::get('/dokumen-publikasi', [DokumenPublikasiController::class, 'index'])->name('dokumen-publikasi');
@@ -120,12 +138,14 @@ Route::middleware('auth')->group(function () {
         
     });
 
-    Route::middleware(['role:admin|reviewer|dosen'])->group(function () {
-        Route::get('/pendaftaran', [listPendaftaranController::class, 'index'])->name('pendaftaran');
-        Route::get('/pendaftaran/cari', [listPendaftaranController::class, 'filter'])->name('pendaftaran.search');
-        Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
-        Route::get('/pendaftaran/detail-nilai/{id}', [listPendaftaranController::class, 'scoreDetail'])->name('pendaftaran.detail-nilai');
-        // Route::get('/reviewer/nilai/{id}', [reviewerListPendaftaranController::class, 'nilai'])->name('reviewer.nilai');
+    
+    Route::middleware(['can:show laporan kemajuan'])->group(function () {
+        Route::get('/laporan-kemajuan', [LaporanKemajuanController::class, 'index'])->name('laporan-kemajuan')->middleware('checkProgressAccess');
+    });
+    Route::middleware(['can:A&R laporan kemajuan'])->group(function () {
+        Route::get('/laporan-kemajuan/reject/{id}', [LaporanKemajuanController::class, 'reject'])->name('laporan-kemajuan.reject');
+        Route::get('/laporan-kemajuan/approve/{id}', [LaporanKemajuanController::class, 'approve'])->name('laporan-kemajuan.approve');
+
     });
 
     Route::middleware(['role:mahasiswa'])->group(function () {
@@ -135,6 +155,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
         Route::get('/program/cek/{id}', [regisProgramController::class, 'show'])->name('program.cek');
         Route::get('/search-users', [regisProgramController::class, 'search'])->name('users.search');
+        Route::post('/laporan-kemajuan', [LaporanKemajuanController::class, 'store'])->name('laporan-kemajuan.store');
+
     });
 
 

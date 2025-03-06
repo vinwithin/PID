@@ -82,4 +82,8 @@ class Registration extends Model
     {
         return $this->hasMany(StatusMonev::class, 'registration_id');
     }
+    public function laporan_kemajuan()
+    {
+        return $this->hasOne(LaporanKemajuan::class, 'team_id');
+    }
 }

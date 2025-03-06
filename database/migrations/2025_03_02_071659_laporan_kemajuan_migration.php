@@ -11,17 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dokumen_teknis', function (Blueprint $table) {
-            $table->id();
+        Schema::create('laporan_kemajuan', function (Blueprint $table) {
+            $table->id();   
             $table->string('team_id');
-            $table->string('file_manual');
-            $table->string('status_manual');
-            $table->string('file_bukti_publikasi');
-            $table->string('status_publikasi');
-            $table->string('file_proposal');
-            $table->string('file_laporan_keuangan');
-            $table->string('status');
-           
+            $table->string('file_path');
+            $table->date('status');
             $table->timestamps();
         });
     }

@@ -107,6 +107,10 @@
 
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group">
+                                                        <a href="/pendaftaran/detail/{{ $item->id }}"
+                                                            class="btn btn-sm btn-outline-info">
+                                                            <i class="fas fa-info-circle me-1"></i>Detail
+                                                        </a>
                                                         @can('manage monev')
 
                                                             @if ($item->status_monev->where('registration_id', $item->id)->isEmpty())
@@ -157,7 +161,7 @@
                                                                     <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                                 </a>
                                                             @else
-                                                                <span class="badge bg-warning ">
+                                                                <span class="badge bg-warning text-center">
                                                                     Belum Ada Nilai
                                                                 </span>
                                                             @endif

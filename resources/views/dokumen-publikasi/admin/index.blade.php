@@ -16,13 +16,16 @@
                             <thead class="table-light">
                                 <tr>
                                     <th style="width: 5%" class="text-center">No</th>
-                                    <th style="width: 15%" class="text-center">Tim</th>
+                                    <th style="width: 10%" class="text-center">Tim</th>
                                     <th style="width: 15%" class="text-center">Konten</th>
                                     <th style="width: 15%" class="text-center">File draf Artikel Berita Media Massa</th>
                                     <th style="width: 15%" class="text-center">Bukti Ketercapaian HAKI (Sertifikat
                                         Haki/Draft Pendaftaran HAKI)</th>
                                     <th style="width: 15%" class="text-center">Link Artikel</th>
-                                    <th style="width: 15%" class="text-center">Aksi</th>
+                                    <th style="width: 10%" class="text-center">Status</th>
+                                    @can('agree publication')
+                                        <th style="width: 15%" class="text-center">Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,17 +66,35 @@
                                     Upload</span>
                                 @endif
                                 <td rowspan="2" class="text-center">
-                                    @can('create publication')
-                                        @if ($item->dokumenTeknis)
-                                            <a href="/dokumen-publikasi/{{ $item->dokumenPublikasi->id }}"
-                                                class="btn btn-primary">Lihat</a>
+                                    {{ $item->dokumenPublikasi->status }}
+                                </td>
+                                @can('agree publication')
+                                    <td rowspan="2" class="text-center">
+                                        @if ($item->dokumenPublikasi)
+                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                                data-bs-target="#approveModal{{ $item->dokumenPublikasi->id }}">
+                                                <i class="fas fa-check me-1"></i> Terima
+                                            </button>
+                                            <x-confirm-modal modal-id="approveModal{{ $item->dokumenPublikasi->id }}"
+                                                title="Konfirmasi Persetujuan"
+                                                message="Apakah Anda yakin ingin menerima laporan akhir ini?"
+                                                action-url="/dokumen-publikasi/approve/{{ $item->dokumenPublikasi->id }}"
+                                                confirm-text="Ya, Setujui" />
 
-                                            <a href="/dokumen-publikasi/edit/{{ $item->dokumenPublikasi->id }}"
-                                                class="btn btn-warning">Edit</a>
+                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                                data-bs-target="#rejectModal{{ $item->dokumenPublikasi->id }}">
+                                                <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                            </button>
+                                            <x-confirm-modal modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
+                                                title="Konfirmasi Persetujuan"
+                                                message="Apakah Anda yakin ingin menolak laporan akhir ini?"
+                                                action-url="/dokumen-publikasi/reject/{{ $item->dokumenPublikasi->id }}"
+                                                confirm-text="Ya, Tolak" />
                                         @else
                                         @endif
-                                    @endcan
-                                </td>
+                                    </td>
+                                @endcan
+
                                 </tr>
                                 <tr>
                                     <td>Status</td>

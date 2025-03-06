@@ -17,7 +17,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th class="text-center">No</th>
-                                    <th style="width: 15%">Tim</th>
+                                    <th style="width: 10%">Tim</th>
                                     <th style="width: 10%">Konten</th>
                                     <th style="width: 15%" class="text-center">Dokumen Manual/Panduan</th>
                                     <th style="width: 15%" class="text-center">Bukti Ketercapaian Seminar atau Publikasi
@@ -26,7 +26,10 @@
                                     <th style="width: 15%" class="text-center">Draft proposal PPK Ormawa untuk tahun
                                         berikutnya</th>
                                     <th style="width: 15%" class="text-center">Dokumen Laporan Keuangan</th>
-                                    <th style="width: 15%" class="text-center">Aksi</th>
+                                    <th style="width: 10%" class="text-center">Status</th>
+                                    @can('agree publication')
+                                        <th style="width: 15%" class="text-center">Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,17 +75,39 @@
                                             @endif
                                         </td>
                                         <td rowspan="2" class="text-center">
-                                            @can('create publication')
+                                            {{ $item->dokumenTeknis->status }}
+                                        </td>
+                                        @can('agree publication')
+                                            <td rowspan="2" class="text-center">
                                                 @if ($item->dokumenTeknis)
-                                                    <a href="/dokumen-teknis/{{ $item->dokumenTeknis->id }}"
-                                                        class="btn btn-primary">Lihat</a>
-                                                    <a href="/dokumen-teknis/edit/{{ $item->dokumenTeknis->id }}"
-                                                        class="btn btn-warning">Edit</a>
+                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#approveModal{{ $item->dokumenTeknis->id }}">
+                                                        <i class="fas fa-check me-1"></i> Terima
+                                                    </button>
+                                                    <x-confirm-modal modal-id="approveModal{{ $item->dokumenTeknis->id }}"
+                                                        title="Konfirmasi Persetujuan"
+                                                        message="Apakah Anda yakin ingin menerima laporan akhir ini?"
+                                                        action-url="/dokumen-teknis/approve/{{ $item->dokumenTeknis->id }}"
+                                                        confirm-text="Ya, Setujui" />
+
+                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#rejectModal{{ $item->dokumenTeknis->id }}">
+                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                    </button>
+                                                    <x-confirm-modal modal-id="rejectModal{{ $item->dokumenTeknis->id }}"
+                                                        title="Konfirmasi Persetujuan"
+                                                        message="Apakah Anda yakin ingin menolak laporan akhir ini?"
+                                                        action-url="/dokumen-teknis/reject/{{ $item->dokumenTeknis->id }}"
+                                                        confirm-text="Ya, Tolak" />
                                                 @else
                                                 @endif
-                                            @endcan
-                                        </td>
-                                    </tr>
+                                            </td>
+
+                                        </tr>
+                                    @endcan
+
                                     <tr>
                                         <td>Status</td>
                                         <td class="text-center">

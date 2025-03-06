@@ -13,7 +13,7 @@
                             <tr>
                                 <th>Aspek Penilaian</th>
                                 <th>Bobot</th>
-                                <th>Skor yang Diberikan</th>
+                                <th>Skor yang Diberikan (DI ISI DENGAN RENTANG SKOR 1 - 7)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,7 +34,7 @@
                                     <td>
                                         @foreach ($item->sub_kriteria_penilaian as $data)
                                             <input type="number" class="form-control mb-2" id="nilai_{{ $data->id }}"
-                                                min="1" max="{{ $data->skor_maksimum }}"
+                                                min="1" max="7"
                                                 name="nilai[{{ $data->id }}]" required>
                                         @endforeach
                                     </td>

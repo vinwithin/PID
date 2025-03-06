@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class KriteriaMonev extends Model
 {
     protected $table = 'kriteria_monev';
-    public $kriteria_penilaian = 'kriteria_monev';
+    public $kriteria_monev = 'kriteria_monev';
     protected $fillable = [
         'nama',
         'deskripsi',

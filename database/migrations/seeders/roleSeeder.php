@@ -104,13 +104,21 @@ class roleSeeder extends Seeder
             ['name' => 'show monev'],
             ['name' => 'show monev'],
         );
+        $permission13 = Permission::updateOrCreate(
+            ['name' => 'show laporan kemajuan'],
+            ['name' => 'show laporan kemajuan'],
+        );
+        $permission14 = Permission::updateOrCreate(
+            ['name' => 'A&R laporan kemajuan'],
+            ['name' => 'A&R laporan kemajuan'],
+        );
         $user1->assignRole('mahasiswa');
         $user2->assignRole('reviewer');
         $user3->assignRole('admin');
         $role1->givePermissionTo($permission1, $permission2, $permission4, $permission9);
-        $role2->givePermissionTo($permission6, $permission9, $permission12);
-        $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5, $permission7, $permission9, $permission10, $permission11);
-        $role4->givePermissionTo($permission8, $permission9);
+        $role2->givePermissionTo($permission6, $permission9, $permission12, $permission13);
+        $role3->givePermissionTo($permission2, $permission3, $permission4, $permission5, $permission7, $permission9, $permission10, $permission11, $permission13, $permission14);
+        $role4->givePermissionTo($permission8, $permission9, $permission13);
         // $role1->givePermissionTo($permission2);
     }
 }

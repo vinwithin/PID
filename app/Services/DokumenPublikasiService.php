@@ -27,6 +27,7 @@ class DokumenPublikasiService
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
         $validatedData['visibilitas'] = 'no';
+        $validatedData['status'] = 'pending';
 
         // Process file uploads
         $validatedData['file_artikel'] = $this->storeFile($request->file('file_artikel'), 'file_artikel');
@@ -49,6 +50,7 @@ class DokumenPublikasiService
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
         $validatedData['visibilitas'] = 'no';
+        $validatedData['status'] = 'pending';
 
         // Process file uploads
         $validatedData['file_artikel'] = $this->storeFile($request->file('file_artikel'), 'file_artikel');

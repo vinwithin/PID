@@ -113,13 +113,35 @@
                 justify-content: center;
             }
         }
+
+        @media (max-width: 1366px) {
+            h5 {
+                font-size: 75%;
+            }
+        }
+
+        /* Tablet */
+        @media (max-width: 758px) {
+            h5 {
+                font-size: 72.5%;
+            }
+        }
+
+        /* Mobile Phone */
+        @media (max-width: 450px) {
+            h5 {
+                font-size: 62%;
+            }
+        }
     </style>
 </head>
+<body>
 <nav class="navbar navbar-expand-lg navbar-custom text-white">
     <div class="container d-flex justify-content-between align-items-center flex-wrap">
         <!-- Tombol Kembali & Judul -->
         <div class="d-flex ">
             <a href="/" class="text-white me-3 fs-4"><i data-feather="arrow-left"></i></a>
+
 
             <div>
                 <h3 class="fw-bold mb-0">Publikasi</h3>
@@ -146,8 +168,7 @@
         </div>
     </div>
 </nav>
-<section class="container vh-100 py-4">
-
+<section class="container  py-4">
     <div class="card w-full p-5 shadow" id="card">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">
             @foreach ($data as $item)
@@ -170,7 +191,7 @@
                             </div>
                             <div class="col-8">
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title mb-2" style="font-size: 18px;">{!! Str::limit($item->title, 80) !!}</h5>
+                                    <h5 class="card-title mb-2">{!! Str::limit($item->title, 80) !!}</h5>
                                     {{-- <p class="card-text flex-grow-1 text-muted">
                                         {!! Str::limit($item->excerpt, 82) !!}
                                     </p> --}}

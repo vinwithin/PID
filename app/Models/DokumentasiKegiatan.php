@@ -13,6 +13,7 @@ class DokumentasiKegiatan extends Model
         'link_youtube',
         'link_social_media',
         'link_dokumentasi',
+        'status',
     ];
     public function teamMembers()
     {

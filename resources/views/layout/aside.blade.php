@@ -51,14 +51,19 @@
             @endcan
 
             @role('admin|reviewer|dosen')
-                <li class="sidebar-item {{ Request::is('pendaftaran*') ? 'active' : '' }}">
+                <li class="sidebar-item {{ Request::is(['pendaftaran*', 'reviewer*']) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola
                             Pendaftaran</span>
                     </a>
                 </li>
-            @endrole
-            @role('admin|dosen|reviewer')
+                <li class="sidebar-header">Laporan Kemajuan</li>
+                <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar
+                            Dokumen</span>
+                    </a>
+                </li>
                 <li class="sidebar-header">
                     Monitoring dan Evaluasi
                 </li>
@@ -67,20 +72,7 @@
                         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar Kelompok</span>
                     </a>
                 </li>
-            @endrole
-            @php
-                $hasAccessToPublication =
-                    auth()->user()->hasRole('mahasiswa') &&
-                    App\Models\Registration::whereHas('registration_validation', function ($query) {
-                        $query->where('status', 'lolos');
-                    })
-                        ->whereHas('teamMembers', function ($query) {
-                            $query->where('nim', auth()->user()->nim);
-                        })
-                        ->exists();
-            @endphp
 
-            @if ($hasAccessToPublication || auth()->user()->hasAnyRole('admin', 'reviewer', 'dosen'))
                 <li class="sidebar-header">Laporan Akhir</li>
                 <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
@@ -100,16 +92,79 @@
                             Kegiatan</span>
                     </a>
                 </li>
+            @endrole
+            @php
+                $hasAccessToProgress =
+                    auth()->user()->hasRole('mahasiswa') &&
+                    App\Models\Registration::whereHas('registration_validation', function ($query) {
+                        $query->where('status', 'lolos');
+                    })
+                        ->whereHas('teamMembers', function ($query) {
+                            $query->where('nim', auth()->user()->nim);
+                        })
+                        ->exists();
+            @endphp
+            @if ($hasAccessToProgress)
+                <li class="sidebar-header">Laporan Kemajuan</li>
+                <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Unggah
+                            Dokumen</span>
+                    </a>
+                </li>
             @endif
 
-            @role('mahasiswa')
+            @php
+                $hasAccessToPublication =
+                    auth()->user()->hasRole('mahasiswa') &&
+                    App\Models\Registration::whereHas('registration_validation', function ($query) {
+                        $query->where('status', 'Lanjutkan Program');
+                    })
+                        ->whereHas('teamMembers', function ($query) {
+                            $query->where('nim', auth()->user()->nim);
+                        })
+                        ->exists();
+            @endphp
+
+            @if ($hasAccessToPublication)
+                <li class="sidebar-header">Laporan Kemajuan</li>
+                <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Unggah
+                            Dokumen</span>
+                    </a>
+                </li>
+                <li class="sidebar-header">Laporan Akhir</li>
+                <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
+                            Teknis</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('dokumen-publikasi*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('dokumen-publikasi') }}">
+                        <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Dokumen
+                            Publikasi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('dokumentasi-kegiatan*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('dokumentasi-kegiatan') }}">
+                        <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Dokumentasi
+                            Kegiatan</span>
+                    </a>
+                </li>
+                <li class="sidebar-header">
+                    Kelola Konten
+                </li>
                 <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('publikasi') }}">
                         <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
                             Artikel</span>
                     </a>
                 </li>
-            @endrole
+            @endif
+
+
             @role('admin')
                 <li class="sidebar-header">
                     Kelola Konten
@@ -138,68 +193,7 @@
                 </li>
             @endrole
 
-            {{-- <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-up.html">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign
-                        Up</span>
-                </a>
-            </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-blank.html">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
-                </a>
-            </li>
-
-            <li class="sidebar-header">
-                Tools & Components
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-buttons.html">
-                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-forms.html">
-                    <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-cards.html">
-                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-typography.html">
-                    <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="icons-feather.html">
-                    <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                </a>
-            </li>
-
-            <li class="sidebar-header">
-                Plugins & Addons
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="charts-chartjs.html">
-                    <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="maps-google.html">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-                </a>
-            </li> --}}
         </ul>
 
     </div>

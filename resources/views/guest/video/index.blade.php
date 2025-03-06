@@ -17,7 +17,7 @@
             padding: 20px 0;
             height: 202px;
             position: relative;
-            z-index: -1;
+            z-index: 0;
         }
 
         /* Wave Styling */
@@ -40,7 +40,6 @@
 
             bottom: 0;
             overflow: hidden;
-
         }
 
         .wave-left {
@@ -114,16 +113,26 @@
                 justify-content: center;
             }
         }
+
+        .album-card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .album-card iframe {
+            border-radius: 20px;
+        }
     </style>
 </head>
+<body>
 <nav class="navbar navbar-expand-lg navbar-custom text-white">
     <div class="container d-flex justify-content-between align-items-center flex-wrap">
         <!-- Tombol Kembali & Judul -->
         <div class="d-flex ">
-            <a href="#" class="text-white me-3 fs-4"><i data-feather="arrow-left"></i></a>
+            <a href="/" class="text-white me-3 fs-4"><i data-feather="arrow-left"></i></a>
             <div>
-                <h3 class="fw-bold mb-0">Publikasi</h3>
-                <p class="mb-0">Publikasi</p>
+                <h3 class="fw-bold mb-0">Video</h3>
+                <p class="mb-0">Video</p>
             </div>
         </div>
 
@@ -149,50 +158,27 @@
 <section class="container vh-100  py-4">
 
     <div class="card w-full p-4 shadow" id="card">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">
-            @foreach ($data as $item)
-                <div class="col">
-                    <div class="h-100 ">
-                        <div class="row g-0">
-                            <div class="col-4">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
-                                        class="card-img-top img-fluid object-fit-cover"
-                                        style="height: 119px; width:200px; filter: brightness(0.8);"
-                                        alt="{{ $item->title }} Thumbnail">
-                                    <div class="card-img-overlay d-flex align-items-end p-3">
-                                        <span class="badge bg-primary rounded-pill">
-                                            <i class="fas fa-calendar-alt me-2"></i>
-                                            {{ $item->created_at->format('d M Y') }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title mb-2" style="font-size: 20px;">{!! Str::limit($item->title, 50) !!}</h5>
-                                    {{-- <p class="card-text flex-grow-1 text-muted">
-                                        {!! Str::limit($item->excerpt, 82) !!}
-                                    </p> --}}
-                                    {{-- <div>
-                                        <a href="/publikasi/detail/{{ $item->slug }}"
-                                            class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-external-link-alt me-2"></i>Baca Selengkapnya
-                                        </a>
-                                    </div> --}}
-
-                                </div>
-                            </div>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+                @foreach ($data as $item)
+                    <div class="col">
+                        <div class="album-card">
+                            <iframe width="268px" height="147px" src="{{ $item->link_youtube }}" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
+                                onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';">
+                            </iframe>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
 
         <div class="d-flex justify-content-center mt-4">
             {{ $data->links() }}
         </div>
     </div>
+
 </section>
 @include('layout.guest.footer')
 <script>
