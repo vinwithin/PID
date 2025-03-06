@@ -1,17 +1,59 @@
 @extends('layout.app')
 @section('content')
-    @role('admin')
-        <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1>
-        <div class="w-100 h-100">
-            <div class="card">
-                {{-- <h3>Informasi Penting</h3> --}}
+    @role('admin|reviewer|dosen')
+        <div class="w-100 ">
+            <div class="card p-3 border rounded-3 shadow-sm">
+                <h4 class="fw-bold">
+                    <i class="bi bi-calendar-event"></i> Informasi Penting!
+                </h4>
+
+                <div class="bg-light p-2 rounded d-flex align-items-center mt-3">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <span>Jadwal pendaftaran Pro-IDe periode 10 mulai dari 10 Juni - 30 Juni 2024. <strong>Ayo daftar
+                            sekarang!</strong></span>
+                </div>
+
+                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <span>Jadwal pengumpulan berkas Pro-IDe periode 10 mulai dari 01 Juli - 15 Juli 2024. <strong>Lengkapi
+                            berkas anda sekarang!</strong></span>
+                </div>
+
+                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <span>Jadwal publikasi Pro-IDe periode 10 mulai dari 01 Desember - 20 Desember 2024. <strong>Segera
+                            publikasi hasil anda!</strong></span>
+                </div>
             </div>
         </div>
-    @elserole('reviewer')
-        <h1 class="h3 mb-3"><strong>Reviewer</strong> Dashboard</h1>
 
-    @elserole('mahasiswa')
-        <h1 class="h3 mb-3"><strong>Mahasiswa</strong> Dashboard</h1>
+
+        @elserole('mahasiswa')
+        <div class="w-100">
+            <div class="card p-3 border rounded-3 shadow-sm">
+                <h4 class="fw-bold">
+                    <i class="bi bi-calendar-event"></i> Informasi Penting!
+                </h4>
+
+                <div class="bg-light p-2 rounded d-flex align-items-center mt-3">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <span>Jadwal pendaftaran Pro-IDe periode 10 mulai dari 10 Juni - 30 Juni 2024. <strong>Ayo daftar
+                            sekarang!</strong></span>
+                </div>
+
+                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <span>Jadwal pengumpulan berkas Pro-IDe periode 10 mulai dari 01 Juli - 15 Juli 2024. <strong>Lengkapi
+                            berkas anda sekarang!</strong></span>
+                </div>
+
+                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <span>Jadwal publikasi Pro-IDe periode 10 mulai dari 01 Desember - 20 Desember 2024. <strong>Segera
+                            publikasi hasil anda!</strong></span>
+                </div>
+            </div>
+        </div>
     @endrole
     {{-- <div class="row">
   
