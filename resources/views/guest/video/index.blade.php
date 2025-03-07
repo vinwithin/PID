@@ -100,6 +100,15 @@
             margin-top: -70px;
         }
 
+        .album-card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .album-card iframe {
+            border-radius: 20px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -114,76 +123,88 @@
             }
         }
 
-        .album-card {
-            border-radius: 10px;
-            overflow: hidden;
+        @media (max-width: 1366px) {
+            html {
+                font-size: 75%;
+            }
         }
 
-        .album-card iframe {
-            border-radius: 20px;
+        /* Tablet */
+        @media (max-width: 758px) {
+            html {
+                font-size: 62.5%;
+            }
+        }
+
+        /* Mobile Phone */
+        @media (max-width: 450px) {
+            html {
+                font-size: 52%;
+            }
         }
     </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-custom text-white">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
-        <!-- Tombol Kembali & Judul -->
-        <div class="d-flex ">
-            <a href="/" class="text-white me-3 fs-4"><i data-feather="arrow-left"></i></a>
-            <div>
-                <h3 class="fw-bold mb-0">Video</h3>
-                <p class="mb-0">Video</p>
+    <nav class="navbar navbar-expand-lg navbar-custom text-white">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <!-- Tombol Kembali & Judul -->
+            <div class="d-flex ">
+                <a href="/" class="text-white me-3 fs-4"><i data-feather="arrow-left"></i></a>
+                <div>
+                    <h3 class="fw-bold mb-0">Video</h3>
+                    <p class="mb-0">Video</p>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Pencarian">
+                <span>🔍</span>
+            </div>
+
+        </div>
+
+        <!-- Wave Background -->
+        <div class="wave-container">
+            <div class="wave-left">
+                <img class="" src="/assets/Vector 8.svg" alt="Wave Left">
+            </div>
+            <div class="wave-right">
+                <img class="" src="/assets/Vector 8.svg" alt="Wave Right">
+
             </div>
         </div>
+    </nav>
+    <section class="container vh-100  py-4">
 
-        <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" class="search-box" placeholder="Pencarian">
-            <span>🔍</span>
-        </div>
-
-    </div>
-
-    <!-- Wave Background -->
-    <div class="wave-container">
-        <div class="wave-left">
-            <img class="" src="/assets/Vector 8.svg" alt="Wave Left">
-        </div>
-        <div class="wave-right">
-            <img class="" src="/assets/Vector 8.svg" alt="Wave Right">
-
-        </div>
-    </div>
-</nav>
-<section class="container vh-100  py-4">
-
-    <div class="card w-full p-4 shadow" id="card">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
-                @foreach ($data as $item)
-                    <div class="col">
-                        <div class="album-card">
-                            <iframe width="268px" height="147px" src="{{ $item->link_youtube }}" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
-                                onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';">
-                            </iframe>
+        <div class="card w-full p-4 shadow" id="card">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+                    @foreach ($data as $item)
+                        <div class="col">
+                            <div class="album-card">
+                                <iframe width="268px" height="147px" src="{{ $item->link_youtube }}" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
+                                    onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';">
+                                </iframe>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                {{ $data->links() }}
             </div>
         </div>
 
-        <div class="d-flex justify-content-center mt-4">
-            {{ $data->links() }}
-        </div>
-    </div>
-
-</section>
-@include('layout.guest.footer')
-<script>
-    feather.replace();
-</script>
+    </section>
+    @include('layout.guest.footer')
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

@@ -237,7 +237,7 @@
 }
 
 #card-item {
-    height: 20rem;
+    max-height: 22rem;
     width: 18rem;
     color: black;
     user-select: none;
@@ -253,7 +253,7 @@
 }
 .user-image {
     width: 18rem;
-    height: 190px;
+    height: 180px;
     object-fit: cover;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -289,13 +289,6 @@
     color: black;
 }
 
-/* footer {
-    bottom: 0;
-    height: 440px;
-    margin-top: auto;
-    overflow-x: hidden;
-    word-wrap: break-word;
-} */
 #link-utama a {
     font-size: 22px;
 }
@@ -382,6 +375,42 @@ img {
     flex: 0 0 auto;
 }
 
+@media (max-width: 991.98px) {
+    /* Ukuran breakpoint Bootstrap untuk navbar collapse */
+    .navbar {
+        position: fixed; /* Menempel di atas */
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1050; /* Pastikan lebih tinggi dari elemen lain */
+        background: white; /* Agar tidak transparan */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tambahkan shadow agar lebih jelas */
+        padding: 10px 15px; /* Tambahkan padding agar tidak terlalu mepet */
+    }
+
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white; /* Agar tampilan lebih rapi */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px 25px; /* Tambahkan padding agar ada ruang */
+    }
+
+    .navbar-nav {
+        margin-top: 10px; /* Tambahkan sedikit margin agar tidak terlalu mepet */
+    }
+
+    .navbar-extra {
+        margin-top: 15px; /* Beri jarak untuk pencarian */
+    }
+
+    .button-login {
+        margin-top: 20px; /* Jarak tombol login */
+    }
+}
+
 /* Agar scroll terlihat di mobile */
 @media (max-width: 768px) {
     .video-container {
@@ -408,5 +437,27 @@ img {
 @media (max-width: 450px) {
     html {
         font-size: 52%;
+    }
+    .navbar-brand img{
+        width:100px;
+    }
+    .image {
+        height: 50px;
+        width: 100px;
+    }
+    .wave-container {
+        display: none;
+    }
+    .hero {
+        height: 70vh;
+    }
+    .content h1 {
+        font-size: 2.5rem;
+    }
+    .content h3 {
+        font-size: 2rem;
+    }
+    .publikasi {
+        margin-top: 0px;
     }
 }

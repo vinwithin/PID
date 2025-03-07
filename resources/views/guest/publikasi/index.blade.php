@@ -115,110 +115,111 @@
         }
 
         @media (max-width: 1366px) {
-            h5 {
+            html {
                 font-size: 75%;
             }
         }
 
         /* Tablet */
         @media (max-width: 758px) {
-            h5 {
-                font-size: 72.5%;
+            html {
+                font-size: 62.5%;
             }
         }
 
         /* Mobile Phone */
         @media (max-width: 450px) {
-            h5 {
-                font-size: 62%;
+            html {
+                font-size: 52%;
             }
         }
     </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-custom text-white">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
-        <!-- Tombol Kembali & Judul -->
-        <div class="d-flex ">
-            <a href="/" class="text-white me-3 fs-4"><i data-feather="arrow-left"></i></a>
+    <nav class="navbar navbar-expand-lg navbar-custom text-white">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <!-- Tombol Kembali & Judul -->
+            <div class="d-flex ">
+                <a href="/" class="text-white me-3 fs-4"><i data-feather="arrow-left"></i></a>
 
 
-            <div>
-                <h3 class="fw-bold mb-0">Publikasi</h3>
-                <p class="mb-0">Publikasi</p>
+                <div>
+                    <h3 class="fw-bold mb-0">Publikasi</h3>
+                    <p class="mb-0">Publikasi</p>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Pencarian">
+                <span>🔍</span>
+            </div>
+
+        </div>
+
+        <!-- Wave Background -->
+        <div class="wave-container">
+            <div class="wave-left">
+                <img class="" src="/assets/Vector 8.svg" alt="Wave Left">
+            </div>
+            <div class="wave-right">
+                <img class="" src="/assets/Vector 8.svg" alt="Wave Right">
+
             </div>
         </div>
-
-        <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" class="search-box" placeholder="Pencarian">
-            <span>🔍</span>
-        </div>
-
-    </div>
-
-    <!-- Wave Background -->
-    <div class="wave-container">
-        <div class="wave-left">
-            <img class="" src="/assets/Vector 8.svg" alt="Wave Left">
-        </div>
-        <div class="wave-right">
-            <img class="" src="/assets/Vector 8.svg" alt="Wave Right">
-
-        </div>
-    </div>
-</nav>
-<section class="container  py-4">
-    <div class="card w-full p-5 shadow" id="card">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">
-            @foreach ($data as $item)
-                <div class="col">
-                    <div class="h-100 ">
-                        <div class="row g-0">
-                            <div class="col-4">
-                                <div class="position-relative overflow-hidden">
-                                    <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
-                                        class="card-img-top img-fluid object-fit-cover"
-                                        style="height: 119px; width:200px; filter: brightness(0.8);"
-                                        alt="{{ $item->title }} Thumbnail">
-                                    <div class="card-img-overlay d-flex align-items-end p-3">
-                                        <span class="badge bg-primary rounded-pill">
-                                            <i class="fas fa-calendar-alt me-2"></i>
-                                            {{ $item->created_at->format('d M Y') }}
-                                        </span>
+    </nav>
+    <section class="container  py-4">
+        <div class="card w-full p-5 shadow" id="card">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">
+                @foreach ($data as $item)
+                    <div class="col">
+                        <div class="h-100 ">
+                            <div class="row g-0">
+                                <div class="col-4">
+                                    <div class="position-relative overflow-hidden">
+                                        <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
+                                            class="card-img-top img-fluid object-fit-cover"
+                                            style="height: 119px; width:200px; filter: brightness(0.8);"
+                                            alt="{{ $item->title }} Thumbnail">
+                                        <div class="card-img-overlay d-flex align-items-end p-3">
+                                            <span class="badge bg-primary rounded-pill">
+                                                <i class="fas fa-calendar-alt me-2"></i>
+                                                {{ $item->created_at->format('d M Y') }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title mb-2">{!! Str::limit($item->title, 80) !!}</h5>
-                                    {{-- <p class="card-text flex-grow-1 text-muted">
+                                <div class="col-8">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title mb-2">{!! Str::limit($item->title, 80) !!}</h5>
+                                        {{-- <p class="card-text flex-grow-1 text-muted">
                                         {!! Str::limit($item->excerpt, 82) !!}
                                     </p> --}}
-                                    {{-- <div>
+                                        {{-- <div>
                                         <a href="/publikasi/detail/{{ $item->slug }}"
                                             class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-external-link-alt me-2"></i>Baca Selengkapnya
                                         </a>
                                     </div> --}}
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
 
-        <div class="d-flex justify-content-center mt-5">
-            {{ $data->links() }}
+            <div class="d-flex justify-content-center mt-5">
+                {{ $data->links() }}
+            </div>
         </div>
-    </div>
-</section>
-@include('layout.guest.footer')
-<script>
-    feather.replace();
-</script>
+    </section>
+    @include('layout.guest.footer')
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

@@ -136,43 +136,8 @@
             </div>
         </main>
     </section>
+    @include('layout.guest.footer')
     
-    <footer class="p-4 d-flex justify-content-center" style="bottom: 0; background: rgba(195, 191, 182, 1);">
-        <div class="container my-auto">
-            <div class="row row-cols-1 row-cols-md-3  g-4 d-flex justify-content-center">
-                <div class="col">
-                    <img class=" rounded-circle" src="/assets/footer.png" alt=""
-                        style="width: 269px; height: 269px; object-fit: cover;">
-                </div>
-                <div class="col ">
-                    <h3 class="fw-bold border-bottom text-dark border-black py-3">LINK UTAMA</h3>
-                    <div class="d-flex flex-column mb-3" id="link-utama">
-                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">WEB UNJA</a>
-                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">PORTAL GERBANG UNJA</a>
-                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">SISTEM INFORMASI AKADEMIK</a>
-                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">PERPUSTAKAAN</a>
-                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">LABORATORIUM</a>
-                        <a href="#" class="text-dark py-1 fs-5 text-decoration-none">REPOSITORY</a>
-                    </div>
-    
-    
-                </div>
-                <div class="col">
-                    <h3 class="fw-bold border-bottom border-black text-dark py-3">KONTAK KAMI </h3>
-                    <div class="d-flex flex-row g-8 " id="kontak-kami">
-                        <p class="text-dark mb-0 me-2 fs-5 text-decoration-none">Alamat</p>
-                        <p class="text-dark mb-0 fs-5 text-decoration-none">Jl. Raya Jambi - Muara Bulian Km. 15, Mendalo Indah, Jambi Luar
-                            Kota,
-                            Jambi 36361</p>
-                    </div>
-                    <div class="d-flex flex-row align-items-center mt-2" id="kontak-kami">
-                        <p class="text-dark mb-0 me-4 fs-5 text-decoration-none">Email</p>
-                        <p class="text-dark mb-0 fs-5 text-decoration-none">lptik@unja.ac.id</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>

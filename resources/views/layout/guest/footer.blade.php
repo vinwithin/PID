@@ -1,30 +1,9 @@
-<style>
-    
-    @media (max-width: 768px) {
-        footer {
-            font-size: 14px !important;
-        }
 
-        footer img {
-            width: 169px;
-            height: 169px;
-        }
-
-        footer h3 {
-            font-size: 16px !important;
-        }
-
-        footer a,
-        footer p {
-            font-size: 12px !important;
-        }
-    }
-</style>
 <footer class="p-4 d-flex justify-content-center" style="bottom: 0; background: rgba(195, 191, 182, 1);">
     <div class="container my-auto">
         <div class="row row-cols-1 row-cols-md-3  g-4 d-flex justify-content-center">
             <div class="col">
-                <img class=" rounded-circle" src="/assets/footer.png" alt=""
+                <img class="image rounded-circle" src="/assets/footer.png" alt=""
                     style="width: 269px; height: 269px; object-fit: cover;">
             </div>
             <div class="col ">
