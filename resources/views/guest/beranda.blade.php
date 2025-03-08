@@ -38,8 +38,9 @@
 
         </section>
         <div class="wave-container">
-            <img class="wave right" src="/assets/wave.svg" alt="Wave Right">
-            <img class="wave left" src="/assets/wave.svg" alt="Wave Left">
+            <img class="wave right" src="/assets/wave.svg" alt="Wave Right" draggable="false">
+            <img class="wave left" src="/assets/wave.svg" alt="Wave Left" draggable="false">
+
 
         </div>
     </div>
@@ -55,14 +56,14 @@
                         <!-- Card Pendaftaran -->
 
                         @if ($announce->isEmpty())
-                        <div class="col-md-6">
-                            <div class="card p-3" id="card-announce">
-                                <h3 class="card-title" id="card-title">Belum Ada Pengumuman</h3>
-                                <div class="announcement mt-3">
-                                   
+                            <div class="col-md-6">
+                                <div class="card p-3" id="card-announce">
+                                    <h3 class="card-title" id="card-title">Belum Ada Pengumuman</h3>
+                                    <div class="announcement mt-3">
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @else
                             @foreach ($announce as $item)
                                 <div class="col-md-6">
@@ -93,21 +94,19 @@
                 <div class="container-title my-5">
                     <h2 class="text-center fw-bold text-dark">PUBLIKASI</h2>
                 </div>
-                <div class="row row-cols-1 row-cols-md-4 row-gap-5  g-2">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-gap-5 g-2">
                     @foreach ($data as $item)
                         <div class="col" id="card-list">
                             <div class="card" id="card-item">
-                                <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
-                                    class="user-image" alt="...">
+                                <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}" class="user-image" alt="...">
                                 <div class="card-body" id="card-name">
-                                    <h5 class="card-title">{!! Str::limit($item->title, 50) !!}</h5>
-
+                                    <h5 class="card-title">{!! Str::lower(Str::limit($item->title, 50)) !!}</h5>
                                 </div>
                             </div>
                         </div>
                     @endforeach
-
                 </div>
+                
 
             </div>
             <div class="more-button my-5">
@@ -121,10 +120,10 @@
             <div class="video-container">
                 <div class="row flex-nowrap">
                     @foreach ($video as $item)
-                        <div class="col-6 col-md-4 col-lg-3">
+                        <div class="col-4 col-md-3 col-lg-3">
                             <div class="album-card">
                                 <iframe width="397" height="222" src="{{ $item->link_youtube }}" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
                         </div>
@@ -137,14 +136,22 @@
         </main>
     </section>
     @include('layout.guest.footer')
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
         feather.replace();
     </script>
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".wave").forEach(img => {
+                img.setAttribute("draggable", "false"); // Blokir drag
+                img.addEventListener("mousedown", (e) => e.preventDefault()); // Blokir pemilihan
+            });
+        });
+    </script>
+
 </body>
 
 </html>

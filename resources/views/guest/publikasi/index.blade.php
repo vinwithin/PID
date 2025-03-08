@@ -29,15 +29,18 @@
             display: flex;
             justify-content: flex-end;
             /* height: auto; */
-            pointer-events: none;
             z-index: -1;
             overflow: hidden;
+            user-select: none;
+            /* Mencegah pemilihan */
+            pointer-events: none;
             /* Mencegah overflow akibat overlap */
         }
 
         .wave {
             position: relative;
-
+            user-select: none; /* Mencegah pemilihan */
+            pointer-events: none;
             bottom: 0;
             overflow: hidden;
         }

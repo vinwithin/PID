@@ -27,14 +27,14 @@
         .wave {
             position: absolute;
             width: 100%;
-           z-index: -1;
+            z-index: -1;
             height: auto;
             bottom: 0;
         }
 
         .wave.left {
             left: 0;
-            
+
             /* z-index:1; */
         }
 
@@ -43,20 +43,7 @@
             /* transform: scaleX(-1); */
         }
 
-        .wave-container::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            /* Sesuaikan tinggi efek */
-
-            /* Gradient dari warna wave ke putih */
-            background: linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0) 0%,
-                    rgba(255, 255, 255, 1) 100%);
-        }
+        
 
         .card {
             width: 1032px;
@@ -75,6 +62,38 @@
             background: rgba(6, 77, 63, 1);
             color: white;
 
+        }
+
+        @media (max-width: 992px) {
+
+            .wave {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            /* Untuk layar HP */
+            .wave-container {
+                display: none !important;
+            }
+            .wave {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
+        }
+        @media (max-width: 450px) {
+            .wave-container {
+                display: hidden !important;
+            }
+            .wave {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
         }
     </style>
 </head>
@@ -138,14 +157,27 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="wave-container">
-        <img class="wave right" src="/assets/vector2.svg" alt="Wave Right">
-        <img class="wave left" src="/assets/vektor-login.png" alt="Wave Left">
+        <div class="wave-container">
+            <img class="wave right" src="/assets/vector2.svg" alt="Wave Right">
+            <img class="wave left" src="/assets/vektor-login.png" alt="Wave Left">
 
+        </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+    <script><script>
+        function hideWaveOnSmallScreens() {
+            if (window.innerWidth <= 992) { // Target layar notepad & HP
+                document.querySelectorAll(".wave").forEach(el => el.style.display = "none");
+            }
+        }
+    
+        hideWaveOnSmallScreens(); // Jalankan saat halaman dimuat
+    
+        window.addEventListener("resize", hideWaveOnSmallScreens); // Jalankan saat ukuran layar berubah
+    </script>
     </script>
 </body>
 

@@ -55,11 +55,13 @@
     position: relative;
     height: 85vh;
     display: flex;
-    /* filter: brightness(70%); */
+    filter: brightness(90%);
     padding: 1.4rem 10%;
     /* justify-content: space-between; */
     align-items: center;
     position: relative;
+    user-select: none; /* Mencegah pemilihan */
+    pointer-events: none;
 }
 
 .content {
@@ -99,6 +101,8 @@
     height: 250px; /* Sesuaikan tinggi gelombang */
     margin-top: -85px;
     overflow: hidden;
+    user-select: none; /* Mencegah pemilihan */
+    pointer-events: none;
 }
 
 .wave {
@@ -106,18 +110,24 @@
     width: 90%; /* Atur lebar agar setengah layar */
     height: auto;
     top: 0;
-    /* filter: brightness(90%); */
+    user-select: none;
+    pointer-events: none;
+   
 }
 
 .wave.left {
     left: 0;
     top: 20px;
+    user-select: none;
+    pointer-events: none;
     /* z-index:1; */
 }
 
 .wave.right {
     right: 0;
     transform: scaleX(-1);
+    user-select: none;
+    pointer-events: none;
 }
 .wave-container::after {
     content: "";
@@ -139,7 +149,7 @@
     padding: 4rem 7% 1.4rem;
     margin-top: 40px;
     left: 0;
-    z-index: 5;
+    z-index: 10005;
     max-width: 100%;
     overflow-x: hidden;
     word-wrap: break-word;
@@ -237,7 +247,7 @@
 }
 
 #card-item {
-    max-height: 22rem;
+    height: 20rem;
     width: 18rem;
     color: black;
     user-select: none;
@@ -252,8 +262,8 @@
     background: rgba(250, 250, 250, 1);
 }
 .user-image {
-    width: 18rem;
-    height: 180px;
+    width: 16rem;
+    height: 12rem;
     object-fit: cover;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -366,10 +376,10 @@ img {
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
-
+/* 
 .row {
     flex-wrap: nowrap;
-}
+} */
 
 .col-10 {
     flex: 0 0 auto;
@@ -401,13 +411,21 @@ img {
     .navbar-nav {
         margin-top: 10px; /* Tambahkan sedikit margin agar tidak terlalu mepet */
     }
+    .navbar-nav .nav-link {
+        font-size: 14px !important;
+    }
 
     .navbar-extra {
         margin-top: 15px; /* Beri jarak untuk pencarian */
     }
-
+    .input-group input {
+        border-radius: 20px !important; /* Sesuaikan dengan kebutuhan */
+    }
+    
     .button-login {
         margin-top: 20px; /* Jarak tombol login */
+        height: 40px;
+     
     }
 }
 
@@ -438,8 +456,8 @@ img {
     html {
         font-size: 52%;
     }
-    .navbar-brand img{
-        width:100px;
+    .navbar-brand img {
+        width: 100px;
     }
     .image {
         height: 50px;
@@ -455,9 +473,22 @@ img {
         font-size: 2.5rem;
     }
     .content h3 {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        line-height: 20px;
     }
     .publikasi {
-        margin-top: 0px;
+        margin-top: -150px;
+    }
+    .album-card iframe {
+        width: 200px;
+        height: 150px;
+    }
+    .more-button a {
+        width: 140px;
+        font-size: 12px;
+    }
+    #image {
+        width: 150px !important; /* Atur ukuran yang lebih kecil */
+        height: 150px !important;
     }
 }
