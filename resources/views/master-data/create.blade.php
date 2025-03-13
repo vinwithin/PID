@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Tambah Data')
+@section('title', 'Tambah Pengguna')
 
 @section('content')
     <div class="w-100">
