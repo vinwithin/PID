@@ -43,7 +43,7 @@
             /* transform: scaleX(-1); */
         }
 
-        
+
 
         .card {
             width: 1032px;
@@ -65,6 +65,10 @@
         }
 
         @media (max-width: 992px) {
+            .card {
+                max-width: 500px;
+                margin: auto;
+            }
 
             .wave {
                 display: none !important;
@@ -74,21 +78,28 @@
         }
 
         @media (max-width: 576px) {
-
+            .card {
+                max-width: 400px;
+                margin: auto;
+            }
             /* Untuk layar HP */
             .wave-container {
                 display: none !important;
             }
+
             .wave {
                 display: none !important;
                 visibility: hidden !important;
                 opacity: 0 !important;
             }
         }
+
         @media (max-width: 450px) {
+            /*  */
             .wave-container {
                 display: hidden !important;
             }
+
             .wave {
                 display: none !important;
                 visibility: hidden !important;
@@ -101,10 +112,9 @@
 <body>
 
     <div class="container d-flex justify-content-center align-items-center vh-100">
-
-        <div class="row w-100 justify-content-center">
-            <div class="col-md-10">
-                <div class="card">
+        <div class="row ">
+            <div class="col-12 col-md-10 col-lg-6">
+                <div class="card shadow-lg p-4">
                     @if (session()->has('error'))
                         <div class="alert alert-danger" role="alert">
                             {{ session('error') }}
@@ -120,7 +130,7 @@
                         <h4 class="text-center fw-bold fs-2 mt-3">Selamat Datang</h4>
                         <p class="text-center fw-medium">Masuk Untuk Mengakses Akun Anda</p>
 
-                        <form method="POST" class="pt-5 mx-5" action="{{ route('login.create') }}">
+                        <form method="POST" class="pt-4 px-4 mx-auto w-100" action="{{ route('login.create') }}">
                             @csrf
 
                             <!-- Email Input -->
@@ -151,31 +161,32 @@
                             </div>
 
                             <!-- Submit Button -->
-                            <button type="submit" class="btn btn-block w-100 mt-3">Masuk</button>
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Masuk</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="wave-container">
+        <div class="wave-container d-none d-md-block">
             <img class="wave right" src="/assets/vector2.svg" alt="Wave Right">
             <img class="wave left" src="/assets/vektor-login.png" alt="Wave Left">
-
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <script><script>
-        function hideWaveOnSmallScreens() {
-            if (window.innerWidth <= 992) { // Target layar notepad & HP
-                document.querySelectorAll(".wave").forEach(el => el.style.display = "none");
+    <script>
+        < script >
+            function hideWaveOnSmallScreens() {
+                if (window.innerWidth <= 992) { // Target layar notepad & HP
+                    document.querySelectorAll(".wave").forEach(el => el.style.display = "none");
+                }
             }
-        }
-    
+
         hideWaveOnSmallScreens(); // Jalankan saat halaman dimuat
-    
+
         window.addEventListener("resize", hideWaveOnSmallScreens); // Jalankan saat ukuran layar berubah
     </script>
     </script>

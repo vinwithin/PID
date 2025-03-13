@@ -9,6 +9,10 @@
     {{-- <link rel="stylesheet" href="/css/style.css"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <title>PRO-IDE</title>
     <style>
@@ -39,7 +43,8 @@
 
         .wave {
             position: relative;
-            user-select: none; /* Mencegah pemilihan */
+            user-select: none;
+            /* Mencegah pemilihan */
             pointer-events: none;
             bottom: 0;
             overflow: hidden;
@@ -103,6 +108,12 @@
             margin-top: -70px;
         }
 
+        .card-title {
+            font-size: 18px;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-weight: 600;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -135,6 +146,15 @@
             html {
                 font-size: 52%;
             }
+
+            .navbar-custom {
+                background-color: #1c3b2b;
+                /* padding: 20px 0; */
+                height: 182px;
+                position: relative;
+                z-index: 0;
+            }
+
         }
     </style>
 </head>
@@ -178,7 +198,9 @@
                 @foreach ($data as $item)
                     <div class="col">
                         <div class="h-100 ">
-                            <div class="row g-0">
+                            <div class="row g-0"
+                                onclick="window.location='{{ route('daftar-publikasi', $item->slug) }}'"
+                                style="cursor: pointer;">
                                 <div class="col-4">
                                     <div class="position-relative overflow-hidden">
                                         <img src="{{ asset('/storage/media/thumbnails/' . $item->thumbnail) }}"
@@ -195,19 +217,10 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title mb-2">{!! Str::limit($item->title, 80) !!}</h5>
-                                        {{-- <p class="card-text flex-grow-1 text-muted">
-                                        {!! Str::limit($item->excerpt, 82) !!}
-                                    </p> --}}
-                                        {{-- <div>
-                                        <a href="/publikasi/detail/{{ $item->slug }}"
-                                            class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-external-link-alt me-2"></i>Baca Selengkapnya
-                                        </a>
-                                    </div> --}}
-
+                                        <h5 class="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

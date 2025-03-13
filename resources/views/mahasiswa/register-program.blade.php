@@ -1,5 +1,6 @@
 {{-- resources/views/registration/create.blade.php --}}
 @extends('layout.app')
+@section('title', 'Pendaftaran')
 
 @section('content')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -28,12 +29,15 @@
             flex: 1;
             text-align: center;
             padding: 10px;
-            border-bottom: 3px solid #ccc;
+            border-bottom: 3px solid rgba(188, 225, 148, 1);
+            color: rgba(188, 225, 148, 1);
+
         }
 
         .step-indicator .active {
-            border-bottom: 3px solid #007bff;
+            border-bottom: 3px solid black;
             font-weight: bold;
+            color: black;
         }
 
         .hidden {
@@ -77,20 +81,20 @@
             cursor: pointer;
         }
     </style>
-    <div id="successModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close-button" id="closeModal">&times;</span>
-            <h2>Registration Successful</h2>
-            <p>Your registration has been submitted successfully!</p>
-        </div>
-    </div>
+    
 
     <div class="w-100">
+        <div id="successModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-button" id="closeModal">&times;</span>
+                <h2>Registration Successful</h2>
+                <p>Your registration has been submitted successfully!</p>
+            </div>
+        </div>
         <div class="card">
+            
             @if (!$registrationExists)
-                <div class="card-header">
-                    <h3>Pendaftaran</h3>
-                </div>
+                
                 <div class="card-body">
                     <!-- Step Indicator -->
                     <div class="step-indicator">
@@ -107,17 +111,17 @@
                         <!-- Step 1 -->
                         <div class="step active">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Ketua Tim</label>
+                                <label for="name" class="form-label fw-bold">Nama Ketua Tim</label>
                                 <input type="text" class="form-control" id="name" name="nama_ketua"
                                     value="{{ auth()->user()->name }}" readonly required>
                             </div>
                             <div class="mb-3">
-                                <label for="nim" class="form-label">NIM Ketua Tim</label>
+                                <label for="nim" class="form-label fw-bold">NIM Ketua Tim</label>
                                 <input type="text" class="form-control" id="nim" name="nim_ketua"
                                     value="{{ auth()->user()->nim }}" readonly required>
                             </div>
                             <div class="mb-3">
-                                <label for="fakultas" class="form-label">Fakultas</label>
+                                <label for="fakultas" class="form-label fw-bold">Fakultas</label>
                                 <select class="form-select" name="fakultas_ketua" id="fakultas" required>
                                     <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
                                     @foreach ($fakultas as $item)
@@ -126,7 +130,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="program_studi" class="form-label">Program Studi</label>
+                                <label for="program_studi" class="form-label fw-bold">Program Studi</label>
                                 <select class="form-select" name="prodi_ketua" id="program_studi" required>
                                     <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
                                     @foreach ($program_studi as $item)
@@ -135,11 +139,11 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="nohp" class="form-label">No.hp Ketua Tim</label>
+                                <label for="nohp" class="form-label fw-bold">No.hp Ketua Tim</label>
                                 <input type="text" class="form-control" id="nohp" name="nohp_ketua" required>
                             </div>
                             <div class="mb-3">
-                                <label for="ormawa" class="form-label">Ormawa</label>
+                                <label for="ormawa" class="form-label fw-bold">Ormawa</label>
                                 <select class="form-select" name="nama_ormawa" id="ormawa" required>
                                     <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
                                     @foreach ($ormawa as $item)
@@ -148,11 +152,11 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="judul" class="form-label">Judul</label>
+                                <label for="judul" class="form-label fw-bold">Judul</label>
                                 <input type="text" class="form-control" id="judul" name="judul" required>
                             </div>
                             <div class="mb-3">
-                                <label for="bidang" class="form-label">Bidang</label>
+                                <label for="bidang" class="form-label fw-bold">Bidang</label>
                                 <select class="form-select" name="bidang_id" id="bidang" required>
                                     <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
                                     @foreach ($bidang as $item)
@@ -160,22 +164,22 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <p>Pilih Lokasi</p>
-                            <div class="mb-1">
-                                <label for="regency_name">Kabupaten:</label>
+                            <p class="fw-bold">Pilih Lokasi</p>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" for="regency_name">Kabupaten:</label>
                                 <select class="form-select" id="regency_name" name="regency_name">
                                     <option value="">Pilih Kabupaten</option>
                                 </select>
                             </div>
-                            <div class="mb-1">
+                            <div class="mb-3">
 
-                                <label for="district_name">Kecamatan:</label>
+                                <label class="form-label fw-bold" for="district_name">Kecamatan:</label>
                                 <select class="form-select" id="district_name" name="district_name" disabled>
                                     <option value="">Pilih Kecamatan</option>
                                 </select>
                             </div>
-                            <div class="mb-1">
-                                <label for="village_name">Desa:</label>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" for="village_name">Desa:</label>
                                 <select class="form-select" id="village_name" name="village_name" disabled>
                                     <option value="">Pilih Desa</option>
                                 </select>
@@ -185,7 +189,7 @@
 
                         <!-- Step 2 -->
                         <div class="step">
-                            <p>Surat Keputusan Organisasi</p>
+                            <p class="fw-bold">Surat Keputusan Organisasi</p>
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
                                     accept="pdf" required>
@@ -196,7 +200,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <p>Surat pernyataan kerja sama dari khalayak sasaran yang diketahui oleh kepala desa</p>
+                            <p class="fw-bold">Surat pernyataan kerja sama dari khalayak sasaran yang diketahui oleh kepala desa</p>
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="surat_kerjasama" name="surat_kerjasama"
                                     accept="pdf" required>
@@ -207,7 +211,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <p>Surat kesediaan dosen pendamping untuk membimbing kegiatan Pro IDE</p>
+                            <p class="fw-bold">Surat kesediaan dosen pendamping untuk membimbing kegiatan Pro IDE</p>
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="surat_rekomendasi_pembina"
                                     name="surat_rekomendasi_pembina" accept="pdf" required>
@@ -218,7 +222,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <p>Proposal Pro-IDe</p>
+                            <p class="fw-bold">Proposal Pro-IDe</p>
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="proposal" name="proposal"
                                     accept="pdf" required>
@@ -239,17 +243,17 @@
                                 <div class="team-member">
                                     <div class="row g-2">
                                         <div class="col-lg-2 mb-3">
-                                            <label for="nim" class="form-label">NIM</label>
+                                            <label for="nim" class="form-label fw-bold">NIM</label>
                                             <input type="text" id="nim" name="anggota_tim[0][nim]"
                                                 class="form-control" value="{{ auth()->user()->nim }}" readonly>
                                         </div>
                                         <div class="col-lg-2 mb-3">
-                                            <label for="nama" class="form-label">Nama</label>
+                                            <label for="nama" class="form-label fw-bold">Nama</label>
                                             <input type="text" id="nama" name="anggota_tim[0][nama]"
                                                 class="form-control" value="{{ auth()->user()->name }}" readonly>
                                         </div>
                                         <div class="col-lg-2 mb-3">
-                                            <label for="fakultas" class="form-label">Fakultas</label>
+                                            <label for="fakultas" class="form-label fw-bold">Fakultas</label>
                                             <select class="form-select" name="anggota_tim[0][fakultas]" id="fakultas"
                                                 required>
                                                 <option value="" selected="selected" hidden="hidden">Pilih Fakultas
@@ -260,7 +264,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-2 mb-3">
-                                            <label for="prodi" class="form-label">Program Studi</label>
+                                            <label for="prodi" class="form-label fw-bold">Program Studi</label>
                                             <select class="form-select" name="anggota_tim[0][prodi]" id="prodi"
                                                 required>
                                                 <option value="" selected="selected" hidden="hidden">Pilih Program
@@ -271,7 +275,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-2 mb-3">
-                                            <label for="jabatan" class="form-label">Jabatan</label>
+                                            <label for="jabatan" class="form-label fw-bold">Jabatan</label>
                                             <input type="text" id="jabatan" name="anggota_tim[0][jabatan]"
                                                 class="form-control" value="Ketua" readonly>
                                         </div>
@@ -286,24 +290,24 @@
                         <!-- Step 4 -->
                         <div class="step">
                             <div class="mb-3">
-                                <label for="nama_dosen_pembimbing" class="form-label">Nama Dosen Pembimbing</label>
+                                <label for="nama_dosen_pembimbing" class="form-label fw-bold">Nama Dosen Pembimbing</label>
                                 <input type="text" class="form-control" id="nama_dosen_pembimbing"
                                     name="nama_dosen_pembimbing" required>
                             </div>
                             <div class="mb-3">
-                                <label for="nidn_dosen_pembimbing" class="form-label">NIDN Dosen Pembimbing</label>
+                                <label for="nidn_dosen_pembimbing" class="form-label fw-bold">NIDN Dosen Pembimbing</label>
                                 <input type="text" class="form-control" id="nidn_dosen_pembimbing"
                                     name="nidn_dosen_pembimbing" required>
                             </div>
                             <div class="mb-3">
-                                <label for="nohp_dosen_pembimbing" class="form-label">No.hp Dosen Pembimbing</label>
+                                <label for="nohp_dosen_pembimbing" class="form-label fw-bold">No.hp Dosen Pembimbing</label>
                                 <input type="text" class="form-control" id="nohp_dosen_pembimbing"
                                     name="nohp_dosen_pembimbing" required>
                             </div>
                             {{-- <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button> --}}
                         </div>
-                        <button type="button" id="prevStep" class="btn btn-secondary mt-2">Back</button>
-                        <button type="button" id="next" class="btn btn-primary mt-2">Next</button>
+                        <button type="button" id="prevStep" class="btn btn-secondary mt-2">Kembali</button>
+                        <button type="button" id="next" class="btn btn-primary mt-2">Selanjutnya</button>
                         <button type="submit" id="submitForm" class="btn btn-success">Submit</button>
 
                     </form>
@@ -532,7 +536,7 @@
             <div class="team-member">
                 <div class="row g-2">
                     <div class="col-lg-2 mb-3">
-                        <label for="nim" class="form-label">NIM</label>
+                        <label for="nim" class="form-label fw-bold">NIM</label>
                          <input type="text" id="nim" name="anggota_tim[${memberCount}][nim]" class="form-control">
                     </div>
                     <div class="col-lg-2 mb-3">

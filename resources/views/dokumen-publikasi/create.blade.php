@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <!-- Step Indicator -->
-                @role('admin|reviewer|dosen')
+                @role('admin|reviewer|dosen|super admin')
                     @include('dokumen-publikasi.admin.index')
                     @elserole('mahasiswa')
                     @if (!$dokumenExist)

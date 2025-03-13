@@ -21,7 +21,7 @@ class DokumentasiKegiatan extends Model
     }
     public function registration()
     {
-        return $this->belongsTo(Registration::class, 'team_id');
+        return $this->hasOne(Registration::class);
     }
     public function album()
     {

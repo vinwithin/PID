@@ -18,7 +18,7 @@ class CheckProgressAcceptAccess
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        if ($user->hasRole(['admin', 'reviewer', 'dosen'])) {
+        if ($user->hasRole(['admin', 'reviewer', 'dosen', 'super admin'])) {
             return $next($request);
         } elseif ($user->hasRole('mahasiswa')) {
             $hasAccessToProgress =

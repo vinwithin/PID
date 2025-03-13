@@ -144,6 +144,13 @@
             html {
                 font-size: 52%;
             }
+            .navbar-custom {
+                background-color: #1c3b2b;
+                /* padding: 20px 0; */
+                height: 182px;
+                position: relative;
+                z-index: 0;
+            }
         }
     </style>
 </head>

@@ -1,20 +1,18 @@
 @extends('layout.app')
+@section('title', 'Nilai Proposal')
+
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     @php
         $curentUser = auth()->user()->name;
     @endphp
-    @role('admin|dosen')
+    @role('admin|dosen|super admin')
         <div class="w-full container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow-sm border-0">
-                        <div class="card-header bg-primary text-white">
-                            <h4 class="card-title mb-0 d-flex align-items-center text-light">
-                                <i class="me-2 bi bi-clipboard-check"></i>Nilai Proposal
-                            </h4>
-                        </div>
+                        
                         <div class="card-body ">
                             @foreach ($data as $reviewer => $value)
                                 <div class="card mb-4 border-light">
@@ -25,16 +23,16 @@
                                         <table class="table table-hover">
                                             <thead class="table-primary">
                                                 <tr>
-                                                    <th class="w-50">Aspek Penilaian</th>
-                                                    <th class="w-20 text-center">Bobot</th>
-                                                    <th class="w-30 text-center">Skor</th>
+                                                    <th class="bg-dark text-light w-50">Aspek Penilaian</th>
+                                                    <th class="w-20 text-center bg-dark text-light">Bobot</th>
+                                                    <th class="w-30 text-center bg-dark text-light">Skor</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($value as $key => $item)
                                                     <tr>
                                                         <td>
-                                                            <strong class="text-primary">{{ $key }}</strong>
+                                                            <strong class="fw-bold">{{ $key }}</strong>
                                                             <ul class="list-unstyled ps-3 mt-2">
                                                                 @foreach ($item as $subKriteria => $nilai)
                                                                     <li class="mb-1">

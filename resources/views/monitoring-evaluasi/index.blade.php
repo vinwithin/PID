@@ -6,7 +6,7 @@
         <div class="card">
             <div class="container-fluid px-4 py-4">
                 <div class="card shadow-sm border-0">
-                    @role('admin|reviewer')
+                    @role('admin|reviewer|super admin')
                         <div class="card-header bg-primary text-white py-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3 class="mb-0 text-light">

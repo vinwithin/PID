@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +7,9 @@
     outline: none;
     border: none;
     text-decoration: none;
+}
+html {
+    font-family: "Plus Jakarta Sans", sans-serif;
 }
 .wrapper {
     height: 100vh;
@@ -24,147 +29,239 @@
 #navigasi img {
     max-width: 156px;
 }
-#navigasi a,
-.navbar-extra {
+#navigasi a {
     margin: 0; /* Menghapus margin default */
     text-decoration: none;
-    color: rgba(176, 176, 176, 1);
-    font-size: 18px;
+    color: rgba(0, 0, 0, 1);
+    font-size: 16px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
 }
-.button-login {
+#button-login {
     display: flex;
     background-color: rgba(6, 77, 63, 1);
-    width: 10rem;
-    height: 2.5rem;
+    width: 131px;
+    height: 48px;
     text-align: center;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 25px;
 }
-.button-login a {
+#button-login a {
     color: rgba(255, 255, 255, 1);
 }
 
 /* hero */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-        url("/assets/background.png") no-repeat;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    height: 85vh;
     display: flex;
-    filter: brightness(90%);
-    padding: 1.4rem 10%;
-    /* justify-content: space-between; */
     align-items: center;
-    position: relative;
-    user-select: none; /* Mencegah pemilihan */
-    pointer-events: none;
+    justify-content: space-between;
+    /* padding: 50px; */
+    padding: 1.5rem 12%;
+    height: 80vh;
 }
 
 .content {
-    text-align: center;
+    max-width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    gap: 20px;
+    /* align-items:center; */
 }
 
 .content h1 {
-    font-size: 40px;
-    line-height: 48px;
-    color: rgba(255, 255, 255, 1);
+    font-size: 54px;
+    line-height: 120%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    /* font-weight:800; */
 }
 
 .content h3 {
-    font-size: 22px;
-    line-height: 33px;
-    color: rgba(255, 255, 255, 1);
+    font-size: 24px;
+    line-height: 160%;
+    color: rgba(0, 0, 0, 1);
+    text-align: justify;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
 }
 
 .content button {
-    width: 6rem;
-    height: 2.5rem;
+    width: 263px;
+    height: 66px;
     color: white;
-    border-radius: 0.5rem;
-    background-color: blue;
+    border-radius: 35px;
+    font-size: 22px;
+    background-color: black;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+    line-height: 120%;
 }
 
-.wave-container {
-    position: relative;
-    width: 100%;
-    height: 250px; /* Sesuaikan tinggi gelombang */
-    margin-top: -85px;
-    overflow: hidden;
-    user-select: none; /* Mencegah pemilihan */
-    pointer-events: none;
+.il-hero {
+    height: 100vh; /* Sesuaikan dengan tinggi layar */
 }
 
-.wave {
+.il-hero img {
     position: absolute;
-    width: 90%; /* Atur lebar agar setengah layar */
-    height: auto;
-    top: 0;
-    user-select: none;
-    pointer-events: none;
-   
-}
-
-.wave.left {
-    left: 0;
-    top: 20px;
-    user-select: none;
-    pointer-events: none;
-    /* z-index:1; */
-}
-
-.wave.right {
+    width: 830px;
+    height: auto; /* Hindari distorsi */
     right: 0;
-    transform: scaleX(-1);
-    user-select: none;
-    pointer-events: none;
+    top: 0;
+    z-index: -9999;
 }
-.wave-container::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 10px; /* Sesuaikan tinggi efek */
 
-    /* Gradient dari warna wave ke putih */
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
+.il-hero .il-hero-img {
+    width: 910px;
+    top: 10%; /* Pastikan gambar ini bergeser ke bawah */
 }
-.publikasi {
-    max-height: 1900px;
-    padding: 4rem 7% 1.4rem;
-    margin-top: 40px;
+.announcement {
+    height: 90vh;
+    padding: 1.5rem 12%;
+}
+.announce {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 80px;
+}
+
+.il-announce img {
     left: 0;
-    z-index: 10005;
+    position: absolute;
+}
+.content-announce {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    /* background:black; */
+}
+.content-announce h1 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    margin-bottom: 20px;
+    font-size: 55px;
+    line-height: 120%;
+}
+.event-container {
+    display: grid;
+    row-gap: 50px;
+    grid-template-columns: auto auto;
+    padding: 10px;
+}
+
+.event-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.event-icon i {
+    font-size: 50px;
+    color: #1e7e34; /* Warna hijau sesuai gambar */
+}
+
+.event-card h2 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 120%;
+    margin: 0;
+}
+
+.event-card p {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 120%;
+
+    margin: 0;
+}
+
+.event-date {
+    font-size: 14px;
+    color: gray;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.publikasi {
+    height: 100vh;
+    padding: 1.5rem 6%;
+    left: 0;
+    background: rgba(6, 77, 63, 1);
+    z-index: -100;
     max-width: 100%;
     overflow-x: hidden;
     word-wrap: break-word;
 }
-
-.container-box {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 2px 2px 4px 0px;
-    padding: 30px;
-    max-width: 100rem;
-    gap: 2rem;
-    z-index: 100;
-    /* margin: auto; */
+.overlay-publikasi {
+    position: absolute;
+    left: 0;
+    margin-top: -20px;
+    /* z-index:1; */
 }
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 90px;
+    margin-bottom: 90px;
+    z-index: 9999;
+    position: relative;
+}
+.container-title h2 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    margin-bottom: 20px;
+    font-size: 45px;
+    line-height: 120%;
+}
+.container-button {
+    display: inline-flex;
+    align-items: center;
+
+    position: relative;
+}
+.circle {
+    width: 150px;
+    height: 150px;
+    background-color: #4f9d40;
+    border-radius: 50%;
+    position: absolute;
+    right: -30px;
+    z-index: 0;
+}
+
+.container-button a {
+    display: flex;
+
+    color: black;
+    text-decoration: none;
+    z-index: 100;
+    background: rgba(217, 232, 193, 1);
+    width: 206px;
+    height: 63px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+#scroll-container {
+    overflow-x: auto;
+    /* white-space: nowrap; */
+    padding-bottom: 10px;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+
+    scrollbar-width: thin; /* Untuk browser Firefox */
+    -ms-overflow-style: none; /* Untuk IE dan Edge */
+}
+
 #container-card {
     display: flex;
     flex-wrap: wrap;
@@ -195,8 +292,8 @@
     font-weight: bold;
 
     border-bottom: 3px solid black;
-    display: inline-block;
-    padding-bottom: 5px;
+    /* display: inline-block; */
+    /* padding-bottom: 5px; */
 }
 
 .announcement i {
@@ -241,17 +338,12 @@
 
 #card-list {
     display: flex;
-    /* flex-direction: column; */
-    align-items: center;
-    justify-content: center;
-}
-
-#card-item {
-    height: 20rem;
-    width: 18rem;
+    align-items: start;
+    justify-content: flex-start;
+    height: 24rem;
+    width: 20rem;
     color: black;
     user-select: none;
-    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -261,25 +353,50 @@
     border-bottom: 4px solid rgba(188, 225, 148, 1);
     background: rgba(250, 250, 250, 1);
 }
-.user-image {
-    width: 16rem;
-    height: 12rem;
-    object-fit: cover;
-    margin-bottom: 10px;
-    border-radius: 10px;
 
-    /* border: 3px solid black; */
-    /* padding: 4px; */
+.user-image {
+    width: 19.5rem;
+    height: 18rem;
+    padding: 15px 15px 0 15px;
+
+    object-fit: cover;
 }
-#card-name {
+
+.card-title {
     color: black;
     padding: 0;
+    font-size: 18px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
+    line-height: 120%;
+    margin: 0;
     /* margin: 14px 0 40px; */
 }
 
 #card-name h5 {
     font-size: 18px;
     font-weight: 500;
+}
+.nav-button {
+    width: 70px;
+    height: 70px;
+    border: 3px solid #d4e3ba; /* Warna outline */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-button:hover {
+    background-color: rgba(212, 227, 186, 0.2); /* Efek hover */
+    transform: scale(1.1);
+}
+
+.nav-button i {
+    color: #d4e3ba; /* Warna ikon */
+    font-size: 30px;
 }
 .card-list .card-item .message-button {
     font-size: 1rem;
@@ -314,9 +431,80 @@
 .video {
     padding: 4rem 7% 1.4rem;
     background: rgba(241, 255, 225, 1);
-    max-height: 560px;
+    height: 65vh;
     color: white;
     /* padding: 50px 15px; */
+}
+.slider-container {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    flex-direction: column;
+}
+
+.cards {
+    position: relative;
+    height: 500px;
+    width: 430px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+}
+.cards label {
+    position: absolute;
+    width: 430px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    cursor: pointer;
+    transition: transform 0.55s ease;
+}
+.cards .card {
+    position: relative;
+    height: 100%;
+    background-color: #323444;
+    border-radius: 10px;
+    padding: 30px 35px;
+}
+.cards .video-card {
+    border-radius: 5px;
+    box-shadow: 15px 15px 40px rgba(0, 0, 0, 50%);
+    margin-top: 23px;
+    width: 86%;
+    height: 220px;
+    transition: all 0.7s;
+}
+
+.slide {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Posisi awal slide */
+input[type="radio"] {
+    display: none;
+}
+
+/* Geser slide berdasarkan input radio yang dicentang */
+input#s1:checked ~ .cards {
+    transform: translate3d(-70%, 0, -220px);
+}
+input#s2:checked ~ .cards {
+    transform: translate3d(-70%, 0, -220px);
+}
+input#s3:checked ~ .cards {
+    transform: translate3d(-70%, 0, -220px);
+}
+input#s4:checked ~ .cards {
+    transform: translate3d(-70%, 0, -220px);
+}
+input#s5:checked ~ .cards {
+    transform: translate3d(-70%, 0, -220px);
 }
 
 .album-card {
@@ -369,21 +557,58 @@ img {
     color: #1e90ff;
 }
 
-.video-container {
-    overflow-x: auto;
-    white-space: nowrap;
+#card-video {
+    width: 362px;
+    height: 262px;
+}
+
+.video-frame iframe {
+    border-radio: 20px;
+    width: 362px;
+    height: 182px;
+}
+.il-video {
+    height: 50vh;
+    /* right: 0; */
+}
+.il-video img {
+    position: absolute;
+    right: 0;
+}
+.il-video .il-hero-video {
+    right: 3%;
+}
+#button-video {
     display: flex;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 10px;
+}
+#button-video h2 {
+    font-size: 55px;
+    line-height: 120%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+}
+#button-video p {
+    font-size: 18px;
+    line-height: 120%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 400;
+}
+#button-video a {
+    font-size: 20px;
+    line-height: 24px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 /* 
 .row {
     flex-wrap: nowrap;
 } */
-
-.col-10 {
-    flex: 0 0 auto;
-}
 
 @media (max-width: 991.98px) {
     /* Ukuran breakpoint Bootstrap untuk navbar collapse */
@@ -392,10 +617,6 @@ img {
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 1050; /* Pastikan lebih tinggi dari elemen lain */
-        background: white; /* Agar tidak transparan */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tambahkan shadow agar lebih jelas */
-        padding: 10px 15px; /* Tambahkan padding agar tidak terlalu mepet */
     }
 
     .navbar-collapse {
@@ -403,7 +624,13 @@ img {
         top: 100%;
         left: 0;
         width: 100%;
-        background: white; /* Agar tampilan lebih rapi */
+        background: rgba(
+            255,
+            255,
+            255,
+            0.3
+        ); /* Warna putih dengan transparansi */
+        backdrop-filter: blur(10px); /* Efek blur agar tetap elegan */
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         padding: 10px 25px; /* Tambahkan padding agar ada ruang */
     }
@@ -415,17 +642,88 @@ img {
         font-size: 14px !important;
     }
 
-    .navbar-extra {
-        margin-top: 15px; /* Beri jarak untuk pencarian */
+    .hero {
+        flex-direction: column-reverse; /* Gambar di atas, teks di bawah */
+        text-align: center;
+        justify-content: center;
+    }
+
+    .content {
+        max-width: 90%;
+        align-items: center;
+        /* background:black; */
+    }
+    .il-hero img {
+        position: absolute;
+        width: 500px;
+        height: auto;
+        right: 0;
+        top: 0;
+        z-index: -9999;
+    }
+    .il-hero .il-hero-img {
+        width: 500px;
+        top: 6%; /* Pastikan gambar ini bergeser ke bawah */
+    }
+    .il-announce img {
+        width: 300px;
     }
     .input-group input {
         border-radius: 20px !important; /* Sesuaikan dengan kebutuhan */
     }
-    
+
     .button-login {
         margin-top: 20px; /* Jarak tombol login */
         height: 40px;
-     
+    }
+
+    #card-name h5 {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .il-video img {
+        display: none;
+    }
+    .video {
+        height: 100vh;
+    }
+    #card-video {
+        width: 302px;
+        height: 222px;
+    }
+
+    .video-frame iframe {
+        border-radio: 20px;
+        width: 302px;
+        height: 142px;
+    }
+    #button-video {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    #button-video h2 {
+        font-size: 55px;
+        line-height: 120%;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 800;
+    }
+    #button-video p {
+        font-size: 18px;
+        line-height: 120%;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 400;
+    }
+    #button-video a {
+        font-size: 20px;
+        line-height: 24px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 500;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -435,6 +733,54 @@ img {
         padding-bottom: 10px;
         margin-bottom: 20px;
     }
+    #card-name h5 {
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .hero {
+        flex-direction: column-reverse; /* Gambar di atas, teks di bawah */
+        text-align: center;
+        justify-content: center;
+    }
+    .content {
+        max-width: 90%;
+        align-items: center;
+        /* background:black; */
+    }
+    .il-hero img {
+        position: absolute;
+        width: 300px;
+        height: auto;
+        right: 0;
+        top: 0;
+        z-index: -9999;
+    }
+
+    .il-hero .il-hero-img {
+        width: 300px;
+        top: 6%; /* Pastikan gambar ini bergeser ke bawah */
+    }
+
+    .il-announce img {
+        display: none;
+    }
+    .container-header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+        align-items: center;
+    }
+    #card-video {
+        width: 302px;
+        height: 222px;
+    }
+
+    .video-frame iframe {
+        border-radio: 20px;
+        width: 302px;
+        height: 142px;
+    }
 }
 
 /* media queries */
@@ -443,6 +789,31 @@ img {
     html {
         font-size: 75%;
     }
+    .il-hero img {
+        position: absolute;
+        width: 500px;
+        height: auto;
+        right: 0;
+        top: 0;
+        z-index: -9999;
+    }
+    .il-hero .il-hero-img {
+        width: 500px;
+        top: 6%; /* Pastikan gambar ini bergeser ke bawah */
+    }
+    .il-announce img {
+        width: 300px;
+    }
+    #card-video {
+        width: 302px;
+        height: 222px;
+    }
+
+    .video-frame iframe {
+        border-radio: 20px;
+        width: 302px;
+        height: 142px;
+    }
 }
 
 /* Tablet */
@@ -450,7 +821,61 @@ img {
     html {
         font-size: 62.5%;
     }
+    .il-hero img {
+        position: absolute;
+        width: 300px;
+        height: auto;
+        right: 0;
+        top: 0;
+        z-index: -9999;
+    }
+    .il-hero .il-hero-img {
+        width: 300px;
+        top: 6%; /* Pastikan gambar ini bergeser ke bawah */
+    }
+    .announce {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        text-align: center;
+    }
+
+    .event-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .content-announce h1 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 800;
+        margin-bottom: 20px;
+        font-size: 40px;
+        line-height: 120%;
+    }
+    .event-card h2 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 120%;
+        margin: 0;
+    }
+    #card-name h5 {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    #card-list {
+        height: 22rem;
+        width: 18rem;
+    }
+    .user-image {
+        width: 16rem;
+        height: 18rem;
+    }
+    .album-card iframe {
+        width: 200px;
+    }
 }
+
 /* Mobile Phone */
 @media (max-width: 450px) {
     html {
@@ -463,9 +888,7 @@ img {
         height: 50px;
         width: 100px;
     }
-    .wave-container {
-        display: none;
-    }
+
     .hero {
         height: 70vh;
     }
@@ -476,19 +899,75 @@ img {
         font-size: 1.5rem;
         line-height: 20px;
     }
+    .content-announce h1 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 800;
+        margin-bottom: 20px;
+        font-size: 35px;
+        line-height: 120%;
+    }
+    .event-card h2 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 120%;
+        margin: 0;
+    }
     .publikasi {
         margin-top: -150px;
     }
-    .album-card iframe {
-        width: 200px;
-        height: 150px;
+    #card-name h5 {
+        font-size: 15px;
+        font-weight: 500;
     }
+    #card-list {
+        height: 22rem;
+        width: 18rem;
+    }
+    .user-image {
+        width: 16rem;
+        height: 18rem;
+    }
+    .circle {
+        display: none;
+    }
+    .container-button a {
+        font-size: 16px;
+        margin-top: 40px;
+    }
+  
     .more-button a {
-        width: 140px;
-        font-size: 12px;
+        width: 110px;
+        font-size: 8px;
     }
-    #image {
-        width: 150px !important; /* Atur ukuran yang lebih kecil */
-        height: 150px !important;
+    #button-video {
+        display: flex;
+        /* flex-direction:column; */
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        margin-left:0;
+    }
+    #button-video h2 {
+        font-size: 35px;
+        line-height: 120%;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 800;
+    }
+    #button-video p {
+        font-size: 10px;
+        line-height: 120%;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 400;
+    }
+    #button-video a {
+        font-size: 15px;
+        line-height: 24px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 500;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

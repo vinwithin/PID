@@ -6,36 +6,27 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse gap-5" id="navbarNav">
-        <ul class="navbar-nav gap-5">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto gap-5">
             <li class="nav-item">
-                <a class="nav-link fw-bold" href="#publikasi">Pengumuman</a>
+                <a class="nav-link " href="#announcement">Pengumuman</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href="/daftar-publikasi">Publikasi</a>
+                <a class="nav-link " href="/daftar-publikasi">Publikasi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href="/video">Video</a>
+                <a class="nav-link " href="/video">Video</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href="">Hubungi Kami</a>
+                <a class="nav-link " href="">Hubungi Kami</a>
             </li>
         </ul>
-        <div class="navbar-extra">
-            <div class="input-group border rounded ">
-                <input type="text" class="form-control bg-white border-0 small" placeholder="Pencarian"
-                    name="cari">
-                <div class="input-group-append ">
-                    <button class="btn btn-white " type="button">
-                        <i data-feather="search"></i>
-                    </button>
-                </div>
-            </div>
 
-        </div>
-        <div class="button-login" id="button-login">
-            <a href="/login" class="fw-semibold" style="font-family: Plus Jakarta Sans, sans-serif;">Masuk</a>
+        <div class="ms-auto" id="button-login">
+            <a href="/login" class="fw-semibold">
+                Masuk <i class="fa-solid fa-arrow-right me-2"></i>
+            </a>
+            
         </div>
     </div>
 </nav>
-

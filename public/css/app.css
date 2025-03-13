@@ -1984,6 +1984,7 @@ progress {
     border-radius: var(--bs-border-radius);
     color: #495057;
     display: block;
+    border-radius:6px;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
@@ -2180,6 +2181,7 @@ textarea.form-control-lg {
     color: #495057;
     display: block;
     font-size: 0.875rem;
+    border-radius:6px;
     font-weight: 400;
     line-height: 1.5;
     padding: 0.3rem 2.55rem 0.3rem 0.85rem;
@@ -2572,6 +2574,7 @@ textarea.form-control-lg {
 }
 .input-group .btn {
     position: relative;
+
     z-index: 2;
 }
 .input-group .btn:focus {
@@ -2579,10 +2582,10 @@ textarea.form-control-lg {
 }
 .input-group-text {
     align-items: center;
-    background-color: var(--bs-tertiary-bg);
+    background-color:  rgba(195, 191, 182, 1);
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
-    color: #495057;
+    color: white;
     display: flex;
     font-size: 0.875rem;
     font-weight: 400;
@@ -2883,7 +2886,7 @@ fieldset:disabled .btn {
 }
 .btn-primary {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #3b7ddd;
+    --bs-btn-bg: rgba(6, 77, 63, 1);
     --bs-btn-border-color: #3b7ddd;
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #326abc;
@@ -2898,8 +2901,8 @@ fieldset:disabled .btn {
     --bs-btn-disabled-border-color: #3b7ddd;
 }
 .btn-secondary {
-    --bs-btn-color: #fff;
-    --bs-btn-bg: #6c757d;
+    --bs-btn-color: black;
+    --bs-btn-bg:rgba(217, 232, 193, 1);
     --bs-btn-border-color: #6c757d;
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #5c636a;
@@ -4183,7 +4186,7 @@ fieldset:disabled .btn {
     --bs-card-subtitle-color: ;
     --bs-card-border-width: 0;
     --bs-card-border-color: transparent;
-    --bs-card-border-radius: 0.25rem;
+    --bs-card-border-radius: 16px;
     --bs-card-box-shadow: ;
     --bs-card-inner-border-radius: 0.25rem;
     --bs-card-cap-padding-y: 1rem;
@@ -4192,7 +4195,7 @@ fieldset:disabled .btn {
     --bs-card-cap-color: ;
     --bs-card-height: ;
     --bs-card-color: ;
-    --bs-card-bg: #fff;
+    --bs-card-bg: rgba(255, 255, 255, 1);
     --bs-card-img-overlay-padding: 1rem;
     --bs-card-group-margin: 12px;
     word-wrap: break-word;
@@ -4206,6 +4209,8 @@ fieldset:disabled .btn {
     height: var(--bs-card-height);
     min-width: 0;
     position: relative;
+    padding:10px;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .card > hr {
     margin-left: 0;
@@ -12235,6 +12240,7 @@ a.sidebar-link svg {
 .w-100{
     position:relative;
     margin-top:-100px;
+    
 }
 .w-full{
     position:relative;

@@ -14,4 +14,7 @@ class ReviewAssignment extends Model
         'status',
         'feedback',
     ];
+    public function user(){
+        return $this->belongsTo(User::class, 'reviewer_id');
+    }
 }

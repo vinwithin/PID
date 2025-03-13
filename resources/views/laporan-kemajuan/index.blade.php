@@ -44,7 +44,7 @@
 
     <div class="w-100">
         <div class="card">
-            @role('admin|reviewer|dosen')
+            @role('admin|reviewer|dosen|super admin')
                 @include('laporan-kemajuan.admin.index')
 
                 @elserole('mahasiswa')

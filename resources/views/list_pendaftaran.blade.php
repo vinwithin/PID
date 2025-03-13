@@ -6,11 +6,11 @@
         <div class="card">
             <div class="container-fluid px-4 py-4">
                 <div class="card shadow-sm border-0">
-                    @role('admin|dosen')
+                    @role('admin|dosen|super admin')
                         <div class="card-header bg-primary text-white py-4">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 text-light">
-                                    <i class="fas fa-clipboard-list me-3"></i>Daftar Pendaftaran
+                                <h3 class="text-light">
+                                    <i class="fas fa-clipboard-list me-3"></i>
                                 </h3>
                                 <div class="filter-toggle">
                                     <button class="btn btn-light" type="button" data-bs-toggle="collapse"

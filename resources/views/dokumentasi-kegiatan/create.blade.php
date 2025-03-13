@@ -7,7 +7,7 @@
                 <h3>Publikasi Dokumentasi Kegiatan</h3>
             </div>
             <div class="card-body">
-                @role('admin|reviewer|dosen')
+                @role('admin|reviewer|dosen|super admin')
 
                     @include('dokumentasi-kegiatan.admin.index')
                     @elserole('mahasiswa')

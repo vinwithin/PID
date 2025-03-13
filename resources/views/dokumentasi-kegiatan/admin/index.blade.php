@@ -6,12 +6,6 @@
         <div class="card">
             <div class="container-fluid px-4 py-4">
                 <div class="card shadow-sm border-0">
-
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <h3 class="mb-0 text-light">
-                            <i class="fas fa-file-alt me-2"></i>Publikasi Dokumen Teknis
-                        </h3>
-                    </div>
                     <div class="card-body p-0">
                         <table class="table table-bordered">
                             <thead class="table-light">
@@ -71,8 +65,8 @@
                                             @endif
 
                                         </td>
-                                        <td rowspan="2" class="text-center">
-                                            {{ $item->dokumentasiKegiatan->status }}
+                                        <td class="text-center">
+                                            {{ $item->dokumenKegiatan->status ?? 'Belum ada status' }}
                                         </td>
                                         @can('agree publication')
                                             <td class="text-center">

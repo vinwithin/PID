@@ -7,22 +7,18 @@
             <div class="container-fluid px-4 py-4">
                 <div class="card shadow-sm border-0">
 
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <h3 class="mb-0 text-light">
-                            <i class="fas fa-file-alt me-2"></i>Laporan Kemajuan
-                        </h3>
-                    </div>
+                    
                     <div class="card-body p-0">
                         <table class="table table-bordered">
                             <thead class="table-light">
                                 <tr>
                                     <th style="width: 5%">No</th>
-                                    <th style="width: 15%">Tim</th>
+                                    <th style="width: 15%" class="text-center">Tim</th>
                                     <th style="width: 15%" class="text-center">File
                                     </th>
                                     <th style="width: 15%" class="text-center">Status
                                     </th>
-                                    @can('A&R laporan kemajuan')
+                                    @can('approve laporan kemajuan')
                                         <th style="width: 15%" class="text-center">Aksi</th>
                                     @endcan
 
@@ -50,7 +46,7 @@
                                                 <span class="badge bg-danger"></span>
                                             @endif
                                         </td>
-                                        @can('A&R laporan kemajuan')
+                                        @can('approve laporan kemajuan')
                                             <td class="text-center">
                                                 @role('admin')
                                                     @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)

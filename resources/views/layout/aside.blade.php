@@ -36,7 +36,7 @@
             {{-- @endrole --}}
 
             @can('register program')
-                <li class="sidebar-item {{ Request::is('daftarProgram*') ? 'active' : '' }}">
+                <li class="sidebar-item {{ Request::is(['daftarProgram*', 'program*']) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('mahasiswa.daftar') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Daftar
                             Pro-IDe</span>
@@ -50,7 +50,7 @@
                 </li> --}}
             @endcan
 
-            @role('admin|reviewer|dosen')
+            @role('admin|reviewer|dosen|super admin')
                 <li class="sidebar-item {{ Request::is(['pendaftaran*', 'reviewer*']) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola
@@ -60,7 +60,7 @@
                 <li class="sidebar-header">Laporan Kemajuan</li>
                 <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar
+                        <i class="fa-regular fa-file"></i> <span class="align-middle">Daftar
                             Dokumen</span>
                     </a>
                 </li>
@@ -69,7 +69,7 @@
                 </li>
                 <li class="sidebar-item {{ Request::is('monitoring-evaluasi*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('monev.index') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar Kelompok</span>
+                        <i class="fa-solid fa-people-group"></i> <span class="align-middle">Daftar Kelompok</span>
                     </a>
                 </li>
 
@@ -189,6 +189,16 @@
                     <a class="sidebar-link" href="{{ route('announcement') }}">
                         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelola
                             Pengumuman</span>
+                    </a>
+                </li>
+            @endrole
+            @role('super admin')
+                <li class="sidebar-header">
+                   Master Data
+                </li>
+                <li class="sidebar-item {{ Request::is('manage-users*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('manage-users') }}">
+                        <i class="fa-solid fa-gear"></i> <span class="align-middle">Akses Role</span>
                     </a>
                 </li>
             @endrole
