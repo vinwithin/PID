@@ -13,7 +13,7 @@ class annouceController extends Controller
     public function index()
     {
         return view('announce.index', [
-            'data' => Announcement::all()
+            'data' => Announcement::with('user')->get()
         ]);
     }
     public function create()
@@ -26,14 +26,14 @@ class annouceController extends Controller
         try {
             DB::beginTransaction();
             $validateData = $request->validate([
-                'title'       => 'required|string|max:255',
-                'content'     => 'required|string|min:10',
+                'category'       => 'required|string|max:255',
+                'title'     => 'required|string|min:10',
                 'start_date'  => 'required|date',
                 'end_date'    => 'nullable|date|after_or_equal:start_date',
-                'status' => 'required|string'
             ]);
             $validateData['created_by'] = Auth::user()->id;
             $result = Announcement::create($validateData);
+            DB::commit();
             if ($result) {
                 return redirect()->route('announcement')->with('success', 'Berhasil mengubah data');
             } else {
@@ -56,11 +56,9 @@ class annouceController extends Controller
     {
         // 
         $validateData = $request->validate([
-            'title'       => 'required|string|max:255',
-            'content'     => 'required|string|min:10',
+            'title'     => 'required|string|min:10',
             'start_date'  => 'required|date',
             'end_date'    => 'nullable|date|after_or_equal:start_date',
-            'status' => 'required|string'
         ]);
         $validateData['created_by'] = Auth::user()->id;
         $result = Announcement::where('id', $id)->update($validateData);
@@ -75,33 +73,5 @@ class annouceController extends Controller
         Announcement::where('id', $id)->delete();
         return redirect()->route('announcement')->with('success', 'Artikel Berhasil Dihapus!');
     }
-    public function publish($id)
-    {
-        try {
-            $result = Announcement::where('id', $id)
-                ->update(['status' => 'published']);
-            if ($result) {
-                return redirect()->route('announcement')->with('success', 'Berhasil mengubah data');
-            } else {
-                return redirect()->route('announcement')->with("error", "Gagal mengubah data!");
-            }
-        } catch (Exception $e) {
-            DB::rollBack(); // Rollback transaksi jika terjadi kesalahan
-            return redirect()->route('announcement')->with("error", "Terjadi kesalahan, silakan coba lagi!");
-        }
-    }
-    public function draft($id)
-    {
-        try {
-            $result = Announcement::where('id', $id)
-                ->update(['status' => 'draft']);
-            if ($result) {
-                return redirect()->route('announcement')->with('success', 'Berhasil mengubah data');
-            } else {
-                return redirect()->route('announcement')->with("error", "Gagal mengubah data!");
-            }
-        } catch (Exception $e) {
-            return redirect()->route('announcement')->with("error", "Terjadi kesalahan, silakan coba lagi!");
-        }
-    }
+    
 }

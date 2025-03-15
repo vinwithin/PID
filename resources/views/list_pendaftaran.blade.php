@@ -172,6 +172,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                <div class="d-flex justify-content-center mt-4">
+                                    {{ $data->links() }}
+                                </div>
+                          
                             </div>
                         </div>
                         @elserole('reviewer')
@@ -269,6 +273,10 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="d-flex justify-content-center mt-4">
+                                {{ $dataNilai->links() }}
+                            </div>
+                      
                         </div>
                     @endrole
                 </div>

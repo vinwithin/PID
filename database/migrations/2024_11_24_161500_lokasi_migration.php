@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lokasi', function (Blueprint $table) {
             $table->id();   
+            $table->foreignId('registration_id');
             $table->string('regency');
             $table->string('district');
             $table->string('village');

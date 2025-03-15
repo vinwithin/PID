@@ -53,98 +53,79 @@
                             publikasi hasil anda!</strong></span>
                 </div>
             </div>
+            @if ($alreadyRegist)
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card p-3 bg-secondary-subtle">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-people-group fa-2xl me-3"></i>
+
+                                <div>
+                                    <h6 class="fw-bold">Ketua Tim</h6>
+                                    <p class="mb-0 text-muted">{{ $data[0]->nama_ketua }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 bg-secondary-subtle">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-user fa-2xl me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Dosen Pembimbing</h6>
+                                    <p class="mb-0 text-muted">{{ $data[0]->nama_dosen_pembimbing }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 bg-secondary-subtle">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-sitemap fa-2xl me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold">Nama Ormawa</h6>
+                                    <p class="mb-0 text-muted">{{ $data[0]->ormawa->nama }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 bg-secondary-subtle">
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-pen-to-square fa-2xl me-2"></i>
+                                <div>
+                                    <h6 class="fw-bold">Status Pro-Ide</h6>
+                                    <p class="mb-0 text-muted">{{ $data[0]->registration_validation->status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bagian Teman Pro-Ide -->
+                <div class="card mt-4">
+                    <div class="card-header bg-white fw-bold text-success fs-5">Teman Pro-Ide</div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            @foreach ($data[0]->teamMembers as $item)
+                                <div class="col-4 col-md-2 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/assets/profil.svg" class="rounded-circle img-thumbnail" alt="Foto Teman"
+                                            width="80" height="80">
+                                        <div class="ms-3 text-start">
+                                            <p class="fw-bold mb-1">{{ $item->nama }}</p>
+                                            <p class="text-muted mb-0">{{ Str::title($item->identifier) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+
+                        </div>
+                    </div>
+                </div>
+            @endif
+
         </div>
     @endrole
-    {{-- <div class="row">
-  
-        <div class="w-100">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col mt-0">
-                                    <h5 class="card-title">Sales</h5>
-                                </div>
-
-                                <div class="col-auto">
-                                    <div class="stat text-primary">
-                                        <i class="align-middle" data-feather="truck"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <h1 class="mt-1 mb-3">2.382</h1>
-                            <div class="mb-0">
-                                <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                <span class="text-muted">Since last week</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col mt-0">
-                                    <h5 class="card-title">Visitors</h5>
-                                </div>
-
-                                <div class="col-auto">
-                                    <div class="stat text-primary">
-                                        <i class="align-middle" data-feather="users"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <h1 class="mt-1 mb-3">14.212</h1>
-                            <div class="mb-0">
-                                <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                <span class="text-muted">Since last week</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col mt-0">
-                                    <h5 class="card-title">Earnings</h5>
-                                </div>
-
-                                <div class="col-auto">
-                                    <div class="stat text-primary">
-                                        <i class="align-middle" data-feather="dollar-sign"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <h1 class="mt-1 mb-3">$21.300</h1>
-                            <div class="mb-0">
-                                <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                <span class="text-muted">Since last week</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col mt-0">
-                                    <h5 class="card-title">Orders</h5>
-                                </div>
-
-                                <div class="col-auto">
-                                    <div class="stat text-primary">
-                                        <i class="align-middle" data-feather="shopping-cart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <h1 class="mt-1 mb-3">64</h1>
-                            <div class="mb-0">
-                                <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                <span class="text-muted">Since last week</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-    </div> --}}
 @endsection

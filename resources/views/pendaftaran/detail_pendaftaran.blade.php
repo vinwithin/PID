@@ -29,6 +29,9 @@
 
                                         <dt class="col-5">Ormawa Ketua</dt>
                                         <dd class="col-7">{{ $data->ormawa->nama }}</dd>
+                                        <dt class="col-5">Lokasi</dt>
+                                        <dd class="col-7">{{$data->lokasi->village . ', ' . $data->lokasi->district . ', ' . $data->lokasi->regency}}</dd>
+
                                     </dl>
                                 </div>
                             </div>
@@ -73,7 +76,7 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->nama }}</td>
-                                                    <td>{{ $item->nim }}</td>
+                                                    <td>{{ $item->identifier }}</td>
                                                     <td>{{ $item->fakultas_model->nama }}</td>
                                                     <td>{{ $item->program_studi->nama }}</td>
                                                 </tr>
@@ -106,11 +109,13 @@
                             <div class="col-md-6">
                                 <h5 class="text-primary mb-3">Status Validasi</h5>
                                 <div
-                                    class="alert {{ $data->registration_validation->status === 'lolos' ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
+                                    class="alert {{ $data->registration_validation->status === 'lolos' || 'Lanjutkan Program' || 'valid' ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
                                     <i
                                         class="fas 
-                                    @switch ($data->registration_validation->status) @case('Belum valid') fa-exclamation-triangle @break
+                                    @switch ($data->registration_validation->status) 
+                                        @case('Belum valid') fa-exclamation-triangle @break
                                         @case('valid') fa-check-circle @break
+                                        @case('Lanjutkan Program') fa-check-circle @break
                                         @case('lolos') fa-check-circle @break @endswitch
                                 me-2"></i>
                                     <span>

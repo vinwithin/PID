@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Announcement;
+use App\Models\Berita;
 use App\Models\DokumenPublikasi;
 use App\Models\Publikasi;
 use App\Models\VideoKonten;
@@ -18,10 +19,11 @@ class berandaController extends Controller
                 ->orderBy('created_at', 'desc') // Urutkan dari terbaru ke lama
                 ->take(8) // Ambil hanya 8 data
                 ->get(),
-            'video' => VideoKonten::take(3)->get(),
+            'berita' => Berita::all(),
+            'video' => VideoKonten::where('visibilitas', 'on')->take(3)->get(),
             'foto' => Album::where('status', 'valid')->paginate(10),
             'artikel' => DokumenPublikasi::where('visibilitas', 'yes')->with(['teamMembers', 'registration'])->paginate(10),
-            'announce' => Announcement::where('status', 'published')->latest()->take(2)->get()
+            'announce' => Announcement::all()
 
         ]);
     }

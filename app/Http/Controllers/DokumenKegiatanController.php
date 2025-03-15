@@ -7,9 +7,11 @@ use App\Models\AlbumPhotos;
 use App\Models\DokumentasiKegiatan;
 use App\Models\Registration;
 use App\Models\User;
+use App\Models\VideoKonten;
 use App\Services\teamIdService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DokumenKegiatanController extends Controller
@@ -73,7 +75,7 @@ class DokumenKegiatanController extends Controller
         // try {
         // Simpan data ke dalam tabel DokumentasiKegiatan
         $DokumentasiKegiatan = DokumentasiKegiatan::create($validatedData);
-
+        VideoKonten::create(['created_by' =>  Auth::user()->name, 'media_dokumentasi_id' => $DokumentasiKegiatan->id, 'link_youtube' => $validatedData['link_youtube'], 'visibilitas' => 'off']);
         // Simpan data ke dalam tabel Album
         $album = Album::create(['team_id' =>  $this->teamIdService->getRegistrationId(), 'media_dokumentasi_id' => $DokumentasiKegiatan->id, 'nama' => $validatedData['nama'], 'status' => "belum valid"]);
 
@@ -81,7 +83,7 @@ class DokumenKegiatanController extends Controller
         if ($request->hasFile('album_photos')) {
             foreach ($request->file('album_photos') as $photo) {
                 $filename = time() . '_' . $photo->getClientOriginalName();
-                $path = $photo->storeAs('album_photos', $filename);
+                $path = $photo->storeAs('album_photos', $filename, 'public');
                 AlbumPhotos::create([
                     'album_id' => $album->id,
                     'path_photos' => $path
@@ -131,6 +133,7 @@ class DokumenKegiatanController extends Controller
         // try {
         // Simpan data ke dalam tabel DokumentasiKegiatan
         DokumentasiKegiatan::where('id', $id)->update(['link_youtube' => $validatedData['link_youtube'], 'link_social_media' => $validatedData['link_social_media' ], 'link_dokumentasi' => $validatedData['link_dokumentasi']]);
+        VideoKonten::where('media_dokumentasi_id', $id)->update(['created_by' =>  Auth::user()->name, 'link_youtube' => $validatedData['link_youtube']]);
 
         // Simpan data ke dalam tabel Album
         $album = Album::where('media_dokumentasi_id', $id)->update(['nama' => $validatedData['nama']]);
@@ -138,9 +141,10 @@ class DokumenKegiatanController extends Controller
         // Simpan foto-foto album
         if ($request->hasFile('album_photos')) {
             foreach ($request->file('album_photos') as $photo) {
-                $path = $photo->store('album_photos');
+                $filename = time() . '_' . $photo->getClientOriginalName();
+                $path = $photo->storeAs('album_photos', $filename, 'public');
                 AlbumPhotos::where('album_id', $album->id)->update([
-                    'photo_path' => $path
+                    'path_photos' => $path
                 ]);
             }
         }

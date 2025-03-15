@@ -4,6 +4,7 @@ use App\Http\Controllers\annouceController;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\registerController;
 use App\Http\Controllers\berandaController;
+use App\Http\Controllers\beritaController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\DokumenKegiatanController;
 use App\Http\Controllers\DokumenPublikasiController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\publikasiController;
 use App\Http\Controllers\reviewer\ProposalReviewController;
 use App\Http\Controllers\reviewer\reviewerController;
 use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
+use App\Models\Berita;
 use App\Models\LaporanKemajuan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,7 @@ Route::get('/publikasi/detail/{publikasi:slug}', [berandaController::class, 'det
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profil', [dashboardController::class, 'profil'])->name('profil');
 
     Route::middleware(['can:read publication', 'checkProgressAcceptAccess'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
@@ -156,25 +159,44 @@ Route::middleware('auth')->group(function () {
         Route::post('/manage-users/update/{id}', [masterDataController::class, 'update'])->name('manage-users.update');
         Route::get('/manage-users/search', [masterDataController::class, 'index'])->name('manage-users.search');
 
+        Route::get('announcement/tambah', [annouceController::class, 'create'])->name('announcement.tambah');
+        Route::post('announcement/tambah', [annouceController::class, 'store'])->name('announcement.tambah');
+        Route::get('announcement/destroy/{id}', [annouceController::class, 'destroy'])->name('announcement.destroy');
+
+    });
+    Route::middleware(['role:admin|super admin'])->group(function () {
+        Route::get('announcement', [annouceController::class, 'index'])->name('announcement');
+        Route::get('announcement/edit/{id}', [annouceController::class, 'edit'])->name('announcement.edit');
+        Route::post('announcement/update/{id}', [annouceController::class, 'update'])->name('announcement.update');
     });
 
     Route::middleware(['role:admin'])->group(function () {
-
-        Route::get('announcement', [annouceController::class, 'index'])->name('announcement');
-        Route::get('announcement/tambah', [annouceController::class, 'create'])->name('announcement.tambah');
-        Route::post('announcement/tambah', [annouceController::class, 'store'])->name('announcement.tambah');
-        Route::get('announcement/edit/{id}', [annouceController::class, 'edit'])->name('announcement.edit');
-        Route::post('announcement/update/{id}', [annouceController::class, 'update'])->name('announcement.update');
-        Route::get('announcement/destroy/{id}', [annouceController::class, 'destroy'])->name('announcement.destroy');
-        Route::get('announcement/publish/{id}', [annouceController::class, 'publish'])->name('announcement.publish');
-        Route::get('announcement/draft/{id}', [annouceController::class, 'draft'])->name('announcement.draft');
+       
+        // Route::get('announcement/publish/{id}', [annouceController::class, 'publish'])->name('announcement.publish');
+        // Route::get('announcement/draft/{id}', [annouceController::class, 'draft'])->name('announcement.draft');
         Route::get('/kelola-konten/video', [KelolaKontenController::class, 'index'])->name('kelola-konten.video');
+        Route::get('/kelola-konten/video/create', [KelolaKontenController::class, 'create'])->name('kelola-konten.video.create');
+        Route::post('/kelola-konten/video/create', [KelolaKontenController::class, 'store'])->name('kelola-konten.video.store');
+        Route::get('/kelola-konten/video/edit/{id}', [KelolaKontenController::class, 'edit'])->name('kelola-konten.video.edit');
+        Route::post('/kelola-konten/video/update/{id}', [KelolaKontenController::class, 'update'])->name('kelola-konten.video.update');
+        Route::get('/kelola-konten/video/delete/{id}', [KelolaKontenController::class, 'destroy'])->name('kelola-konten.video.destroy');
         Route::post('/update-status-video', [KelolaKontenController::class, 'updateStatus'])->name('update.status-video');
         Route::get('/kelola-konten/foto', [KelolaKontenController::class, 'foto'])->name('kelola-konten.foto');
+        Route::get('/kelola-konten/foto/create', [KelolaKontenController::class, 'createFoto'])->name('kelola-konten.foto.create');
+        Route::get('/kelola-konten/foto/edit/{id}', [KelolaKontenController::class, 'editFoto'])->name('kelola-konten.foto.edit');
+        Route::post('/kelola-konten/foto/update/{id}', [KelolaKontenController::class, 'updateFoto'])->name('kelola-konten.foto.update');
+        Route::get('/kelola-konten/foto/delete/{id}', [KelolaKontenController::class, 'deleteFoto'])->name('kelola-konten.foto.delete');
         Route::get('/kelola-konten/foto/detail/{id}', [KelolaKontenController::class, 'detail'])->name('kelola-konten.foto.detail');
         Route::post('/update-status-foto', [KelolaKontenController::class, 'updateStatusFoto'])->name('update.status-foto');
         Route::post('/update-status-artikel', [KelolaArtikel::class, 'updateStatus'])->name('update.status-artikel');
         Route::get('/kelola-konten/artikel', [KelolaArtikel::class, 'index'])->name('kelola-konten.artikel');
+        Route::get('/berita', [beritaController::class, 'index'])->name('berita');
+        Route::get('/berita/create', [beritaController::class, 'create'])->name('berita.create');
+        Route::post('/berita/create', [beritaController::class, 'store'])->name('berita.create');
+        Route::get('/berita/edit/{id}', [beritaController::class, 'edit'])->name('berita.edit');
+        Route::post('/berita/update/{id}', [beritaController::class, 'update'])->name('berita.update');
+        Route::get('/berita/delete/{id}', [beritaController::class, 'destroy'])->name('berita.delete');
+        Route::get('/berita/detail/{id}', [beritaController::class, 'detail'])->name('berita.detail');
     });
 
 

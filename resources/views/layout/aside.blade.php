@@ -12,7 +12,7 @@
         <ul class="sidebar-nav ">
             <div class="border-top border-bottom">
                 <div class="d-flex justify-content-around mx-3 my-3  ">
-                    <a href="" class="sidebar-baseline text-dark"><i class="me-2"
+                    <a href="/profil" class="sidebar-baseline text-dark"><i class="me-2"
                             data-feather="settings"></i><span>Pengaturan</span></a>
                     <a href="/logout" class="sidebar-baseline text-dark"><i class="me-2"
                             data-feather="log-out"></i><span>Keluar</span></a>
@@ -100,7 +100,7 @@
                         $query->where('status', 'lolos');
                     })
                         ->whereHas('teamMembers', function ($query) {
-                            $query->where('nim', auth()->user()->nim);
+                            $query->where('identifier', auth()->user()->identifier);
                         })
                         ->exists();
             @endphp
@@ -121,7 +121,7 @@
                         $query->where('status', 'Lanjutkan Program');
                     })
                         ->whereHas('teamMembers', function ($query) {
-                            $query->where('nim', auth()->user()->nim);
+                            $query->where('identifier', auth()->user()->identifier);
                         })
                         ->exists();
             @endphp
@@ -191,10 +191,26 @@
                             Pengumuman</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ Request::is('berita*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('berita') }}">
+                        <i class="fa-solid fa-newspaper"></i> <span class="align-middle">Kelola
+                            Berita</span>
+                    </a>
+                </li>
             @endrole
+            
             @role('super admin')
                 <li class="sidebar-header">
-                   Master Data
+                    Kelola Konten
+                </li>
+                <li class="sidebar-item {{ Request::is('announcement*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('announcement') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Kelola
+                            Pengumuman</span>
+                    </a>
+                </li>
+                <li class="sidebar-header">
+                    Master Data
                 </li>
                 <li class="sidebar-item {{ Request::is('manage-users*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('manage-users') }}">

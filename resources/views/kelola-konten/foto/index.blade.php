@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Galeri')
 @section('content')
     <style>
         /* Custom styling for larger toggle */
@@ -76,6 +77,8 @@
 
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Daftar Album</h5>
+                <a class="btn btn-primary" href="/kelola-konten/foto/create">Tambah Album</a>
+
             </div>
             <table class="table table-striped table-hover mb-0">
                 <thead class="table-light">
@@ -84,6 +87,7 @@
                         <th class="d-none d-md-table-cell"style="width: 15%">Pembuat</th>
                         <th class="d-none d-md-table-cell" style="width: 30%">Album</th>
                         <th class="d-none d-md-table-cell" style="width: 30%">Visibilitas</th>
+                        <th style="width: 15%" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,7 +95,8 @@
                         <tr>
 
                             <td>{{ $loop->iteration }}</td>
-                            <td class="d-none d-md-table-cell">Tim {{ $item->registration->judul }}</td>
+                            <td class="d-none d-md-table-cell">Tim
+                                {{ !empty($item->registration) ? $item->registration->judul : 'Admin' }}</td>
                             <td>
                                 <div class="card border-0 shadow-sm position-relative overflow-hidden custom-card"
                                     style="max-width: 220px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
@@ -100,12 +105,15 @@
                                         alt="Gambar Tim" style="height: 150px; object-fit: cover; filter: grayscale(30%);">
 
                                     <!-- Overlay -->
-                                    <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white"
-                                        style="background: rgba(240, 235, 235, 0.7); opacity: 1; transition: opacity 0.3s ease;">
-                                        <h5 class="fw-bold text-dark mb-2 fs-3">{{ $item->nama }}</h5>
-                                        <a class="text-center mb-0" style="font-size: 0.9rem; color: black;" href="/kelola-konten/foto/detail/{{$item->media_dokumentasi_id}}">Klik untuk
-                                            melihat detail</a>
-                                    </div>
+                                    <a href="/kelola-konten/foto/detail/{{ $item->id }}" 
+                                        class="overlay position-absolute top-0 start-0 w-75 h-75 d-flex flex-column justify-content-center align-items-center text-white text-decoration-none"
+                                        style="background: rgba(0, 0, 0, 0.6); opacity: 0; transition: opacity 0.3s ease-in-out; border-radius: 10px;">
+                                        <h5 class="fw-bold text-white mb-2 fs-4">{{ $item->nama }}</h5>
+                                        <span class="btn btn-light btn-sm px-3 py-2 shadow-sm rounded-pill">
+                                            Lihat Detail
+                                        </span>
+                                    </a>
+
 
                                     <!-- Badge untuk Informasi Tambahan -->
                                     <div class="position-absolute top-0 end-0 m-2">
@@ -124,7 +132,7 @@
 
                                     <input class="form-check-input toggle-switch" type="checkbox"
                                         id="switch-{{ $item->id }}" data-id="{{ $item->id }}"
-                                        @if ($item->status == 'valid')) checked @endif>
+                                        @if ($item->status == 'valid') ) checked @endif>
                                     <label class="form-check-label" for="switch-{{ $item->id }}">
                                         {{ $item->status == 'valid' ? 'On' : 'Off' }}
                                     </label>
@@ -132,9 +140,26 @@
 
                                 </div>
 
-                                <input type="hidden" id="link-youtube-{{ $item->id }}"
-                                    value="{{ $item->status }}">
+                                <input type="hidden" id="link-youtube-{{ $item->id }}" value="{{ $item->status }}">
                             </td>
+
+                            @role('admin')
+                                <td class="text-center">
+                                    <a href="/kelola-konten/foto/edit/{{ $item->id }}"
+                                        class="btn btn-sm btn-outline-success">
+                                        <i class="fa-solid fa-pen me-1"></i>Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{{ $item->id }}">
+                                        <i class="fa-solid fa-trash me-1"></i> Delete
+                                    </button>
+                                    <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
+                                        message="Apakah Anda yakin ingin menghapus album ini?"
+                                        action-url="/kelola-konten/foto/delete/{{ $item->id }}" confirm-text="Ya, Setujui" />
+
+                                </td>
+                            @endrole
+
                         </tr>
                     @endforeach
                 </tbody>

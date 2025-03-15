@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'nim',
+        'identifier',
         'email',
         'password',
         'role',
@@ -55,7 +55,7 @@ class User extends Authenticatable
     }
     public function teamMembers()
     {
-        return $this->hasOne(TeamMember::class, 'nim', 'nim');
+        return $this->hasOne(TeamMember::class, 'identifier', 'identifier');
     }
    
 

@@ -6,13 +6,13 @@
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Daftar Publikasi</h5>
-                <a class="btn btn-primary" href="{{ route('publikasi.tambah') }}">Tambah Publikasi</a>
+                <a class="btn btn-success" href="{{ route('publikasi.tambah') }}">Tambah Publikasi</a>
             </div>
             @can('agree publication')
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-                    <form method="GET" action="{{ route('publikasi.search') }}">
+                    <form method="GET" action="{{ route('publikasi') }}">
+                        @csrf
                         <label class="form-label">Filter berdasarkan status:</label>
                         <div class="d-flex align-items-center">
                             <div class="form-check me-3">
@@ -27,6 +27,17 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
+                    </form>
+                    <form action="{{ route('publikasi') }}" method="GET" class="mb-3">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Cari artikel..."
+                                value="{{ request('search') }}">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i> Cari
+                            </button>
+                            <a href="{{ route('publikasi') }}" class="btn btn-success ms-2">Reset</a>
+
+                        </div>
                     </form>
                 </div>
             @endcan
@@ -86,10 +97,7 @@
                                         <!-- Gunakan komponen modal -->
                                         <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
                                             message="Apakah Anda yakin ingin menghapus artikel ini?"
-                                            action-url="/publikasi/delete/{{ $item->id }}"
-                                            confirm-text="Iya, Setujui" />
-
-            
+                                            action-url="/publikasi/delete/{{ $item->id }}" confirm-text="Iya, Setujui" />
                                     @endcan
                                 </td>
                             </tr>

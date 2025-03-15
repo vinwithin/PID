@@ -12,4 +12,9 @@ class AlbumPhotos extends Model
         'album_id',
         'path_photos',
     ];
+    public function album()
+    {
+        return $this->belongsTo(Album::class);
+    }
+
 }

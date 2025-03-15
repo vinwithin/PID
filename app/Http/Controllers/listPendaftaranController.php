@@ -20,16 +20,16 @@ class listPendaftaranController extends Controller
     {
         $filters = $request->input('filters', []);
         $dataNilai = Registration::with('reviewAssignments')->whereHas('reviewAssignments', function ($query) {
-            $query->where('reviewer_id', auth()->user()->id); // Kondisi yang ingin dicek
-        })->get();
+            $query->where('reviewer_id', Auth::user()->id); // Kondisi yang ingin dicek
+        })->paginate(10);
         // Pastikan calculateScores() adalah metode static atau menggunakan Service Class
         $totalId = ProposalReviewController::calculateScores();
         if (empty($filters)) {
-            $data = Registration::with('registration_validation')->get();
+            $data = Registration::with('registration_validation')->paginate(10);
         } else {
             $data = Registration::with('registration_validation')->whereHas('registration_validation', function ($query) use ($filters) {
                 $query->where('status', $filters); // Kondisi yang ingin dicek
-            })->get();
+            })->paginate(10);
         }
 
         return view('list_pendaftaran', [
@@ -42,14 +42,14 @@ class listPendaftaranController extends Controller
     public function index()
     {
         $dataNilai = Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
-            $query->where('reviewer_id', auth()->user()->id); // Kondisi yang ingin dicek
-        })->get();
+            $query->where('reviewer_id', Auth::user()->id); // Kondisi yang ingin dicek
+        })->paginate(10);
         $totalId = ProposalReviewController::calculateScores();
         // dd($totalId['totalId']);
         return view('list_pendaftaran', [
             'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])->whereHas('registration_validation', function ($query) {
                 $query->whereIn('status', ['Belum valid', 'valid', 'lolos']);
-                })->get(),
+                })->paginate(10),
             'dataNilai' => $dataNilai,
             'totalId' => $totalId['totalId'],
         ]);
@@ -84,7 +84,7 @@ class listPendaftaranController extends Controller
     {
         try {
             Registrasi_validation::where('registration_id', $id)
-                ->update(['status' => 'valid', 'validator_id' => auth()->user()->name]);
+                ->update(['status' => 'valid', 'validator_id' => Auth::user()->name]);
             $availableReviewers = User::role('reviewer')
                 ->withCount(['reviewAssignments as pending_reviews_count' => function ($query) {
                     $query->where('status', 'Menunggu Review');
@@ -120,7 +120,7 @@ class listPendaftaranController extends Controller
     public function approveUserForProgram($id)
     {
         $result = Registrasi_validation::where('registration_id', $id)
-            ->update(['status' => 'lolos', 'validator_id' => auth()->user()->name]);
+            ->update(['status' => 'lolos', 'validator_id' => Auth::user()->name]);
         if ($result) {
             return redirect()->route('pendaftaran')->with('success', 'berhasil mengubah data');
         } else {

@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Pengumuman')
 @section('content')
     <style>
         /* Custom styling for larger toggle */
@@ -75,16 +76,18 @@
         <div class="card flex-fill">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Daftar Pengumuman</h5>
-                <a class="btn btn-primary" href="{{ route('announcement.tambah') }}">Tambah Pengumuman</a>
+                @can('manage role')
+                    <a class="btn btn-primary" href="{{ route('announcement.tambah') }}">Tambah Pengumuman</a>
+                @endcan
             </div>
             <table class="table table-striped table-hover mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 10%">No</th>
+                        <th style="width: 5%">No</th>
                         <th class="d-none d-md-table-cell"style="width: 10%">Pembuat</th>
-                        <th class="d-none d-md-table-cell" style="width: 30%">Title</th>
-                        <th class="d-none d-md-table-cell" style="width: 25%">Konten</th>
-                        <th class="d-none d-md-table-cell" style="width: 10%">Status</th>
+                        <th class="d-none d-md-table-cell" style="width: 15%">Title</th>
+                        <th class="d-none d-md-table-cell" style="width: 30%">Konten</th>
+                        <th class="d-none d-md-table-cell" style="width: 25%">Waktu</th>
                         <th class="d-none d-md-table-cell" style="width: 30%">Aksi</th>
                     </tr>
                 </thead>
@@ -97,31 +100,26 @@
                                 {{ $item->user[0]->name }}
                             </td>
                             <td class="d-none d-md-table-cell">
+                                {{ $item->category }}
+                            </td>
+                            <td class="d-none d-md-table-cell">
                                 {{ $item->title }}
                             </td>
                             <td class="d-none d-md-table-cell">
-                                {{ $item->content }}
+                                {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
                             </td>
+                            
+                            
                             <td class="d-none d-md-table-cell">
-                                {{ $item->status }}
-                            </td>
-                            <td class="d-none d-md-table-cell">
-                                @if ($item->status === 'published')
-                                    <a href="/announcement/draft/{{$item->id}}" class="btn btn-sm btn-outline-success">
-                                        <i class="fas fa-check me-1"></i>Draft
-                                    </a>
-                                @else
-                                    <a href="announcement/publish/{{$item->id}}" class="btn btn-sm btn-outline-success">
-                                        <i class="fas fa-check me-1"></i>Published
-                                    </a>
-                                @endif
 
-                                <a href="/announcement/edit/{{$item->id}}" class="btn btn-sm btn-outline-success">
-                                    <i class="fas fa-award me-1"></i>Edit
+                                <a href="/announcement/edit/{{ $item->id }}" class="btn btn-sm btn-outline-success">
+                                    <i class="fa-solid fa-pen-to-square me-2"></i>Edit
                                 </a>
-                                <a href="/announcement/destroy/{{$item->id}}" class="btn btn-sm btn-outline-success">
-                                    <i class="fas fa-exclamation-triangle me-1"></i>Hapus
-                                </a>
+                                @can('manage role')
+                                    <a href="/announcement/destroy/{{ $item->id }}" class="btn btn-sm btn-outline-success">
+                                        <i class="fa-solid fa-trash me-2"></i>Hapus
+                                    </a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

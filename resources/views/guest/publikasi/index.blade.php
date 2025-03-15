@@ -108,10 +108,11 @@
             margin-top: -70px;
         }
 
-        .card-title {
+        #card-title {
             font-size: 18px;
             font-family: "Plus Jakarta Sans", sans-serif;
             font-weight: 600;
+            line-height: 120%;
         }
 
         /* Responsive Design */
@@ -126,18 +127,45 @@
                 width: 100%;
                 justify-content: center;
             }
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
+            }
         }
 
         @media (max-width: 1366px) {
             html {
                 font-size: 75%;
             }
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
+            }
+            
         }
 
+        @media (max-width: 991.98px) {
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
+            }
+        }
         /* Tablet */
         @media (max-width: 758px) {
             html {
                 font-size: 62.5%;
+            }
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
             }
         }
 
@@ -153,6 +181,13 @@
                 height: 182px;
                 position: relative;
                 z-index: 0;
+            }
+
+            #card-title {
+                font-size: 12px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
             }
 
         }
@@ -217,7 +252,7 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
+                                        <h5 class="card-title" id="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
                                     </div>
                                 </div>
 

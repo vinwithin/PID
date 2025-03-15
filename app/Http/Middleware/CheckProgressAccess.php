@@ -26,7 +26,7 @@ class CheckProgressAccess
                     $query->whereIn('status', ['lolos', 'Lanjutkan Program']);
                 })
                 ->whereHas('teamMembers', function ($query) {
-                    $query->where('nim', Auth::user()->nim);
+                    $query->where('identifier', Auth::user()->identifier);
                 })
                 ->exists();
 

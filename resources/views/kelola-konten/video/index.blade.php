@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Kelola Video')
 @section('content')
     <style>
         /* Custom styling for larger toggle */
@@ -50,6 +51,8 @@
 
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Daftar Publikasi</h5>
+                <a class="btn btn-primary" href="/kelola-konten/video/create">Tambah Video</a>
+
             </div>
             <table class="table table-hover my-0 table-custom">
                 <thead>
@@ -58,13 +61,20 @@
                         <th class="d-none d-xl-table-cell" style="width: 20%">Pembuat</th>
                         <th class="d-none d-xl-table-cell" style="width: 30%">Link Youtube</th>
                         <th class="d-none d-xl-table-cell">Visibilitas</th>
+                        <th style="width: 15%" class="text-center">Aksi</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td class="d-none d-xl-table-cell">Tim {{ $item->registration->judul }}</td>
+                            <td class="d-none d-xl-table-cell">{{ $item->created_by }}
+
+
+
+
+                            </td>
                             <td class="d-none d-xl-table-cell">
                                 <iframe width="180" height="100" src="{{ $item->link_youtube }}" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -78,9 +88,9 @@
 
                                     <input class="form-check-input toggle-switch" type="checkbox"
                                         id="switch-{{ $item->id }}" data-id="{{ $item->id }}"
-                                        @if (!empty($item->video_konten->link_youtube)) checked @endif>
+                                        @if ($item->visibilitas === 'on') checked @endif>
                                     <label class="form-check-label" for="switch-{{ $item->id }}">
-                                        {{ !empty($item->video_konten->link_youtube) ? 'On' : 'Off' }}
+                                        {{ $item->visibilitas === 'on' ? 'On' : 'Off' }}
                                     </label>
 
 
@@ -89,6 +99,22 @@
                                 <input type="hidden" id="link-youtube-{{ $item->id }}"
                                     value="{{ $item->link_youtube }}">
                             </td>
+                            @role('admin')
+                                <td class="text-center">
+                                    <a href="/kelola-konten/video/edit/{{ $item->id }}"
+                                        class="btn btn-sm btn-outline-success">
+                                        <i class="fa-solid fa-pen me-1"></i>Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{{ $item->id }}">
+                                        <i class="fa-solid fa-trash me-1"></i> Delete
+                                    </button>
+                                    <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
+                                        message="Apakah Anda yakin ingin menghapus album ini?"
+                                        action-url="/kelola-konten/video/delete/{{ $item->id }}" confirm-text="Ya, Setujui" />
+
+                                </td>
+                            @endrole
                         </tr>
                     @endforeach
                 </tbody>

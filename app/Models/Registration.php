@@ -40,7 +40,7 @@ class Registration extends Model
     }
     public function lokasi()
     {
-        return $this->belongsTo(Lokasi::class);
+        return $this->hasOne(Lokasi::class, 'registration_id');
     }
     public function bidang()
     {

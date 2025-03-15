@@ -52,37 +52,51 @@
             <div class="content-announce">
                 <h1>Pengumuman</h1>
                 <div class="event-container">
-                    <div class="event-card">
-                        <div class="event-icon">
-                            <i class="fa-regular fa-calendar-check"></i>
-                        </div>
-                        <h2>Pendaftaran</h2>
-                        <p>Pendaftaran Pro-IDE Tahun 2024</p>
-                        <span class="event-date">
-                            <i class="fa-regular fa-calendar"></i> 1 - 20 Juni, 2024
-                        </span>
-                    </div>
+                    @foreach ($announce as $item)
+                        <div class="event-card">
+                            <div class="event-icon">
+                                @switch($item->category)
+                                    @case('Pendaftaran')
+                                        <i class="fa-solid fa-calendar-day"></i>
+                                    @break
 
-                    <div class="event-card">
-                        <div class="event-icon">
-                            <i class="fa-solid fa-file-circle-check"></i>
-                        </div>
-                        <h2>Hasil Seleksi</h2>
-                        <p>Hasil Seleksi Pro-IDE Tahun 2024</p>
-                        <span class="event-date">
-                            <i class="fa-regular fa-calendar"></i> 30 Juni, 2024
-                        </span>
-                    </div>
+                                    @case('Hasil Seleksi')
+                                        <i class="fa-solid fa-bullhorn"></i>
+                                    @break
 
-                    <div class="event-card">
-                        <div class="event-icon">
-                            <i class="fa-regular fa-file-lines"></i>
+                                    @case('Upload Laporan Akhir')
+                                        <i class="fa-solid fa-trophy"></i>
+                                    @break
+
+                                    @default
+                                        <i class="fa-regular fa-calendar-check"></i> <!-- Default icon -->
+                                @endswitch
+                            </div>
+                            <h2>{{ $item->category }}</h2>
+                            <p>{{ $item->title }}</p>
+                            <span class="event-date">
+                                <i class="fa-regular fa-calendar"></i>
+                                {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
+
+                            </span>
                         </div>
-                        <h2>Upload Publikasi</h2>
-                        <p>Upload Artikel Pro-IDE Tahun 2024</p>
-                        <span class="event-date">
-                            <i class="fa-regular fa-calendar"></i> 15 - 25 Agustus, 2024
-                        </span>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="berita" id="berita">
+        <div class="container-fluid mt-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="container-title">
+                    <h2>Berita</h2>
+                </div>
+                <div class="d-flex gap-4 justify-content-center justify-content-md-start">
+                    <div class="nav-button" id="left-btn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                    <div class="nav-button" id="right-btn">
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
             </div>
@@ -92,46 +106,7 @@
         <img class="overlay-publikasi" src="/assets/overlay-publikasi.svg" alt="">
 
         <main class="publikasi-content">
-            {{-- <div class="container-fluid ">
-                <div class="container-box p-4">
-                    <h2 class="text-center fw-bold text-dark">PENGUMUMAN</h2>
 
-                    <div class="row mt-4" id="container-card">
-                        <!-- Card Pendaftaran -->
-
-                        @if ($announce->isEmpty())
-                            <div class="col-md-6">
-                                <div class="card p-3" id="card-announce">
-                                    <h3 class="card-title" id="card-title">Belum Ada Pengumuman</h3>
-                                    <div class="announcement mt-3">
-
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            @foreach ($announce as $item)
-                                <div class="col-md-6">
-                                    <div class="card p-3" id="card-announce">
-                                        <h3 class="card-title" id="card-title">{{ $item->title }}</h3>
-                                        <div class="announcement mt-3">
-                                            <p>{{ $item->content }}</p>
-                                            <p><i class="fa fa-calendar"></i>
-                                                <small>{{ $item->start_date }}</small> -
-                                                <small>{{ $item->end_date }}</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
-
-
-                        <!-- Card Hasil Seleksi -->
-
-                    </div>
-
-                </div>
-            </div> --}}
 
             <div class="container-fluid mt-4">
                 <div class="container-header">
@@ -185,39 +160,42 @@
                             <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
                                 <div class="card shadow-sm border-0 w-100" id="card-video">
                                     <div class="video-frame d-flex justify-content-center">
-                                        <iframe class="w-100" height="" src="{{ $item->link_youtube }}" frameborder="0"
+                                        <iframe class="w-100" height="" src="{{ $item->link_youtube }}"
+                                            frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                     </div>
                                     <div class="card-body text-start">
                                         <h6 class="mb-0">Judul</h6>
-                                        <p class="text-muted">{{$item->registration}}</p>
+                                        <p class="text-muted">{{ $item->registration }}</p>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-            
+
                 <!-- Bagian Deskripsi & Tombol -->
-                <div class="col-12 col-md-2 text-center text-md-start d-flex flex-column align-items-center align-items-md-start mt-4 mt-md-0" id="button-video">
+                <div class="col-12 col-md-2 text-center text-md-start d-flex flex-column align-items-center align-items-md-start mt-4 mt-md-0"
+                    id="button-video">
                     <h2 class="fw-bold text-dark">Video</h2>
                     <p class="text-dark">Video hasil Program Pro-Ide</p>
                     <a href="/video" class="btn btn-outline-dark">
                         Selengkapnya <i class="fas fa-arrow-right ms-1"></i>
                     </a>
                 </div>
-            
+
                 <!-- Gambar -->
-                <div class="col-12 col-md-1 d-flex justify-content-center justify-content-md-start il-video mt-4 mt-md-0">
+                <div
+                    class="col-12 col-md-1 d-flex justify-content-center justify-content-md-start il-video mt-4 mt-md-0">
                     <img class="il-overlay-video" src="/assets/Blob.svg" alt="il-hero">
                     <img class="il-hero-video" src="/assets/Group.svg" alt="il-hero">
                 </div>
             </div>
-            
-            
+
+
         </main>
-       
+
     </section>
     @include('layout.guest.footer')
 

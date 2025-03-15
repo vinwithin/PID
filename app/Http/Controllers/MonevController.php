@@ -23,10 +23,10 @@ class MonevController extends Controller
         return view('monitoring-evaluasi.index', [
             'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])->whereHas('registration_validation', function ($query) {
                 $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
-            })->get(),
+            })->paginate(10),
             'dataNilai' => Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('status_monev', function ($query) {
                 $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
-            })->get(),
+            })->paginate(10),
             'total' => $total['total'],
 
 

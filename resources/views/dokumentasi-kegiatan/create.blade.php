@@ -8,16 +8,16 @@
             </div>
             <div class="card-body">
                 @role('admin|reviewer|dosen|super admin')
-
                     @include('dokumentasi-kegiatan.admin.index')
                     @elserole('mahasiswa')
                     @if (!$dokumenExist)
-                        <form method="POST" action="{{ route('dokumentasi-kegiatan') }}"
-                            enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('dokumentasi-kegiatan') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="link_youtube" class="form-label">Link Tautan Video Youtube</label>
                                 <input type="text" class="form-control" id="link_youtube" name="link_youtube" required>
+                                <small class="text-muted">Contoh : https://www.youtube.com/watch?v=xoWqZqJcjOQ </small>
+
                             </div>
                             <div class="mb-3">
                                 <label for="link_social_media" class="form-label">Tautan Sosial Media</label>

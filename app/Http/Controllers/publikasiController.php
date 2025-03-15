@@ -19,15 +19,30 @@ class publikasiController extends Controller
     {
         $this->teamIdService = $teamIdService;
     }
-    public function index()
+    public function index(Request $request)
     {
+        $filters = $request->input('filters', []);
+
+        if (empty($filters)) {
+            $dataAll = Publikasi::with('registration')
+                ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
+                ->paginate(10);
+        } else {
+            $dataAll = Publikasi::with('registration')->where('status', $filters)->orderBy('created_at', 'desc')->paginate(10);
+        }
+        
+        $query = Publikasi::query();
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', "%$search%");
+        }
+
+        $dataAll = $query->paginate(10);
         return view('publikasi.index', [
             "data" => Publikasi::with('registration')->where('team_id', $this->teamIdService->getRegistrationId())
                 ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
                 ->get(),
-            "dataAll" => Publikasi::with('registration')
-                ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
-                ->paginate(10),
+            "dataAll" => $dataAll,
         ]);
     }
 

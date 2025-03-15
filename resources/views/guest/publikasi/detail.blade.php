@@ -145,12 +145,36 @@
             html {
                 font-size: 75%;
             }
+            .card-header h1 {
+                font-size: 22px !important;
+
+            }
+
+            .card-body p {
+                font-size: 16px;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 400;
+                line-height: 120%;
+                text-align: start !important;
+            }
         }
 
         /* Tablet */
         @media (max-width: 758px) {
             html {
                 font-size: 62.5%;
+            }
+            .card-header h1 {
+                font-size: 20px !important;
+
+            }
+
+            .card-body p {
+                font-size: 14px;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 400;
+                line-height: 120%;
+                text-align: start !important;
             }
         }
 

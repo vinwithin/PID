@@ -3629,6 +3629,8 @@ fieldset:disabled .btn {
     list-style: none;
     margin-bottom: 0;
     padding-left: 0;
+    overflow-y: auto; /* Mengaktifkan scroll jika konten melebihi tinggi */
+    position: fixed
 }
 .nav-link {
     background: none;

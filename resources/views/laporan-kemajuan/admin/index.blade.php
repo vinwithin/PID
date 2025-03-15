@@ -7,7 +7,7 @@
             <div class="container-fluid px-4 py-4">
                 <div class="card shadow-sm border-0">
 
-                    
+
                     <div class="card-body p-0">
                         <table class="table table-bordered">
                             <thead class="table-light">
@@ -48,59 +48,59 @@
                                         </td>
                                         @can('approve laporan kemajuan')
                                             <td class="text-center">
-                                                @role('admin')
-                                                    @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)
-                                                        @if ($item->laporan_kemajuan->status === 'Valid')
-                                                            <button type="button" class="btn btn-sm btn-outline-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#rejectModal{{ $item->id }}">
-                                                                <i class="fas fa-exclamation-triangle me-1"></i> Tolak
-                                                            </button>
-                                                            <!-- Gunakan komponen modal -->
-                                                            <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
-                                                                title="Konfirmasi Persetujuan"
-                                                                message="Apakah Anda yakin ingin menolak laporan ini?"
-                                                                action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
-                                                                confirm-text="Iya" />
-                                                        @elseif($item->laporan_kemajuan->status === 'Ditolak')
-                                                            <button type="button" class="btn btn-sm btn-outline-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#approveModal{{ $item->id }}">
-                                                                <i class="fas fa-check me-1"></i> Terima
-                                                            </button>
-                                                            <!-- Gunakan komponen modal -->
-                                                            <x-confirm-modal modal-id="approveModal{{ $item->id }}"
-                                                                title="Konfirmasi Persetujuan"
-                                                                message="Apakah Anda yakin ingin menerima laporan ini?"
-                                                                action-url="/laporan-kemajuan/approve/{{ $item->laporan_kemajuan->id }}"
-                                                                confirm-text="Iya" />
-                                                        @else
-                                                            <button type="button" class="btn btn-sm btn-outline-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#rejectModal{{ $item->id }}">
-                                                                <i class="fas fa-exclamation-triangle me-1"></i> Tolak
-                                                            </button>
-                                                            <!-- Gunakan komponen modal -->
-                                                            <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
-                                                                title="Konfirmasi Persetujuan"
-                                                                message="Apakah Anda yakin ingin menolak laporan ini?"
-                                                                action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
-                                                                confirm-text="Iya" />
-                                                            <button type="button" class="btn btn-sm btn-outline-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#approveModal{{ $item->id }}">
-                                                                <i class="fas fa-check me-1"></i> Terima
-                                                            </button>
-                                                            <!-- Gunakan komponen modal -->
-                                                            <x-confirm-modal modal-id="approveModal{{ $item->id }}"
-                                                                title="Konfirmasi Persetujuan"
-                                                                message="Apakah Anda yakin ingin menerima laporan ini?"
-                                                                action-url="/laporan-kemajuan/approve/{{ $item->laporan_kemajuan->id }}"
-                                                                confirm-text="Iya" />
-                                                        @endif
+
+                                                @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)
+                                                    @if ($item->laporan_kemajuan->status === 'Valid')
+                                                        <button type="button" class="btn btn-sm btn-outline-success"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#rejectModal{{ $item->id }}">
+                                                            <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                        </button>
+                                                        <!-- Gunakan komponen modal -->
+                                                        <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
+                                                            title="Konfirmasi Persetujuan"
+                                                            message="Apakah Anda yakin ingin menolak laporan ini?"
+                                                            action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
+                                                            confirm-text="Iya" />
+                                                    @elseif($item->laporan_kemajuan->status === 'Ditolak')
+                                                        <button type="button" class="btn btn-sm btn-outline-success"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#approveModal{{ $item->id }}">
+                                                            <i class="fas fa-check me-1"></i> Terima
+                                                        </button>
+                                                        <!-- Gunakan komponen modal -->
+                                                        <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                            title="Konfirmasi Persetujuan"
+                                                            message="Apakah Anda yakin ingin menerima laporan ini?"
+                                                            action-url="/laporan-kemajuan/approve/{{ $item->laporan_kemajuan->id }}"
+                                                            confirm-text="Iya" />
                                                     @else
+                                                        <button type="button" class="btn btn-sm btn-outline-success"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#rejectModal{{ $item->id }}">
+                                                            <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                        </button>
+                                                        <!-- Gunakan komponen modal -->
+                                                        <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
+                                                            title="Konfirmasi Persetujuan"
+                                                            message="Apakah Anda yakin ingin menolak laporan ini?"
+                                                            action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
+                                                            confirm-text="Iya" />
+                                                        <button type="button" class="btn btn-sm btn-outline-success"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#approveModal{{ $item->id }}">
+                                                            <i class="fas fa-check me-1"></i> Terima
+                                                        </button>
+                                                        <!-- Gunakan komponen modal -->
+                                                        <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                            title="Konfirmasi Persetujuan"
+                                                            message="Apakah Anda yakin ingin menerima laporan ini?"
+                                                            action-url="/laporan-kemajuan/approve/{{ $item->laporan_kemajuan->id }}"
+                                                            confirm-text="Iya" />
                                                     @endif
-                                                @endrole
+                                                @else
+                                                @endif
+
                                             </td>
                                         @endcan
                                     </tr>

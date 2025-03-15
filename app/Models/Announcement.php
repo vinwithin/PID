@@ -9,11 +9,10 @@ class Announcement extends Model
     protected $table = 'announcements';
     public $announcements = 'announcements';
     protected $fillable = [
+        'category',
         'title',
-        'content',
         'start_date',
         'end_date',
-        'status',
         'created_by'
     ];
     public function user()

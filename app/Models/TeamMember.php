@@ -29,7 +29,7 @@ class TeamMember extends Model
     }
     public function user()
     {
-        return $this->hasMany(User::class, 'nim');
+        return $this->hasMany(User::class, 'identifier');
     }
    
 }
