@@ -1,4 +1,9 @@
 <style>
+    footer {
+        position: relative;
+        z-index: 9999;
+    }
+
     @media (max-width: 991.98px) {
         #image {
             width: 150px !important;

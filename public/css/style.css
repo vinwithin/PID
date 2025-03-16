@@ -186,7 +186,7 @@ html {
     align-items: center;
     gap: 5px;
 }
-.berita{
+.berita {
     height: 80vh;
     padding: 1.5rem 6%;
 }
@@ -379,6 +379,21 @@ html {
     font-size: 18px;
     font-weight: 500;
 }
+.nav-button-berita {
+    width: 70px;
+    height: 70px;
+    border: 3px solid black; /* Warna outline */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.nav-button-berita:hover {
+    background-color: rgba(212, 227, 186, 0.2); /* Efek hover */
+    transform: scale(1.1);
+}
 .nav-button {
     width: 70px;
     height: 70px;
@@ -430,11 +445,39 @@ html {
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid black;
 }
+.galeri {
+    /* padding: 4rem 7% 1.4rem; */
+    height: 100vh;
+    color: black;
+    background-image: url("/assets/Shape.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: bottom;
+}
+.overlay-galeri {
+    /* Sesuaikan ukuran overlay */
+    z-index: 1;
+    width:1200px;
+}
+
+.slide-galeri {
+    /* width: 100%; */
+    width: 1050px;
+    text-align: center;
+    z-index: 2; /* Pastikan slide berada di atas overlay */
+}
+
+.slide-galeri img {
+    width: 100%;
+    height: 650px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
 .video {
     padding: 4rem 7% 1.4rem;
-    background: rgba(241, 255, 225, 1);
     height: 65vh;
-    color: white;
+    color: black;
     /* padding: 50px 15px; */
 }
 .slider-container {
@@ -487,7 +530,6 @@ html {
     flex-shrink: 0;
 }
 
-
 .album-card {
     border-radius: 20px;
     overflow: hidden;
@@ -539,25 +581,43 @@ img {
 }
 
 #card-video {
-    width: 362px;
-    height: 262px;
+    width: 382px;
+    height: 252px;
+    border: 1.18px solid rgba(255, 255, 255, 1);
 }
 
 .video-frame iframe {
-    border-radio: 20px;
+    border-radius: 10px;
     width: 362px;
     height: 182px;
 }
+.il-left-video {
+    height: 50vh;
+}
+
+.il-left-video img {
+    position: absolute;
+    height: 695px;
+    left: -8%;
+    /* bottom: -8%; */
+    z-index: -1; /* Jika ingin berada di belakang elemen lain */
+}
+
 .il-video {
     height: 50vh;
-    /* right: 0; */
 }
 .il-video img {
     position: absolute;
-    right: 0;
+    right: -8%;
 }
 .il-video .il-hero-video {
-    right: 3%;
+    right: -3%;
+    top: 9%;
+}
+.il-video .il-overlay-icon {
+    /* position:absolute; */
+    top: 18%;
+    right: -5%;
 }
 #button-video {
     display: flex;
@@ -680,13 +740,16 @@ img {
         align-items: center;
         gap: 5px;
     }
-    .overlay-publikasi{
-        display:none;
+    .overlay-publikasi {
+        display: none;
+    }
+    .nav-button-berita {
+        width: 50px;
+        height: 50px;
     }
     .nav-button {
         width: 50px;
         height: 50px;
-       
     }
     .button-login {
         margin-top: 20px; /* Jarak tombol login */
@@ -697,11 +760,32 @@ img {
         font-size: 15px;
         font-weight: 500;
     }
+    .slide-galeri {
+        /* width: 100%; */
+        max-width: 600px;
+        text-align: center;
+        z-index: 2; /* Pastikan slide berada di atas overlay */
+    }
+    .overlay-galeri {
+        width: 750px;
+    }
+    .slide-galeri img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .il-left-video img {
+        display: none;
+    }
     .il-video img {
         display: none;
     }
+    #galeri{
+        height:65vh;
+    }
     .video {
-        height: 100vh;
+        height: 80vh;
     }
     #card-video {
         width: 302px;
@@ -794,6 +878,21 @@ img {
         height: 36px;
         font-size: 16px;
     }
+    .overlay-galeri {
+        width: 550px;
+    }
+    .slide-galeri {
+        /* width: 100%; */
+        max-width: 450px;
+        text-align: center;
+        z-index: 2; /* Pastikan slide berada di atas overlay */
+    }
+    .slide-galeri img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 
     .il-announce img {
         display: none;
@@ -854,7 +953,7 @@ img {
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 500;
         height: 30px;
-        width:120px;
+        width: 120px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1057,6 +1156,24 @@ img {
         align-items: center;
         gap: 5px;
     }
+    #galeri{
+        height:55vh;
+    }
+    .overlay-galeri {
+        width: 250px;
+    }
+    .slide-galeri {
+        /* width: 100%; */
+        max-width: 200px;
+        text-align: center;
+        z-index: 2; /* Pastikan slide berada di atas overlay */
+    }
+    .slide-galeri img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
     .publikasi {
         margin-top: -150px;
     }
@@ -1078,12 +1195,15 @@ img {
     .overlay-publikasi {
         display: none;
     }
+    .nav-button-berita {
+        width: 40px;
+        height: 40px;
+    }
     .nav-button {
         width: 40px;
         height: 40px;
-       
     }
-   
+
     .container-button a {
         font-size: 16x;
         width: 126px;
@@ -1121,9 +1241,15 @@ img {
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 500;
         height: 30px;
-        width:120px;
+        width: 120px;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    .il-left-video{
+        display:none;
+    }
+    img .il-left-overlay-video {
+        display: none;
     }
 }

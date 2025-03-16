@@ -92,13 +92,25 @@
                     <h2>Berita</h2>
                 </div>
                 <div class="d-flex gap-4 justify-content-center justify-content-md-start">
-                    <div class="nav-button" id="left-btn">
+                    <div class="nav-button-berita" id="left-btn">
                         <i class="fa-solid fa-arrow-left"></i>
                     </div>
-                    <div class="nav-button" id="right-btn">
+                    <div class="nav-button-berita" id="right-btn">
                         <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
+            </div>
+            <div class="d-flex gap-3 overflow-auto my-5 py-5" id="scroll-container">
+                @foreach ($berita as $item)
+                    <div class="card flex-shrink-0" id="card-list"
+                        onclick="window.location='/berita/detail/{{$item->slug}}'"
+                        style="cursor: pointer; ">
+                        <img src="{{ asset('/storage/' . $item->thumbnail) }}" class="user-image" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -150,9 +162,33 @@
 
         </main>
     </section>
+    <section class="galeri" id="galeri">
+
+        <div class="container-fluid">
+            <div class="container-header d-flex justify-content-center">
+                <div class="container-title ">
+                    <h2 class="text-dark fw-bold">Galeri Pro-IDe</h2>
+                    <p class="text-dark">Dokumentasi Kegiatan Program Pro-IDe</p>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <img class="overlay-galeri" src="/assets/overlay-galeri.svg" alt="">
+                <div class="slide-galeri position-absolute">
+                    @foreach ($foto as $item)
+                        @foreach ($item->album_photos as $items)
+                            <img class="slide-image d-none" src="/storage/{{ $items->path_photos }}"
+                                alt="Galeri">
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="video ">
         <main>
-            <div class="row align-items-center text-center text-md-start justify-content-around">
+            <div class="row align-items-center text-center text-md-start justify-content-around position-relative"
+                style="z-index: 0;">
                 <!-- Video Section -->
                 <div class="col-12 col-md-8 d-flex flex-column align-items-center">
                     <div class="row g-3 justify-content-center">
@@ -166,7 +202,7 @@
                                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                     </div>
                                     <div class="card-body text-start">
-                                        <h6 class="mb-0">Judul</h6>
+                                        <h6 class="mb-0">{{ $item->created_by }}</h6>
                                         <p class="text-muted">{{ $item->registration }}</p>
                                     </div>
                                 </div>
@@ -186,9 +222,14 @@
                 </div>
 
                 <!-- Gambar -->
+                <div class="col-12 col-md-1 d-flex justify-content-md-start il-left-video d-none d-md-flex">
+                    <img class="il-left-overlay-video" src="/assets/Ellipses.png" alt="il-hero">
+
+                </div>
                 <div
                     class="col-12 col-md-1 d-flex justify-content-center justify-content-md-start il-video mt-4 mt-md-0">
                     <img class="il-overlay-video" src="/assets/Blob.svg" alt="il-hero">
+                    <img class="il-overlay-icon" src="/assets/Icons.svg" alt="il-hero">
                     <img class="il-hero-video" src="/assets/Group.svg" alt="il-hero">
                 </div>
             </div>
@@ -236,6 +277,26 @@
                     behavior: 'smooth'
                 });
             });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let images = document.querySelectorAll(".slide-image");
+            let currentIndex = 0;
+
+            function showNextImage() {
+                images[currentIndex].classList.add("d-none"); // Sembunyikan gambar saat ini
+                currentIndex = (currentIndex + 1) % images.length; // Pindah ke gambar berikutnya
+                images[currentIndex].classList.remove("d-none"); // Tampilkan gambar baru
+            }
+
+            // Tampilkan gambar pertama saat halaman dimuat
+            if (images.length > 0) {
+                images[0].classList.remove("d-none");
+            }
+
+            // Ganti gambar setiap 5 detik
+            setInterval(showNextImage, 5000);
         });
     </script>
 

@@ -41,6 +41,12 @@ class berandaController extends Controller
             'data' => $publikasi
         ]);
     }
+    public function detailBerita(Berita $berita)
+    {
+        return view('guest.berita.detail', [
+            'data' => $berita
+        ]);
+    }
 
     public function video()
     {
