@@ -72,6 +72,7 @@ class listPendaftaranController extends Controller
 
 
         return view('pendaftaran.nilai', [
+            'id_regis' => Registration::find($id),
             'data_review' => ReviewAssignment::where('registration_id', $id)->get(),
             'dataReviewId' => ReviewAssignment::where('registration_id', $id)->where('reviewer_id', Auth::user()->id)->get(),
             'data' => $rubrik['rubrik'],

@@ -10,7 +10,7 @@ class TeamMember extends Model
     public $team_members = 'team_members';
     protected $fillable = [
         'nama',
-        'nim',
+        'identifier',
         'prodi',
         'fakultas',
         'jabatan'

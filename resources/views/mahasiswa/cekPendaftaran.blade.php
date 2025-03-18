@@ -15,7 +15,7 @@
                                 <dd class="col-7">{{ $data->nama_ketua }}</dd>
 
                                 <dt class="col-5 text-muted">Nama Tim</dt>
-                                <dd class="col-7">{{ $data->nama_tim }}</dd>
+                                <dd class="col-7">{{ $data->judul }}</dd>
 
                                 <dt class="col-5 text-muted">Prodi Ketua</dt>
                                 <dd class="col-7">{{ $data->program_studi->nama }}</dd>
@@ -26,13 +26,7 @@
                                 <dt class="col-5 text-muted">No HP Ketua</dt>
                                 <dd class="col-7">{{ $data->nohp_ketua }}</dd>
 
-                                <dt class="col-5 text-muted">Nama Ormawa</dt>
-                                <dd class="col-7">{{ $data->ormawa->nama }}</dd>
-
-                                <dt class="col-5">Lokasi</dt>
-                                <dd class="col-7">
-                                    {{ $data->lokasi->village . ', ' . $data->lokasi->district . ', ' . $data->lokasi->regency }}
-                                </dd>
+                               
                             </dl>
                         </div>
                     </div>
@@ -42,6 +36,17 @@
                             <dl class="row">
                                 <dt class="col-4 text-muted">Judul</dt>
                                 <dd class="col-8">{{ $data->judul }}</dd>
+
+                                <dt class="col-4 text-muted">Nama Ormawa</dt>
+                                <dd class="col-8">{{ $data->ormawa->nama }}</dd>
+
+                                <dt class="col-4 text-muted">Bidang</dt>
+                                <dd class="col-8">{{ $data->bidang->nama }}</dd>
+
+                                <dt class="col-4">Lokasi</dt>
+                                <dd class="col-8">
+                                    {{ $data->lokasi->village . ', ' . $data->lokasi->district . ', ' . $data->lokasi->regency }}
+                                </dd>
                             </dl>
                         </div>
                     </div>
@@ -89,28 +94,28 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         SK Organisasi
-                                        <a href="/storage/{{ $data->sk_organisasi }}"
+                                        <a href="/storage/{{ $data->document_registration->sk_organisasi }}"
                                             class="btn btn-sm btn-outline-primary" target="_blank">
                                             Lihat File
                                         </a>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Surat Kerjasama
-                                        <a href="/storage/{{ $data->surat_kerjasama }}"
+                                        <a href="/storage/{{ $data->document_registration->surat_kerjasama }}"
                                             class="btn btn-sm btn-outline-primary" target="_blank">
                                             Lihat File
                                         </a>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Surat Rekomendasi Pembina
-                                        <a href="/storage/{{ $data->surat_rekomendasi_pembina }}"
+                                        <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
                                             class="btn btn-sm btn-outline-primary" target="_blank">
                                             Lihat File
                                         </a>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Proposal
-                                        <a href="/storage/{{ $data->proposal }}" class="btn btn-sm btn-outline-primary"
+                                        <a href="/storage/{{ $data->document_registration->proposal }}" class="btn btn-sm btn-outline-primary"
                                             target="_blank">
                                             Lihat File
                                         </a>

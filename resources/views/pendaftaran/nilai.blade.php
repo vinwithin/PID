@@ -2,7 +2,7 @@
 @section('title', 'Nilai Proposal')
 
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     @php
         $curentUser = auth()->user()->name;
@@ -12,9 +12,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow-sm border-0">
-                        
+
                         <div class="card-body ">
                             @foreach ($data as $reviewer => $value)
+                    
                                 <div class="card mb-4 border-light">
                                     <div class="card-header bg-light">
                                         <h5 class="mb-0">Reviewer {{ $loop->iteration }}</h5>
@@ -73,10 +74,13 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="text-end mt-3">
+                                        <a href="/pendaftaran/generate-nilai/{{$id_regis->id}}/{{$reviewer}}" class="btn btn-outline-primary"><i class="fa-solid fa-print me-2"></i>Cetak Nilai</a>
+                                    </div>
                                 </div>
                             @endforeach
                             <div class="text-end mt-3">
-                                <a href="/pendaftaran" class="btn btn-outline-primary">
+                                <a href="/pendaftaran" class="btn btn-warning">
                                     <i class="fa-solid fa-arrow-left me-2"></i>Kembali
                                 </a>
                             </div>
@@ -132,7 +136,7 @@
                                                 </tr>
                                             @endforeach
                                             {{-- Skor Total --}}
-                                            <tr  class="table-light">
+                                            <tr class="table-light">
                                                 <td>Skor Total</td>
 
                                                 <td class="text-center fw-bold" colspan="2">

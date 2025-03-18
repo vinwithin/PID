@@ -17,14 +17,14 @@ class UserSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        // for ($i = 0; $i < 10; $i++) { // Buat 10 user
+        for ($i = 0; $i < 10; $i++) { // Buat 10 user
             $user = User::create([
                 'name' => $faker->name,
-                'nim' => $faker->optional()->numerify('F1########'), // NIM opsional
+                'identifier' => $faker->numerify('F1########'), // NIM opsional
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make('password123'), // Default password
             ]);
-            $user->assignRole('super admin');
-        // }
+            $user->assignRole('mahasiswa');
+        }
     }
 }

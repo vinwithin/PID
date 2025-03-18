@@ -17,7 +17,7 @@
         wave-container {
             position: relative;
             width: 100%;
-            height: 250px;
+            height: 200px;
             /* Sesuaikan tinggi gelombang */
             bottom: 0;
 
@@ -40,6 +40,7 @@
 
         .wave.right {
             left: 0;
+            width: 70%;
             /* transform: scaleX(-1); */
         }
 

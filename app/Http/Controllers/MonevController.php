@@ -161,6 +161,7 @@ class MonevController extends Controller
         $total = ScoreDetailMonev::scoreDetail($id);
         $bobot = ScoreDetailMonev::scoreDetail($id);
         return view('monitoring-evaluasi.detail', [
+            'id_regis' => Registration::find($id),
             'data_review' => StatusMonev::where('registration_id', $id)->get(),
             'dataReviewId' => StatusMonev::where('registration_id', $id)->where('user_id', Auth::user()->id)->get(),
             'data' => $rubrik['rubrik'],

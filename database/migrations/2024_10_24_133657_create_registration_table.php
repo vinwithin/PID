@@ -27,7 +27,6 @@ return new class extends Migration
             $table->text('surat_rekomendasi_pembina');
             $table->text('proposal');
             $table->string('nama_dosen_pembimbing');
-            $table->string('nidn_dosen_pembimbing');
             $table->string('nohp_dosen_pembimbing');
             $table->timestamps();
         });

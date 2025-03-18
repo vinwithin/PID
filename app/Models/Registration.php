@@ -18,14 +18,13 @@ class Registration extends Model
         'nama_ormawa',
         'judul',
         'bidang_id',
-        'sk_organisasi',
-        'surat_kerjasama',
-        'surat_rekomendasi_pembina',
-        'proposal',
         'nama_dosen_pembimbing',
-        'nidn_dosen_pembimbing',
         'nohp_dosen_pembimbing'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function teamMembers()
     {
         return $this->hasMany(TeamMember::class);
@@ -37,6 +36,10 @@ class Registration extends Model
     public function registration_validation()
     {
         return $this->hasOne(Registrasi_validation::class);
+    }
+    public function document_registration()
+    {
+        return $this->hasOne(DokumenRegistrasi::class);
     }
     public function lokasi()
     {

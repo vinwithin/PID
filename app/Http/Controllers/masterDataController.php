@@ -20,7 +20,7 @@ class masterDataController extends Controller
                     $q->where('name', 'like', "%{$search}%");
                 });
         }
-        $data = $query->get();
+        $data = $query->paginate(10);
         return view('master-data.index', [
             'data' => $data,
         ]);

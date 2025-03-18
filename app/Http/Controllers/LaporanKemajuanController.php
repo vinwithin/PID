@@ -26,16 +26,26 @@ class LaporanKemajuanController extends Controller
 
         return $fileName;
     }
-    public function index()
+    public function index(Request $request)
     {
         $team_id = $this->teamIdService->getRegistrationId();
+        $dataAll = Registration::with(['laporan_kemajuan', 'registration_validation'])
+            ->whereHas('registration_validation', function ($query) {
+                $query->whereIn('status', ['lolos', 'lanjutkan program']);
+            })->paginate(10);
+
+        $query = Registration::query();
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('judul', 'like', "%$search%");
+            $dataAll = $query->with(['laporan_kemajuan', 'registration_validation'])->whereHas('registration_validation', function ($query) {
+                $query->whereIn('status', ['lolos', 'lanjutkan program']);
+            })->paginate(10);
+        }
 
         return view('laporan-kemajuan.index', [
             'data'  => LaporanKemajuan::where('team_id', $team_id)->get(),
-            'dataAdmin' => Registration::with(['dokumentasiKegiatan', 'registration_validation'])
-            ->whereHas('registration_validation', function ($query) {
-                $query->whereIn('status', ['lolos', 'lanjutkan program']);
-            })->get(),
+            'dataAdmin' => $dataAll,
         ]);
     }
 
@@ -57,7 +67,7 @@ class LaporanKemajuanController extends Controller
 
         // Simpan file baru
         $filename = $this->storeFile($request->file('file'), 'file_laporan_kemajuan_' . $team_id);
-        
+
 
         // Jika laporan sudah ada, update; jika belum, buat baru
         if ($existingLaporan) {
@@ -80,7 +90,7 @@ class LaporanKemajuanController extends Controller
             DB::beginTransaction();
             $result = LaporanKemajuan::where('id', $id)
                 ->update(['status' => 'Valid']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('laporan-kemajuan')->with('success', 'berhasil mengubah data');
@@ -99,7 +109,7 @@ class LaporanKemajuanController extends Controller
             DB::beginTransaction();
             $result = LaporanKemajuan::where('id', $id)
                 ->update(['status' => 'Ditolak']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('laporan-kemajuan')->with('success', 'berhasil mengubah data');

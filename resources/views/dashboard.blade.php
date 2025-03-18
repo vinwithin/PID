@@ -62,7 +62,7 @@
 
                                 <div>
                                     <h6 class="fw-bold">Ketua Tim</h6>
-                                    <p class="mb-0 text-muted">{{ $data[0]->nama_ketua }}</p>
+                                    <p class="mb-0 text-muted">{{ $data->nama_ketua }}</p>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                                 <i class="fa-solid fa-user fa-2xl me-3"></i>
                                 <div>
                                     <h6 class="fw-bold">Dosen Pembimbing</h6>
-                                    <p class="mb-0 text-muted">{{ $data[0]->nama_dosen_pembimbing }}</p>
+                                    <p class="mb-0 text-muted">{{ $data->nama_dosen_pembimbing }}</p>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                 <i class="fa-solid fa-sitemap fa-2xl me-3"></i>
                                 <div>
                                     <h6 class="fw-bold">Nama Ormawa</h6>
-                                    <p class="mb-0 text-muted">{{ $data[0]->ormawa->nama }}</p>
+                                    <p class="mb-0 text-muted">{{ $data->ormawa->nama }}</p>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <i class="fa-solid fa-pen-to-square fa-2xl me-2"></i>
                                 <div>
                                     <h6 class="fw-bold">Status Pro-Ide</h6>
-                                    <p class="mb-0 text-muted">{{ $data[0]->registration_validation->status }}</p>
+                                    <p class="mb-0 text-muted">{{ $data->registration_validation->status }}</p>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                     <div class="card-header bg-white fw-bold text-success fs-5">Teman Pro-Ide</div>
                     <div class="card-body">
                         <div class="row text-center">
-                            @foreach ($data[0]->teamMembers as $item)
+                            @foreach ($data->teamMembers as $item)
                                 <div class="col-4 col-md-2 mb-3">
                                     <div class="d-flex align-items-center">
                                         <img src="/assets/profil.svg" class="rounded-circle img-thumbnail" alt="Foto Teman"

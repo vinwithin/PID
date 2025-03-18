@@ -126,6 +126,19 @@
                                                                     message="Apakah Anda yakin ingin menyetujui proposal ini?"
                                                                     action-url="{{ route('approve', ['id' => $item->id]) }}"
                                                                     confirm-text="Ya, Setujui" />
+
+                                                                {{-- <button type="button" class="btn btn-sm btn-outline-warning"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#approveModal{{ $item->id }}">
+                                                                    <i class="fas fa-check me-1"></i> Tolak
+                                                                </button>
+
+                                                                <!-- Gunakan komponen modal -->
+                                                                <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                                    title="Konfirmasi Persetujuan"
+                                                                    message="Apakah Anda yakin ingin menolak proposal ini?"
+                                                                    action-url="{{ route('approve', ['id' => $item->id]) }}"
+                                                                    confirm-text="Ya, Setujui" /> --}}
                                                             @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
                                                                 <button type="button" class="btn btn-sm btn-outline-success"
                                                                     data-bs-toggle="modal"

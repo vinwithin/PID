@@ -21,15 +21,24 @@ class DokumenTeknisController extends Controller
     {
         $this->dokumenTeknisService = $dokumenTeknisService;
         $this->teamIdService = $teamIdService;
-
     }
-    public function index()
+    public function index(Request $request)
     {
-        return view('dokumen-teknis.create',[
-            'dataAdmin' => Registration::with(['dokumenTeknis', 'registration_validation'])
+        $dataAll = Registration::with(['dokumenTeknis', 'registration_validation'])
             ->whereHas('registration_validation', function ($query) {
                 $query->where('status', 'Lanjutkan Program');
-            })->get(),
+            })->paginate(10);
+
+        $query = Registration::query();
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('judul', 'like', "%$search%");
+            $dataAll = $query->with(['dokumenTeknis', 'registration_validation'])->whereHas('registration_validation', function ($query) {
+                $query->where('status', 'Lanjutkan Program');
+            })->paginate(10);
+        }
+        return view('dokumen-teknis.create', [
+            'dataAdmin' => $dataAll,
             'data' => DokumenTeknis::where('team_id', $this->teamIdService->getRegistrationId())->get(),
             'dokumenExist' => DokumenTeknis::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->exists()
         ]);
@@ -45,8 +54,9 @@ class DokumenTeknisController extends Controller
         }
     }
 
-    public function edit($id){
-        return view('dokumen-teknis.edit',[
+    public function edit($id)
+    {
+        return view('dokumen-teknis.edit', [
             'data' => DokumenTeknis::find($id),
         ]);
     }
@@ -66,7 +76,7 @@ class DokumenTeknisController extends Controller
             DB::beginTransaction();
             $result = DokumenTeknis::where('id', $id)
                 ->update(['status' => 'Valid']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('dokumen-teknis')->with('success', 'berhasil mengubah data');
@@ -85,7 +95,7 @@ class DokumenTeknisController extends Controller
             DB::beginTransaction();
             $result = DokumenTeknis::where('id', $id)
                 ->update(['status' => 'Ditolak']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('dokumen-teknis')->with('success', 'berhasil mengubah data');

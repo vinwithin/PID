@@ -47,8 +47,6 @@
         .modal {
             display: none;
             /* Sembunyikan modal secara default */
-            position: fixed;
-            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
@@ -81,20 +79,39 @@
             cursor: pointer;
         }
     </style>
-    
+
 
     <div class="w-100">
-        <div id="successModal" class="modal" style="display: none;">
+        {{-- success modal --}}
+        <div id="successModal" class="modal">
             <div class="modal-content">
                 <span class="close-button" id="closeModal">&times;</span>
                 <h2>Registration Successful</h2>
                 <p>Your registration has been submitted successfully!</p>
             </div>
         </div>
+        <!-- Modal Gagal Register -->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="statusModalLabel">Pemberitahuan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorMessage">Terjadi kesalahan saat pendaftaran. Silakan coba lagi.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card">
-            
+
             @if (!$registrationExists)
-                
+
                 <div class="card-body">
                     <!-- Step Indicator -->
                     <div class="step-indicator">
@@ -118,7 +135,7 @@
                             <div class="mb-3">
                                 <label for="nim" class="form-label fw-bold">NIM Ketua Tim</label>
                                 <input type="text" class="form-control" id="nim" name="nim_ketua"
-                                    value="{{ auth()->user()->nim }}" readonly required>
+                                    value="{{ auth()->user()->identifier }}" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="fakultas" class="form-label fw-bold">Fakultas</label>
@@ -140,7 +157,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="nohp" class="form-label fw-bold">No.hp Ketua Tim</label>
-                                <input type="text" class="form-control" id="nohp" name="nohp_ketua" required>
+                                <input type="text" class="form-control  @error('nohp_ketua') is-invalid @enderror"
+                                    id="nohp" name="nohp_ketua"
+                                    value="{{ old('nohp_ketua', session('registration_step1.nohp_ketua')) }}" required>
+                                @error('nohp_ketua')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="ormawa" class="form-label fw-bold">Ormawa</label>
@@ -153,7 +175,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="judul" class="form-label fw-bold">Judul</label>
-                                <input type="text" class="form-control" id="judul" name="judul" required>
+                                <input type="text" class="form-control  @error('judul') is-invalid @enderror"
+                                    id="judul" name="judul"
+                                    value="{{ old('judul', session('registration_step1.judul')) }}" required>
+                                @error('judul')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="bidang" class="form-label fw-bold">Bidang</label>
@@ -187,65 +214,15 @@
                             {{-- <button type="button" id="next" class="btn btn-primary" onclick="nextStep()">Next</button> --}}
                         </div>
 
-                        <!-- Step 2 -->
-                        <div class="step">
-                            <p class="fw-bold">Surat Keputusan Organisasi</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
-                                    accept="pdf" required>
-                                <label class="input-group-text" for="sk_organisasi">Unggah</label>
-                                @error('sk_organisasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <p class="fw-bold">Surat pernyataan kerja sama dari khalayak sasaran yang diketahui oleh kepala desa</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="surat_kerjasama" name="surat_kerjasama"
-                                    accept="pdf" required>
-                                <label class="input-group-text" for="surat_kerjasama">Unggah</label>
-                                @error('surat_kerjasama')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <p class="fw-bold">Surat kesediaan dosen pendamping untuk membimbing kegiatan Pro IDE</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="surat_rekomendasi_pembina"
-                                    name="surat_rekomendasi_pembina" accept="pdf" required>
-                                <label class="input-group-text" for="surat_rekomendasi_pembina">Unggah</label>
-                                @error('surat_rekomendasi_pembina')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <p class="fw-bold">Proposal Pro-IDe</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="proposal" name="proposal"
-                                    accept="pdf" required>
-                                <label class="input-group-text" for="proposal">Unggah</label>
-                                @error('proposal')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            {{-- <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
-                        <button type="button" id="next" class="btn btn-primary" onclick="nextStep()">Next</button> --}}
-                        </div>
-
-                        <!-- step 3 -->
+                        <!-- step 2 -->
                         <div class="step">
                             <div id="team-members">
                                 <div class="team-member">
                                     <div class="row g-2">
                                         <div class="col-lg-2 mb-3">
                                             <label for="nim" class="form-label fw-bold">NIM</label>
-                                            <input type="text" id="nim" name="anggota_tim[0][nim]"
-                                                class="form-control" value="{{ auth()->user()->nim }}" readonly>
+                                            <input type="text" id="nim" name="anggota_tim[0][identifier]"
+                                                class="form-control" value="{{ auth()->user()->identifier }}" readonly>
                                         </div>
                                         <div class="col-lg-2 mb-3">
                                             <label for="nama" class="form-label fw-bold">Nama</label>
@@ -287,25 +264,79 @@
 
                         </div>
 
-                        <!-- Step 4 -->
+                        <!-- Step 3 -->
                         <div class="step">
                             <div class="mb-3">
-                                <label for="nama_dosen_pembimbing" class="form-label fw-bold">Nama Dosen Pembimbing</label>
-                                <input type="text" class="form-control" id="nama_dosen_pembimbing"
-                                    name="nama_dosen_pembimbing" required>
+                                <label class="form-label fw-bold" for="nama_dosen_pembimbing">Nama Dosen
+                                    Pembimbing</label><br>
+                                <select class="form-select" id="nama_dosen_pembimbing" name="nama_dosen_pembimbing">
+                                    <option value="">Pilih Dosen</option>
+                                </select>
                             </div>
+
+
                             <div class="mb-3">
-                                <label for="nidn_dosen_pembimbing" class="form-label fw-bold">NIDN Dosen Pembimbing</label>
-                                <input type="text" class="form-control" id="nidn_dosen_pembimbing"
-                                    name="nidn_dosen_pembimbing" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nohp_dosen_pembimbing" class="form-label fw-bold">No.hp Dosen Pembimbing</label>
-                                <input type="text" class="form-control" id="nohp_dosen_pembimbing"
-                                    name="nohp_dosen_pembimbing" required>
+                                <label for="nohp_dosen_pembimbing" class="form-label fw-bold">No.hp Dosen
+                                    Pembimbing</label>
+                                <input type="text"
+                                    class="form-control @error('nohp_dosen_pembimbing') is-invalid @enderror"
+                                    id="nohp_dosen_pembimbing" name="nohp_dosen_pembimbing" required>
+                                @error('nohp_dosen_pembimbing')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             {{-- <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button> --}}
                         </div>
+
+                        {{-- step 4 --}}
+                        <div class="step">
+                            <p class="fw-bold">Surat Keputusan Organisasi</p>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
+                                    accept="pdf" required>
+                                <label class="input-group-text" for="sk_organisasi">Unggah</label>
+                                @error('sk_organisasi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <p class="fw-bold">Surat pernyataan kerja sama dari khalayak sasaran yang diketahui oleh kepala
+                                desa</p>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="surat_kerjasama" name="surat_kerjasama"
+                                    accept="pdf" required>
+                                <label class="input-group-text" for="surat_kerjasama">Unggah</label>
+                                @error('surat_kerjasama')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <p class="fw-bold">Surat kesediaan dosen pendamping untuk membimbing kegiatan Pro IDE</p>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="surat_rekomendasi_pembina"
+                                    name="surat_rekomendasi_pembina" accept="pdf" required>
+                                <label class="input-group-text" for="surat_rekomendasi_pembina">Unggah</label>
+                                @error('surat_rekomendasi_pembina')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <p class="fw-bold">Proposal Pro-IDe</p>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="proposal" name="proposal"
+                                    accept="pdf" required>
+                                <label class="input-group-text" for="proposal">Unggah</label>
+                                @error('proposal')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <button type="button" id="prevStep" class="btn btn-secondary mt-2">Kembali</button>
                         <button type="button" id="next" class="btn btn-primary mt-2">Selanjutnya</button>
                         <button type="submit" id="submitForm" class="btn btn-success">Submit</button>
@@ -313,96 +344,111 @@
                     </form>
                 </div>
             @else
-            <div class="container-fluid px-4 py-4">
-                <div class="card shadow-sm border-0">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0 text-light">Status Pendaftaran</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th>Nama Ketua</th>
-                                        <th class="d-none d-xl-table-cell">NIM</th>
-                                        <th class="d-none d-xl-table-cell">Fakultas</th>
-                                        <th>Bidang</th>
-                                        <th class="d-none d-md-table-cell">Judul Proyek</th>
-                                        <th>Status</th>
-                                        <th class="text-center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($data as $index => $item)
-                                    <tr>
-                                        <td class="text-center fw-bold">{{ $index + 1 }}</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="rounded-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                                    {{ substr($item->nama_ketua, 0, 1) }}
-                                                </div>
-                                                <div>
-                                                    <div>{{ $item->nama_ketua }}</div>
-                                                    <small class="text-muted d-xl-none">{{ $item->nim_ketua }}</small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
-                                        <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
-                                        <td>
-                                            <span class="badge bg-success">{{ $item->bidang->nama }}</span>
-                                        </td>
-                                        <td class="d-none d-md-table-cell">
-                                            <div class="text-truncate" style="max-width: 200px;">
-                                                {{ $item->judul }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="badge {{ $item->registration_validation->status === 'valid' ? 'bg-warning text-dark' : 'bg-danger' }}">
-                                                {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }}
-                                            </span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="/program/cek/{{ $item->id }}" class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye me-1"></i>Cek
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                <div class="container-fluid px-4 py-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0 text-light">Status Pendaftaran</h5>
                         </div>
-                        
-                    </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th>Nama Ketua</th>
+                                            <th class="d-none d-xl-table-cell">NIM</th>
+                                            <th class="d-none d-xl-table-cell">Fakultas</th>
+                                            <th>Bidang</th>
+                                            <th class="d-none d-md-table-cell">Judul Proyek</th>
+                                            <th>Status</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data as $index => $item)
+                                            <tr>
+                                                <td class="text-center fw-bold">{{ $index + 1 }}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="rounded-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center"
+                                                            style="width: 40px; height: 40px;">
+                                                            {{ substr($item->nama_ketua, 0, 1) }}
+                                                        </div>
+                                                        <div>
+                                                            <div>{{ $item->nama_ketua }}</div>
+                                                            <small
+                                                                class="text-muted d-xl-none">{{ $item->nim_ketua }}</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
+                                                <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
+                                                <td>
+                                                    <span class="badge bg-success">{{ $item->bidang->nama }}</span>
+                                                </td>
+                                                <td class="d-none d-md-table-cell">
+                                                    <div class="text-truncate" style="max-width: 200px;">
+                                                        {{ $item->judul }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="badge {{ $item->registration_validation->status === 'valid' ? 'bg-warning text-dark' : 'bg-danger' }}">
+                                                        {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="/program/cek/{{ $item->id }}"
+                                                        class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-eye me-1"></i>Cek
+                                                    </a>
+                                                    @if (!in_array($item->registration_validation->status, ['valid', 'tidak valid', 'lolos', 'Lanjutkan Program', 'Hentikan Program']))
+                                                        <a href="/editProgram/{{ $item->id }}"
+                                                            class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-pen me-1"></i>Edit
+                                                        </a>
+                                                    @endif
 
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-     
-            
-            @push('styles')
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-            <style>
-                body {
-                    background-color: #f4f6f9;
-                }
-                .table-responsive {
-                    max-height: 600px;
-                    overflow-y: auto;
-                }
-                .table thead {
-                    position: sticky;
-                    top: 0;
-                    background-color: #f8f9fa;
-                    z-index: 10;
-                }
-                .text-truncate {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            </style>
-            @endpush
+
+
+                @push('styles')
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+                    <style>
+                        body {
+                            background-color: #f4f6f9;
+                        }
+
+                        .table-responsive {
+                            max-height: 600px;
+                            overflow-y: auto;
+                        }
+
+                        .table thead {
+                            position: sticky;
+                            top: 0;
+                            background-color: #f8f9fa;
+                            z-index: 10;
+                        }
+
+                        .text-truncate {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    </style>
+                @endpush
             @endif
         </div>
     </div>
@@ -473,7 +519,13 @@
                 }
             } else {
                 const data = await response.json();
-                alert(data.message || 'Validation failed. Please check your inputs.');
+                var modalElement = document.getElementById("errorModal");
+                // Ubah hanya isi pesan error, bukan seluruh modal
+                document.getElementById("errorMessage").textContent = data.message ||
+                    'Pendaftaran gagal. Silakan coba lagi.';
+                // Tampilkan modal dengan Bootstrap 5
+                var modalInstance = new bootstrap.Modal(modalElement);
+                modalInstance.show();
             }
 
         });
@@ -498,7 +550,13 @@
                     document.getElementById('successModal').style.display = 'block';
                 } else {
                     const data = await response.json();
-                    alert(data.message || 'Submission failed. Please try again.');
+                    var modalElement = document.getElementById("errorModal");
+                    // Ubah hanya isi pesan error, bukan seluruh modal
+                    document.getElementById("errorMessage").textContent = data.message ||
+                        'Pendaftaran gagal. Silakan coba lagi.';
+                    // Tampilkan modal dengan Bootstrap 5
+                    var modalInstance = new bootstrap.Modal(modalElement);
+                    modalInstance.show();
                 }
 
             }
@@ -537,7 +595,7 @@
                 <div class="row g-2">
                     <div class="col-lg-2 mb-3">
                         <label for="nim" class="form-label fw-bold">NIM</label>
-                         <input type="text" id="nim" name="anggota_tim[${memberCount}][nim]" class="form-control">
+                         <input type="text" id="nim" name="anggota_tim[${memberCount}][identifier]" class="form-control">
                     </div>
                     <div class="col-lg-2 mb-3">
                         <label for="nama" class="form-label">Nama</label>
@@ -624,7 +682,7 @@
                         if (data.status && data.name) {
                             // Isi otomatis field nama
                             namaInput.value = data.name;
-                            showSuccess('Data ditemukan', parentDiv, 'alert-successs');
+                            showSuccess('Data ditemukan', parentDiv, 'alert-success');
 
                         } else {
                             // Reset field jika data tidak ditemukan
@@ -830,6 +888,30 @@
                     alert(`Gagal memuat data ${context}. Silakan coba lagi.`);
                 }
             }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#nama_dosen_pembimbing').select2({
+                placeholder: "Pilih Dosen Pembimbing",
+                allowClear: true,
+                ajax: {
+                    url: "/get-dosen",
+                    dataType: "json",
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.name,
+                                    text: item.name
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
         });
     </script>
 @endsection

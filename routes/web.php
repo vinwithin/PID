@@ -17,6 +17,7 @@ use App\Http\Controllers\masterDataController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
 use App\Http\Controllers\MonevController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\publikasiController;
 use App\Http\Controllers\reviewer\ProposalReviewController;
 use App\Http\Controllers\reviewer\reviewerController;
@@ -44,6 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
     Route::get('/profil', [dashboardController::class, 'profil'])->name('profil');
+
+    Route::get('/get-dosen', [regisProgramController::class, 'getDosen'])->name('get-dosen');
 
     Route::middleware(['can:read publication', 'checkProgressAcceptAccess'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
@@ -81,6 +84,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/pendaftaran/cari', [listPendaftaranController::class, 'filter'])->name('pendaftaran.search');
         Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
         Route::get('/pendaftaran/detail-nilai/{id}', [listPendaftaranController::class, 'scoreDetail'])->name('pendaftaran.detail-nilai');
+        Route::get('/pendaftaran/generate-nilai/{id_regis}/{reviewer}', [PdfController::class, 'generate'])->name('pendaftaran.generate-nilai');
     });
 
     Route::middleware(['can:read laporan kemajuan'])->group(function () {
@@ -97,6 +101,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:read monev'])->group(function () {
         Route::get('/monitoring-evaluasi', [MonevController::class, 'index'])->name('monev.index');
         Route::get('/monitoring-evaluasi/detail/{id}', [MonevController::class, 'detail'])->name('monev.detail');
+        Route::get('/monev/generate-nilai/{id_regis}/{reviewer}', [PdfController::class, 'generate_nilai'])->name('monev.generate-nilai');
+
     });
     Route::middleware(['can:assessing monev'])->group(function () {
         Route::get('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'createScore'])->name('monev.create');
@@ -205,8 +211,10 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
+        Route::get('/editProgram/{id}', [regisProgramController::class, 'edit'])->name('mahasiswa.edit');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
+        Route::post('/updateProgram/{id}', [regisProgramController::class, 'update'])->name('mahasiswa.update');
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
         Route::get('/program/cek/{id}', [regisProgramController::class, 'show'])->name('program.cek');
         Route::get('/search-users', [regisProgramController::class, 'search'])->name('users.search');

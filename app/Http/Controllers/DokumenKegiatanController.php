@@ -29,21 +29,32 @@ class DokumenKegiatanController extends Controller
         return (isset($match[7]) && strlen($match[7]) == 11) ? $match[7] : null;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $dataAll = Registration::with(['dokumentasiKegiatan', 'registration_validation'])
+            ->whereHas('registration_validation', function ($query) {
+                $query->where('status', 'Lanjutkan Program');
+            })->paginate(10);
+
+        $query = Registration::query();
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('judul', 'like', "%$search%");
+            $dataAll = $query->with(['dokumentasiKegiatan', 'registration_validation'])->whereHas('registration_validation', function ($query) {
+                $query->where('status', 'Lanjutkan Program');
+            })->paginate(10);
+        }
         return view('dokumentasi-kegiatan.create', [
-            'dataAdmin' => Registration::with(['dokumentasiKegiatan', 'registration_validation'])
-                ->whereHas('registration_validation', function ($query) {
-                    $query->where('status', 'Lanjutkan Program');
-                })->get(),
+            'dataAdmin' => $dataAll,
             'data' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->get(),
             'dokumenExist' => DokumentasiKegiatan::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())
                 ->exists()
         ]);
     }
 
-    public function detail($id){
-        return view('dokumentasi-kegiatan.admin.detail',[
+    public function detail($id)
+    {
+        return view('dokumentasi-kegiatan.admin.detail', [
             'data' => Album::where('media_dokumentasi_id', $id)->get()
         ]);
     }
@@ -132,7 +143,7 @@ class DokumenKegiatanController extends Controller
         DB::beginTransaction();
         // try {
         // Simpan data ke dalam tabel DokumentasiKegiatan
-        DokumentasiKegiatan::where('id', $id)->update(['link_youtube' => $validatedData['link_youtube'], 'link_social_media' => $validatedData['link_social_media' ], 'link_dokumentasi' => $validatedData['link_dokumentasi']]);
+        DokumentasiKegiatan::where('id', $id)->update(['link_youtube' => $validatedData['link_youtube'], 'link_social_media' => $validatedData['link_social_media'], 'link_dokumentasi' => $validatedData['link_dokumentasi']]);
         VideoKonten::where('media_dokumentasi_id', $id)->update(['created_by' =>  Auth::user()->name, 'link_youtube' => $validatedData['link_youtube']]);
 
         // Simpan data ke dalam tabel Album
@@ -166,7 +177,7 @@ class DokumenKegiatanController extends Controller
             DB::beginTransaction();
             $result = DokumentasiKegiatan::where('id', $id)
                 ->update(['status' => 'Valid']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('dokumentasi-kegiatan')->with('success', 'berhasil mengubah data');
@@ -185,7 +196,7 @@ class DokumenKegiatanController extends Controller
             DB::beginTransaction();
             $result = DokumentasiKegiatan::where('id', $id)
                 ->update(['status' => 'Ditolak']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('dokumentasi-kegiatan')->with('success', 'berhasil mengubah data');

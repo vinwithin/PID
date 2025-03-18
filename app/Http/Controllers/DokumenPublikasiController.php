@@ -20,15 +20,26 @@ class DokumenPublikasiController extends Controller
         $this->dokumenPublikasiService = $dokumenPublikasiService;
         $this->teamIdService = $teamIdService;
     }
-    public function index(){
-        return view('dokumen-publikasi.create',[
-            'dataAdmin' => Registration::with(['dokumenPublikasi', 'registration_validation'])
+    public function index(Request $request)
+    {
+        $dataAll = Registration::with(['dokumenPublikasi', 'registration_validation'])
             ->whereHas('registration_validation', function ($query) {
                 $query->where('status', 'Lanjutkan Program');
-            })->get(),
+            })->paginate(10);
+
+        $query = Registration::query();
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('judul', 'like', "%$search%");
+            $dataAll = $query->with(['dokumenPublikasi', 'registration_validation'])->whereHas('registration_validation', function ($query) {
+                $query->where('status', 'Lanjutkan Program');
+            })->paginate(10);
+        }
+        return view('dokumen-publikasi.create', [
+            'dataAdmin' => $dataAll,
             'data' => DokumenPublikasi::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())->get(),
-            'dokumenExist' => DokumenPublikasi::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId()) 
-            ->exists()
+            'dokumenExist' => DokumenPublikasi::with('teamMembers')->where('team_id', $this->teamIdService->getRegistrationId())
+                ->exists()
         ]);
     }
     public function store(Request $request)
@@ -41,8 +52,9 @@ class DokumenPublikasiController extends Controller
         }
     }
 
-    public function edit($id){
-        return view('dokumen-publikasi.edit',[
+    public function edit($id)
+    {
+        return view('dokumen-publikasi.edit', [
             'data' => DokumenPublikasi::find($id),
         ]);
     }
@@ -62,7 +74,7 @@ class DokumenPublikasiController extends Controller
             DB::beginTransaction();
             $result = DokumenPublikasi::where('id', $id)
                 ->update(['status' => 'Valid']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('dokumen-publikasi')->with('success', 'berhasil mengubah data');
@@ -81,7 +93,7 @@ class DokumenPublikasiController extends Controller
             DB::beginTransaction();
             $result = DokumenPublikasi::where('id', $id)
                 ->update(['status' => 'Ditolak']);
-            
+
             DB::commit();
             if ($result) {
                 return redirect()->route('dokumen-publikasi')->with('success', 'berhasil mengubah data');

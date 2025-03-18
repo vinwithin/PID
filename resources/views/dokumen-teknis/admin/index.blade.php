@@ -4,9 +4,21 @@
 @section('content')
     <div class="w-100">
         <div class="card">
-            <div class="container-fluid px-4 py-4">
+            <div class="container-fluid px-4 ">
                 <div class="card shadow-sm border-0">
-
+                    <div class="card-header d-flex justify-content-end align-items-end">
+                        <form action="{{ route('dokumen-teknis') }}" method="GET" class="">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Cari tim..."
+                                    value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-search"></i> Cari
+                                </button>
+                                <a href="{{ route('dokumen-teknis') }}" class="btn btn-success ms-2">Reset</a>
+    
+                            </div>
+                        </form>
+                    </div>
                     
                     <div class="card-body p-0">
                         <table class="table table-bordered">
@@ -121,6 +133,9 @@
 
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        {{ $dataAdmin->links() }}
                     </div>
                 </div>
             </div>
