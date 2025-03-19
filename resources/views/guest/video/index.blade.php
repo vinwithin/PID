@@ -14,10 +14,12 @@
     <style>
         .navbar-custom {
             background-color: #1c3b2b;
-            padding: 20px 0;
-            height: 202px;
+            /* padding: 20px 0; */
+            height: 12.6rem;
             position: relative;
             z-index: 0;
+            padding: 1.5rem 6%;
+
         }
 
         /* Wave Styling */
@@ -25,21 +27,22 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 80%;
+            width: 90%;
             display: flex;
             justify-content: flex-end;
             /* height: auto; */
+            z-index: -1;
+            overflow: hidden;
             user-select: none;
             /* Mencegah pemilihan */
             pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
             /* Mencegah overflow akibat overlap */
         }
 
         .wave {
             position: relative;
-            user-select: none; /* Mencegah pemilihan */
+            user-select: none;
+            /* Mencegah pemilihan */
             pointer-events: none;
             bottom: 0;
             overflow: hidden;
@@ -47,30 +50,36 @@
 
         .wave-left {
             width: auto;
-            height: 182px;
+            height: 11rem;
             position: relative;
+            overflow: hidden;
+            left: 0;
             margin-right: -55%;
-            bottom: -50px;
+            bottom: -40px;
             z-index: -1;
         }
 
         .wave-left img {
-            bottom: -50px;
+            bottom: -40px;
+            width: 1000px;
+
         }
 
         .wave-right {
             right: 0;
-            overflow: hidden;
+            /* overflow: hidden; */
             z-index: 1;
             position: relative;
             width: auto;
-            bottom: 0;
-            height: 181px;
+            bottom: -10px;
+            height: 11rem;
 
         }
 
         .wave-right img {
             bottom: 0;
+            width: 1000px;
+
         }
 
         /* Search Box Styling */
@@ -103,13 +112,11 @@
             margin-top: -70px;
         }
 
-        .album-card {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .album-card iframe {
-            border-radius: 20px;
+        #card-title {
+            font-size: 1rem;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-weight: 600;
+            line-height: 120%;
         }
 
         /* Responsive Design */
@@ -124,11 +131,35 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
+            }
         }
 
         @media (max-width: 1366px) {
             html {
                 font-size: 75%;
+            }
+
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
+            }
+
+        }
+
+        @media (max-width: 991.98px) {
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
             }
         }
 
@@ -137,6 +168,13 @@
             html {
                 font-size: 62.5%;
             }
+
+            #card-title {
+                font-size: 14px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
+            }
         }
 
         /* Mobile Phone */
@@ -144,6 +182,7 @@
             html {
                 font-size: 52%;
             }
+
             .navbar-custom {
                 background-color: #1c3b2b;
                 /* padding: 20px 0; */
@@ -151,6 +190,14 @@
                 position: relative;
                 z-index: 0;
             }
+
+            #card-title {
+                font-size: 12px !important;
+                font-family: "Plus Jakarta Sans", sans-serif;
+                font-weight: 600;
+                line-height: 120%;
+            }
+
         }
     </style>
 </head>
@@ -186,15 +233,15 @@
             </div>
         </div>
     </nav>
-    <section class="container vh-100  py-4">
+    <section class="container vh-100  py-4" style="padding: 1.5rem 6%;">
 
         <div class="card w-full p-4 shadow" id="card">
-            <div class="container">
+            {{-- <div class="container"> --}}
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
                     @foreach ($data as $item)
                         <div class="col">
                             <div class="album-card">
-                                <iframe width="268px" height="147px" src="{{ $item->link_youtube }}" frameborder="0"
+                                <iframe width="238px" height="147px" src="{{ $item->link_youtube }}" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
                                     onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';">
@@ -203,7 +250,7 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
+            {{-- </div> --}}
 
             <div class="d-flex justify-content-center mt-4">
                 {{ $data->links() }}

@@ -114,9 +114,9 @@
                 <!-- Step Indicator -->
                 <div class="step-indicator">
                     <div id="step1Indicator" class="active">Step 1: Informasi Tim</div>
-                    <div id="step2Indicator">Step 2: Persyaratan Dokumen</div>
-                    <div id="step3Indicator">Step 3: Anggota Tim</div>
-                    <div id="step4Indicator">Step 4: Dosen Pembimbing Informasi</div>
+                    <div id="step2Indicator">Step 2: Anggota Tim</div>
+                    <div id="step3Indicator">Step 3: Dosen Pembimbing Informasi</div>
+                    <div id="step4Indicator">Step 4: Persyaratan Dokumen </div>
                 </div>
 
                 <form id="registrationForm" method="POST" action="/updateProgram/{{ $data->id }}"

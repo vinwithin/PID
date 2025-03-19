@@ -92,19 +92,18 @@
                     <h2>Berita</h2>
                 </div>
                 <div class="d-flex gap-4 justify-content-center justify-content-md-start">
-                    <div class="nav-button-berita" id="left-btn">
+                    <div class="nav-button-berita" id="left-btn-berita">
                         <i class="fa-solid fa-arrow-left"></i>
                     </div>
-                    <div class="nav-button-berita" id="right-btn">
+                    <div class="nav-button-berita" id="right-btn-berita">
                         <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
             </div>
-            <div class="d-flex gap-3 overflow-auto my-5 py-5" id="scroll-container">
+            <div class="d-flex gap-3 overflow-auto my-5 py-5" id="scroll-container2">
                 @foreach ($berita as $item)
                     <div class="card flex-shrink-0" id="card-list"
-                        onclick="window.location='/berita/detail/{{$item->slug}}'"
-                        style="cursor: pointer; ">
+                        onclick="window.location='/berita/detail/{{ $item->slug }}'" style="cursor: pointer; ">
                         <img src="{{ asset('/storage/' . $item->thumbnail) }}" class="user-image" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
@@ -128,7 +127,7 @@
                     </div>
                     <div class="container-button">
                         <div class="circle"></div>
-                        <a href="/daftar-publikasi" class="fw-semibold">
+                        <a href="/daftar-publikasi" class="fw-semibold me-2">
                             Selengkapnya <i class="fa-solid fa-arrow-right me-2"></i>
                         </a>
                     </div>
@@ -165,20 +164,19 @@
     <section class="galeri" id="galeri">
 
         <div class="container-fluid">
-            <div class="container-header d-flex justify-content-center">
+            <div class="container-header d-flex justify-content-center mb-5">
                 <div class="container-title ">
-                    <h2 class="text-dark fw-bold">Galeri Pro-IDe</h2>
+                    <h2 class="text-dark fw-bold text-center">Galeri Pro-IDe</h2>
                     <p class="text-dark">Dokumentasi Kegiatan Program Pro-IDe</p>
                 </div>
 
             </div>
-            <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-center ">
                 <img class="overlay-galeri" src="/assets/overlay-galeri.svg" alt="">
                 <div class="slide-galeri position-absolute">
                     @foreach ($foto as $item)
                         @foreach ($item->album_photos as $items)
-                            <img class="slide-image d-none" src="/storage/{{ $items->path_photos }}"
-                                alt="Galeri">
+                            <img class="slide-image d-none" src="/storage/{{ $items->path_photos }}" alt="Galeri">
                         @endforeach
                     @endforeach
                 </div>
@@ -190,7 +188,7 @@
             <div class="row align-items-center text-center text-md-start justify-content-around position-relative"
                 style="z-index: 0;">
                 <!-- Video Section -->
-                <div class="col-12 col-md-8 d-flex flex-column align-items-center">
+                <div class="col-12 col-md-8 d-flex flex-column align-items-center ">
                     <div class="row g-3 justify-content-center">
                         @foreach ($video as $item)
                             <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
@@ -201,10 +199,18 @@
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                     </div>
-                                    <div class="card-body text-start">
-                                        <h6 class="mb-0">{{ $item->created_by }}</h6>
-                                        <p class="text-muted">{{ $item->registration }}</p>
+                                    <div class="card-body d-flex align-items-center gap-2">
+                                        <!-- Avatar -->
+                                        <img src="{{ asset('/img/avatars/avatar.jpg') }}" alt="Avatar" class="rounded-circle" style="width: 2rem; height: 2rem; object-fit: cover;">
+                                    
+                                        <!-- Teks -->
+                                        <div class="text-start video-description">
+                                            <h6 class="mb-0">{{ $item->created_by }}</h6>
+                                            <p class="text-muted mb-0">{{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</p>
+                                        </div>
                                     </div>
+                                    
+
                                 </div>
                             </div>
                         @endforeach

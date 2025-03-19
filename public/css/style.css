@@ -20,28 +20,28 @@ html {
     flex-direction: row;
     gap: 4rem;
     align-items: center;
-    padding: 1.5rem 12%;
-
+    padding: 1.5rem 8%;
+    /* padding: 4rem 7% 1.4rem; */
     left: 0;
     right: 0;
     top: 0;
 }
 #navigasi img {
-    max-width: 156px;
+    max-width: 9rem;
 }
 #navigasi a {
     margin: 0; /* Menghapus margin default */
     text-decoration: none;
     color: rgba(0, 0, 0, 1);
-    font-size: 16px;
+    font-size: 1rem;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 600;
 }
 #button-login {
     display: flex;
     background-color: rgba(6, 77, 63, 1);
-    width: 131px;
-    height: 48px;
+    width: 7.9rem;
+    height: 2.5rem;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -56,8 +56,8 @@ html {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* padding: 50px; */
-    padding: 1.5rem 12%;
+    padding: 1.5rem 8%;
+
     height: 80vh;
 }
 
@@ -65,12 +65,12 @@ html {
     max-width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
     /* align-items:center; */
 }
 
 .content h1 {
-    font-size: 54px;
+    font-size: 3rem;
     line-height: 120%;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
@@ -78,7 +78,7 @@ html {
 }
 
 .content h3 {
-    font-size: 24px;
+    font-size: 1.2rem;
     line-height: 160%;
     color: rgba(0, 0, 0, 1);
     text-align: justify;
@@ -87,11 +87,11 @@ html {
 }
 
 .content button {
-    width: 263px;
-    height: 66px;
+    width: 13rem;
+    height: 3rem;
     color: white;
     border-radius: 35px;
-    font-size: 22px;
+    font-size: 1rem;
     background-color: black;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 600;
@@ -104,7 +104,7 @@ html {
 
 .il-hero img {
     position: absolute;
-    width: 830px;
+    width: 38rem;
     height: auto; /* Hindari distorsi */
     right: 0;
     top: 0;
@@ -112,11 +112,11 @@ html {
 }
 
 .il-hero .il-hero-img {
-    width: 910px;
+    width: 42rem;
     top: 10%; /* Pastikan gambar ini bergeser ke bawah */
 }
 .announcement {
-    height: 90vh;
+    height: 100vh;
     padding: 1.5rem 12%;
 }
 .announce {
@@ -126,11 +126,12 @@ html {
 }
 
 .il-announce img {
+    max-width: 34rem;
     left: 0;
     position: absolute;
 }
 .content-announce {
-    width: 60%;
+    width: 55%;
     display: flex;
     flex-direction: column;
     text-align: start;
@@ -140,32 +141,32 @@ html {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
     margin-bottom: 20px;
-    font-size: 55px;
+    font-size: 2rem;
     line-height: 120%;
 }
 .event-container {
     display: grid;
     row-gap: 50px;
     grid-template-columns: auto auto;
-    padding: 10px;
+    padding: 0.6rem;
 }
 
 .event-card {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 15px;
 }
 
 .event-icon i {
-    font-size: 50px;
+    font-size: 2.5rem;
     color: #1e7e34; /* Warna hijau sesuai gambar */
 }
 
 .event-card h2 {
     font-family: "Plus Jakarta Sans", sans-serif;
-    font-weight: 700;
-    font-size: 35px;
+    font-weight: 600;
+    font-size: 1.5rem;
     line-height: 120%;
     margin: 0;
 }
@@ -173,14 +174,14 @@ html {
 .event-card p {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 600;
-    font-size: 25px;
+    font-size: 1.2rem;
     line-height: 120%;
 
     margin: 0;
 }
 
 .event-date {
-    font-size: 14px;
+    font-size: 0.8rem;
     color: gray;
     display: flex;
     align-items: center;
@@ -190,35 +191,12 @@ html {
     height: 80vh;
     padding: 1.5rem 6%;
 }
-.publikasi {
-    height: 100vh;
-    padding: 1.5rem 6%;
-    left: 0;
-    background: rgba(6, 77, 63, 1);
-    z-index: -100;
-    max-width: 100%;
-    overflow-x: hidden;
-    word-wrap: break-word;
-}
-.overlay-publikasi {
-    position: absolute;
-    left: 0;
-    margin-top: -20px;
-    /* z-index:1; */
-}
-.container-header {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 90px;
-    margin-bottom: 90px;
-    z-index: 9999;
-    position: relative;
-}
+
 .container-title h2 {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
     margin-bottom: 20px;
-    font-size: 45px;
+    font-size: 2.2rem;
     line-height: 120%;
 }
 .container-button {
@@ -228,8 +206,8 @@ html {
     position: relative;
 }
 .circle {
-    width: 150px;
-    height: 150px;
+    width: 8rem;
+    height: 8rem;
     background-color: #4f9d40;
     border-radius: 50%;
     position: absolute;
@@ -244,8 +222,8 @@ html {
     text-decoration: none;
     z-index: 100;
     background: rgba(217, 232, 193, 1);
-    width: 206px;
-    height: 63px;
+    width: 11rem;
+    height: 3.7rem;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -329,7 +307,30 @@ html {
     font-size: 22px;
     font-weight: bold;
 }
-
+.publikasi {
+    height: 100vh;
+    padding: 1.5rem 6%;
+    left: 0;
+    background: rgba(6, 77, 63, 1);
+    z-index: -100;
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+}
+.overlay-publikasi {
+    position: absolute;
+    left: 0;
+    margin-top: -20px;
+    /* z-index:1; */
+}
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 90px;
+    margin-bottom: 90px;
+    z-index: 9999;
+    position: relative;
+}
 .publikasi-content h1 {
     font-size: 2.5rem;
 }
@@ -341,8 +342,8 @@ html {
     display: flex;
     align-items: start;
     justify-content: flex-start;
-    height: 24rem;
-    width: 20rem;
+    height: 18.5rem;
+    width: 15rem;
     color: black;
     user-select: none;
     display: flex;
@@ -356,8 +357,8 @@ html {
 }
 
 .user-image {
-    width: 19.5rem;
-    height: 18rem;
+    width: 16rem;
+    height: 16rem;
     padding: 20px 20px 0 20px;
 
     object-fit: cover;
@@ -367,7 +368,7 @@ html {
     color: black;
     padding: 0 10px 0 10px;
 
-    font-size: 18px;
+    font-size: 0.9rem;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 500;
     line-height: 120%;
@@ -380,8 +381,8 @@ html {
     font-weight: 500;
 }
 .nav-button-berita {
-    width: 70px;
-    height: 70px;
+    width: 3.2rem;
+    height: 3.2rem;
     border: 3px solid black; /* Warna outline */
     border-radius: 50%;
     display: flex;
@@ -395,8 +396,8 @@ html {
     transform: scale(1.1);
 }
 .nav-button {
-    width: 70px;
-    height: 70px;
+    width: 3.2rem;
+    height: 3.2rem;
     border: 3px solid #d4e3ba; /* Warna outline */
     border-radius: 50%;
     display: flex;
@@ -454,31 +455,44 @@ html {
     background-size: 100% 100%;
     background-position: bottom;
 }
-.overlay-galeri {
+img .overlay-galeri {
     /* Sesuaikan ukuran overlay */
     z-index: 1;
-    width:1200px;
+    width: 65rem;
+    height:45rem;
 }
 
 .slide-galeri {
     /* width: 100%; */
-    width: 1050px;
+    width: 52rem;
     text-align: center;
     z-index: 2; /* Pastikan slide berada di atas overlay */
 }
 
 .slide-galeri img {
     width: 100%;
-    height: 650px;
+    height: 32rem;
     object-fit: cover;
     border-radius: 10px;
 }
 
 .video {
     padding: 4rem 7% 1.4rem;
-    height: 65vh;
+    height: 70vh;
     color: black;
     /* padding: 50px 15px; */
+}
+.video-description h6{
+    font-size: 0.8rem;
+    line-height: 120%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
+}
+.video-description p{
+    font-size: 0.8rem;
+    line-height: 120%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
 }
 .slider-container {
     width: 100%;
@@ -576,20 +590,20 @@ img {
     margin-bottom: 1rem;
 }
 .icon-wrapper i {
-    font-size: 30px;
+    font-size: 1.5rem;
     color: #1e90ff;
 }
 
 #card-video {
-    width: 382px;
-    height: 252px;
+    width: 23rem;
+    height: 15rem;
     border: 1.18px solid rgba(255, 255, 255, 1);
 }
 
 .video-frame iframe {
     border-radius: 10px;
-    width: 362px;
-    height: 182px;
+    width: 23rem;
+    height: 11rem;
 }
 .il-left-video {
     height: 50vh;
@@ -597,7 +611,7 @@ img {
 
 .il-left-video img {
     position: absolute;
-    height: 695px;
+    height: 40rem;
     left: -8%;
     /* bottom: -8%; */
     z-index: -1; /* Jika ingin berada di belakang elemen lain */
@@ -612,7 +626,7 @@ img {
 }
 .il-video .il-hero-video {
     right: -3%;
-    top: 9%;
+    /* top: 9%; */
 }
 .il-video .il-overlay-icon {
     /* position:absolute; */
@@ -625,23 +639,23 @@ img {
     gap: 10px;
 }
 #button-video h2 {
-    font-size: 55px;
+    font-size: 2.8rem;
     line-height: 120%;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
 }
 #button-video p {
-    font-size: 18px;
+    font-size: 1rem;
     line-height: 120%;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 400;
 }
 #button-video a {
-    font-size: 20px;
+    font-size: 1rem;
     line-height: 24px;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 500;
-    height: 60px;
+    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -762,12 +776,12 @@ img {
     }
     .slide-galeri {
         /* width: 100%; */
-        max-width: 600px;
+        max-width: 37rem;
         text-align: center;
         z-index: 2; /* Pastikan slide berada di atas overlay */
     }
     .overlay-galeri {
-        width: 750px;
+       width: 40rem;
     }
     .slide-galeri img {
         width: 100%;
@@ -781,11 +795,11 @@ img {
     .il-video img {
         display: none;
     }
-    #galeri{
-        height:65vh;
+    #galeri {
+        height: 65vh;
     }
     .video {
-        height: 80vh;
+        height: 100vh;
     }
     #card-video {
         width: 302px;
@@ -1156,8 +1170,8 @@ img {
         align-items: center;
         gap: 5px;
     }
-    #galeri{
-        height:55vh;
+    #galeri {
+        height: 55vh;
     }
     .overlay-galeri {
         width: 250px;
@@ -1246,8 +1260,8 @@ img {
         align-items: center;
         justify-content: center;
     }
-    .il-left-video{
-        display:none;
+    .il-left-video {
+        display: none;
     }
     img .il-left-overlay-video {
         display: none;

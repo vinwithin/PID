@@ -18,10 +18,12 @@
     <style>
         .navbar-custom {
             background-color: #1c3b2b;
-            padding: 20px 0;
-            height: 202px;
+            /* padding: 20px 0; */
+            height: 12.6rem;
             position: relative;
             z-index: 0;
+            padding: 1.5rem 6%;
+
         }
 
         /* Wave Styling */
@@ -29,7 +31,7 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 80%;
+            width: 90%;
             display: flex;
             justify-content: flex-end;
             /* height: auto; */
@@ -52,30 +54,36 @@
 
         .wave-left {
             width: auto;
-            height: 182px;
+            height: 11rem;
             position: relative;
+            overflow: hidden;
+            left: 0;
             margin-right: -55%;
-            bottom: -50px;
+            bottom: -40px;
             z-index: -1;
         }
 
         .wave-left img {
-            bottom: -50px;
+            bottom: -40px;
+            width: 1000px;
+
         }
 
         .wave-right {
             right: 0;
-            overflow: hidden;
+            /* overflow: hidden; */
             z-index: 1;
             position: relative;
             width: auto;
-            bottom: 0;
-            height: 181px;
+            bottom: -10px;
+            height: 11rem;
 
         }
 
         .wave-right img {
             bottom: 0;
+            width: 1000px;
+
         }
 
         /* Search Box Styling */
@@ -109,7 +117,7 @@
         }
 
         #card-title {
-            font-size: 18px;
+            font-size: 1rem;
             font-family: "Plus Jakarta Sans", sans-serif;
             font-weight: 600;
             line-height: 120%;
@@ -127,6 +135,7 @@
                 width: 100%;
                 justify-content: center;
             }
+
             #card-title {
                 font-size: 14px !important;
                 font-family: "Plus Jakarta Sans", sans-serif;
@@ -139,13 +148,14 @@
             html {
                 font-size: 75%;
             }
+
             #card-title {
                 font-size: 14px !important;
                 font-family: "Plus Jakarta Sans", sans-serif;
                 font-weight: 600;
                 line-height: 120%;
             }
-            
+
         }
 
         @media (max-width: 991.98px) {
@@ -156,11 +166,13 @@
                 line-height: 120%;
             }
         }
+
         /* Tablet */
         @media (max-width: 758px) {
             html {
                 font-size: 62.5%;
             }
+
             #card-title {
                 font-size: 14px !important;
                 font-family: "Plus Jakarta Sans", sans-serif;
@@ -227,7 +239,8 @@
             </div>
         </div>
     </nav>
-    <section class="container  py-4">
+    
+    <section class="container py-4" style="padding: 1.5rem 6%;">
         <div class="card w-full p-5 shadow" id="card">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">
                 @foreach ($data as $item)

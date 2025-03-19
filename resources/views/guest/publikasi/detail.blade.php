@@ -17,7 +17,7 @@
     <style>
         .navbar-custom {
             background-color: #1c3b2b;
-            padding: 20px 0;
+            padding: 1.5rem 6%;
             height: 202px;
             position: relative;
             z-index: 0;
@@ -28,7 +28,7 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 80%;
+            width: 90%;
             display: flex;
             justify-content: flex-end;
             /* height: auto; */
@@ -51,30 +51,36 @@
 
         .wave-left {
             width: auto;
-            height: 182px;
+            height: 11rem;
             position: relative;
+            overflow: hidden;
+            left: 0;
             margin-right: -55%;
-            bottom: -50px;
+            bottom: -40px;
             z-index: -1;
         }
 
         .wave-left img {
-            bottom: -50px;
+            bottom: -40px;
+            width: 1000px;
+
         }
 
         .wave-right {
             right: 0;
-            overflow: hidden;
+            /* overflow: hidden; */
             z-index: 1;
             position: relative;
             width: auto;
-            bottom: 0;
-            height: 181px;
+            bottom: -10px;
+            height: 11rem;
 
         }
 
         .wave-right img {
             bottom: 0;
+            width: 1000px;
+
         }
 
         /* Search Box Styling */
@@ -108,7 +114,7 @@
         }
 
         .card-body p {
-            font-size: 18px;
+            font-size: 1rem;
             font-family: "Plus Jakarta Sans", sans-serif;
             font-weight: 400;
             line-height: 120%;
@@ -145,6 +151,7 @@
             html {
                 font-size: 75%;
             }
+
             .card-header h1 {
                 font-size: 22px !important;
 
@@ -164,6 +171,7 @@
             html {
                 font-size: 62.5%;
             }
+
             .card-header h1 {
                 font-size: 20px !important;
 
@@ -233,10 +241,11 @@
             </div>
         </div>
     </nav>
-    <section class="container  py-4">
+            
+    <section class="container  py-4" style="padding: 1.5rem 6%;">
         <div class="card w-full p-5 shadow" id="card">
             <div class="card-header text-center mb-4 bg-transparent border-0">
-                <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600; font-size:30px;">
+                <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600; font-size:1.5rem;">
                     {{ $data->title }}</h1>
             </div>
             <div class="card-body ">
