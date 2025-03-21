@@ -43,7 +43,6 @@
     <div class="w-100">
         <div class="card">
             <div class="container-fluid px-4 py-4">
-                <div class="card shadow-sm border-0">
 
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h3 class="mb-0 text-light">
@@ -121,7 +120,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

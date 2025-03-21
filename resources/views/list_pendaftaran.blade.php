@@ -4,16 +4,16 @@
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
     <div class="w-100" id="conntainer-card">
         <div class="card">
-            <div class="container-fluid px-4 py-4">
-                <div class="card shadow-sm border-0">
+            {{-- <div class="container-fluid px-4 py-4"> --}}
+                {{-- <div class="card shadow-sm border-0"> --}}
                     @role('admin|dosen|super admin')
-                        <div class="card-header bg-primary text-white py-4">
+                        <div class="card-header  text-dark py-4">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="text-light">
+                                <h3 class="text-dark">
                                     <i class="fas fa-clipboard-list me-3"></i>
                                 </h3>
                                 <div class="filter-toggle">
-                                    <button class="btn btn-light" type="button" data-bs-toggle="collapse"
+                                    <button class="btn btn-dark" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#filterSection" aria-expanded="false" aria-controls="filterSection">
                                         <i class="fas fa-filter me-2"></i>Filter
                                     </button>
@@ -23,7 +23,7 @@
                                 <form method="GET" action="{{ route('pendaftaran.search') }}" class="mt-3">
                                     <div class="row g-3">
                                         <div class="col-12">
-                                            <label class="form-label text-white-50">Filter berdasarkan status:</label>
+                                            <label class="form-label text-dark-50">Filter berdasarkan status:</label>
                                             <div class="d-flex flex-wrap">
                                                 @php
                                                     $statuses = [
@@ -37,7 +37,7 @@
                                                     <div class="form-check me-3 mb-2">
                                                         <input class="form-check-input" type="checkbox" name="filters[]"
                                                             value="{{ $value }}" id="filter{{ ucfirst($value) }}">
-                                                        <label class="form-check-label text-white"
+                                                        <label class="form-check-label text-dark"
                                                             for="filter{{ ucfirst($value) }}">
                                                             {{ $label }}
                                                         </label>
@@ -45,7 +45,7 @@
                                                 @endforeach
                                             </div>
                                             <div class="mt-3">
-                                                <button type="submit" class="btn btn-light">
+                                                <button type="submit" class="btn btn-dark">
                                                     <i class="fas fa-check-circle me-2"></i>Terapkan Filter
                                                 </button>
                                             </div>
@@ -57,13 +57,13 @@
 
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover mb-0">
-                                    <thead class="table-light">
+                                <table class="table table-hover mb-0">
+                                    <thead>
                                         <tr>
                                             <th>Nama Ketua</th>
                                             <th class="d-none d-xl-table-cell">Fakultas</th>
-                                            <th class="d-none d-md-table-cell">Judul</th>
                                             <th>Bidang</th>
+                                            <th class="d-none d-md-table-cell">Judul</th>
                                             <th class="d-none d-md-table-cell">Status</th>
                                             <th class="text-center">Total Nilai</th>
                                             <th class="text-center">Aksi</th>
@@ -161,7 +161,7 @@
 
                                                         @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
                                                             <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
-                                                                class="btn btn-sm btn-outline-warning">
+                                                                class="btn btn-sm btn-outline-primary">
                                                                 <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                             </a>
                                                         @endif
@@ -200,7 +200,7 @@
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover mb-0">
-                                    <thead class="table-light">
+                                    <thead>
                                         <tr>
                                             <th>Nama Ketua</th>
                                             <th class="d-none d-xl-table-cell">Fakultas</th>
@@ -259,7 +259,7 @@
 
                                                         @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
                                                             <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
-                                                                class="btn btn-sm btn-outline-warning">
+                                                                class="btn btn-sm btn-outline-primary">
                                                                 <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                             </a>
                                                         @endif
@@ -288,8 +288,8 @@
                       
                         </div>
                     @endrole
-                </div>
-            </div>
+                {{-- </div> --}}
+            {{-- </div> --}}
         </div>
     </div>
 @endsection

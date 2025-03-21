@@ -102,10 +102,10 @@
                             @role('admin')
                                 <td class="text-center">
                                     <a href="/kelola-konten/video/edit/{{ $item->id }}"
-                                        class="btn btn-sm btn-outline-success">
+                                        class="btn btn-sm btn-outline-warning">
                                         <i class="fa-solid fa-pen me-1"></i>Edit
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">
                                         <i class="fa-solid fa-trash me-1"></i> Delete
                                     </button>

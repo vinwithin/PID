@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Edit Artikel')
 @section('content')
     {{-- <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" /> --}}
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
@@ -24,9 +25,7 @@
         </div>
         <div class="card">
 
-            <div class="card-header">
-                <h3>Pendaftaran</h3>
-            </div>
+           
             <div class="card-body">
                 <!-- Step Indicator -->
 

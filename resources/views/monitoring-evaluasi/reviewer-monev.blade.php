@@ -1,18 +1,14 @@
 @extends('layout.app')
+@section('title', 'Pilih Juri Monev Kelompok')
 @section('content')
     <div class="w-100 ">
         <div class="row">
             <div class="col-12">
                 <div class="card shadow-sm border-0">
-                    <div class="card-header bg-primary text-white py-3">
-                        <h4 class="card-title mb-0 d-flex align-items-center">
-                            <i class="fas fa-check-circle me-3"></i>Pilih Juri Monev Kelompok
-                        </h4>
-                    </div>
                     <div class="card-body">
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <div class="bg-light p-3 rounded">
+                                <div class="bg-success-subtle p-3 rounded-4 ">
                                     <h5 class="text-primary mb-3">Detail Tim</h5>
                                     <dl class="row">
                                         <dt class="col-5">Nama Ketua Tim</dt>
@@ -38,7 +34,7 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-4">
-                                        <label for="reviewer_1" class="form-label">Pilih Juri 1</label>
+                                        <label for="reviewer_1" class="form-label fw-bold">Pilih Juri 1</label>
                                         <select class="form-select" name="reviewer_id[]" id="reviewer_1" required>
                                             <option value="" selected="selected" hidden="hidden">Pilih Reviewer
                                             </option>
@@ -48,7 +44,7 @@
                                         </select>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="reviewer_2" class="form-label">Pilih Juri 2</label>
+                                        <label for="reviewer_2" class="form-label fw-bold">Pilih Juri 2</label>
                                         <select class="form-select" name="reviewer_id[]" id="reviewer_2" required>
                                             <option value="" selected="selected" hidden="hidden">Pilih Reviewer
                                             </option>
@@ -58,8 +54,9 @@
                                         </select>
                                     </div>
 
-                                    <button type="submit" class="btn btn-success">Submit</button>
-                                    <a href="/monitoring-evaluasi" class="btn btn-primary">Kembali</a>
+                                    <a href="/monitoring-evaluasi" class="btn btn-warning">Kembali</a>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+
                                 </form>
                             </div>
                         </div>

@@ -4,7 +4,6 @@
     <div class="w-100">
         <div class="card">
             <div class="container-fluid px-4 ">
-                <div class="card shadow-sm border-0">
                     <div class="card-header d-flex justify-content-end align-items-end">
                         <form action="{{ route('dokumen-publikasi') }}" method="GET" class="">
                             <div class="input-group">
@@ -14,13 +13,13 @@
                                     <i class="fa fa-search"></i> Cari
                                 </button>
                                 <a href="{{ route('dokumen-publikasi') }}" class="btn btn-success ms-2">Reset</a>
-    
+
                             </div>
                         </form>
                     </div>
                     <div class="card-body p-0">
                         <table class="table table-bordered">
-                            <thead class="table-light">
+                            <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">No</th>
                                     <th style="width: 10%" class="text-center">Tim</th>
@@ -44,7 +43,7 @@
                                         <td class="text-center">
                                             @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_artikel)
                                                 <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_artikel) }}"
-                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                    class="btn btn-sm btn-outline-primary" target="_blank"><i
                                                         class="fas fa-eye me-1"></i>Lihat File</a>
                                         </td>
                                     @else
@@ -54,7 +53,7 @@
                                 <td class="text-center">
                                     @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_haki)
                                         <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_haki) }}"
-                                            class="btn btn-sm btn-outline-info" target="_blank"><i
+                                            class="btn btn-sm btn-outline-primary" target="_blank"><i
                                                 class="fas fa-eye me-1"></i>Lihat
                                             File</a>
                                 </td>
@@ -65,7 +64,7 @@
                                 <td rowspan="2" class="text-center">
                                     @if ($item->dokumenPublikasi && $item->dokumenPublikasi->link_artikel)
                                         <a href="{{ $item->dokumenPublikasi->link_artikel }}"
-                                            class="btn btn-sm btn-outline-info" target="_blank"><i
+                                            class="btn btn-sm btn-outline-primary" target="_blank"><i
                                                 class="fas fa-eye me-1"></i>Link Artikel</a>
                                 </td>
                             @else
@@ -75,31 +74,56 @@
                                 <td rowspan="2" class="text-center">
                                     {{ $item->dokumenPublikasi->status ?? 'Belum ada status' }}
                                 </td>
-                                
+
                                 @can('agree publication')
                                     <td rowspan="2" class="text-center">
                                         @if ($item->dokumenPublikasi)
-                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
-                                                data-bs-target="#approveModal{{ $item->dokumenPublikasi->id }}">
-                                                <i class="fas fa-check me-1"></i> Terima
-                                            </button>
-                                            <x-confirm-modal modal-id="approveModal{{ $item->dokumenPublikasi->id }}"
-                                                title="Konfirmasi Persetujuan"
-                                                message="Apakah Anda yakin ingin menerima laporan akhir ini?"
-                                                action-url="/dokumen-publikasi/approve/{{ $item->dokumenPublikasi->id }}"
-                                                confirm-text="Ya, Setujui" />
-
-                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
-                                                data-bs-target="#rejectModal{{ $item->dokumenPublikasi->id }}">
-                                                <i class="fas fa-exclamation-triangle me-1"></i> Tolak
-                                            </button>
-                                            <x-confirm-modal modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
-                                                title="Konfirmasi Persetujuan"
-                                                message="Apakah Anda yakin ingin menolak laporan akhir ini?"
-                                                action-url="/dokumen-publikasi/reject/{{ $item->dokumenPublikasi->id }}"
-                                                confirm-text="Ya, Tolak" />
-                                        @else
+                                            @if ($item->dokumenPublikasi->status === 'Ditolak')
+                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#approveModal{{ $item->dokumenPublikasi->id }}">
+                                                    <i class="fas fa-check me-1"></i> Terima
+                                                </button>
+                                                <x-confirm-modal modal-id="approveModal{{ $item->dokumenPublikasi->id }}"
+                                                    title="Konfirmasi Persetujuan"
+                                                    message="Apakah Anda yakin ingin menerima laporan akhir ini?"
+                                                    action-url="/dokumen-publikasi/approve/{{ $item->dokumenPublikasi->id }}"
+                                                    confirm-text="Ya, Setujui" />
+                                            @elseif($item->dokumenPublikasi->status === 'Valid')
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#rejectModal{{ $item->dokumenPublikasi->id }}">
+                                                    <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                </button>
+                                                <x-confirm-modal modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
+                                                    title="Konfirmasi Persetujuan"
+                                                    message="Apakah Anda yakin ingin menolak laporan akhir ini?"
+                                                    action-url="/dokumen-publikasi/reject/{{ $item->dokumenPublikasi->id }}"
+                                                    confirm-text="Ya, Tolak" />
+                                            @else
+                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#approveModal{{ $item->dokumenPublikasi->id }}">
+                                                    <i class="fas fa-check me-1"></i> Terima
+                                                </button>
+                                                <x-confirm-modal modal-id="approveModal{{ $item->dokumenPublikasi->id }}"
+                                                    title="Konfirmasi Persetujuan"
+                                                    message="Apakah Anda yakin ingin menerima laporan akhir ini?"
+                                                    action-url="/dokumen-publikasi/approve/{{ $item->dokumenPublikasi->id }}"
+                                                    confirm-text="Ya, Setujui" />
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#rejectModal{{ $item->dokumenPublikasi->id }}">
+                                                    <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                </button>
+                                                <x-confirm-modal modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
+                                                    title="Konfirmasi Persetujuan"
+                                                    message="Apakah Anda yakin ingin menolak laporan akhir ini?"
+                                                    action-url="/dokumen-publikasi/reject/{{ $item->dokumenPublikasi->id }}"
+                                                    confirm-text="Ya, Tolak" />
+                                            @endif
                                         @endif
+
                                     </td>
                                 @endcan
 
@@ -127,6 +151,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+
     </div>
 @endsection

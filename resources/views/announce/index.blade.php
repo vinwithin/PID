@@ -112,11 +112,11 @@
                             
                             <td class="d-none d-md-table-cell">
 
-                                <a href="/announcement/edit/{{ $item->id }}" class="btn btn-sm btn-outline-success">
+                                <a href="/announcement/edit/{{ $item->id }}" class="btn btn-sm btn-outline-warning">
                                     <i class="fa-solid fa-pen-to-square me-2"></i>Edit
                                 </a>
                                 @can('manage role')
-                                    <a href="/announcement/destroy/{{ $item->id }}" class="btn btn-sm btn-outline-success">
+                                    <a href="/announcement/destroy/{{ $item->id }}" class="btn btn-sm btn-outline-danger">
                                         <i class="fa-solid fa-trash me-2"></i>Hapus
                                     </a>
                                 @endcan

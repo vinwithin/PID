@@ -22,7 +22,7 @@
 
                 <div class="card-body p-0">
                     <table class="table table-bordered">
-                        <thead class="table-light">
+                        <thead class="">
                             <tr>
                                 <th style="width: 5%">No</th>
                                 <th style="width: 15%" class="text-center">Tim</th>
@@ -45,7 +45,7 @@
                                     <td class="text-center">
                                         @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)
                                             <a href="{{ asset('storage/laporan-kemajuan/' . $item->laporan_kemajuan->file_path) }}"
-                                                class="btn btn-sm btn-outline-info" target="_blank"><i
+                                                class="btn btn-sm btn-outline-primary" target="_blank"><i
                                                     class="fas fa-eye me-1"></i>Lihat File</a>
                                         @else
                                             <span class="badge bg-danger">Belum Upload</span>
@@ -63,7 +63,7 @@
 
                                             @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)
                                                 @if ($item->laporan_kemajuan->status === 'Valid')
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"
                                                         data-bs-toggle="modal" data-bs-target="#rejectModal{{ $item->id }}">
                                                         <i class="fas fa-exclamation-triangle me-1"></i> Tolak
                                                     </button>
@@ -86,7 +86,7 @@
                                                         action-url="/laporan-kemajuan/approve/{{ $item->laporan_kemajuan->id }}"
                                                         confirm-text="Iya" />
                                                 @else
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#rejectModal{{ $item->id }}">
                                                         <i class="fas fa-exclamation-triangle me-1"></i> Tolak

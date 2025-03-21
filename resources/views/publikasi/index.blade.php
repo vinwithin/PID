@@ -6,7 +6,8 @@
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a class="btn btn-success" href="{{ route('publikasi.tambah') }}">Tambah Publikasi</a>
+                <a class="btn btn-success" href="{{ route('publikasi.tambah') }}"><i
+                        class="fa-solid fa-file-circle-plus me-2"></i>Tambah Publikasi</a>
             </div>
             @can('agree publication')
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -46,7 +47,7 @@
                     <tr>
                         <th style="width: 5%">No</th>
                         <th class="d-none d-xl-table-cell" style="width: 6%">Pembuat</th>
-                        <th class="d-none d-xl-table-cell" style="width: 30%">Title</th>
+                        <th class="d-none d-xl-table-cell" style="width: 30%">Judul</th>
                         <th class="d-none d-xl-table-cell" style="width: 10%">Thumbnail</th>
                         <th class="d-none d-xl-table-cell" style="width: 8%">Status</th>
                         <th style="width: 18%">Aksi</th>
@@ -70,11 +71,12 @@
                                 </td>
                                 <td>
 
-                                    {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
+
                                     @can('agree publication')
                                         @if ($item->status === 'Belum valid')
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                data-bs-target="#approveModal{{ $item->id }}">
+                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                                data-bs-target="#approveModal{{ $item->id }}"><i
+                                                    class="fa-solid fa-check me-2"></i>
                                                 Setujui
                                             </button>
                                             <!-- Gunakan komponen modal -->
@@ -86,13 +88,15 @@
                                         @endif
                                     @endcan
 
-                                    {{-- @endif --}}
-                                    <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
-                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-primary">CEK</a>
+
+                                    <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-outline-warning"><i
+                                            class="fa-solid fa-pen me-2"></i>Edit</a>
+                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-outline-primary"><i
+                                            class="fa-solid fa-eye me-2"></i>Cek</a>
                                     @can('delete publication')
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal{{ $item->id }}">
-                                            Delete
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash me-2"></i>
+                                            Hapus
                                         </button>
                                         <!-- Gunakan komponen modal -->
                                         <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"

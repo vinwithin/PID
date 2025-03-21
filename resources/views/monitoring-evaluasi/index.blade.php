@@ -4,16 +4,16 @@
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
     <div class="w-100">
         <div class="card">
-            <div class="container-fluid px-4 py-4">
+            {{-- <div class="container-fluid px-4 py-4"> --}}
                 <div class="card shadow-sm border-0">
                     @role('admin|reviewer|super admin')
-                        <div class="card-header bg-primary text-white py-4">
+                        <div class="card-header text-dark py-4">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="mb-0 text-light">
+                                <h3 class="mb-0 text-dark">
                                     <i class="fas fa-clipboard-list me-3"></i>Monitoring dan Evaluasi Kelompok
                                 </h3>
                                 <div class="filter-toggle">
-                                    <button class="btn btn-light" type="button" data-bs-toggle="collapse"
+                                    <button class="btn btn-dark" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#filterSection" aria-expanded="false" aria-controls="filterSection">
                                         <i class="fas fa-filter me-2"></i>Filter
                                     </button>
@@ -56,8 +56,8 @@
 
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover mb-0">
-                                    <thead class="table-light">
+                                <table class="table table-hover mb-0">
+                                    <thead class="">
                                         <tr>
                                             <th>Nama Ketua</th>
                                             <th class="d-none d-xl-table-cell">Fakultas</th>
@@ -65,7 +65,7 @@
                                             <th>Laporan Kemajuan</th>
                                             <th class="d-none d-md-table-cell">Juri</th>
                                             <th class="d-none d-md-table-cell">Status</th>
-                                            <th class="text-center">Aksi</th>
+                                            <th class="text-center" style="width: 15%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,7 +107,7 @@
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <div class="btn-group" role="group">
+                                                    {{-- <div class="btn-group" role="group"> --}}
                                                         <a href="/pendaftaran/detail/{{ $item->id }}"
                                                             class="btn btn-sm btn-outline-info">
                                                             <i class="fas fa-info-circle me-1"></i>Detail
@@ -116,17 +116,17 @@
                                                             @if ($item->status_monev->where('registration_id', $item->id)->isEmpty())
                                                                 <a href="{{ route('monev.reviewer', ['id' => $item->id]) }}"
                                                                     class="btn btn-sm btn-outline-success">
-                                                                    <i class="fas fa-check me-1"></i>Pilih Juri
+                                                                    <i class="fa-solid fa-user-plus me-2"></i>Pilih Juri
                                                                 </a>
                                                             @elseif (isset($total[$item->id]) && is_array($total[$item->id]))
                                                                 <a href="/monitoring-evaluasi/detail/{{ $item->id }}"
-                                                                    class="btn btn-sm btn-outline-warning">
+                                                                    class="btn btn-sm btn-outline-primary">
                                                                     <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                                 </a>
                                                             @else
                                                                 <a href="/monitoring-evaluasi/reviewer-monev/edit/{{ $item->id }}"
                                                                     class="btn btn-sm btn-outline-success">
-                                                                    <i class="fas fa-award me-1"></i>Edit Juri
+                                                                    <i class="fa-solid fa-user-plus me-2"></i>Edit Juri
                                                                 </a>
                                                             @endif
                                                         @endcan
@@ -144,7 +144,7 @@
                                                                     action-url="/monitoring-evaluasi/approve/{{ $item->id }}"
                                                                     confirm-text="Ya, Setujui" />
 
-                                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                                <button type="button" class="btn btn-sm btn-outline-danger"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#rejectModal{{ $item->id }}">
                                                                     <i class="fas fa-exclamation-triangle me-1"></i> Tolak
@@ -159,7 +159,7 @@
                                                         @elsecan('read monev')
                                                             @if (isset($total[$item->id]) && is_array($total[$item->id]))
                                                                 <a href="/monitoring-evaluasi/detail/{{ $item->id }}"
-                                                                    class="btn btn-sm btn-outline-warning">
+                                                                    class="btn btn-sm btn-outline-primary">
                                                                     <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                                 </a>
                                                             @else
@@ -168,7 +168,7 @@
                                                                 </span>
                                                             @endif
                                                         @endcan
-                                                    </div>
+                                                    {{-- </div> --}}
                                                 </td>
                                             </tr>
                                         @empty
@@ -206,15 +206,15 @@
 
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover mb-0">
-                                    <thead class="table-light">
+                                <table class="table  table-hover mb-0">
+                                    <thead >
                                         <tr>
                                             <th>Nama Ketua</th>
                                             <th class="d-none d-xl-table-cell">Fakultas</th>
                                             <th>Bidang</th>
                                             <th class="d-none d-md-table-cell">Judul</th>
                                             <th class="d-none d-md-table-cell">Status</th>
-                                            <th class="text-center">Aksi</th>
+                                            <th class="text-center" style="width: 15%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -248,7 +248,6 @@
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <div class="btn-group" role="group">
                                                         @if ($item->score_monev->where('user_id', auth()->user()->id)->isEmpty())
                                                             <a href="/monitoring-evaluasi/nilai/{{ $item->id }}"
                                                                 class="btn btn-sm btn-outline-primary">
@@ -259,7 +258,7 @@
 
                                                         @if (isset($total[$item->id]) && is_array($total[$item->id]))
                                                             <a href="/monitoring-evaluasi/detail/{{ $item->id }}"
-                                                                class="btn btn-sm btn-outline-warning">
+                                                                class="btn btn-sm btn-outline-primary">
                                                                 <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                             </a>
                                                         @endif
@@ -269,7 +268,6 @@
                                                             class="btn btn-sm btn-outline-info">
                                                             <i class="fas fa-info-circle me-1"></i>Detail
                                                         </a> --}}
-                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -290,7 +288,7 @@
                         </div>
                     @endcan
                 </div>
-            </div>
+            {{-- </div> --}}
         </div>
     </div>
 @endsection

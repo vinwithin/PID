@@ -16,13 +16,13 @@
                         <div class="card-body ">
                             @foreach ($data as $reviewer => $value)
                     
-                                <div class="card mb-4 border-light">
-                                    <div class="card-header bg-light">
+                                <div class="card mb-4 ">
+                                    <div class="card-header bg-light border">
                                         <h5 class="mb-0">Reviewer {{ $loop->iteration }}</h5>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead class="table-primary">
+                                        <table class="table table-hover border">
+                                            <thead class="table-primary ">
                                                 <tr>
                                                     <th class="bg-dark text-light w-50">Aspek Penilaian</th>
                                                     <th class="w-20 text-center bg-dark text-light">Bobot</th>
@@ -53,7 +53,7 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                                <tr class="table-light">
+                                                <tr class="table-secondary">
                                                     <td class="fw-bold">Total Skor</td>
                                                     <td colspan="2" class="text-center fw-bold text-success">
                                                         {{ $total[$reviewer] ?? '-' }}
@@ -65,7 +65,7 @@
                                                         {{ $data_review[$loop->index]->feedback ?? 'Tidak ada feedback' }}
                                                     </td>
                                                 </tr>
-                                                <tr class="table-light">
+                                                <tr class="table-secondary">
                                                     <td class="fw-bold">Reviewer</td>
                                                     <td colspan="2" class="text-center text-primary">
                                                         {{ $reviewer }}
@@ -102,7 +102,7 @@
                         <div class="card-body">
                             <div class="card mb-4 border-light">
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover border">
                                         <thead class="table-primary">
                                             <tr>
                                                 <th style="width: 60%">Aspek Penilaian</th>
@@ -136,7 +136,7 @@
                                                 </tr>
                                             @endforeach
                                             {{-- Skor Total --}}
-                                            <tr class="table-light">
+                                            <tr class="table-secondary">
                                                 <td>Skor Total</td>
 
                                                 <td class="text-center fw-bold" colspan="2">
@@ -150,7 +150,7 @@
                                                 <td colspan="2" class="fw-bold">{{ $dataReviewId[0]->feedback }}</td>
                                             </tr>
                                             {{-- Reviewer --}}
-                                            <tr class="table-light">
+                                            <tr class="table-secondary">
                                                 <td>Reviewer</td>
                                                 <td class="text-center fw-bold" colspan="2">{{ $curentUser }}</td>
                                             </tr>

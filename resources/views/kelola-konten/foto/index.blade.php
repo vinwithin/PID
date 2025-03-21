@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Galeri')
+@section('title', 'Konten Galeri')
 @section('content')
     <style>
         /* Custom styling for larger toggle */
@@ -76,12 +76,11 @@
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Daftar Album</h5>
                 <a class="btn btn-primary" href="/kelola-konten/foto/create">Tambah Album</a>
 
             </div>
-            <table class="table table-striped table-hover mb-0">
-                <thead class="table-light">
+            <table class="table table-hover mb-0">
+                <thead>
                     <tr>
                         <th style="width: 10%">No</th>
                         <th class="d-none d-md-table-cell"style="width: 15%">Pembuat</th>

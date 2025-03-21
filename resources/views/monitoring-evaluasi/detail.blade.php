@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Nilai Monitoring dan Evaluasi')
 @section('content')
     @php
         $curentUser = auth()->user()->name;
@@ -8,20 +9,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="card shadow-sm border-0">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="card-title mb-0 d-flex align-items-center text-light">
-                            <i class="me-2 bi bi-clipboard-check"></i>Nilai Proposal
-                        </h4>
-                    </div>
                     <div class="card-body ">
                         @foreach ($data as $reviewer => $value)
                             <div class="card mb-4 border-light">
-                                <div class="card-header bg-light">
+                                <div class="card-header bg-light border">
                                     <h5 class="mb-0">Reviewer : {{ $reviewer }}</h5>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead class="table-primary">
+                                    <table class="table table-hover border">
+                                        <thead class="table-dark">
                                             <tr>
                                                 <th class="w-50">Aspek Penilaian</th>
                                                 <th class="w-20 text-center">Bobot</th>
@@ -53,7 +49,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            <tr class="table-light">
+                                            <tr class="table-secondary">
                                                 <td class="fw-bold">Total Skor</td>
                                                 <td colspan="2" class="text-center fw-bold text-success">
                                                     {{ $total[$reviewer] ?? '-' }}
@@ -65,7 +61,7 @@
                                                     {{ $data_review[0]->catatan ?? 'Tidak ada feedback' }}
                                                 </td>
                                             </tr>
-                                            <tr class="table-light">
+                                            <tr class="table-secondary">
                                                 <td class="fw-bold">Reviewer</td>
                                                 <td colspan="2" class="text-center text-primary">
                                                     {{ $reviewer }}

@@ -4,9 +4,6 @@
     <div class="w-100">
         <div class="card">
 
-            <div class="card-header">
-                <h3>Berita</h3>
-            </div>
             <div class="card-body">
                 <!-- Step Indicator -->
 

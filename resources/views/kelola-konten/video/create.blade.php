@@ -23,7 +23,7 @@
 
                     
                     <button type="submit" class="btn btn-success">Submit</button>
-                    <a href="/announcement" class="btn btn-warning">Kembali</a>
+                    <a href="/kelola-konten/video" class="btn btn-warning">Kembali</a>
 
                 </form>
             </div>
