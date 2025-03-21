@@ -1,5 +1,9 @@
 @extends('layout.app')
 @section('content')
+    @php
+        $statuses = ['Belum valid', 'valid', 'lolos', 'Lanjutkan Program'];
+        $currentStep = array_search($data->registration_validation->status, $statuses);
+    @endphp
     <div class=" w-full container-fluid ">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -26,7 +30,7 @@
                                 <dt class="col-5 text-muted">No HP Ketua</dt>
                                 <dd class="col-7">{{ $data->nohp_ketua }}</dd>
 
-                               
+
                             </dl>
                         </div>
                     </div>
@@ -115,8 +119,8 @@
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Proposal
-                                        <a href="/storage/{{ $data->document_registration->proposal }}" class="btn btn-sm btn-outline-primary"
-                                            target="_blank">
+                                        <a href="/storage/{{ $data->document_registration->proposal }}"
+                                            class="btn btn-sm btn-outline-primary" target="_blank">
                                             Lihat File
                                         </a>
                                     </li>
@@ -125,6 +129,38 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <h5 class="text-primary mb-3">Proses Kegiatan</h5>
+                        <div class="bg-white p-4 rounded shadow">
+                            <p class="fs-5 fw-semibold text-secondary">
+                                Anda sedang berada di tahap:
+                                @switch($data->registration_validation->status)
+                                    @case('Belum Valid')
+                                        <span class="text-primary">Seleksi Administrasi</span>
+                                        @break
+                                    @case('valid')
+                                        <span class="text-primary">Seleksi Proposal</span>
+                                        @break
+                                    @case('lolos')
+                                        <span class="text-primary">Pelaksanaan Kegiatan Pro-IDe</span>
+                                        @break
+                                    @case('Lanjutkan Program')
+                                        <span class="text-primary">Pelaksanaan Kegiatan Pro-IDe dengan Pendanaan Penuh</span>
+                                        @break
+                                @endswitch
+                            </p>
+
+                            @if ($data->registration_validation->status == 'Belum Valid')
+                                <p class="small text-muted">Silakan tunggu hasil seleksi administrasi.</p>
+                            @elseif($data->registration_validation->status == 'valid')
+                                <p class="small text-muted">Silakan tunggu hasil seleksi. Penilaian proposal</p>
+                            @elseif($data->registration_validation->status == 'lolos')
+                                <p class="small text-muted">Tim anda telah lolos Pro-IDe, segera lakukan pekerjaan di desa
+                                </p>
+                            @elseif($data->registration_validation->status == 'Lanjutkan Program')
+                                <p class="small text-muted">Tim anda telah lolos monitoring dan evaluasi.</p>
+                            @endif
+                        </div>
+
                         <h5 class="text-primary mb-3">Status Validasi</h5>
                         <div
                             class="alert {{ $data->registration_validation->status === 'lolos' || 'Lanjutkan Program' || 'valid' ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
@@ -142,6 +178,8 @@
                             </span>
                         </div>
                     </div>
+
+
                 </div>
 
                 <div class="text-center mt-3">

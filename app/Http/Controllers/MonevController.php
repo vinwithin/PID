@@ -21,9 +21,22 @@ class MonevController extends Controller
         $total = ScoreDetailMonev::scores();
 
         return view('monitoring-evaluasi.index', [
-            'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])->whereHas('registration_validation', function ($query) {
-                $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
-            })->paginate(10),
+            'data' => Registration::with([
+                'bidang',
+                'fakultas',
+                'program_studi',
+                'reviewAssignments',
+                'registration_validation',
+                'score_monev',
+                'status_monev'
+            ])
+                ->whereHas('registration_validation', function ($query) {
+                    $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
+                })
+                ->whereHas('laporan_kemajuan', function ($query) {
+                    $query->where('status', 'Valid');
+                })
+                ->paginate(10),
             'dataNilai' => Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('status_monev', function ($query) {
                 $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
             })->paginate(10),

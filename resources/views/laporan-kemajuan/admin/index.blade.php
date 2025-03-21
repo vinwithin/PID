@@ -40,7 +40,7 @@
                             @foreach ($dataAdmin as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="fw-bold text-center">Tim {{ $item->judul }}</td>
+                                    <td class="fw-bold text-start">Tim {{ $item->judul }}</td>
 
                                     <td class="text-center">
                                         @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)

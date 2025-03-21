@@ -32,16 +32,21 @@ class LaporanKemajuanController extends Controller
         $dataAll = Registration::with(['laporan_kemajuan', 'registration_validation'])
             ->whereHas('registration_validation', function ($query) {
                 $query->whereIn('status', ['lolos', 'lanjutkan program']);
-            })->paginate(10);
+            });
 
-        $query = Registration::query();
+        // Tambahkan pencarian jika ada parameter 'search'
         if ($request->has('search')) {
             $search = $request->input('search');
-            $query->where('judul', 'like', "%$search%");
-            $dataAll = $query->with(['laporan_kemajuan', 'registration_validation'])->whereHas('registration_validation', function ($query) {
-                $query->whereIn('status', ['lolos', 'lanjutkan program']);
-            })->paginate(10);
+            $dataAll->where('judul', 'like', "%$search%");
         }
+
+        // Cek jika user adalah reviewer, tambahkan filter status valid
+        if (Auth::user()->hasRole(['reviewer', 'dosen'])) {
+            $dataAll->whereHas('laporan_kemajuan', function ($query) {
+                $query->where('status', 'Valid');
+            });
+        }
+        $dataAll = $dataAll->paginate(10);
 
         return view('laporan-kemajuan.index', [
             'data'  => LaporanKemajuan::where('team_id', $team_id)->get(),

@@ -5,6 +5,22 @@
 
 
     <div class="w-100">
+        <div class="modal fade" id="fileSizeModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">Peringatan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Ukuran file terlalu besar! Maksimal 2MB.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card">
 
             <div class="card-header">
@@ -18,7 +34,12 @@
                     @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" required>
+                        @error('title')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <p>Thumbnail</p>
                     <div class="input-group mb-3">
@@ -81,12 +102,12 @@
                 }
             }
         });
-    
+
         // Handler untuk upload gambar
         function imageHandler() {
             const input = document.createElement('input');
             input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
+            input.setAttribute('accept', 'image/png, image/jpg, image/jpeg');
             input.click();
 
             input.onchange = () => {
@@ -94,7 +115,9 @@
 
                 // Validasi ukuran file (opsional)
                 if (file.size > 2024000) { // 5MB
-                    alert('Ukuran file terlalu besar! Maksimal 2MB');
+                    var modal = new bootstrap.Modal(document.getElementById('fileSizeModal'));
+                    modal.show();
+                    event.target.value = '';
                     return;
                 }
 

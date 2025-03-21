@@ -61,10 +61,9 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th>Nama Ketua</th>
-                                            <th class="d-none d-xl-table-cell">NIM</th>
                                             <th class="d-none d-xl-table-cell">Fakultas</th>
-                                            <th>Bidang</th>
                                             <th class="d-none d-md-table-cell">Judul</th>
+                                            <th>Bidang</th>
                                             <th class="d-none d-md-table-cell">Status</th>
                                             <th class="text-center">Total Nilai</th>
                                             <th class="text-center">Aksi</th>
@@ -81,7 +80,6 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
                                                 <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
                                                 <td>
                                                     <span class="badge bg-success">{{ $item->bidang->nama }}</span>
@@ -205,7 +203,6 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th>Nama Ketua</th>
-                                            <th class="d-none d-xl-table-cell">NIM</th>
                                             <th class="d-none d-xl-table-cell">Fakultas</th>
                                             <th>Bidang</th>
                                             <th class="d-none d-md-table-cell">Judul</th>
@@ -225,7 +222,6 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
                                                 <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
                                                 <td>
                                                     <span class="badge bg-success">{{ $item->bidang->nama }}</span>
