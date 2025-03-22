@@ -28,7 +28,8 @@ class MonevController extends Controller
                 'reviewAssignments',
                 'registration_validation',
                 'score_monev',
-                'status_monev'
+                'status_monev',
+                'laporan_kemajuan'
             ])
                 ->whereHas('registration_validation', function ($query) {
                     $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
@@ -37,7 +38,7 @@ class MonevController extends Controller
                     $query->where('status', 'Valid');
                 })
                 ->paginate(10),
-            'dataNilai' => Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('status_monev', function ($query) {
+            'dataNilai' => Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereHas('status_monev', function ($query) {
                 $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
             })->paginate(10),
             'total' => $total['total'],

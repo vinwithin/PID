@@ -90,34 +90,38 @@
             </div>
         </div>
     </section>
-    <section class="berita" id="berita">
-        <div class="container-fluid mt-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="container-title">
-                    <h2>Berita</h2>
-                </div>
-                <div class="d-flex gap-4 justify-content-center justify-content-md-start">
-                    <div class="nav-button-berita" id="left-btn-berita">
-                        <i class="fa-solid fa-arrow-left"></i>
+
+    @if (!$berita->isEmpty())
+        <section class="berita" id="berita">
+            <div class="container-fluid mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="container-title">
+                        <h2>Berita</h2>
                     </div>
-                    <div class="nav-button-berita" id="right-btn-berita">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex gap-3 overflow-auto my-5 py-5" id="scroll-container2">
-                @foreach ($berita as $item)
-                    <div class="card flex-shrink-0" id="card-list"
-                        onclick="window.location='/berita/detail/{{ $item->slug }}'" style="cursor: pointer; ">
-                        <img src="{{ asset('/storage/' . $item->thumbnail) }}" class="user-image" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
+                    <div class="d-flex gap-4 justify-content-center justify-content-md-start">
+                        <div class="nav-button-berita" id="left-btn-berita">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </div>
+                        <div class="nav-button-berita" id="right-btn-berita">
+                            <i class="fa-solid fa-arrow-right"></i>
                         </div>
                     </div>
-                @endforeach
+                </div>
+                <div class="d-flex gap-3 overflow-auto my-5 py-5" id="scroll-container2">
+                    @foreach ($berita as $item)
+                        <div class="card flex-shrink-0" id="card-list"
+                            onclick="window.location='/berita/detail/{{ $item->slug }}'" style="cursor: pointer; ">
+                            <img src="{{ asset('/storage/' . $item->thumbnail) }}" class="user-image" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
+
     <section class="publikasi" id="publikasi">
         <img class="overlay-publikasi" src="/assets/overlay-publikasi.svg" alt="">
 
