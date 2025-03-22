@@ -118,11 +118,12 @@ html {
 .announcement {
     height: 100vh;
     padding: 1.5rem 12%;
+    /* overflow:hidden; */
 }
 .announce {
     display: flex;
     justify-content: flex-end;
-    margin-top: 20px;
+
 }
 
 .il-announce img {
@@ -1042,12 +1043,12 @@ img {
         top: 6%; /* Pastikan gambar ini bergeser ke bawah */
     }
     .announcement {
-        height: 100vh;
+        height: 120vh;
     }
     .announce {
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: center;
         text-align: center;
         gap: 0;
     }
@@ -1171,7 +1172,7 @@ img {
         gap: 5px;
     }
     #galeri {
-        height: 55vh;
+        height: 70vh;
     }
     .overlay-galeri {
         width: 250px;
@@ -1188,9 +1189,7 @@ img {
         object-fit: cover;
         border-radius: 10px;
     }
-    .publikasi {
-        margin-top: -150px;
-    }
+
     #card-name h5 {
         font-size: 15px;
         font-weight: 500;

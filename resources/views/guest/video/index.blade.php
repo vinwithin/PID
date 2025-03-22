@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="/assets/unja.png">
     <script src="https://unpkg.com/feather-icons"></script>
     {{-- <link rel="stylesheet" href="/css/style.css"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -117,6 +118,9 @@
             font-family: "Plus Jakarta Sans", sans-serif;
             font-weight: 600;
             line-height: 120%;
+        }
+        .album-card iframe{
+            border-radius:10px;
         }
 
         /* Responsive Design */

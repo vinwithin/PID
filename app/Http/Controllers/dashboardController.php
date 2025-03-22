@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Registration;
 use App\Models\TeamMember;
 use App\Models\User;
@@ -16,7 +17,8 @@ class dashboardController extends Controller
             'data' => Registration::with(['registration_validation', 'ormawa', 'user'])
                 ->whereHas('teamMembers', function ($query) {
                     $query->where('identifier', Auth::user()->identifier);  // Cek apakah NIM ada di tabel teammember
-                })->first()
+                })->first(),
+            'announce' => Announcement::all(),
 
         ]);
     }

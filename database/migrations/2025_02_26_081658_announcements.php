@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();   
             $table->string('category');
             $table->string('title');
-            $table->date('start_date');
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('created_by');
             $table->timestamps();

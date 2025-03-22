@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="/assets/unja.png">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -76,7 +77,11 @@
                             <p>{{ $item->title }}</p>
                             <span class="event-date">
                                 <i class="fa-regular fa-calendar"></i>
-                                {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
+                                @if ($item->status === 'Tutup')
+                                    <p>Kegiatan Belum Dibuka</p>
+                                @else
+                                    {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
+                                @endif
 
                             </span>
                         </div>
@@ -167,7 +172,7 @@
             <div class="container-header d-flex justify-content-center mb-5">
                 <div class="container-title ">
                     <h2 class="text-dark fw-bold text-center">Galeri Pro-IDe</h2>
-                    <p class="text-dark">Dokumentasi Kegiatan Program Pro-IDe</p>
+                    <p class="text-dark text-center">Dokumentasi Kegiatan Program Pro-IDe</p>
                 </div>
 
             </div>
@@ -189,7 +194,7 @@
                 style="z-index: 0;">
                 <!-- Video Section -->
                 <div class="col-12 col-md-8 d-flex flex-column align-items-center ">
-                    <div class="row g-3 justify-content-center">
+                    <div class="row g-3 justify-content-center" style="margin-top:-50px;">
                         @foreach ($video as $item)
                             <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
                                 <div class="card shadow-sm border-0 w-100" id="card-video">
@@ -201,15 +206,18 @@
                                     </div>
                                     <div class="card-body d-flex align-items-center gap-2">
                                         <!-- Avatar -->
-                                        <img src="{{ asset('/img/avatars/avatar.jpg') }}" alt="Avatar" class="rounded-circle" style="width: 2rem; height: 2rem; object-fit: cover;">
-                                    
+                                        <img src="{{ asset('/img/avatars/avatar.jpg') }}" alt="Avatar"
+                                            class="rounded-circle"
+                                            style="width: 2rem; height: 2rem; object-fit: cover;">
+
                                         <!-- Teks -->
                                         <div class="text-start video-description">
                                             <h6 class="mb-0">{{ $item->created_by }}</h6>
-                                            <p class="text-muted mb-0">{{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</p>
+                                            <p class="text-muted mb-0">
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</p>
                                         </div>
                                     </div>
-                                    
+
 
                                 </div>
                             </div>

@@ -1,29 +1,29 @@
 @extends('layout.app')
 @section('content')
-    @role('admin|reviewer|dosen')
+    @role('admin|reviewer|dosen|super admin')
         <div class="w-100 ">
             <div class="card p-3 border rounded-3 shadow-sm">
                 <h4 class="fw-bold">
                     <i class="bi bi-calendar-event"></i> Informasi Penting!
                 </h4>
+                @foreach ($announce as $item)
+                    <div class="bg-light p-2 rounded d-flex align-items-center mt-3">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        <span>
+                            {{ $item->title }} -
+                            @if ($item->status === 'Tutup')
+                                <strong>Kegiatan belum dibuka</strong>
+                            @else
+                                {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
+                                <strong>Ayo cek sekarang!</strong>
+                            @endif
+                        </span>
 
-                <div class="bg-light p-2 rounded d-flex align-items-center mt-3">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    <span>Jadwal pendaftaran Pro-IDe periode 10 mulai dari 10 Juni - 30 Juni 2024. <strong>Ayo daftar
-                            sekarang!</strong></span>
-                </div>
+                    </div>
+                @endforeach
 
-                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    <span>Jadwal pengumpulan berkas Pro-IDe periode 10 mulai dari 01 Juli - 15 Juli 2024. <strong>Lengkapi
-                            berkas anda sekarang!</strong></span>
-                </div>
 
-                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    <span>Jadwal publikasi Pro-IDe periode 10 mulai dari 01 Desember - 20 Desember 2024. <strong>Segera
-                            publikasi hasil anda!</strong></span>
-                </div>
+
             </div>
         </div>
 
@@ -35,23 +35,20 @@
                     <i class="bi bi-calendar-event"></i> Informasi Penting!
                 </h4>
 
-                <div class="bg-light p-2 rounded d-flex align-items-center mt-3">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    <span>Jadwal pendaftaran Pro-IDe periode 10 mulai dari 10 Juni - 30 Juni 2024. <strong>Ayo daftar
-                            sekarang!</strong></span>
-                </div>
-
-                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    <span>Jadwal pengumpulan berkas Pro-IDe periode 10 mulai dari 01 Juli - 15 Juli 2024. <strong>Lengkapi
-                            berkas anda sekarang!</strong></span>
-                </div>
-
-                <div class="bg-light p-2 rounded d-flex align-items-center mt-2">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    <span>Jadwal publikasi Pro-IDe periode 10 mulai dari 01 Desember - 20 Desember 2024. <strong>Segera
-                            publikasi hasil anda!</strong></span>
-                </div>
+                @foreach ($announce as $item)
+                    <div class="bg-light p-2 rounded d-flex align-items-center mt-3">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        <span>
+                            {{ $item->title }} -
+                            @if ($item->status === 'Tutup')
+                                <strong>Kegiatan belum dibuka</strong>
+                            @else
+                                {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
+                                <strong>Ayo cek sekarang!</strong>
+                            @endif
+                        </span>
+                    </div>
+                @endforeach
             </div>
             @if ($alreadyRegist)
                 <div class="row g-3">

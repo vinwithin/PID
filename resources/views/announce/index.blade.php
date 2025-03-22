@@ -87,7 +87,8 @@
                         <th class="d-none d-md-table-cell"style="width: 10%">Pembuat</th>
                         <th class="d-none d-md-table-cell" style="width: 15%">Title</th>
                         <th class="d-none d-md-table-cell" style="width: 30%">Konten</th>
-                        <th class="d-none d-md-table-cell" style="width: 25%">Waktu</th>
+                        <th class="d-none d-md-table-cell" style="width: 10%">Status</th>
+                        <th class="d-none d-md-table-cell" style="width: 20%">Waktu</th>
                         <th class="d-none d-md-table-cell" style="width: 30%">Aksi</th>
                     </tr>
                 </thead>
@@ -104,6 +105,9 @@
                             </td>
                             <td class="d-none d-md-table-cell">
                                 {{ $item->title }}
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                {{ $item->status }}
                             </td>
                             <td class="d-none d-md-table-cell">
                                 {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}

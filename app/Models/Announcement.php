@@ -11,6 +11,7 @@ class Announcement extends Model
     protected $fillable = [
         'category',
         'title',
+        'status',
         'start_date',
         'end_date',
         'created_by'

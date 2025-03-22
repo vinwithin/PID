@@ -28,7 +28,8 @@ class annouceController extends Controller
             $validateData = $request->validate([
                 'category'       => 'required|string|max:255',
                 'title'     => 'required|string|min:10',
-                'start_date'  => 'required|date',
+                'status'     => 'required|string',
+                'start_date'  => 'nullable|date',
                 'end_date'    => 'nullable|date|after_or_equal:start_date',
             ]);
             $validateData['created_by'] = Auth::user()->id;
@@ -57,7 +58,8 @@ class annouceController extends Controller
         // 
         $validateData = $request->validate([
             'title'     => 'required|string|min:10',
-            'start_date'  => 'required|date',
+            'status'     => 'required|string',
+            'start_date'  => 'nullable|date',
             'end_date'    => 'nullable|date|after_or_equal:start_date',
         ]);
         $validateData['created_by'] = Auth::user()->id;
