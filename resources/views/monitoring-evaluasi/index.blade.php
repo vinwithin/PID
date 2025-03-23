@@ -3,6 +3,12 @@
 @section('content')
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
     <div class="w-100">
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
+        @if (session('error'))
+            <x-error-modal :message="session('error')" />
+        @endif
         <div class="card">
             {{-- <div class="container-fluid px-4 py-4"> --}}
             <div class="card shadow-sm border-0">

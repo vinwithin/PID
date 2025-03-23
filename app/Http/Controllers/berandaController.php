@@ -28,10 +28,17 @@ class berandaController extends Controller
         ]);
     }
 
-    public function detailPublikasi()
+    public function detailPublikasi(Request $request)
     {
+        $query = Publikasi::where('status', 'valid');
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where('title', 'like', "%{$search}%")
+                ->orWhere('excerpt', 'like', "%{$search}%");
+        }
+        $data = $query->paginate(12);
         return view('guest.publikasi.index', [
-            'data' => Publikasi::where('status', 'valid')->paginate(12),
+            'data' => $data,
         ]);
     }
 

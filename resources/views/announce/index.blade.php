@@ -73,6 +73,9 @@
         }
     </style>
     <div class="w-100">
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
         <div class="card flex-fill">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Daftar Pengumuman</h5>
@@ -112,8 +115,8 @@
                             <td class="d-none d-md-table-cell">
                                 {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
                             </td>
-                            
-                            
+
+
                             <td class="d-none d-md-table-cell">
 
                                 <a href="/announcement/edit/{{ $item->id }}" class="btn btn-sm btn-outline-warning">

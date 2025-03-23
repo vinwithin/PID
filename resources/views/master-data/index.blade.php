@@ -3,6 +3,12 @@
 
 @section('content')
     <div class="w-100">
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
+        @if (session('error'))
+            <x-error-modal :message="session('error')" />
+        @endif
         <div class="card">
             <div class="container-fluid px-4 py-4">
                 <div class="card-header text-white">
@@ -59,7 +65,7 @@
                                                 message="Apakah Anda yakin ingin menghapus pengguna ini?"
                                                 action-url="/manage-users/delete/{{ $item->id }}"
                                                 confirm-text="Ya, Setujui" />
-                                            
+
                                         </td>
                                     </tr>
                                 @empty

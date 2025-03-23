@@ -3,6 +3,12 @@
 
 @section('content')
     <div class="w-100">
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
+        @if (session('error'))
+            <x-error-modal :message="session('error')" />
+        @endif
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">

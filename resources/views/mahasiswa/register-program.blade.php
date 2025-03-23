@@ -47,8 +47,7 @@
         .modal {
             display: none;
             /* Sembunyikan modal secara default */
-            left: 0;
-            top: 0;
+
             width: 100%;
             height: 100%;
             overflow: auto;
@@ -345,81 +344,92 @@
                 </div>
             @else
                 <div class="container-fluid px-4 py-4">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0 text-light">Status Pendaftaran</h5>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover mb-0">
-                                    <thead class="table-light">
+                    @if (session('success'))
+                        <x-success-modal :message="session('success')" />
+                    @endif
+                    @if (session('error'))
+                        <x-error-modal :message="session('error')" />
+                    @endif
+                    <div class="card-header text-dark d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0 text-dark">Status Pendaftaran</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th>Nama Ketua</th>
+                                        <th class="d-none d-xl-table-cell">NIM</th>
+                                        <th class="d-none d-xl-table-cell">Fakultas</th>
+                                        <th>Bidang</th>
+                                        <th class="d-none d-md-table-cell">Judul Proyek</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $index => $item)
                                         <tr>
-                                            <th class="text-center">No</th>
-                                            <th>Nama Ketua</th>
-                                            <th class="d-none d-xl-table-cell">NIM</th>
-                                            <th class="d-none d-xl-table-cell">Fakultas</th>
-                                            <th>Bidang</th>
-                                            <th class="d-none d-md-table-cell">Judul Proyek</th>
-                                            <th>Status</th>
-                                            <th class="text-center">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $index => $item)
-                                            <tr>
-                                                <td class="text-center fw-bold">{{ $index + 1 }}</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rounded-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center"
-                                                            style="width: 40px; height: 40px;">
-                                                            {{ substr($item->nama_ketua, 0, 1) }}
-                                                        </div>
-                                                        <div>
-                                                            <div>{{ $item->nama_ketua }}</div>
-                                                            <small
-                                                                class="text-muted d-xl-none">{{ $item->nim_ketua }}</small>
-                                                        </div>
+                                            <td class="text-center fw-bold">{{ $index + 1 }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="rounded-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center"
+                                                        style="width: 40px; height: 40px;">
+                                                        {{ substr($item->nama_ketua, 0, 1) }}
                                                     </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
-                                                <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
-                                                <td>
-                                                    <span class="badge bg-success">{{ $item->bidang->nama }}</span>
-                                                </td>
-                                                <td class="d-none d-md-table-cell">
-                                                    <div class="text-truncate" style="max-width: 200px;">
-                                                        {{ $item->judul }}
+                                                    <div>
+                                                        <div>{{ $item->nama_ketua }}</div>
+                                                        <small class="text-muted d-xl-none">{{ $item->nim_ketua }}</small>
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <span
-                                                        class="badge {{ $item->registration_validation->status === 'valid' ? 'bg-warning text-dark' : 'bg-danger' }}">
-                                                        {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }}
-                                                    </span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="/program/cek/{{ $item->id }}"
+                                                </div>
+                                            </td>
+                                            <td class="d-none d-xl-table-cell">{{ $item->nim_ketua }}</td>
+                                            <td class="d-none d-xl-table-cell">{{ $item->fakultas->nama }}</td>
+                                            <td>
+                                                <span class="badge bg-success">{{ $item->bidang->nama }}</span>
+                                            </td>
+                                            <td class="d-none d-md-table-cell">
+                                                <div class="text-truncate" style="max-width: 200px;">
+                                                    {{ $item->judul }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="badge {{ $item->registration_validation->status === 'valid' ? 'bg-warning text-dark' : 'bg-danger' }}">
+                                                    {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }}
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="/program/cek/{{ $item->id }}"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye me-1"></i>Cek
+                                                </a>
+                                                @if (
+                                                    !in_array($item->registration_validation->status, [
+                                                        'valid',
+                                                        'tidak valid',
+                                                        'lolos',
+                                                        'Lanjutkan Program',
+                                                        'Hentikan Program',
+                                                    ]))
+                                                    <a href="/editProgram/{{ $item->id }}"
                                                         class="btn btn-sm btn-outline-primary">
-                                                        <i class="fas fa-eye me-1"></i>Cek
+                                                        <i class="fas fa-pen me-1"></i>Edit
                                                     </a>
-                                                    @if (!in_array($item->registration_validation->status, ['valid', 'tidak valid', 'lolos', 'Lanjutkan Program', 'Hentikan Program']))
-                                                        <a href="/editProgram/{{ $item->id }}"
-                                                            class="btn btn-sm btn-outline-primary">
-                                                            <i class="fas fa-pen me-1"></i>Edit
-                                                        </a>
-                                                    @endif
+                                                @endif
 
 
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
 
                     </div>
+
+
                 </div>
 
 

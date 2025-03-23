@@ -223,8 +223,19 @@
 
             <!-- Search Bar -->
             <div class="search-container">
-                <input type="text" class="search-box" placeholder="Pencarian">
-                <span>🔍</span>
+                <form action="/daftar-publikasi" method="GET" class="">
+                    <div class="input-group">
+                        <input type="text" name="search" class="search-box" placeholder="Pencarian"
+                            value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-transparent border-0 p-0">
+                            <span>🔍</span>
+                        </button>
+                        {{-- <a href="{{ route('laporan-kemajuan') }}" class="btn btn-success ms-2">Reset</a> --}}
+
+                    </div>
+                </form>
+                {{-- <input type="text" class="search-box" placeholder="Pencarian">
+                <span>🔍</span> --}}
             </div>
 
         </div>
@@ -240,7 +251,7 @@
             </div>
         </div>
     </nav>
-    
+
     <section class="container py-4" style="padding: 1.5rem 6%;">
         <div class="card w-full p-5 shadow" id="card">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">

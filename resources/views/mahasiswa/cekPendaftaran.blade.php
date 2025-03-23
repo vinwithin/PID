@@ -6,20 +6,15 @@
     @endphp
     <div class=" w-full container-fluid ">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Cek Pendaftaran</h5>
-            </div>
+            
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="bg-light p-3 rounded mb-3">
-                            <h6 class="text-primary mb-3">Informasi Ketua Tim</h6>
+                        <div class="bg-success-subtle p-3 rounded-4 mb-3">
+                            <h6 class="text-dark fw-bold mb-3">Informasi Ketua Tim</h6>
                             <dl class="row">
                                 <dt class="col-5 text-muted">Nama Ketua Tim</dt>
                                 <dd class="col-7">{{ $data->nama_ketua }}</dd>
-
-                                <dt class="col-5 text-muted">Nama Tim</dt>
-                                <dd class="col-7">{{ $data->judul }}</dd>
 
                                 <dt class="col-5 text-muted">Prodi Ketua</dt>
                                 <dd class="col-7">{{ $data->program_studi->nama }}</dd>
@@ -35,8 +30,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="bg-light p-3 rounded mb-3">
-                            <h6 class="text-primary mb-3">Informasi Proyek</h6>
+                        <div class="bg-success-subtle p-3 rounded-4 mb-3">
+
+                            <h6 class="text-dark fw-bold mb-3">Informasi Proyek</h6>
                             <dl class="row">
                                 <dt class="col-4 text-muted">Judul</dt>
                                 <dd class="col-8">{{ $data->judul }}</dd>
@@ -58,12 +54,12 @@
 
                 <div class="card mb-3">
                     <div class="card-header bg-secondary text-white">
-                        <h6 class="mb-0">Daftar Tim</h6>
+                        <h6 class="mb-0 text-white fw-bold">Daftar Tim</h6>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-striped mb-0">
-                                <thead class="table-light">
+                                <thead >
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
@@ -90,62 +86,48 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-header bg-light">
-                                <h6 class="mb-0 text-primary">Dokumen Pendukung</h6>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        SK Organisasi
-                                        <a href="/storage/{{ $data->document_registration->sk_organisasi }}"
-                                            class="btn btn-sm btn-outline-primary" target="_blank">
-                                            Lihat File
-                                        </a>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Surat Kerjasama
-                                        <a href="/storage/{{ $data->document_registration->surat_kerjasama }}"
-                                            class="btn btn-sm btn-outline-primary" target="_blank">
-                                            Lihat File
-                                        </a>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Surat Rekomendasi Pembina
-                                        <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
-                                            class="btn btn-sm btn-outline-primary" target="_blank">
-                                            Lihat File
-                                        </a>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Proposal
-                                        <a href="/storage/{{ $data->document_registration->proposal }}"
-                                            class="btn btn-sm btn-outline-primary" target="_blank">
-                                            Lihat File
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <h5 class="text-dark fw-bold mb-3">Dokumen Pendukung</h5>
+                        <div class="d-flex flex-column gap-2">
+                            <a href="/storage/{{ $data->document_registration->sk_organisasi }}"
+                                class="btn btn-outline-secondary">
+                                <i class="fas fa-file-alt me-2"></i>SK Organisasi
+                            </a>
+                            <a href="/storage/{{ $data->document_registration->surat_kerjasama }}"
+                                class="btn btn-outline-secondary">
+                                <i class="fas fa-handshake me-2"></i>Surat Kerjasama
+                            </a>
+                            <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
+                                class="btn btn-outline-secondary">
+                                <i class="fas fa-envelope-open-text me-2"></i>Surat Rekomendasi Pembina
+                            </a>
+                            <a href="/storage/{{ $data->document_registration->proposal }}"
+                                class="btn btn-outline-secondary">
+                                <i class="fas fa-file-contract me-2"></i>Proposal
+                            </a>
                         </div>
+
                     </div>
                     <div class="col-md-6">
-                        <h5 class="text-primary mb-3">Proses Kegiatan</h5>
-                        <div class="bg-white p-4 rounded shadow">
+                        <h5 class="text-dark fw-bold mb-3">Proses Kegiatan</h5>
+                        <div class="bg-success-subtle p-3 rounded shadow">
                             <p class="fs-5 fw-semibold text-secondary">
                                 Anda sedang berada di tahap:
                                 @switch($data->registration_validation->status)
                                     @case('Belum Valid')
                                         <span class="text-primary">Seleksi Administrasi</span>
-                                        @break
+                                    @break
+
                                     @case('valid')
                                         <span class="text-primary">Seleksi Proposal</span>
-                                        @break
+                                    @break
+
                                     @case('lolos')
                                         <span class="text-primary">Pelaksanaan Kegiatan Pro-IDe</span>
-                                        @break
+                                    @break
+
                                     @case('Lanjutkan Program')
                                         <span class="text-primary">Pelaksanaan Kegiatan Pro-IDe dengan Pendanaan Penuh</span>
-                                        @break
+                                    @break
                                 @endswitch
                             </p>
 
@@ -161,7 +143,7 @@
                             @endif
                         </div>
 
-                        <h5 class="text-primary mb-3">Status Validasi</h5>
+                        <h5 class="text-dark fw-bold mt-3">Status Validasi</h5>
                         <div
                             class="alert {{ $data->registration_validation->status === 'lolos' || 'Lanjutkan Program' || 'valid' ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
                             <i

@@ -48,82 +48,83 @@
                 @include('laporan-kemajuan.admin.index')
 
                 @elserole('mahasiswa')
+                @if (session('success'))
+                    <x-success-modal :message="session('success')" />
+                @endif
+                @if (session('error'))
+                    <x-error-modal :message="session('error')" />
+                @endif
                 <div class="container-fluid px-4 py-4">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0 text-light">Unggah Dokumen</h5>
+
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 35%">Nama</th>
+                                        <th class="d-none d-xl-table-cell text-center" style="width: 35%">Nama File</th>
+                                        <th class="d-none d-xl-table-cell text-center" style="width: 35%">Status</th>
+                                        <th class="d-none d-xl-table-cell text-center" style="width: 30%">File</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td class="text-center fw-bold">Laporan Kemajuan Kelompok</td>
+                                        <td class="text-center fw-bold" id="fileName">
+                                            {{ count($data) > 0 ? $data[0]->file_path : 'Data tidak tersedia' }}
+
+                                        </td>
+                                        <td class="text-center fw-bold" id="status">
+                                            {{ count($data) > 0 ? $data[0]->status : 'Data tidak tersedia' }}
+
+                                        </td>
+
+                                        <td class="text-center fw-bold">
+                                            <form id="uploadForm" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="file" id="fileInput" name="file" class="d-none">
+                                                @if (empty($data) || !isset($data[0]->file_path))
+                                                    <button type="button" id="uploadButton" class="btn btn-primary">Upload
+                                                        File</button>
+                                                @else
+                                                    <button type="button" id="uploadButton" class="btn btn-primary">Ganti
+                                                        File</button>
+                                                @endif
+
+                                            </form>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover mb-0">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th class="text-center" style="width: 35%">Nama</th>
-                                            <th class="d-none d-xl-table-cell text-center" style="width: 35%">Nama File</th>
-                                            <th class="d-none d-xl-table-cell text-center" style="width: 35%">Status</th>
-                                            <th class="d-none d-xl-table-cell text-center" style="width: 30%">File</th>
-
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr>
-                                            <td class="text-center fw-bold">Laporan Kemajuan Kelompok</td>
-                                            <td class="text-center fw-bold" id="fileName">
-                                                {{ count($data) > 0 ? $data[0]->file_path : 'Data tidak tersedia' }}
-
-                                            </td>
-                                            <td class="text-center fw-bold" id="status">
-                                                {{ count($data) > 0 ? $data[0]->status : 'Data tidak tersedia' }}
-
-                                            </td>
-
-                                            <td class="text-center fw-bold">
-                                                <form id="uploadForm" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <input type="file" id="fileInput" name="file" class="d-none">
-                                                    @if (empty($data) || !isset($data[0]->file_path))
-                                                        <button type="button" id="uploadButton" class="btn btn-primary">Upload
-                                                            File</button>
-                                                    @else
-                                                        <button type="button" id="uploadButton" class="btn btn-primary">Ganti
-                                                            File</button>
-                                                    @endif
-
-                                                </form>
-                                            </td>
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="statusModalLabel">Pemberitahuan</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Status dokumen Anda ditolak. Silakan periksa kembali.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="statusModalLabel">Pemberitahuan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Status dokumen Anda ditolak. Silakan periksa kembali.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
 
+
                     </div>
+
                 </div>
             @endrole
 

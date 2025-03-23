@@ -73,6 +73,12 @@
         }
     </style>
     <div class="w-100">
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
+        @if (session('error'))
+            <x-error-modal :message="session('error')" />
+        @endif
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -104,7 +110,7 @@
                                         alt="Gambar Tim" style="height: 150px; object-fit: cover; filter: grayscale(30%);">
 
                                     <!-- Overlay -->
-                                    <a href="/kelola-konten/foto/detail/{{ $item->id }}" 
+                                    <a href="/kelola-konten/foto/detail/{{ $item->id }}"
                                         class="overlay position-absolute top-0 start-0 w-75 h-75 d-flex flex-column justify-content-center align-items-center text-white text-decoration-none"
                                         style="background: rgba(0, 0, 0, 0.6); opacity: 0; transition: opacity 0.3s ease-in-out; border-radius: 10px;">
                                         <h5 class="fw-bold text-white mb-2 fs-4">{{ $item->nama }}</h5>
@@ -154,7 +160,8 @@
                                     </button>
                                     <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
                                         message="Apakah Anda yakin ingin menghapus album ini?"
-                                        action-url="/kelola-konten/foto/delete/{{ $item->id }}" confirm-text="Ya, Setujui" />
+                                        action-url="/kelola-konten/foto/delete/{{ $item->id }}"
+                                        confirm-text="Ya, Setujui" />
 
                                 </td>
                             @endrole

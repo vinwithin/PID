@@ -270,7 +270,7 @@ class KelolaKontenController extends Controller
             return redirect()->route('kelola-konten.video')->with('error', 'Link video tidak valid!');
         }
         $validateData['link_youtube'] = "https://www.youtube.com/embed/" . $videoId;
-        $validateData['visibilitas'] = 'off';
+        $validateData['visibilitas'] = 'on';
         DB::beginTransaction();
         $result = VideoKonten::where('id', $id)->update($validateData);
         DB::commit();

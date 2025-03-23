@@ -36,7 +36,7 @@ class regisProgramController extends Controller
     public function show($id)
     {
         return view('mahasiswa.cekPendaftaran', [
-            'data' => Registration::with('registration_validation')->where('id', $id)->first()
+            'data' => Registration::with(['registration_validation', 'document_registration'])->where('id', $id)->first()
         ]);
     }
     public function step(Request $request)

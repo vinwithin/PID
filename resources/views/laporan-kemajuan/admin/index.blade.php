@@ -3,7 +3,18 @@
 
 @section('content')
     <div class="w-100">
+
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
+        @if (session('error'))
+            <x-error-modal :message="session('error')" />
+        @endif
+
+
+
         <div class="card">
+
             <div class="container-fluid px-4 ">
 
                 <div class="card-header d-flex justify-content-end align-items-end">
@@ -125,4 +136,5 @@
             </div>
         </div>
     </div>
+
 @endsection

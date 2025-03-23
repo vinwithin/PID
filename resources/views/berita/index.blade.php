@@ -73,6 +73,9 @@
         }
     </style>
     <div class="w-100">
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
         <div class="card flex-fill">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <a class="btn btn-primary" href="/berita/create">Tambah Berita</a>

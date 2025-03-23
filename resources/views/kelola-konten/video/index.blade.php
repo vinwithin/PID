@@ -47,6 +47,12 @@
         }
     </style>
     <div class="w-100">
+        @if (session('success'))
+            <x-success-modal :message="session('success')" />
+        @endif
+        @if (session('error'))
+            <x-error-modal :message="session('error')" />
+        @endif
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -111,7 +117,8 @@
                                     </button>
                                     <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
                                         message="Apakah Anda yakin ingin menghapus album ini?"
-                                        action-url="/kelola-konten/video/delete/{{ $item->id }}" confirm-text="Ya, Setujui" />
+                                        action-url="/kelola-konten/video/delete/{{ $item->id }}"
+                                        confirm-text="Ya, Setujui" />
 
                                 </td>
                             @endrole
