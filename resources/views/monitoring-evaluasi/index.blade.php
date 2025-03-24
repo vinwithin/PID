@@ -18,46 +18,19 @@
                             <h3 class="mb-0 text-dark">
                                 <i class="fas fa-clipboard-list me-3"></i>Monitoring dan Evaluasi Kelompok
                             </h3>
-                            <div class="filter-toggle">
-                                <button class="btn btn-dark" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#filterSection" aria-expanded="false" aria-controls="filterSection">
-                                    <i class="fas fa-filter me-2"></i>Filter
-                                </button>
-                            </div>
-                        </div>
-                        {{-- <div class="collapse" id="filterSection">
-                        <form method="GET" action="{{ route('pendaftaran.search') }}" class="mt-3">
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <label class="form-label text-white-50">Filter berdasarkan status:</label>
-                                    <div class="d-flex flex-wrap">
-                                        @php
-                                            $statuses = [
-                                                'Belum valid' => 'Belum Valid',
-                                                'valid' => 'Valid',
-                                                'lolos' => 'Lolos Program',
-                                            ];
-                                        @endphp
-                                        @foreach ($statuses as $value => $label)
-                                            <div class="form-check me-3 mb-2">
-                                                <input class="form-check-input" type="checkbox" name="filters[]"
-                                                    value="{{ $value }}" id="filter{{ ucfirst($value) }}">
-                                                <label class="form-check-label text-white"
-                                                    for="filter{{ ucfirst($value) }}">
-                                                    {{ $label }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="mt-3">
-                                        <button type="submit" class="btn btn-light">
-                                            <i class="fas fa-check-circle me-2"></i>Terapkan Filter
-                                        </button>
-                                    </div>
+                            <form action="{{ route('monev.index') }}" method="GET" class="">
+                                <div class="input-group">
+                                    <input type="text" name="search" class="form-control" placeholder="Cari..."
+                                        value="{{ request('search') }}">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-search"></i> Cari
+                                    </button>
+                                    <a href="{{ route('monev.index') }}" class="btn btn-success ms-2">Reset</a>
+        
                                 </div>
-                            </div>
-                        </form>
-                    </div> --}}
+                            </form>
+                        </div>
+                        
                     </div>
 
                     <div class="card-body p-0">
@@ -195,17 +168,22 @@
                     </div>
 
                     @elserole('dosen')
-                    <div class="card-header bg-primary text-white py-4">
+                    <div class="card-header  text-white py-4">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="mb-0 text-light">
+                            <h3 class="mb-0 text-dark">
                                 <i class="fas fa-clipboard-list me-3"></i>Monitoring dan Evaluasi Kelompok
                             </h3>
-                            <div class="filter-toggle">
-                                <button class="btn btn-light" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#filterSection" aria-expanded="false" aria-controls="filterSection">
-                                    <i class="fas fa-filter me-2"></i>Filter
-                                </button>
-                            </div>
+                            <form action="{{ route('monev.index') }}" method="GET" class="">
+                                <div class="input-group">
+                                    <input type="text" name="search" class="form-control" placeholder="Cari..."
+                                        value="{{ request('search') }}">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-search"></i> Cari
+                                    </button>
+                                    <a href="{{ route('monev.index') }}" class="btn btn-success ms-2">Reset</a>
+        
+                                </div>
+                            </form>
                         </div>
 
                     </div>

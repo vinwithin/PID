@@ -191,16 +191,16 @@
                     </div>
                 </div>
                 @elserole('reviewer')
-                <div class="card-header bg-primary text-white py-4">
+                <div class="card-header text-white py-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="mb-0 text-light">
+                        <h3 class="mb-0 text-dark">
                             <i class="fas fa-clipboard-list me-3"></i>Daftar Pendaftaran
                         </h3>
                     </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover mb-0">
+                        <table class="table table-hover mb-0">
                             <thead>
                                 <tr>
                                     <th>Nama Ketua</th>

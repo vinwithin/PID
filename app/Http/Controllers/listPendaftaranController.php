@@ -19,15 +19,15 @@ class listPendaftaranController extends Controller
     public function filter(Request $request)
     {
         $filters = $request->input('filters', []);
-        $dataNilai = Registration::with('reviewAssignments')->whereHas('reviewAssignments', function ($query) {
+        $dataNilai = Registration::with('fakultas', 'reviewAssignments')->whereHas('reviewAssignments', function ($query) {
             $query->where('reviewer_id', Auth::user()->id); // Kondisi yang ingin dicek
         })->paginate(10);
         // Pastikan calculateScores() adalah metode static atau menggunakan Service Class
         $totalId = ProposalReviewController::calculateScores();
         if (empty($filters)) {
-            $data = Registration::with('registration_validation')->paginate(10);
+            $data = Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with('fakultas', 'registration_validation')->paginate(10);
         } else {
-            $data = Registration::with('registration_validation')->whereHas('registration_validation', function ($query) use ($filters) {
+            $data = Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with('fakultas', 'registration_validation')->whereHas('registration_validation', function ($query) use ($filters) {
                 $query->where('status', $filters); // Kondisi yang ingin dicek
             })->paginate(10);
         }

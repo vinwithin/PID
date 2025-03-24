@@ -40,17 +40,17 @@
                             <div class="col-md-6">
                                 <h5 class="text-secondary mb-3">Dokumen Pendukung</h5>
                                 <div class="d-flex flex-column gap-2">
-                                    <a href="/storage/{{ $data->sk_organisasi }}" class="btn btn-outline-secondary">
+                                    <a href="/storage/{{ $data->document_registration->sk_organisasi }}" class="btn btn-outline-secondary">
                                         <i class="fas fa-file-alt me-2"></i>SK Organisasi
                                     </a>
-                                    <a href="/storage/{{ $data->surat_kerjasama }}" class="btn btn-outline-secondary">
+                                    <a href="/storage/{{ $data->document_registration->surat_kerjasama }}" class="btn btn-outline-secondary">
                                         <i class="fas fa-handshake me-2"></i>Surat Kerjasama
                                     </a>
-                                    <a href="/storage/{{ $data->surat_rekomendasi_pembina }}"
+                                    <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
                                         class="btn btn-outline-secondary">
                                         <i class="fas fa-envelope-open-text me-2"></i>Surat Rekomendasi Pembina
                                     </a>
-                                    <a href="/storage/{{ $data->proposal }}" class="btn btn-outline-secondary">
+                                    <a href="/storage/{{ $data->document_registration->proposal }}" class="btn btn-outline-secondary">
                                         <i class="fas fa-file-contract me-2"></i>Proposal
                                     </a>
                                 </div>

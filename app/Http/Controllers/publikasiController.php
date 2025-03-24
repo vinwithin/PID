@@ -96,7 +96,7 @@ class publikasiController extends Controller
         $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
         $validateData['thumbnail'] = $thumbnail_name;
 
-        preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
+        preg_match_all('/data:image\/[a-zA-Z]+;base64,([^\"]+)/', $validateData['content'], $matches);
         $imageTags = $matches[0];
         if (count($imageTags) > 0) {
             foreach ($imageTags as $tagImage) {
@@ -146,7 +146,7 @@ class publikasiController extends Controller
             $request->thumbnail->storeAs('public/media/thumbnails', $thumbnail_name);
             $validateData['thumbnail'] = $thumbnail_name;
         }
-        preg_match_all('/data:image[^>]+=/i', $validateData['content'], $matches);
+        preg_match_all('/data:image\/[a-zA-Z]+;base64,([^\"]+)/', $validateData['content'], $matches);
         $imageTags = $matches[0];
         if (count($imageTags) > 0) {
             foreach ($imageTags as $tagImage) {

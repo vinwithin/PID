@@ -29,7 +29,7 @@ class LaporanKemajuanController extends Controller
     public function index(Request $request)
     {
         $team_id = $this->teamIdService->getRegistrationId();
-        $dataAll = Registration::with(['laporan_kemajuan', 'registration_validation'])
+        $dataAll = Registration::select('id', 'judul')->with(['laporan_kemajuan', 'registration_validation'])
             ->whereHas('registration_validation', function ($query) {
                 $query->whereIn('status', ['lolos', 'lanjutkan program']);
             });

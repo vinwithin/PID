@@ -52,9 +52,9 @@
                 <thead>
                     <tr>
                         <th style="width: 5%">No</th>
-                        <th class="d-none d-xl-table-cell" style="width: 6%">Pembuat</th>
-                        <th class="d-none d-xl-table-cell" style="width: 30%">Judul</th>
-                        <th class="d-none d-xl-table-cell" style="width: 10%">Thumbnail</th>
+                        <th class="d-none d-xl-table-cell" style="width: 10%">Pembuat</th>
+                        <th class="d-none d-xl-table-cell" style="width: 35%">Judul</th>
+                        <th class="d-none d-xl-table-cell" style="width: 15%">Thumbnail</th>
                         <th class="d-none d-xl-table-cell" style="width: 8%">Status</th>
                         <th style="width: 18%">Aksi</th>
 

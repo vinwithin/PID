@@ -16,31 +16,52 @@ use Illuminate\Support\Facades\DB;
 
 class MonevController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $total = ScoreDetailMonev::scores();
+        $search = $request->input('search');
+        $data =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with([
+            'bidang',
+            'fakultas',
+            'program_studi',
+            'reviewAssignments',
+            'registration_validation',
+            'score_monev',
+            'status_monev',
+            'laporan_kemajuan'
+        ])
+            ->whereHas('registration_validation', function ($query) {
+                $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
+            })
+            ->whereHas('laporan_kemajuan', function ($query) {
+                $query->where('status', 'Valid');
+            });
+        if ($search) {
+            $data->where(function ($query) use ($search) {
+                $query->where('nama_ketua', 'like', "%{$search}%")
+                    ->orWhere('nim_ketua', 'like', "%{$search}%")
+                    ->orWhere('judul', 'like', "%{$search}%");
+            });
+        }
+        $data = $data->paginate(10);
+
+        $dataNilai =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereHas('status_monev', function ($query) {
+            $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
+        });
+        if ($search) {
+            $dataNilai->where(function ($query) use ($search) {
+                $query->where('nama_ketua', 'like', "%{$search}%")
+                    ->orWhere('nim_ketua', 'like', "%{$search}%")
+                    ->orWhere('judul', 'like', "%{$search}%");
+            });
+        }
+
+        $dataNilai = $dataNilai->paginate(10);
+
 
         return view('monitoring-evaluasi.index', [
-            'data' => Registration::with([
-                'bidang',
-                'fakultas',
-                'program_studi',
-                'reviewAssignments',
-                'registration_validation',
-                'score_monev',
-                'status_monev',
-                'laporan_kemajuan'
-            ])
-                ->whereHas('registration_validation', function ($query) {
-                    $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
-                })
-                ->whereHas('laporan_kemajuan', function ($query) {
-                    $query->where('status', 'Valid');
-                })
-                ->paginate(10),
-            'dataNilai' => Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereHas('status_monev', function ($query) {
-                $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
-            })->paginate(10),
+            'data' => $data,
+            'dataNilai' => $dataNilai,
             'total' => $total['total'],
 
 
