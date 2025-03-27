@@ -85,6 +85,7 @@
                 max-width: 400px;
                 margin: auto;
             }
+
             /* Untuk layar HP */
             .wave-container {
                 display: none !important;
@@ -98,6 +99,7 @@
         }
 
         @media (max-width: 450px) {
+
             /*  */
             .wave-container {
                 display: hidden !important;
@@ -115,6 +117,12 @@
 <body>
 
     <div class="container d-flex justify-content-center align-items-center vh-100">
+        @if (session('status') == 'verification-link-sent')
+            <div class="alert alert-success">
+                {{ __('Link verifikasi telah dikirim ke email Anda.') }}
+            </div>
+        @endif
+
         <div class="row ">
             <div class="col-12 col-md-10 col-lg-6">
                 <div class="card shadow-lg p-4">

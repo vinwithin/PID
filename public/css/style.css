@@ -123,7 +123,6 @@ html {
 .announce {
     display: flex;
     justify-content: flex-end;
-
 }
 
 .il-announce img {
@@ -148,6 +147,7 @@ html {
 .event-container {
     display: grid;
     row-gap: 50px;
+    column-gap: 20px;
     grid-template-columns: auto auto;
     padding: 0.6rem;
 }
@@ -201,18 +201,20 @@ html {
     line-height: 120%;
 }
 .container-button {
-    display: inline-flex;
-    align-items: center;
-
     position: relative;
+    display: flex;
+    align-items: center;
 }
+
 .circle {
     width: 8rem;
     height: 8rem;
     background-color: #4f9d40;
     border-radius: 50%;
     position: absolute;
-    right: -30px;
+    right: -11.5rem; /* Menggeser setengah lingkaran keluar */
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 0;
 }
 
@@ -223,7 +225,7 @@ html {
     text-decoration: none;
     z-index: 100;
     background: rgba(217, 232, 193, 1);
-    width: 11rem;
+    width: 13rem;
     height: 3.7rem;
     text-align: center;
     justify-content: center;
@@ -460,15 +462,31 @@ img .overlay-galeri {
     /* Sesuaikan ukuran overlay */
     z-index: 1;
     width: 65rem;
-    height:45rem;
+    height: 45rem;
 }
 
 .slide-galeri {
-    /* width: 100%; */
+    position: relative;
     width: 52rem;
     text-align: center;
-    z-index: 2; /* Pastikan slide berada di atas overlay */
+    z-index: 2; /* Pastikan slide berada di bawah */
 }
+
+.slide-galeri::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Sesuaikan agar pas dengan slide */
+    height: 100%; /* Pastikan menutupi area */
+    background: url('/assets/Top Bar.svg') no-repeat top center;
+    background-size: contain; /* Sesuaikan ukuran */
+    z-index: 3; /* Pastikan ini berada di atas slide */
+    pointer-events: none; /* Agar tidak mengganggu interaksi */
+}
+
+
 
 .slide-galeri img {
     width: 100%;
@@ -483,13 +501,13 @@ img .overlay-galeri {
     color: black;
     /* padding: 50px 15px; */
 }
-.video-description h6{
+.video-description h6 {
     font-size: 0.8rem;
     line-height: 120%;
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 500;
 }
-.video-description p{
+.video-description p {
     font-size: 0.8rem;
     line-height: 120%;
     font-family: "Plus Jakarta Sans", sans-serif;
@@ -782,7 +800,7 @@ img {
         z-index: 2; /* Pastikan slide berada di atas overlay */
     }
     .overlay-galeri {
-       width: 40rem;
+        width: 40rem;
     }
     .slide-galeri img {
         width: 100%;

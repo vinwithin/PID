@@ -25,9 +25,10 @@ use App\Http\Controllers\reviewer\reviewerListPendaftaranController;
 use App\Models\Berita;
 use App\Models\LaporanKemajuan;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [loginController::class, 'index'])->name('login');
@@ -35,11 +36,22 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [registerController::class, 'index'])->name('register');
     Route::post('/register', [registerController::class, 'store'])->name('register.create');
 });
+
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
 Route::get('/daftar-publikasi', [berandaController::class, 'detailPublikasi'])->name('daftar-publikasi');
 Route::get('/video', [berandaController::class, 'video'])->name('video');
 Route::get('/publikasi/detail/{publikasi:slug}', [berandaController::class, 'detail'])->name('daftar-publikasi');
 Route::get('/berita/detail/{berita:slug}', [berandaController::class, 'detailBerita'])->name('detail-berita');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
@@ -102,7 +114,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/monitoring-evaluasi', [MonevController::class, 'index'])->name('monev.index');
         Route::get('/monitoring-evaluasi/detail/{id}', [MonevController::class, 'detail'])->name('monev.detail');
         Route::get('/monev/generate-nilai/{id_regis}/{reviewer}', [PdfController::class, 'generate_nilai'])->name('monev.generate-nilai');
-
     });
     Route::middleware(['can:assessing monev'])->group(function () {
         Route::get('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'createScore'])->name('monev.create');
@@ -169,7 +180,6 @@ Route::middleware('auth')->group(function () {
         Route::get('announcement/tambah', [annouceController::class, 'create'])->name('announcement.tambah');
         Route::post('announcement/tambah', [annouceController::class, 'store'])->name('announcement.tambah');
         Route::get('announcement/destroy/{id}', [annouceController::class, 'destroy'])->name('announcement.destroy');
-
     });
     Route::middleware(['role:admin|super admin'])->group(function () {
         Route::get('announcement', [annouceController::class, 'index'])->name('announcement');
@@ -178,7 +188,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['role:admin'])->group(function () {
-       
+
         // Route::get('announcement/publish/{id}', [annouceController::class, 'publish'])->name('announcement.publish');
         // Route::get('announcement/draft/{id}', [annouceController::class, 'draft'])->name('announcement.draft');
         Route::get('/kelola-konten/video', [KelolaKontenController::class, 'index'])->name('kelola-konten.video');

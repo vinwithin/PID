@@ -51,7 +51,7 @@
                 <img src="/assets/orang.svg" alt="pengumuman">
             </div>
             <div class="content-announce">
-                <h1>Pengumuman</h1>
+                <h1 class="mb-5">Pengumuman</h1>
                 <div class="event-container">
                     @foreach ($announce as $item)
                         <div class="event-card">
@@ -183,6 +183,7 @@
             <div class="d-flex justify-content-center align-items-center ">
                 <img class="overlay-galeri" src="/assets/overlay-galeri.svg" alt="">
                 <div class="slide-galeri position-absolute">
+
                     @foreach ($foto as $item)
                         @foreach ($item->album_photos as $items)
                             <img class="slide-image d-none" src="/storage/{{ $items->path_photos }}" alt="Galeri">
