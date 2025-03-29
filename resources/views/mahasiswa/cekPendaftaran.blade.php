@@ -113,7 +113,7 @@
                             <p class="fs-5 fw-semibold text-secondary">
                                 Anda sedang berada di tahap:
                                 @switch($data->registration_validation->status)
-                                    @case('Belum Valid')
+                                    @case('Belum valid')
                                         <span class="text-primary">Seleksi Administrasi</span>
                                     @break
 
@@ -131,7 +131,7 @@
                                 @endswitch
                             </p>
 
-                            @if ($data->registration_validation->status == 'Belum Valid')
+                            @if ($data->registration_validation->status == 'Belum valid')
                                 <p class="small text-muted">Silakan tunggu hasil seleksi administrasi.</p>
                             @elseif($data->registration_validation->status == 'valid')
                                 <p class="small text-muted">Silakan tunggu hasil seleksi. Penilaian proposal</p>

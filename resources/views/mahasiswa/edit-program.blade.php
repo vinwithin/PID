@@ -618,9 +618,9 @@
                             namaInput.value = '';
                             // Tampilkan pesan error
                             if (data.is_registered) {
-                                showError('NIM sudah Mendaftar Program', parentDiv, 'alert-warning');
+                                showError('NIM sudah mendaftar program, daftarkan mahasiswa lain', parentDiv, 'alert-warning');
                             } else {
-                                showError('Data mahasiswa tidak ditemukan', parentDiv, 'alert-danger');
+                                showError('Data mahasiswa tidak ditemukan, daftarkan mahasiswa lain', parentDiv, 'alert-danger');
                             }
                         }
                     })
@@ -653,7 +653,7 @@
             // Hapus pesan error setelah beberapa detik
             setTimeout(() => {
                 errorDiv.remove();
-            }, 3000);
+            }, 5000);
         }
 
         function showSuccess(message, parentElement, className = 'alert-success') {
@@ -670,7 +670,7 @@
             // Hapus pesan error setelah beberapa detik
             setTimeout(() => {
                 errorDiv.remove();
-            }, 3000);
+            }, 5000);
         }
 
         function removeError(parentElement) {

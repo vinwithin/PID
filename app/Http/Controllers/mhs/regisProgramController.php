@@ -273,7 +273,7 @@ class regisProgramController extends Controller
             })->exists();
 
 
-        if ($isRegistered && !$isTeam) {
+        if ($isRegistered && $isTeam) {
             return response()->json([
                 'message' => 'NIM sudah terdaftar dalam program',
                 'status' => 'error',

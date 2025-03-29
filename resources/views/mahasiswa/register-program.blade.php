@@ -226,7 +226,8 @@
                                         <div class="col-lg-2 mb-3">
                                             <label for="nama" class="form-label fw-bold">Nama</label>
                                             <input type="text" id="nama" name="anggota_tim[0][nama]"
-                                                class="form-control" value="{{ auth()->user()->name }}" readonly>
+                                                class="form-control" value="{{ auth()->user()->name }}"
+                                                readonly>
                                         </div>
                                         <div class="col-lg-2 mb-3">
                                             <label for="fakultas" class="form-label fw-bold">Fakultas</label>
@@ -413,10 +414,12 @@
                                                         'Lanjutkan Program',
                                                         'Hentikan Program',
                                                     ]))
-                                                    <a href="/editProgram/{{ $item->id }}"
-                                                        class="btn btn-sm btn-outline-primary">
-                                                        <i class="fas fa-pen me-1"></i>Edit
-                                                    </a>
+                                                    @if ($item->nama_ketua === Auth()->user()->name)
+                                                        <a href="/editProgram/{{ $item->id }}"
+                                                            class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-pen me-1"></i>Edit
+                                                        </a>
+                                                    @endif
                                                 @endif
 
 
