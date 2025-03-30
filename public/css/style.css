@@ -115,6 +115,11 @@ html {
     width: 42rem;
     top: 10%; /* Pastikan gambar ini bergeser ke bawah */
 }
+.il-hero .il-hero-circle {
+    width: 5rem;
+    top: 25%; /* Pastikan gambar ini bergeser ke bawah */
+    right:2%;
+}
 .announcement {
     height: 100vh;
     padding: 1.5rem 12%;

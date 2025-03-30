@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="/assets/unja.png">
 
     <title>Pro-IDe</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -46,11 +47,16 @@
             /* transform: scaleX(-1); */
         }
 
+        .wave.full {
+            right: 0;
+            width: 70%;
+            /* transform: scaleX(-1); */
+        }
 
 
         .card {
             width: 1032px;
-            height: 605px;
+            max-height: 805px;
             background: rgba(255, 255, 255, 1);
             border-radius: 20px;
 
@@ -140,24 +146,42 @@
                             <!-- Email Input -->
                             <div class="form-group mb-2">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    id="username" name="name" value="{{ old('name') }}" required>
+                                <div class="input-group">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="username" name="name" value="{{ old('name') }}" required>
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-user"></i>
+                                    </span>
+                                </div>
+
                             </div>
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                             <div class="form-group mb-2">
                                 <label for="nim">NIM</label>
-                                <input type="text" class="form-control @error('nim') is-invalid @enderror"
-                                    id="nim" name="nim" value="{{ old('nim') }}" required>
+                                <div class="input-group">
+                                    <input type="text" class="form-control @error('nim') is-invalid @enderror"
+                                        id="nim" name="nim" value="{{ old('nim') }}" required>
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-hashtag"></i>
+                                    </span>
+                                </div>
+
                             </div>
                             @error('nim')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                             <div class="form-group mb-2">
                                 <label for="email">Email Address</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" value="{{ old('email') }}" required>
+                                <div class="input-group">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                        id="email" name="email" value="{{ old('email') }}" required>
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </span>
+                                </div>
+
                             </div>
                             @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -166,17 +190,29 @@
                             <!-- Password Input -->
                             <div class="form-group mb-2">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" value="{{ old('password') }}" required>
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" value="{{ old('password') }}" required>
+                                    <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                </div>
+
                             </div>
                             @error('password')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                             <div class="form-group mb-2">
                                 <label for="password_confirmation">Confirm Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password_confirmation" name="password_confirmation"
-                                    value="{{ old('password') }}" required>
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password_confirmation" name="password_confirmation"
+                                        value="{{ old('password') }}" required>
+                                    <span class="input-group-text" id="togglePassword2" style="cursor: pointer;">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                </div>
+
                             </div>
 
                             <!-- Remember Me Checkbox -->
@@ -190,6 +226,7 @@
             </div>
         </div>
         <div class="wave-container d-none d-md-block">
+            <img class="wave full" src="/assets/wave-login.svg" alt="Wave full">
             <img class="wave right" src="/assets/vector2.svg" alt="Wave Right">
             <img class="wave left" src="/assets/vektor-login.png" alt="Wave Left">
         </div>
@@ -200,18 +237,46 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
-        < script >
-            function hideWaveOnSmallScreens() {
-                if (window.innerWidth <= 992) { // Target layar notepad & HP
-                    document.querySelectorAll(".wave").forEach(el => el.style.display = "none");
-                }
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            let passwordInput = document.getElementById('password');
+            let icon = this.querySelector('i');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
+        });
+        document.getElementById('togglePassword2').addEventListener('click', function() {
+            let passwordInput = document.getElementById('password_confirmation');
+            let icon = this.querySelector('i');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    </script>
+    <script>
+        function hideWaveOnSmallScreens() {
+            if (window.innerWidth <= 992) { // Target layar notepad & HP
+                document.querySelectorAll(".wave").forEach(el => el.style.display = "none");
+            }
+        }
 
         hideWaveOnSmallScreens(); // Jalankan saat halaman dimuat
 
         window.addEventListener("resize", hideWaveOnSmallScreens); // Jalankan saat ukuran layar berubah
     </script>
-    </script>
+    <script src="https://kit.fontawesome.com/f10456a175.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

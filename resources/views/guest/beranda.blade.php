@@ -5,12 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Pro-IDe Universitas Jambi">
+    <meta name="author" content="Pro-IDe">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="keywords"
+        content="Pro-IDe, Universitas Jambi, Pro-IDe Universitas Jambi, UNJA, PKM, UKM, web">
     <link rel="icon" type="image/x-icon" href="/assets/unja.png">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -39,6 +43,7 @@
                 <div class="il-hero">
                     <img class="il-overlay-img" src="/assets/overlay-img.svg" alt="il-hero">
                     <img class="il-hero-img" src="/assets/il-hero.svg" alt="il-hero">
+                    <img class="il-hero-circle" src="/assets/il-hero-circle.svg" alt="il-hero">
                 </div>
             </div>
         </section>
