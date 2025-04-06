@@ -146,7 +146,7 @@
                                                         </button>
                                                         <x-confirm-modal modal-id="lolosModal{{ $item->id }}"
                                                             title="Konfirmasi Persetujuan"
-                                                            message="Apakah Anda yakin ingin meloloskan proposa ini?"
+                                                            message="Apakah Anda yakin ingin meloloskan proposal ini?"
                                                             action-url="/approve-to-program/{{ $item->id }}"
                                                             confirm-text="Ya, Setujui" />
                                                     @endif
