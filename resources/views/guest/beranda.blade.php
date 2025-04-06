@@ -36,7 +36,7 @@
                     </h1>
                     <h3>Pro IDE adalah kegiatan pembinaan dan pemberdayaan masyarakat yang dilakukan oleh
                         mahasiswa melalui Badan Eksekutif Mahasiswa (BEM), Unit Kegiatan Mahasiswa (UKM),
-                        HImpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). </h3>
+                        Himpunan Mahasiswa (HIMA), dan Organisasi Kemahasiswaan (OK). </h3>
                     <button>Tentang Kami <i class="fa-solid fa-arrow-right me-2"></i></button>
                 </div>
 

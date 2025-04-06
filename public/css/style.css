@@ -151,7 +151,7 @@ html {
 }
 .event-container {
     display: grid;
-    row-gap: 55px;
+    row-gap: 50px;
     column-gap: 20px;
     grid-template-columns: auto auto;
     padding: 0.6rem;
@@ -230,7 +230,7 @@ html {
     text-decoration: none;
     z-index: 100;
     background: rgba(217, 232, 193, 1);
-    width: 13rem;
+    width: 11rem;
     height: 3.7rem;
     text-align: center;
     justify-content: center;
@@ -732,6 +732,21 @@ img {
         align-items: center;
         /* background:black; */
     }
+    .content h1 {
+        font-size: 3rem;
+        line-height: 120%;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 800;
+    }
+    
+    .content h3 {
+        font-size: 1.2rem;
+        line-height: 120%;
+        color: rgba(0, 0, 0, 1);
+        text-align: justify;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 500;
+    }
     .il-hero img {
         position: absolute;
         width: 300px;
@@ -805,11 +820,11 @@ img {
         z-index: 2; /* Pastikan slide berada di atas overlay */
     }
     .overlay-galeri {
-        width: 40rem;
+        width: 42rem;
     }
     .slide-galeri img {
         width: 100%;
-        height: 400px;
+        height: 280px;
         object-fit: cover;
         border-radius: 10px;
     }
@@ -842,23 +857,23 @@ img {
         gap: 10px;
     }
     #button-video h2 {
-        font-size: 55px;
+        font-size: 35px;
         line-height: 120%;
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 800;
     }
     #button-video p {
-        font-size: 18px;
+        font-size: 12px;
         line-height: 120%;
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 400;
     }
     #button-video a {
-        font-size: 20px;
+        font-size: 12px;
         line-height: 24px;
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 500;
-        height: 60px;
+        height: 35px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -917,7 +932,7 @@ img {
         font-size: 16px;
     }
     .overlay-galeri {
-        width: 550px;
+        width: 520px;
     }
     .slide-galeri {
         /* width: 100%; */
@@ -927,7 +942,7 @@ img {
     }
     .slide-galeri img {
         width: 100%;
-        height: 300px;
+        height: 280px;
         object-fit: cover;
         border-radius: 10px;
     }
@@ -943,8 +958,8 @@ img {
     }
     .container-button a {
         font-size: 18x;
-        width: 146px;
-        height: 43px;
+        width: 120px;
+        height: 38px;
         margin-top: 40px;
     }
     .container-header {
@@ -1079,7 +1094,7 @@ img {
     .event-container {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: start;
     }
     .content-announce h1 {
         font-family: "Plus Jakarta Sans", sans-serif;
@@ -1242,8 +1257,8 @@ img {
 
     .container-button a {
         font-size: 16x;
-        width: 126px;
-        height: 53px;
+        width: 120px;
+        height: 38px;
         margin-top: 40px;
     }
 
