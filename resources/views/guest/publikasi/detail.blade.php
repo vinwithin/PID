@@ -118,7 +118,7 @@
             font-size: 1rem;
             font-family: "Plus Jakarta Sans", sans-serif;
             font-weight: 400;
-            line-height: 120%;
+            line-height: 150%;
             text-align: justify !important;
         }
 
@@ -163,7 +163,7 @@
                 font-family: "Plus Jakarta Sans", sans-serif;
                 font-weight: 400;
                 line-height: 120%;
-                text-align: start !important;
+                text-align: justify !important;
             }
         }
 
@@ -183,7 +183,7 @@
                 font-family: "Plus Jakarta Sans", sans-serif;
                 font-weight: 400;
                 line-height: 120%;
-                text-align: start !important;
+                text-align: justify !important;
             }
         }
 
@@ -203,7 +203,7 @@
                 font-family: "Plus Jakarta Sans", sans-serif;
                 font-weight: 400;
                 line-height: 120%;
-                text-align: start !important;
+                text-align: justify !important;
             }
         }
     </style>

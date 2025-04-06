@@ -117,7 +117,7 @@ html {
 }
 .il-hero .il-hero-circle {
     width: 5rem;
-    top: 25%; /* Pastikan gambar ini bergeser ke bawah */
+    top: 25%; 
     right:2%;
 }
 .announcement {
@@ -131,12 +131,12 @@ html {
 }
 
 .il-announce img {
-    max-width: 34rem;
+    max-width: 32rem;
     left: 0;
     position: absolute;
 }
 .content-announce {
-    width: 55%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     text-align: start;
@@ -151,7 +151,7 @@ html {
 }
 .event-container {
     display: grid;
-    row-gap: 50px;
+    row-gap: 55px;
     column-gap: 20px;
     grid-template-columns: auto auto;
     padding: 0.6rem;
@@ -391,7 +391,7 @@ html {
 .nav-button-berita {
     width: 3.2rem;
     height: 3.2rem;
-    border: 3px solid black; /* Warna outline */
+    border: 2px solid black; /* Warna outline */
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -406,7 +406,7 @@ html {
 .nav-button {
     width: 3.2rem;
     height: 3.2rem;
-    border: 3px solid #d4e3ba; /* Warna outline */
+    border: 2px solid #d4e3ba; /* Warna outline */
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -422,7 +422,7 @@ html {
 
 .nav-button i {
     color: #d4e3ba; /* Warna ikon */
-    font-size: 30px;
+    font-size: 20px;
 }
 .card-list .card-item .message-button {
     font-size: 1rem;
@@ -1013,8 +1013,8 @@ img {
         z-index: -9999;
     }
     .il-hero .il-hero-img {
-        width: 300px;
-        top: 6%; /* Pastikan gambar ini bergeser ke bawah */
+        width: 325px;
+        top: 4%; /* Pastikan gambar ini bergeser ke bawah */
     }
     .content h1 {
         font-family: "Plus Jakarta Sans", sans-serif;
@@ -1062,8 +1062,8 @@ img {
         z-index: -9999;
     }
     .il-hero .il-hero-img {
-        width: 300px;
-        top: 6%; /* Pastikan gambar ini bergeser ke bawah */
+        width: 325px;
+        top: 4%; /* Pastikan gambar ini bergeser ke bawah */
     }
     .announcement {
         height: 120vh;
@@ -1150,8 +1150,8 @@ img {
         z-index: -9999;
     }
     .il-hero .il-hero-img {
-        width: 200px;
-        top: 6%; /* Pastikan gambar ini bergeser ke bawah */
+        width: 220px;
+        top: 3%; /* Pastikan gambar ini bergeser ke bawah */
     }
     .hero {
         height: 70vh;

@@ -141,7 +141,7 @@
                     </div>
                     <div class="container-button">
                         <div class="circle"></div>
-                        <a href="/daftar-publikasi" class="fw-semibold me-2">
+                        <a href="/daftar-publikasi" class="fw-semibold" >
                             Selengkapnya <i class="fa-solid fa-arrow-right me-2"></i>
                         </a>
                     </div>

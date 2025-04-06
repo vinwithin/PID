@@ -19,8 +19,8 @@
                         <small class="text-muted">Minimal 3 file.
                     </div>
 
-                    <a href="/kelola-konten/foto" class="btn btn-warning">Kembali</a>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a href="/kelola-konten/foto" class="btn btn-secondary me-2">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
 
                 </form>
 

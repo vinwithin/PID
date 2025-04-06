@@ -39,7 +39,7 @@
                         </p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="/publikasi" class="btn btn-outline-primary">
+                        <a href="/publikasi" class="btn btn-secondary">
                             <i class="fas fa-arrow-left me-2"></i>Kembali
                         </a>
                     </div>

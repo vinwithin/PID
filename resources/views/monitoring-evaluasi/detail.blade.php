@@ -78,7 +78,7 @@
                             </div>
                         @endforeach
                         <div class="text-end mt-3">
-                            <a href="/monitoring-evaluasi" class="btn btn-outline-primary">
+                            <a href="/monitoring-evaluasi" class="btn btn-secondary">
                                 <i class="fa-solid fa-arrow-left me-2"></i>Kembali
                             </a>
                         </div>

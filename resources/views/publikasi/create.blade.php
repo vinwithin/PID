@@ -62,8 +62,8 @@
                     <textarea class="form-control" id="hiddenContent" placeholder="Enter the Description" rows="5" name="content"
                         style="display: none"></textarea>
 
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <a href="/publikasi" class="btn btn-warning">Kembali</a>
+                    <a href="/publikasi" class="btn btn-secondary me-2">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
 
                 </form>
             </div>

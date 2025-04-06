@@ -65,9 +65,8 @@
                     </div>
             
         
-
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <a href="/announcement" class="btn btn-warning">Kembali</a>
+                    <a href="/announcement" class="btn btn-secondary me-2">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
 
                 </form>
             </div>
