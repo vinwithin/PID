@@ -19,7 +19,6 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
                     <form method="GET" action="{{ route('publikasi') }}">
-                        @csrf
                         <label class="form-label">Filter berdasarkan status:</label>
                         <div class="d-flex align-items-center">
                             <div class="form-check me-3">

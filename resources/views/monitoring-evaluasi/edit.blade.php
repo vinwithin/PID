@@ -62,8 +62,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <a href="/monitoring-evaluasi" class="btn btn-warning">Kembali</a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a href="/monitoring-evaluasi" class="btn btn-secondary me-2">Kembali</a>
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
                                 </form>
                             </div>
                         </div>

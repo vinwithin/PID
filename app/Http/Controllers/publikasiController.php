@@ -22,28 +22,31 @@ class publikasiController extends Controller
     public function index(Request $request)
     {
         $filters = $request->input('filters', []);
-
-        if (empty($filters)) {
-            $dataAll = Publikasi::with('registration')
-                ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
-                ->paginate(10);
-        } else {
-            $dataAll = Publikasi::with('registration')->where('status', $filters)->orderBy('created_at', 'desc')->paginate(10);
+        $search = $request->input('search');
+        
+        $query = Publikasi::with('registration');
+        
+        // Filter berdasarkan status jika ada
+        if (!empty($filters)) {
+            $query->whereIn('status', $filters);
         }
         
-        $query = Publikasi::query();
-        if ($request->has('search')) {
-            $search = $request->input('search');
+        // Filter berdasarkan pencarian jika ada
+        if (!empty($search)) {
             $query->where('title', 'like', "%$search%");
         }
-
-        $dataAll = $query->paginate(10);
+        
+        // Urutkan berdasarkan tanggal terbaru
+        $dataAll = $query->orderBy('created_at', 'desc')->paginate(10);
+        
         return view('publikasi.index', [
-            "data" => Publikasi::with('registration')->where('team_id', $this->teamIdService->getRegistrationId())
-                ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
+            "data" => Publikasi::with('registration')
+                ->where('team_id', $this->teamIdService->getRegistrationId())
+                ->orderBy('created_at', 'desc')
                 ->get(),
             "dataAll" => $dataAll,
         ]);
+        
     }
 
     public function show()
