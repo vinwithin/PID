@@ -20,7 +20,7 @@
                 <div class="card-header d-flex justify-content-end align-items-end">
                     <form action="{{ route('laporan-kemajuan') }}" method="GET" class="">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Cari laporan..."
+                            <input type="text" name="search" class="form-control" placeholder="Cari tim..."
                                 value="{{ request('search') }}">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-search"></i> Cari

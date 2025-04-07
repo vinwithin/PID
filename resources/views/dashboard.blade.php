@@ -53,7 +53,7 @@
             @if ($alreadyRegist)
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <div class="card p-3 bg-secondary-subtle">
+                        <div class="card p-4 bg-secondary-subtle">
                             <div class="d-flex align-items-center">
                                 <i class="fa-solid fa-people-group fa-2xl me-3"></i>
 
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card p-3 bg-secondary-subtle">
+                        <div class="card p-4 bg-secondary-subtle">
                             <div class="d-flex align-items-center">
                                 <i class="fa-solid fa-user fa-2xl me-3"></i>
                                 <div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card p-3 bg-secondary-subtle">
+                        <div class="card p-4 bg-secondary-subtle">
                             <div class="d-flex align-items-center">
                                 <i class="fa-solid fa-sitemap fa-2xl me-3"></i>
                                 <div>
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card p-3 bg-secondary-subtle">
+                        <div class="card p-4 bg-secondary-subtle">
                             <div class="d-flex align-items-center">
                                 <i class="fa-solid fa-pen-to-square fa-2xl me-2"></i>
                                 <div>
@@ -101,7 +101,7 @@
 
                 <!-- Bagian Teman Pro-Ide -->
                 <div class="card mt-4">
-                    <div class="card-header bg-white fw-bold text-success fs-5">Teman Pro-Ide</div>
+                    <div class="card-header bg-white fw-bold text-dark fs-4">Teman Pro-Ide</div>
                     <div class="card-body">
                         <div class="row text-center">
                             @foreach ($data->teamMembers as $item)

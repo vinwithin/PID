@@ -47,6 +47,10 @@
                                 <dd class="col-8">
                                     {{ $data->lokasi->village . ', ' . $data->lokasi->district . ', ' . $data->lokasi->regency }}
                                 </dd>
+                                <dt class="col-4">Nama Dosen Pembimbing</dt>
+                                <dd class="col-8">
+                                    {{ $data->nama_dosen_pembimbing }}
+                                </dd>
                             </dl>
                         </div>
                     </div>

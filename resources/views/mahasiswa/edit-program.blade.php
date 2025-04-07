@@ -299,14 +299,16 @@
 
                     <!-- Step 3 -->
                     <div class="step">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold" for="nama_dosen_pembimbing_val">Nama Dosen
-                                Pembimbing</label><br>
-                            <select class="form-select" id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val">
-                                <option value="{{ $data->nama_dosen_pembimbing }}">{{ $data->nama_dosen_pembimbing }}
-                                </option>
+                        <div style="margin-bottom: 1rem;">
+                            <label for="nama_dosen_pembimbing_val" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
+                                Nama Dosen Pembimbing
+                            </label>
+                            <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val" 
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
+                                <option value="{{ $data->nama_dosen_pembimbing }}">{{ $data->nama_dosen_pembimbing }}</option>
                             </select>
                         </div>
+                        
 
 
                         <div class="mb-3">
@@ -373,7 +375,7 @@
                     </div>
                     <button type="button" id="prevStep" class="btn btn-secondary mt-2">Kembali</button>
                     <button type="button" id="next" class="btn btn-primary mt-2">Selanjutnya</button>
-                    <button type="submit" id="submitForm" class="btn btn-success mt-2">Submit</button>
+                    <button type="submit" id="submitForm" class="btn btn-primary mt-2">Kirim</button>
                     <a class="btn btn-warning mt-2" href="/daftarProgram">Keluar</a>
 
                 </form>

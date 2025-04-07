@@ -266,11 +266,13 @@
 
                         <!-- Step 3 -->
                         <div class="step">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold" for="nama_dosen_pembimbing">Nama Dosen
-                                    Pembimbing</label><br>
-                                <select class="form-select" id="nama_dosen_pembimbing" name="nama_dosen_pembimbing">
-                                    <option value="">Pilih Dosen</option>
+                            <div style="margin-bottom: 1rem;">
+                                <label for="nama_dosen_pembimbing_val" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
+                                    Nama Dosen Pembimbing
+                                </label>
+                                <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val" 
+                                    style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
+                                    <option value="{{ $data->nama_dosen_pembimbing }}">{{ $data->nama_dosen_pembimbing }}</option>
                                 </select>
                             </div>
 

@@ -33,6 +33,10 @@
                                         <dd class="col-7">
                                             {{ $data->lokasi->village . ', ' . $data->lokasi->district . ', ' . $data->lokasi->regency }}
                                         </dd>
+                                        <dt class="col-5">Nama Dosen Pembimbing</dt>
+                                        <dd class="col-7">
+                                            {{ $data->nama_dosen_pembimbing}}
+                                        </dd>
 
                                     </dl>
                                 </div>
