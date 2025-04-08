@@ -117,8 +117,8 @@ html {
 }
 .il-hero .il-hero-circle {
     width: 5rem;
-    top: 25%; 
-    right:2%;
+    top: 25%;
+    right: 2%;
 }
 .announcement {
     height: 100vh;
@@ -197,7 +197,15 @@ html {
     height: 80vh;
     padding: 1.5rem 6%;
 }
-
+#scroll-container2::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 65px;
+    height: 19rem; /* Atur sesuai kebutuhan */
+    background-color: rgba(47, 161, 97, 1);
+}
 .container-title h2 {
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
@@ -365,8 +373,8 @@ html {
 }
 
 .user-image {
-    width: 16rem;
-    height: 16rem;
+    width: 18rem;
+    height: 13rem;
     padding: 20px 20px 0 20px;
 
     object-fit: cover;
@@ -485,13 +493,11 @@ img .overlay-galeri {
     transform: translateX(-50%);
     width: 100%; /* Sesuaikan agar pas dengan slide */
     height: 100%; /* Pastikan menutupi area */
-    background: url('/assets/Top Bar.svg') no-repeat top center;
+    background: url("/assets/Top Bar.svg") no-repeat top center;
     background-size: contain; /* Sesuaikan ukuran */
     z-index: 3; /* Pastikan ini berada di atas slide */
     pointer-events: none; /* Agar tidak mengganggu interaksi */
 }
-
-
 
 .slide-galeri img {
     width: 100%;
@@ -720,7 +726,19 @@ img {
     .navbar-nav .nav-link {
         font-size: 14px !important;
     }
-
+    #button-login {
+        display: flex;
+        background-color: rgba(6, 77, 63, 1);
+        width: 8.9rem;
+        height: 3.2rem;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+    }
+    #button-login a {
+        color: rgba(255, 255, 255, 1);
+    }
     .hero {
         flex-direction: column-reverse; /* Gambar di atas, teks di bawah */
         text-align: center;
@@ -738,7 +756,7 @@ img {
         font-family: "Plus Jakarta Sans", sans-serif;
         font-weight: 800;
     }
-    
+
     .content h3 {
         font-size: 1.2rem;
         line-height: 120%;
@@ -882,6 +900,10 @@ img {
 
 /* Agar scroll terlihat di mobile */
 @media (max-width: 768px) {
+    
+    .content button {
+        margin-top: 3rem;
+    }
     .video-container {
         padding-bottom: 10px;
         margin-bottom: 20px;
@@ -930,6 +952,10 @@ img {
         width: 163px;
         height: 36px;
         font-size: 16px;
+    }
+    .user-image {
+        width: 18rem;
+        height: 16rem;
     }
     .overlay-galeri {
         width: 520px;
@@ -1019,6 +1045,9 @@ img {
     html {
         font-size: 75%;
     }
+    .content button {
+        margin-top: 3rem;
+    }
     .il-hero img {
         position: absolute;
         width: 300px;
@@ -1051,6 +1080,10 @@ img {
     .il-announce img {
         width: 300px;
     }
+    .user-image {
+        width: 18rem;
+        height: 16rem;
+    }
     #card-video {
         width: 302px;
         height: 222px;
@@ -1067,6 +1100,9 @@ img {
 @media (max-width: 758px) {
     html {
         font-size: 62.5%;
+    }
+    .content button {
+        margin-top: 3rem;
     }
     .il-hero img {
         position: absolute;
@@ -1136,8 +1172,8 @@ img {
         width: 18rem;
     }
     .user-image {
-        width: 16rem;
-        height: 18rem;
+        width: 18rem;
+        height: 16rem;
     }
     .album-card iframe {
         width: 200px;
@@ -1165,8 +1201,8 @@ img {
         z-index: -9999;
     }
     .il-hero .il-hero-img {
-        width: 220px;
-        top: 3%; /* Pastikan gambar ini bergeser ke bawah */
+        width: 218px;
+        top: 4%; /* Pastikan gambar ini bergeser ke bawah */
     }
     .hero {
         height: 70vh;
@@ -1177,6 +1213,12 @@ img {
     .content h3 {
         font-size: 1.5rem;
         line-height: 20px;
+    }
+    .content button {
+        margin-top: 3rem;
+        width: 11rem;
+        font-size: 9px;
+        height: 3rem;
     }
     .content-announce h1 {
         font-family: "Plus Jakarta Sans", sans-serif;
@@ -1237,8 +1279,8 @@ img {
         width: 18rem;
     }
     .user-image {
-        width: 16rem;
-        height: 18rem;
+        width: 18rem;
+        height: 16rem;
     }
     .circle {
         display: none;

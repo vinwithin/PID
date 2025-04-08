@@ -98,7 +98,7 @@
 
     @if (!$berita->isEmpty())
         <section class="berita" id="berita">
-            <div class="container-fluid mt-4">
+            <div class="container-fluid position-relative mt-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="container-title">
                         <h2>Berita</h2>
@@ -112,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex gap-3 overflow-auto my-5 py-5" id="scroll-container2">
+                <div class="d-flex gap-3 overflow-auto my-5 py-5 " id="scroll-container2">
                     @foreach ($berita as $item)
                         <div class="card flex-shrink-0" id="card-list"
                             onclick="window.location='/berita/detail/{{ $item->slug }}'" style="cursor: pointer; ">
