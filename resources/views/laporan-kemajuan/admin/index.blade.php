@@ -72,7 +72,8 @@
                                     @can('approve laporan kemajuan')
                                         <td class="text-center">
 
-                                            @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)
+                                            @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path && $item->registration_validation->status !== 'Lanjutkan Program')
+
                                                 @if ($item->laporan_kemajuan->status === 'Valid')
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
                                                         data-bs-toggle="modal" data-bs-target="#rejectModal{{ $item->id }}">
@@ -120,7 +121,8 @@
                                                         action-url="/laporan-kemajuan/approve/{{ $item->laporan_kemajuan->id }}"
                                                         confirm-text="Iya" />
                                                 @endif
-                                            @else
+                                            @elseif($item->registration_validation->status === 'Lanjutkan Program')
+                                                <span class="badge bg-secondary">Lanjutkan Program</span>
                                             @endif
 
                                         </td>
