@@ -110,7 +110,7 @@
                                                     @endif
                                                 @endcan
                                                 @can('approve monev')
-                                                    @if (isset($total[$item->id]) && count($total[$item->id]) == 2)
+                                                    @if (isset($total[$item->id]) && count($total[$item->id]) == 2 && $item->registration_validation->status !== 'Lanjutkan Program')
                                                         <button type="button" class="btn btn-sm btn-outline-success"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#approveModal{{ $item->id }}">

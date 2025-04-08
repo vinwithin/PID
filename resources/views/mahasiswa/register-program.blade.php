@@ -272,7 +272,7 @@
                                 </label>
                                 <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val" 
                                     style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
-                                    <option value="{{ $data->nama_dosen_pembimbing }}">{{ $data->nama_dosen_pembimbing }}</option>
+                                    <option value="">Pilih Dosen</option>
                                 </select>
                             </div>
 
