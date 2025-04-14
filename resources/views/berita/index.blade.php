@@ -129,9 +129,7 @@
 
                             <td class="d-none d-md-table-cell">
 
-                                <a href="/berita/detail/{{ $item->id }}" class="btn btn-sm btn-outline-success">
-                                    <i class="fa-solid fa-eye me-2"></i>Detail
-                                </a>
+                        
                                 <a href="/berita/edit/{{ $item->id }}" class="btn btn-sm btn-outline-warning">
                                     <i class="fa-solid fa-pen-to-square me-2"></i>Edit
                                 </a>

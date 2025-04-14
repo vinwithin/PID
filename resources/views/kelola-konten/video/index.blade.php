@@ -56,7 +56,7 @@
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Daftar Publikasi</h5>
+                <h5 class="card-title mb-0">Daftar Video</h5>
                 <a class="btn btn-primary" href="/kelola-konten/video/create">Tambah Video</a>
 
             </div>

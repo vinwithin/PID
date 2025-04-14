@@ -162,7 +162,7 @@
                                 <label for="nim">NIM</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control @error('nim') is-invalid @enderror"
-                                        id="nim" name="nim" value="{{ old('nim') }}" required>
+                                        id="nim" name="identifier" value="{{ old('identifier') }}" required>
                                     <span class="input-group-text">
                                         <i class="fa-solid fa-hashtag"></i>
                                     </span>

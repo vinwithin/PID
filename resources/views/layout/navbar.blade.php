@@ -25,19 +25,16 @@
 
     .wave {
         position: relative;
-
         bottom: 0;
         overflow: hidden;
-
     }
 
     .wave-left {
-        width: auto;
+        width: 70%;
         height: 182px;
         position: relative;
         margin-right: -50%;
         bottom: -50px;
-
 
         z-index: -1;
     }
@@ -50,8 +47,10 @@
         overflow: hidden;
         z-index: 1;
         position: relative;
-        width: auto;
+        width: 70%;
         height: 181px;
+        
+
     }
 </style>
 <nav class="navbar navbar-expand navbar-bg navbar-custom

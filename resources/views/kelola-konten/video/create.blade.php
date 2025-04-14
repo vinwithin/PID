@@ -5,7 +5,7 @@
         <div class="card">
 
             <div class="card-header">
-                <h3>Pengumuman</h3>
+                <h3>Video</h3>
             </div>
             <div class="card-body">
                 <!-- Step Indicator -->

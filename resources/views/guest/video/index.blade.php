@@ -55,7 +55,7 @@
             position: relative;
             overflow: hidden;
             left: 0;
-            margin-right: -55%;
+            margin-right: -50%;
             bottom: -40px;
             z-index: -1;
         }

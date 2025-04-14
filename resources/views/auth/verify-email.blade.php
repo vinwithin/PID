@@ -12,7 +12,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
-            background: linear-gradient(135deg, #6B73FF, #000DFF);
+            background: rgba(6, 77, 63, 1);
             color: #fff;
         }
         .card {
@@ -37,7 +37,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
             <div class="card-body text-center">
-                <img src="/assets/email-verification.svg" alt="Verifikasi Email" class="mb-3" width="100">
+                <img src="/assets/email-verification.jpg" alt="Verifikasi Email" class="mb-3" width="200">
                 <h2 class="fw-bold text-dark">Verifikasi Email</h2>
                 <p class="text-muted">Sebelum melanjutkan, silakan periksa email Anda untuk tautan verifikasi.</p>
 
@@ -53,7 +53,7 @@
                 </form>
 
                 <p class="mt-3 text-dark">
-                    Jika Anda mengalami masalah, hubungi <a href="admin@proide.unja.ac.id" class="text-primary">support@pro-ide.com</a>
+                    Jika Anda mengalami masalah, hubungi <a href="admin@proide.unja.ac.id" class="text-primary">admin@proide.unja.ac.id</a>
                 </p>
             </div>
         </div>
