@@ -34,8 +34,8 @@ class registerController extends Controller
             // Trigger event untuk mengirim email verifikasi
             event(new Registered($user));
 
-            return redirect()->route('verification.notice')
-                ->with('success', 'Registrasi berhasil! Silakan periksa email Anda untuk verifikasi.');
+            return redirect()->route('login')
+                ->with('success', 'Registrasi berhasil! Silakan login.');
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withInput()
