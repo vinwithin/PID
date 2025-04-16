@@ -31,12 +31,12 @@
             <div class="col text-center text-md-start">
                 <h3 class="fw-bold border-bottom text-dark border-black fs-5 py-3">LINK UTAMA</h3>
                 <div class="d-flex flex-column mb-3" id="link-utama">
-                    <a href="#" class="text-dark py-1 fs-6 text-decoration-none">WEB UNJA</a>
-                    <a href="#" class="text-dark py-1 fs-6 text-decoration-none">PORTAL GERBANG UNJA</a>
-                    <a href="#" class="text-dark py-1 fs-6 text-decoration-none">SISTEM INFORMASI AKADEMIK</a>
-                    <a href="#" class="text-dark py-1 fs-6 text-decoration-none">PERPUSTAKAAN</a>
+                    <a href="https://www.unja.ac.id" class="text-dark py-1 fs-6 text-decoration-none">WEB UNJA</a>
+                    <a href="https://gerbang.unja.ac.id" class="text-dark py-1 fs-6 text-decoration-none">PORTAL GERBANG UNJA</a>
+                    <a href="https://siakad.unja.ac.id" class="text-dark py-1 fs-6 text-decoration-none">SISTEM INFORMASI AKADEMIK</a>
+                    <a href="https://library.unja.ac.id" class="text-dark py-1 fs-6 text-decoration-none">PERPUSTAKAAN</a>
                     <a href="#" class="text-dark py-1 fs-6 text-decoration-none">LABORATORIUM</a>
-                    <a href="#" class="text-dark py-1 fs-6 text-decoration-none">REPOSITORY</a>
+                    <a href="https://repository.unja.ac.id" class="text-dark py-1 fs-6 text-decoration-none">REPOSITORY</a>
                 </div>
             </div>
             <div class="col text-center text-md-start">

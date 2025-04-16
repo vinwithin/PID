@@ -50,7 +50,7 @@
                 </li> --}}
             @endcan
 
-            @role('admin|reviewer|dosen|super admin')
+            @role('admin|reviewer|dosen')
                 <li class="sidebar-item {{ Request::is(['pendaftaran*', 'reviewer*']) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola

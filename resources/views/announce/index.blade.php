@@ -123,9 +123,14 @@
                                     <i class="fa-solid fa-pen-to-square me-2"></i>Edit
                                 </a>
                                 @can('manage role')
-                                    <a href="/announcement/destroy/{{ $item->id }}" class="btn btn-sm btn-outline-danger">
-                                        <i class="fa-solid fa-trash me-2"></i>Hapus
-                                    </a>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash me-2"></i>
+                                        Hapus
+                                    </button>
+                                    <!-- Gunakan komponen modal -->
+                                    <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
+                                        message="Apakah Anda yakin ingin menghapus pengumuman ini?"
+                                        action-url="/announcement/destroy/{{ $item->id }}" confirm-text="Iya, Setujui" />
                                 @endcan
                             </td>
                         </tr>
