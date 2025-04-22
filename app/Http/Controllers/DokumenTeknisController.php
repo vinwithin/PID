@@ -89,12 +89,15 @@ class DokumenTeknisController extends Controller
             return redirect()->route('dokumen-teknis')->with("error", "Gagal mengubah data!");
         };
     }
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
         try {
             DB::beginTransaction();
+            $validateData = $request->validate([
+                'komentar' => 'required|string|min:5',
+            ]);
             $result = DokumenTeknis::where('id', $id)
-                ->update(['status' => 'Ditolak']);
+                ->update(['status' => 'Ditolak', 'komentar' => $validateData['komentar']]);
 
             DB::commit();
             if ($result) {

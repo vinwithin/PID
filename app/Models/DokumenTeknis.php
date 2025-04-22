@@ -17,6 +17,7 @@ class DokumenTeknis extends Model
         'file_proposal',
         'file_laporan_keuangan',
         'status',
+        'komentar',
     ];
     public function teamMembers()
     {

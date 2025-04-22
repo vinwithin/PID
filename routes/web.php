@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil', [dashboardController::class, 'profil'])->name('profil');
 
     Route::get('/get-dosen', [regisProgramController::class, 'getDosen'])->name('get-dosen');
+    Route::get('/get-prodi', [regisProgramController::class, 'getProdi'])->name('get-prodi');
 
     Route::middleware(['can:read publication', 'checkProgressAcceptAccess'])->group(function () {
         Route::get('/publikasi', [publikasiController::class, 'index'])->name('publikasi');
@@ -110,7 +111,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/laporan-kemajuan', [LaporanKemajuanController::class, 'index'])->name('laporan-kemajuan')->middleware('checkProgressAccess');
     });
     Route::middleware(['can:approve laporan kemajuan'])->group(function () {
-        Route::get('/laporan-kemajuan/reject/{id}', [LaporanKemajuanController::class, 'reject'])->name('laporan-kemajuan.reject');
+        Route::post('/laporan-kemajuan/reject/{id}', [LaporanKemajuanController::class, 'reject'])->name('laporan-kemajuan.reject');
         Route::get('/laporan-kemajuan/approve/{id}', [LaporanKemajuanController::class, 'approve'])->name('laporan-kemajuan.approve');
     });
     Route::middleware(['can:create laporan kemajuan'])->group(function () {
@@ -166,13 +167,13 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['can:approve final report', 'checkProgressAcceptAccess'])->group(function () {
         Route::get('/dokumen-teknis/approve/{id}', [DokumenTeknisController::class, 'approve'])->name('dokumen-teknis.approve');
-        Route::get('/dokumen-teknis/reject/{id}', [DokumenTeknisController::class, 'reject'])->name('dokumen-teknis.reject');
+        Route::post('/dokumen-teknis/reject/{id}', [DokumenTeknisController::class, 'reject'])->name('dokumen-teknis.reject');
 
         Route::get('/dokumen-publikasi/approve/{id}', [DokumenPublikasiController::class, 'approve'])->name('dokumen-publikasi.approve');
-        Route::get('/dokumen-publikasi/reject/{id}', [DokumenPublikasiController::class, 'reject'])->name('dokumen-publikasi.reject');
+        Route::post('/dokumen-publikasi/reject/{id}', [DokumenPublikasiController::class, 'reject'])->name('dokumen-publikasi.reject');
 
         Route::get('/dokumentasi-kegiatan/approve/{id}', [DokumenKegiatanController::class, 'approve'])->name('dokumentasi-kegiatan.approve');
-        Route::get('/dokumentasi-kegiatan/reject/{id}', [DokumenKegiatanController::class, 'reject'])->name('dokumentasi-kegiatan.reject');
+        Route::post('/dokumentasi-kegiatan/reject/{id}', [DokumenKegiatanController::class, 'reject'])->name('dokumentasi-kegiatan.reject');
     });
 
     Route::middleware(['can:manage role'])->group(function () {

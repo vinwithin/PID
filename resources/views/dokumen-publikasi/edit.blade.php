@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <!-- Step Indicator -->
-                <form  method="POST" action="/dokumen-publikasi/update/{{$data->id}}" enctype="multipart/form-data">
+                <form method="POST" action="/dokumen-publikasi/update/{{ $data->id }}" enctype="multipart/form-data">
                     @csrf
                     <p>Upload File draf artikel berita media massa</p>
                     <div class="input-group mb-3">
@@ -17,6 +17,16 @@
                             accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                         <label class="input-group-text" for="file_artikel">Upload File</label>
                         @error('file_artikel')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="judul_artikel" class="form-label">Judul Artikel</label>
+                        <input type="text" class="form-control @error('judul_artikel') is-invalid @enderror"
+                            id="judul_artikel" name="judul_artikel" required>
+                        @error('judul_artikel')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

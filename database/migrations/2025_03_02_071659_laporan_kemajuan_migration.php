@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('team_id');
             $table->string('file_path');
             $table->date('status');
+            $table->text('komentar')->nullable();
             $table->timestamps();
         });
     }

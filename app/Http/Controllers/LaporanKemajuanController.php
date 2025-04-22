@@ -76,7 +76,7 @@ class LaporanKemajuanController extends Controller
 
         // Jika laporan sudah ada, update; jika belum, buat baru
         if ($existingLaporan) {
-            $existingLaporan->update(['file_path' => $filename]);
+            $existingLaporan->update(['file_path' => $filename, 'status' => 'pending', 'komentar' => '']);
         } else {
             LaporanKemajuan::create([
                 'team_id' => $team_id,
@@ -108,12 +108,15 @@ class LaporanKemajuanController extends Controller
             return redirect()->route('laporan-kemajuan')->with("error", "Gagal mengubah data!");
         };
     }
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
         try {
             DB::beginTransaction();
+            $validateData = $request->validate([
+                'komentar' => 'required|string|min:5',
+            ]);
             $result = LaporanKemajuan::where('id', $id)
-                ->update(['status' => 'Ditolak']);
+                ->update(['status' => 'Ditolak', 'komentar' => $validateData['komentar']]);
 
             DB::commit();
             if ($result) {

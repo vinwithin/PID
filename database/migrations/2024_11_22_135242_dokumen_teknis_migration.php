@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('file_proposal');
             $table->string('file_laporan_keuangan');
             $table->string('status');
+            $table->text('komentar')->nullable();
            
             $table->timestamps();
         });

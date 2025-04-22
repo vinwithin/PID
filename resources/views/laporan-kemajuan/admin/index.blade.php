@@ -63,28 +63,56 @@
                                         @endif
                                     </td>
                                     <td class="fw-bold text-center">
-                                        @if ($item->laporan_kemajuan && $item->laporan_kemajuan->status)
-                                            {{ $item->laporan_kemajuan->status }}
+                                        @if ($item->laporan_kemajuan && $item->laporan_kemajuan->status === 'Ditolak')
+                                            <span class="badge bg-danger">
+                                                Ditolak
+                                                <i class="fas fa-info-circle ms-1 text-white" tabindex="0" role="button"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                                            </span>
+                                            <!-- Scrollable modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Komentar
+                                                                Dokumen
+                                                            </h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            {{ $item->laporan_kemajuan->komentar }}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @else
-                                            <span class="badge bg-danger"></span>
+                                            {{ $item->laporan_kemajuan->status }}
                                         @endif
                                     </td>
+
+
                                     @can('approve laporan kemajuan')
                                         <td class="text-center">
 
-                                            @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path && $item->registration_validation->status !== 'Lanjutkan Program')
-
+                                            @if (
+                                                $item->laporan_kemajuan &&
+                                                    $item->laporan_kemajuan->file_path &&
+                                                    $item->registration_validation->status !== 'Lanjutkan Program')
                                                 @if ($item->laporan_kemajuan->status === 'Valid')
                                                     <button type="button" class="btn btn-sm btn-outline-danger"
                                                         data-bs-toggle="modal" data-bs-target="#rejectModal{{ $item->id }}">
                                                         <i class="fas fa-exclamation-triangle me-1"></i> Tolak
                                                     </button>
-                                                    <!-- Gunakan komponen modal -->
-                                                    <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
-                                                        title="Konfirmasi Persetujuan"
-                                                        message="Apakah Anda yakin ingin menolak laporan ini?"
+                                                    <x-reject-with-comment modal-id="rejectModal{{ $item->id }}"
                                                         action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
-                                                        confirm-text="Iya" />
+                                                        value="{{ $item->laporan_kemajuan->komentar }}" />
                                                 @elseif($item->laporan_kemajuan->status === 'Ditolak')
                                                     <button type="button" class="btn btn-sm btn-outline-success"
                                                         data-bs-toggle="modal"
@@ -104,11 +132,10 @@
                                                         <i class="fas fa-exclamation-triangle me-1"></i> Tolak
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
-                                                    <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
-                                                        title="Konfirmasi Persetujuan"
-                                                        message="Apakah Anda yakin ingin menolak laporan ini?"
+                                                    <x-reject-with-comment modal-id="rejectModal{{ $item->id }}"
                                                         action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
-                                                        confirm-text="Iya" />
+                                                        value="{{ $item->laporan_kemajuan->komentar }}" />
+
                                                     <button type="button" class="btn btn-sm btn-outline-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#approveModal{{ $item->id }}">
@@ -138,5 +165,12 @@
             </div>
         </div>
     </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        });
+    </script>
 @endsection

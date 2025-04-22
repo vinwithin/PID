@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Cek Pendaftaran')
 @section('content')
     @php
         $statuses = ['Belum valid', 'valid', 'lolos', 'Lanjutkan Program'];
@@ -6,12 +7,12 @@
     @endphp
     <div class=" w-full container-fluid ">
         <div class="card shadow-sm border-0">
-            
+
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="bg-success-subtle p-3 rounded-4 mb-3">
-                            <h6 class="text-dark fw-bold mb-3">Informasi Ketua Tim</h6>
+                            <h6 class="text-dark fw-bold mb-3">Detail Tim</h6>
                             <dl class="row">
                                 <dt class="col-5 text-muted">Nama Ketua Tim</dt>
                                 <dd class="col-7">{{ $data->nama_ketua }}</dd>
@@ -25,6 +26,9 @@
                                 <dt class="col-5 text-muted">No HP Ketua</dt>
                                 <dd class="col-7">{{ $data->nohp_ketua }}</dd>
 
+                                <dt class="col-5 text-muted">Nama Ormawa</dt>
+                                <dd class="col-7">{{ $data->ormawa->nama }}</dd>
+
 
                             </dl>
                         </div>
@@ -36,9 +40,6 @@
                             <dl class="row">
                                 <dt class="col-4 text-muted">Judul</dt>
                                 <dd class="col-8">{{ $data->judul }}</dd>
-
-                                <dt class="col-4 text-muted">Nama Ormawa</dt>
-                                <dd class="col-8">{{ $data->ormawa->nama }}</dd>
 
                                 <dt class="col-4 text-muted">Bidang</dt>
                                 <dd class="col-8">{{ $data->bidang->nama }}</dd>
@@ -57,13 +58,13 @@
                 </div>
 
                 <div class="card mb-3">
-                    <div class="card-header bg-secondary text-white">
+                    <div class="card-header bg-dark text-white">
                         <h6 class="mb-0 text-white fw-bold">Daftar Tim</h6>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-striped mb-0">
-                                <thead >
+                                <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
@@ -92,23 +93,51 @@
                     <div class="col-md-6">
                         <h5 class="text-dark fw-bold mb-3">Dokumen Pendukung</h5>
                         <div class="d-flex flex-column gap-2">
-                            <a href="/storage/{{ $data->document_registration->sk_organisasi }}"
-                                class="btn btn-outline-secondary">
-                                <i class="fas fa-file-alt me-2"></i>SK Organisasi
-                            </a>
-                            <a href="/storage/{{ $data->document_registration->surat_kerjasama }}"
-                                class="btn btn-outline-secondary">
-                                <i class="fas fa-handshake me-2"></i>Surat Kerjasama
-                            </a>
-                            <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
-                                class="btn btn-outline-secondary">
-                                <i class="fas fa-envelope-open-text me-2"></i>Surat Rekomendasi Pembina
-                            </a>
-                            <a href="/storage/{{ $data->document_registration->proposal }}"
-                                class="btn btn-outline-secondary">
-                                <i class="fas fa-file-contract me-2"></i>Proposal
-                            </a>
+                            <div class="d-flex justify-content-between gap-2 btn btn-outline-secondary">
+                                <a href="/storage/{{ $data->document_registration->sk_organisasi }}"
+                                    class="d-flex align-items-center text-secondary flex-grow-1 text-start">
+                                    <i class="fas fa-file-alt me-2"></i>SK Organisasi
+                                </a>
+                                <a href="/storage/{{ $data->document_registration->sk_organisasi }}" target="_blank"
+                                    class="btn btn-outline-secondary">
+                                    Lihat File
+                                </a>
+                            </div>
+
+                            <div class="d-flex justify-content-between gap-2 btn btn-outline-secondary">
+                                <a href="/storage/{{ $data->document_registration->surat_kerjasama }}"
+                                    class="d-flex align-items-center text-secondary flex-grow-1 text-start">
+                                    <i class="fas fa-handshake me-2"></i>Surat Kerjasama
+                                </a>
+                                <a href="/storage/{{ $data->document_registration->surat_kerjasama }}" target="_blank"
+                                    class="btn btn-outline-secondary">
+                                    Lihat File
+                                </a>
+                            </div>
+
+                            <div class="d-flex justify-content-between gap-2 btn btn-outline-secondary">
+                                <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
+                                    class="d-flex align-items-center text-secondary flex-grow-1 text-start">
+                                    <i class="fas fa-envelope-open-text me-2"></i>Surat Rekomendasi Pembina
+                                </a>
+                                <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
+                                    target="_blank" class="btn btn-outline-secondary">
+                                    Lihat File
+                                </a>
+                            </div>
+
+                            <div class="d-flex justify-content-between gap-2 btn btn-outline-secondary">
+                                <a href="/storage/{{ $data->document_registration->proposal }}"
+                                    class="d-flex align-items-center text-secondary flex-grow-1 text-start">
+                                    <i class="fas fa-file-contract me-2"></i>Proposal
+                                </a>
+                                <a href="/storage/{{ $data->document_registration->proposal }}" target="_blank"
+                                    class="btn btn-outline-secondary">
+                                    Lihat File
+                                </a>
+                            </div>
                         </div>
+
 
                     </div>
                     <div class="col-md-6">
@@ -149,7 +178,7 @@
 
                         <h5 class="text-dark fw-bold mt-3">Status Validasi</h5>
                         <div
-                            class="alert {{ $data->registration_validation->status === 'lolos' || 'Lanjutkan Program' || 'valid' ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
+                            class="alert {{ $data->registration_validation->status === 'lolos' || 'Lanjutkan Program' || 'valid' ? 'alert-warning' : 'alert-success' }} d-flex align-items-center">
                             <i
                                 class="fas 
                             @switch ($data->registration_validation->status) @case('Belum valid') fa-exclamation-triangle @break
@@ -170,7 +199,7 @@
 
                 <div class="text-center mt-3">
                     <a href="/daftarProgram" class="btn btn-secondary">
-                        Kembali
+                        <i class="fas fa-arrow-left me-2"></i>Kembali
                     </a>
                 </div>
             </div>

@@ -116,8 +116,8 @@
                     <div class="step-indicator">
                         <div id="step1Indicator" class="active">Step 1: Informasi Tim</div>
                         <div id="step2Indicator">Step 2: Anggota Tim</div>
-                        <div id="step3Indicator">Step 3: Dosen Pembimbing Informasi</div>
-                        <div id="step4Indicator">Step 4: Persyaratan Dokumen</div>
+                        <div id="step3Indicator">Step 3: Informasi Dosen Pembimbing</div>
+                        <div id="step4Indicator">Step 4: Dokumen Persyaratan</div>
                     </div>
 
                     <form id="registrationForm" method="POST" action="{{ route('mahasiswa.daftarProgram') }}"
@@ -147,11 +147,9 @@
                             </div>
                             <div class="mb-3">
                                 <label for="program_studi" class="form-label fw-bold">Program Studi</label>
-                                <select class="form-select" name="prodi_ketua" id="program_studi" required>
-                                    <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
-                                    @foreach ($program_studi as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                    @endforeach
+                                <select class="form-select" name="program_studi" id="program_studi" required>
+                                    <option value="" selected="selected" hidden="hidden">Pilih Program Studi</option>
+                                        <option value=""></option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -272,7 +270,7 @@
                                 </label>
                                 <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val" 
                                     style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
-                                    <option value="{{ $data->nama_dosen_pembimbing }}">{{ $data->nama_dosen_pembimbing }}</option>
+                                    <option value=""></option>
                                 </select>
                             </div>
 
@@ -405,7 +403,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <a href="/program/cek/{{ $item->id }}"
-                                                    class="btn btn-sm btn-outline-primary">
+                                                    class="btn btn-sm btn-outline-secondary">
                                                     <i class="fas fa-eye me-1"></i>Cek
                                                 </a>
                                                 @if (
@@ -418,7 +416,7 @@
                                                     ]))
                                                     @if ($item->nama_ketua === Auth()->user()->name)
                                                         <a href="/editProgram/{{ $item->id }}"
-                                                            class="btn btn-sm btn-outline-primary">
+                                                            class="btn btn-sm btn-outline-warning">
                                                             <i class="fas fa-pen me-1"></i>Edit
                                                         </a>
                                                     @endif
@@ -907,7 +905,15 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#nama_dosen_pembimbing').select2({
+            $('#nama_dosen_pembimbing_val').after(
+                `<input type="hidden" name="nama_dosen_pembimbing" id="nama_dosen_pembimbing">`
+            );
+
+            $('#program_studi').after(
+                `<input type="hidden" name="prodi_ketua" id="prodi_ketua">`
+            );
+
+            $('#nama_dosen_pembimbing_val').select2({
                 placeholder: "Pilih Dosen Pembimbing",
                 allowClear: true,
                 ajax: {
@@ -926,7 +932,43 @@
                     },
                     cache: true
                 }
+            }).on('change', function() {
+                // Perbarui hidden input dengan nama yang dipilih
+                const selectedOption = $(this).find(':selected');
+                $('#nama_dosen_pembimbing').val(selectedOption.text());
+
+                if (!$(this).val()) {
+                    $('#nama_dosen_pembimbing').val('');
+                }
+            });
+            $("#program_studi").select2({
+                placeholder: "Pilih Program Studi",
+                allowClear: true,
+                ajax: {
+                    url: "/get-prodi",
+                    dataType: "json",
+                    delay: 250,
+                    cache: true,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.nama
+                                };
+                            })
+                        };
+                    }
+                }
+            }).on('change', function() {
+                // Perbarui hidden input dengan nama yang dipilih
+                $('#prodi_ketua').val($(this).val());
+
+                if (!$(this).val()) {
+                    $('#prodi_ketua').val('');
+                }
             });
         });
+        
     </script>
 @endsection

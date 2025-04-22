@@ -40,15 +40,18 @@ class DokumenTeknisService
     {
         // Validate the incoming request
         $validatedData = $request->validate([
-            'file_manual' => 'required|file',
+            'file_manual' => 'required|file|mimes:pdf,doc,docx|max:2120', // max 5MB
             'status_manual' => 'required|string',
-            'file_bukti_publikasi' => 'required|file',
+            'file_bukti_publikasi' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2120', // max 5MB
             'status_publikasi' => 'required|string',
-            'file_proposal' => 'required|file',
-            'file_laporan_keuangan' => 'required|file',
+            'file_proposal' => 'required|file|mimes:pdf,doc,docx|max:2120', // max 5MB
+            'file_laporan_keuangan' => 'required|file|mimes:pdf,doc,docx|max:2120', // max 5MB
+
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
         $validatedData['status'] = 'pending';
+        $validatedData['komentar'] = '';
+
 
         // Process file uploads
         $validatedData['file_manual'] = $this->storeFile($request->file('file_manual'), 'file_manual');

@@ -101,7 +101,42 @@
 
                                         </td>
                                         <td class="text-center fw-bold" id="status">
-                                            {{ count($data) > 0 ? $data[0]->status : 'Data tidak tersedia' }}
+                                            @if (count($data) > 0)
+                                                @if ($data[0]->laporan_kemajuan && $data[0]->status === 'Ditolak')
+                                                    <span class="badge bg-danger">
+                                                        Ditolak
+                                                        <i class="fas fa-info-circle ms-1 text-white" tabindex="0"
+                                                            role="button" data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal"></i>
+                                                    </span>
+
+                                                    <!-- Scrollable modal -->
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Komentar
+                                                                        Dokumen</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body text-start">
+                                                                    {{ $data[0]->komentar }}
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    {{ $data[0]->status }}
+                                                @endif
+                                            @else
+                                                <span>Data Tidak Tersedia</span>
+                                            @endif
 
                                         </td>
 
@@ -204,9 +239,11 @@
                         contentType: false,
                         processData: false,
                         success: function(response) {
-                            document.getElementById("successMessage").innerText = response.message;
+                            document.getElementById("successMessage").innerText = response
+                                .message;
                             // Tampilkan modal Bootstrap
-                            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            var successModal = new bootstrap.Modal(document.getElementById(
+                                'successModal'));
                             successModal.show();
                         },
                         error: function(xhr) {

@@ -14,6 +14,7 @@ class DokumentasiKegiatan extends Model
         'link_social_media',
         'link_dokumentasi',
         'status',
+        'komentar',
     ];
     public function teamMembers()
     {

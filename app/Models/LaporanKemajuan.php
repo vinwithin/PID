@@ -12,6 +12,7 @@ class LaporanKemajuan extends Model
         'team_id',
         'file_path',
         'status',
+        'komentar',
     ];
     public function teamMembers()
     {

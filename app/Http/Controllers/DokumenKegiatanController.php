@@ -130,6 +130,8 @@ class DokumenKegiatanController extends Controller
         // Ekstrak video ID dari link YouTube
         $videoId = $this->extractYouTubeVideoId($validatedData['link_youtube']);
         $validatedData['status'] = 'pending';
+        $validatedData['komentar'] = '';
+
 
         if (!$videoId) {
             return redirect()->route('dokumentasi-kegiatan')->with('error', 'Link video tidak valid!');
@@ -143,7 +145,8 @@ class DokumenKegiatanController extends Controller
         DB::beginTransaction();
         // try {
         // Simpan data ke dalam tabel DokumentasiKegiatan
-        DokumentasiKegiatan::where('id', $id)->update(['link_youtube' => $validatedData['link_youtube'], 'link_social_media' => $validatedData['link_social_media'], 'link_dokumentasi' => $validatedData['link_dokumentasi']]);
+        DokumentasiKegiatan::where('id', $id)->update(['link_youtube' => $validatedData['link_youtube'], 'link_social_media' => $validatedData['link_social_media'], 
+        'link_dokumentasi' => $validatedData['link_dokumentasi'], 'status' => $validatedData['status'], 'komentar' => $validatedData['komentar']]);
         VideoKonten::where('media_dokumentasi_id', $id)->update(['created_by' =>  Auth::user()->name, 'link_youtube' => $validatedData['link_youtube']]);
 
         // Simpan data ke dalam tabel Album
@@ -190,12 +193,15 @@ class DokumenKegiatanController extends Controller
             return redirect()->route('dokumentasi-kegiatan')->with("error", "Gagal mengubah data!");
         };
     }
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
         try {
             DB::beginTransaction();
+            $validateData = $request->validate([
+                'komentar' => 'required|string|min:5',
+            ]);
             $result = DokumentasiKegiatan::where('id', $id)
-                ->update(['status' => 'Ditolak']);
+                ->update(['status' => 'Ditolak', 'komentar' => $validateData['komentar']]);
 
             DB::commit();
             if ($result) {

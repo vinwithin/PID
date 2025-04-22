@@ -78,7 +78,40 @@
                                 Upload</span>
                             @endif
                             <td rowspan="2" class="text-center">
-                                {{ $item->dokumenPublikasi->status ?? 'Belum ada status' }}
+                                @if ($item->dokumenPublikasi && $item->dokumenPublikasi->status === 'Ditolak')
+                                    <span class="badge bg-danger">
+                                        Ditolak
+                                        <i class="fas fa-info-circle ms-1 text-white" tabindex="0" role="button"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                                    </span>
+                                    <!-- Scrollable modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Komentar
+                                                        Dokumen
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body text-start">
+                                                    {{ $item->dokumenPublikasi->komentar }}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif(!$item->dokumenPublikasi)
+                                    <span>Belum Ada Status</span>
+                                @else
+                                    {{ $item->dokumenPublikasi->status }}
+                                @endif
                             </td>
 
                             @can('agree publication')
@@ -95,17 +128,17 @@
                                                 action-url="/dokumen-publikasi/approve/{{ $item->dokumenPublikasi->id }}"
                                                 confirm-text="Ya, Setujui" />
                                         @elseif($item->dokumenPublikasi->status === 'Valid')
-                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#rejectModal{{ $item->dokumenPublikasi->id }}">
                                                 <i class="fas fa-exclamation-triangle me-1"></i> Tolak
                                             </button>
-                                            <x-confirm-modal modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
-                                                title="Konfirmasi Persetujuan"
-                                                message="Apakah Anda yakin ingin menolak laporan akhir ini?"
+                                            <x-reject-with-comment modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
                                                 action-url="/dokumen-publikasi/reject/{{ $item->dokumenPublikasi->id }}"
-                                                confirm-text="Ya, Tolak" />
+                                                value="{{ $item->dokumenPublikasi->komentar }}" />
                                         @else
-                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-sm btn-outline-success"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#approveModal{{ $item->dokumenPublikasi->id }}">
                                                 <i class="fas fa-check me-1"></i> Terima
                                             </button>
@@ -114,15 +147,14 @@
                                                 message="Apakah Anda yakin ingin menerima laporan akhir ini?"
                                                 action-url="/dokumen-publikasi/approve/{{ $item->dokumenPublikasi->id }}"
                                                 confirm-text="Ya, Setujui" />
-                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#rejectModal{{ $item->dokumenPublikasi->id }}">
                                                 <i class="fas fa-exclamation-triangle me-1"></i> Tolak
                                             </button>
-                                            <x-confirm-modal modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
-                                                title="Konfirmasi Persetujuan"
-                                                message="Apakah Anda yakin ingin menolak laporan akhir ini?"
+                                            <x-reject-with-comment modal-id="rejectModal{{ $item->dokumenPublikasi->id }}"
                                                 action-url="/dokumen-publikasi/reject/{{ $item->dokumenPublikasi->id }}"
-                                                confirm-text="Ya, Tolak" />
+                                                value="{{ $item->dokumenPublikasi->komentar }}" />
                                         @endif
                                     @endif
 

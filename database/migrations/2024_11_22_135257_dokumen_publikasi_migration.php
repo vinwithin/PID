@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('file_haki');
             $table->string('status_haki');
             $table->string('status');
+            $table->text('komentar')->nullable();
            
             $table->timestamps();
         });

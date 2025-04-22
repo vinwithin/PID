@@ -72,6 +72,7 @@ class DokumenPublikasiController extends Controller
     {
         try {
             DB::beginTransaction();
+           
             $result = DokumenPublikasi::where('id', $id)
                 ->update(['status' => 'Valid']);
 
@@ -87,12 +88,15 @@ class DokumenPublikasiController extends Controller
             return redirect()->route('dokumen-publikasi')->with("error", "Gagal mengubah data!");
         };
     }
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
         try {
             DB::beginTransaction();
+            $validateData = $request->validate([
+                'komentar' => 'required|string|min:5',
+            ]);
             $result = DokumenPublikasi::where('id', $id)
-                ->update(['status' => 'Ditolak']);
+                ->update(['status' => 'Ditolak', 'komentar' => $validateData['komentar']]);
 
             DB::commit();
             if ($result) {

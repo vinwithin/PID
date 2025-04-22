@@ -115,8 +115,8 @@
                 <div class="step-indicator">
                     <div id="step1Indicator" class="active">Step 1: Informasi Tim</div>
                     <div id="step2Indicator">Step 2: Anggota Tim</div>
-                    <div id="step3Indicator">Step 3: Dosen Pembimbing Informasi</div>
-                    <div id="step4Indicator">Step 4: Persyaratan Dokumen </div>
+                    <div id="step3Indicator">Step 3: Informasi Dosen Pembimbing</div>
+                    <div id="step4Indicator">Step 4: Dokumen Persyaratan  </div>
                 </div>
 
                 <form id="registrationForm" method="POST" action="/updateProgram/{{ $data->id }}"
@@ -149,14 +149,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="program_studi" class="form-label fw-bold">Program Studi</label>
-                            <select class="form-select" name="prodi_ketua" id="program_studi" required>
-                                <option value="{{ $data->program_studi->id }}" selected="selected" hidden="hidden">
-                                    {{ $data->program_studi->nama }}</option>
-                                @foreach ($program_studi as $item)
-                                    @if ($item->id != $data->program_studi->id)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                    @endif
-                                @endforeach
+                            <select class="form-select" name="program_studi" id="program_studi" required>
+                                <option value="{{ $data->program_studi->id }}">{{ $data->program_studi->nama }}</option>
+
                             </select>
                         </div>
                         <div class="mb-3">
@@ -710,6 +705,10 @@
                 `<input type="hidden" name="nama_dosen_pembimbing" id="nama_dosen_pembimbing" value="{{ $data->nama_dosen_pembimbing }}">`
             );
 
+            $('#program_studi').after(
+                `<input type="hidden" name="prodi_ketua" id="prodi_ketua" value="{{ $data->prodi_ketua }}">`
+            );
+
             $("#regency_name").select2({
                 placeholder: 'Pilih Kabupaten',
                 allowClear: true,
@@ -845,6 +844,34 @@
 
                 if (!$(this).val()) {
                     $('#nama_dosen_pembimbing').val('');
+                }
+            });
+
+            $("#program_studi").select2({
+                placeholder: "Pilih Program Studi",
+                allowClear: true,
+                ajax: {
+                    url: "/get-prodi",
+                    dataType: "json",
+                    delay: 250,
+                    cache: true,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.nama
+                                };
+                            })
+                        };
+                    }
+                }
+            }).on('change', function() {
+                // Perbarui hidden input dengan nama yang dipilih
+                $('#prodi_ketua').val($(this).val());
+
+                if (!$(this).val()) {
+                    $('#prodi_ketua').val('');
                 }
             });
 

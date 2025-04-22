@@ -83,7 +83,39 @@
                                                     class="fas fa-eye me-1"></i>Link
                                                 Artikel</a></td>
                                         <td rowspan="2" class="text-center" id="status">
-                                            {{ $item->status }}
+                                            @if ($item && $item->status === 'Ditolak')
+                                                <span class="badge bg-danger">
+                                                    Ditolak
+                                                    <i class="fas fa-info-circle ms-1 text-white" tabindex="0"
+                                                        role="button" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal"></i>
+                                                </span>
+                                                <!-- Scrollable modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Komentar
+                                                                    Dokumen
+                                                                </h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body text-start">
+                                                                {{ $item->komentar }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                {{ $item->status }}
+                                            @endif
                                         </td>
                                         <td rowspan="2" class="text-center"><a
                                                 href="/dokumen-publikasi/edit/{{ $item->id }}"

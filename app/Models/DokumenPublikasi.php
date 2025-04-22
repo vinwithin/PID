@@ -18,6 +18,7 @@ class DokumenPublikasi extends Model
         'file_haki',
         'status_haki',
         'status',
+        'komentar',
     ];
     public function teamMembers()
     {

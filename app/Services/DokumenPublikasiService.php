@@ -41,16 +41,18 @@ class DokumenPublikasiService
     {
         // Validate the incoming request
         $validatedData = $request->validate([
-            'file_artikel' => 'required|file',
-            'judul_artikel' => 'required|string',
+            'file_artikel' => 'required|file|mimes:pdf,doc,docx|max:2120', // max 5MB
+            'judul_artikel' => 'required|string|min:3|max:255',
             'status_artikel' => 'required|string',
-            'link_artikel' => 'required|string',
-            'file_haki' => 'required|file',
+            'link_artikel' => 'required|string|min:5|max:255|url',
+            'file_haki' => 'required|file|mimes:pdf,doc,docx|max:2120', // max 5MB
             'status_haki' => 'required|string',
+
         ]);
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
         $validatedData['visibilitas'] = 'no';
         $validatedData['status'] = 'pending';
+        $validatedData['komentar'] = '';
 
         // Process file uploads
         $validatedData['file_artikel'] = $this->storeFile($request->file('file_artikel'), 'file_artikel');

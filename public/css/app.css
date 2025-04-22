@@ -55,7 +55,7 @@
     --bs-dark-text-emphasis: #495057;
     --bs-primary-bg-subtle: #d8e5f8;
     --bs-secondary-bg-subtle: #e2e3e5;
-    --bs-success-bg-subtle: #d2f1e8;
+    --bs-success-bg-subtle: rgba(240, 240, 240, 1);
     --bs-info-bg-subtle: #d1ecf1;
     --bs-warning-bg-subtle: #fef1d5;
     --bs-danger-bg-subtle: #f8d7da;

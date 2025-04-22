@@ -289,6 +289,12 @@ class regisProgramController extends Controller
         ]);
     }
 
+    public function getProdi()
+    {
+        $prodi = ProgramStudi::all();
+
+        return response()->json($prodi);
+    }
     public function getDosen()
     {
         $dosen = User::whereHas('roles', function ($query) {
