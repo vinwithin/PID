@@ -149,8 +149,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="program_studi" class="form-label fw-bold">Program Studi</label>
-                            <select class="form-select" name="program_studi" id="program_studi" required>
-                                <option value="{{ $data->program_studi->id }}">{{ $data->program_studi->nama }}</option>
+                            <select class="form-select" name="program_studi" id="program_studi" style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
+                             required>
+                                <option value="{{ $data->program_studi->id }}" >{{ $data->program_studi->nama }}</option>
 
                             </select>
                         </div>
@@ -882,17 +883,6 @@
                     alert(`Gagal memuat data ${context}. Silakan coba lagi.`);
                 }
             }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            setTimeout(() => {
-                // Tambahkan hidden input di bawah select2
-
-
-                // Inisialisasi Select2
-
-            }, 500);
         });
     </script>
 @endsection

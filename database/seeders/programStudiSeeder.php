@@ -37,48 +37,48 @@ class programStudiSeeder extends Seeder
         ProgramStudi::create(['nama' => 'Magister Pendidikan Jasmani']);
         ProgramStudi::create(['nama' => 'Seni Karawitan']);
         ProgramStudi::create(['nama' => 'Pendidikan Kepelatihan Olahraga']);
-        ProgramStudi::create(['nama' => 'Program Studi Ilmu Hukum']);
-        ProgramStudi::create(['nama' => 'Program Studi Ilmu Pemerintahan']);
-        ProgramStudi::create(['nama' => 'Program Studi Ilmu Politik']);
+        ProgramStudi::create(['nama' => 'Ilmu Hukum']);
+        ProgramStudi::create(['nama' => 'Ilmu Pemerintahan']);
+        ProgramStudi::create(['nama' => 'Ilmu Politik']);
 
-        ProgramStudi::create(['nama' => 'Program Studi Akuntansi']);
-        ProgramStudi::create(['nama' => 'Program Studi Akuntansi (D3)']);
-        ProgramStudi::create(['nama' => 'Program Studi Ekonomi Islam']);
-        ProgramStudi::create(['nama' => 'Program Studi Ekonomi Pembangunan']);
-        ProgramStudi::create(['nama' => 'Program Studi Keuangan Daerah (D4)']);
+        ProgramStudi::create(['nama' => 'Akuntansi']);
+        ProgramStudi::create(['nama' => 'Akuntansi (D3)']);
+        ProgramStudi::create(['nama' => 'Ekonomi Islam']);
+        ProgramStudi::create(['nama' => 'Ekonomi Pembangunan']);
+        ProgramStudi::create(['nama' => 'Keuangan Daerah (D4)']);
 
-        ProgramStudi::create(['nama' => 'Program Studi Manajemen']);
-        ProgramStudi::create(['nama' => 'Program Studi Manajemen Pemasaran (D3)']);
-        ProgramStudi::create(['nama' => 'Program Studi Manajemen Pemerintahan (D4)']);
-        ProgramStudi::create(['nama' => 'Program Studi Perpajakan (D3)']);
-        ProgramStudi::create(['nama' => 'Program Studi Bisnis Digital']);
-        ProgramStudi::create(['nama' => 'Program Studi Kewirausahaan']);
+        ProgramStudi::create(['nama' => 'Manajemen']);
+        ProgramStudi::create(['nama' => 'Manajemen Pemasaran (D3)']);
+        ProgramStudi::create(['nama' => 'Manajemen Pemerintahan (D4)']);
+        ProgramStudi::create(['nama' => 'Perpajakan (D3)']);
+        ProgramStudi::create(['nama' => 'Bisnis Digital']);
+        ProgramStudi::create(['nama' => 'Kewirausahaan']);
 
-        ProgramStudi::create(['nama' => 'Program Studi Agribisnis']);
-        ProgramStudi::create(['nama' => 'Program Studi Agrobisnis (D3)']);
-        ProgramStudi::create(['nama' => 'Program Studi Agroekoteknologi']);
-        ProgramStudi::create(['nama' => 'Program Studi Kehutanan']);
-        ProgramStudi::create(['nama' => 'Program Studi Teknik Pertanian']);
-        ProgramStudi::create(['nama' => 'Program Studi Teknologi Hasil Pertanian']);
-        ProgramStudi::create(['nama' => 'Program Studi Teknologi Industri Pertanian']);
-        ProgramStudi::create(['nama' => 'Program Studi Pendidikan Profesi Insinyur']);
+        ProgramStudi::create(['nama' => 'Agribisnis']);
+        ProgramStudi::create(['nama' => 'Agrobisnis (D3)']);
+        ProgramStudi::create(['nama' => 'Agroekoteknologi']);
+        ProgramStudi::create(['nama' => 'Kehutanan']);
+        ProgramStudi::create(['nama' => 'Teknik Pertanian']);
+        ProgramStudi::create(['nama' => 'Teknologi Hasil Pertanian']);
+        ProgramStudi::create(['nama' => 'Teknologi Industri Pertanian']);
+        ProgramStudi::create(['nama' => 'Pendidikan Profesi Insinyur']);
 
-        ProgramStudi::create(['nama' => 'Program Studi Kesehatan Hewan (D3)']);
-        ProgramStudi::create(['nama' => 'Program Studi Pemanfaatan Sumberdaya Perikanan']);
-        ProgramStudi::create(['nama' => 'Program Studi Peternakan']);
-        ProgramStudi::create(['nama' => 'Program Studi Teknologi Hasil Perikanan (D3)']);
+        ProgramStudi::create(['nama' => 'Kesehatan Hewan (D3)']);
+        ProgramStudi::create(['nama' => 'Pemanfaatan Sumberdaya Perikanan']);
+        ProgramStudi::create(['nama' => 'Peternakan']);
+        ProgramStudi::create(['nama' => 'Teknologi Hasil Perikanan (D3)']);
 
-        ProgramStudi::create(['nama' => 'Program Studi Farmasi']);
-        ProgramStudi::create(['nama' => 'Program Studi Ilmu Keperawatan']);
-        ProgramStudi::create(['nama' => 'Program Studi Ilmu Kesehatan Masyarakat']);
-        ProgramStudi::create(['nama' => 'Program Studi Kedokteran']);
-        ProgramStudi::create(['nama' => 'Program Studi Profesi Dokter']);
-        ProgramStudi::create(['nama' => 'Program Studi Profesi Ners (Profesi)']);
-        ProgramStudi::create(['nama' => 'Program Studi Psikologi']);
-        ProgramStudi::create(['nama' => 'Program Studi Magister Kesehatan Masyarakat']);
-        ProgramStudi::create(['nama' => 'Program Studi Profesi Apoteker']);
+        ProgramStudi::create(['nama' => 'Farmasi']);
+        ProgramStudi::create(['nama' => 'Ilmu Keperawatan']);
+        ProgramStudi::create(['nama' => 'Ilmu Kesehatan Masyarakat']);
+        ProgramStudi::create(['nama' => 'Kedokteran']);
+        ProgramStudi::create(['nama' => 'Profesi Dokter']);
+        ProgramStudi::create(['nama' => 'Profesi Ners (Profesi)']);
+        ProgramStudi::create(['nama' => 'Psikologi']);
+        ProgramStudi::create(['nama' => 'Magister Kesehatan Masyarakat']);
+        ProgramStudi::create(['nama' => 'Profesi Apoteker']);
 
-        ProgramStudi::create(['nama' => 'Program Studi Analisis Kimia']);
+        ProgramStudi::create(['nama' => 'Analisis Kimia']);
         ProgramStudi::create(['nama' => 'Biologi']);
         ProgramStudi::create(['nama' => 'Fisika']);
         ProgramStudi::create(['nama' => 'Kimia']);
@@ -92,6 +92,5 @@ class programStudiSeeder extends Seeder
         ProgramStudi::create(['nama' => 'Teknik Sipil']);
         ProgramStudi::create(['nama' => 'Sistem Informasi']);
         ProgramStudi::create(['nama' => 'Informatika']);
-    
     }
 }

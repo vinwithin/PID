@@ -198,7 +198,7 @@ class DokumenKegiatanController extends Controller
         try {
             DB::beginTransaction();
             $validateData = $request->validate([
-                'komentar' => 'required|string|min:5',
+                'komentar' => 'required|string|min:1',
             ]);
             $result = DokumentasiKegiatan::where('id', $id)
                 ->update(['status' => 'Ditolak', 'komentar' => $validateData['komentar']]);

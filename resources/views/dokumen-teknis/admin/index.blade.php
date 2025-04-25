@@ -89,10 +89,11 @@
                                     </td>
                                     <td rowspan="2" class="text-center">
                                         @if ($item->dokumenTeknis && $item->dokumenTeknis->status === 'Ditolak')
-                                            <span class="badge bg-danger">
+                                            <span class="badge bg-danger" tabindex="0" role="button"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                style="cursor: pointer;">
                                                 Ditolak
-                                                <i class="fas fa-info-circle ms-1 text-white" tabindex="0" role="button"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                                                <i class="fas fa-info-circle ms-1 text-white"></i>
                                             </span>
                                             <!-- Scrollable modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -132,7 +133,8 @@
                                                         data-bs-target="#rejectModal{{ $item->dokumenTeknis->id }}">
                                                         <i class="fas fa-exclamation-triangle me-1"></i> Tolak
                                                     </button>
-                                                    <x-reject-with-comment modal-id="rejectModal{{ $item->dokumenTeknis->id }}"
+                                                    <x-reject-with-comment
+                                                        modal-id="rejectModal{{ $item->dokumenTeknis->id }}"
                                                         action-url="/dokumen-teknis/reject/{{ $item->dokumenTeknis->id }}"
                                                         value="{{ $item->dokumenTeknis->komentar }}" />
                                                 @elseif($item->dokumenTeknis->status === 'Ditolak')

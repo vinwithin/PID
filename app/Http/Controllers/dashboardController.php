@@ -8,10 +8,12 @@ use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class dashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('dashboard', [
             'alreadyRegist' => TeamMember::where('identifier', Auth::user()->identifier)->exists(),
             'data' => Registration::with(['registration_validation', 'ormawa', 'user'])
@@ -22,9 +24,46 @@ class dashboardController extends Controller
 
         ]);
     }
-    public function profil(){
-        return view('profil.index',[
+    public function profil()
+    {
+        return view('profil.index', [
             'data' => User::where('id', Auth::user()->id)->get(),
         ]);
+    }
+    public function updateFotoProfil(Request $request)
+    {
+        // try {
+            // Validasi
+            $request->validate([
+                'foto_profil' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $user = Auth::user();
+
+            // Hapus foto lama jika ada
+            if ($user->foto_profil && Storage::disk('public')->exists($user->foto_profil)) {
+                Storage::disk('public')->delete($user->foto_profil);
+            }
+
+            // Ambil file
+            $file = $request->file('foto_profil');
+
+            // Buat nama acak
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            // Simpan dengan nama acak
+            $path = $file->storeAs('foto_profil', $filename, 'public');
+
+            // Update user
+            User::where('id', $user->id)->update(
+                ['foto_profil' => $path]
+            );
+
+            return redirect()->back()->with('success', 'Foto profil berhasil diperbarui!');
+        // } catch (\Illuminate\Validation\ValidationException $e) {
+        //     return redirect()->back()->withErrors($e->validator)->withInput();
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui foto: ' . $e->getMessage());
+        // }
     }
 }

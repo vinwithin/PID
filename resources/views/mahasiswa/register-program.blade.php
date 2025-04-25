@@ -147,7 +147,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="program_studi" class="form-label fw-bold">Program Studi</label>
-                                <select class="form-select" name="program_studi" id="program_studi" required>
+                                <select class="form-select" name="program_studi" id="program_studi" style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
+                                 required>
                                     <option value="" selected="selected" hidden="hidden">Pilih Program Studi</option>
                                         <option value=""></option>
                                 </select>

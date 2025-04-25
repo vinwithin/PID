@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
     Route::get('/profil', [dashboardController::class, 'profil'])->name('profil');
+    Route::post('/ganti-foto', [dashboardController::class, 'updateFotoProfil'])->name('update.foto');
+
 
     Route::get('/get-dosen', [regisProgramController::class, 'getDosen'])->name('get-dosen');
     Route::get('/get-prodi', [regisProgramController::class, 'getProdi'])->name('get-prodi');

@@ -103,12 +103,13 @@
                                         <td class="text-center fw-bold" id="status">
                                             @if (count($data) > 0)
                                                 @if ($data[0]->laporan_kemajuan && $data[0]->status === 'Ditolak')
-                                                    <span class="badge bg-danger">
+                                                    <span class="badge bg-danger" tabindex="0" role="button"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                        style="cursor: pointer;">
                                                         Ditolak
-                                                        <i class="fas fa-info-circle ms-1 text-white" tabindex="0"
-                                                            role="button" data-bs-toggle="modal"
-                                                            data-bs-target="#exampleModal"></i>
+                                                        <i class="fas fa-info-circle ms-1 text-white"></i>
                                                     </span>
+
 
                                                     <!-- Scrollable modal -->
                                                     <div class="modal fade" id="exampleModal" tabindex="-1"
