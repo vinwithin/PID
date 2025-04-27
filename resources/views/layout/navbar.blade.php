@@ -67,7 +67,11 @@
 
         </div>
     </div>
-    <div class="navbar-collapse collapse">
-        <h1 class="text-white">{{ $title ?? '' }}</h1>
+    <div class="navbar-collapse collapse d-flex flex-column align-items-start">
+        <h1 class="text-white text-start">{{ $title ?? '' }}</h1>
+        <h4 class="text-white text-start">{{ $description ?? '' }}</h4>
     </div>
+    
+
 </nav>
+

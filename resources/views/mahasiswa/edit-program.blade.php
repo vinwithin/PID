@@ -1,6 +1,7 @@
 {{-- resources/views/registration/create.blade.php --}}
 @extends('layout.app')
 @section('title', 'Edit Pendaftaran')
+@section('description', 'Edit')
 
 @section('content')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

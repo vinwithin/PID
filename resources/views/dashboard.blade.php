@@ -1,4 +1,6 @@
 @extends('layout.app')
+@section('title', 'Selamat Datang!')
+@section('description', 'Program Inovasi Berbasis Kearifan Lokal')
 @section('content')
     @role('admin|reviewer|dosen|super admin')
         <div class="w-100 ">

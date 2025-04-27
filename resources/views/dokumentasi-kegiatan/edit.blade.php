@@ -1,4 +1,6 @@
 @extends('layout.app')
+@section('title', 'Publikasi Dokumentasi Kegiatan')
+@section('description', 'Dokumentasi Kegiatan')
 @section('content')
     <div class="w-100">
         <div class="card">

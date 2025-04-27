@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('title', 'Pengaturan Pengguna')
+@section('description', 'Pengaturan ')
 
 @section('content')
     <style>
@@ -23,7 +24,7 @@
                 <div class="row ">
                     <div class="col-md-2 d-flex flex-column align-items-end">
                         <div class="d-flex flex-column  align-items-center">
-                            <img src="{{ '/storage/' . Auth::user()->foto_profil ?? '/assets/profil.svg' }}"
+                            <img src="{{ Auth::user()->foto_profil ? asset('storage/' . Auth::user()->foto_profil) : asset('assets/profil.svg') }}"
                                 class="rounded  mb-2" alt="Foto Profil" style="width: 150px; height:150px;">
                             <!-- Tombol Ganti Foto -->
                             <button type="button" class="btn btn-xl btn-primary" data-bs-toggle="modal"

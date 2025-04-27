@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('title', 'Pilih Juri Monev Kelompok')
+@section('description', 'Monitoring dan Evaluasi ')
 @section('content')
     <div class="w-100 ">
         <div class="row">

@@ -1,18 +1,14 @@
 @extends('layout.app')
-@section('title', 'Laporan Kemajuan')
-
+@section('title', 'Daftar Dokumen')
+@section('description', 'Laporan Kemajuan')
 @section('content')
     <div class="w-100">
-
         @if (session('success'))
             <x-success-modal :message="session('success')" />
         @endif
         @if (session('error'))
             <x-error-modal :message="session('error')" />
         @endif
-
-
-
         <div class="card">
 
             <div class="container-fluid px-4 ">
@@ -167,11 +163,6 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-            var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
-                return new bootstrap.Popover(popoverTriggerEl)
-            })
-        });
+       
     </script>
 @endsection

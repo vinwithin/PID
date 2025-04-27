@@ -1,5 +1,6 @@
 @extends('layout.app')
-@section('title', 'Monev')
+@section('title', 'Monitoring dan Evaluasi Kelompok')
+@section('description', 'Monitoring dan Evaluasi ')
 @section('content')
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
     <div class="w-100">
@@ -13,11 +14,8 @@
             {{-- <div class="container-fluid px-4 py-4"> --}}
             <div class="card shadow-sm border-0">
                 @role('admin|reviewer|super admin')
-                    <div class="card-header text-dark py-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="mb-0 text-dark">
-                                <i class="fas fa-clipboard-list me-3"></i>Monitoring dan Evaluasi Kelompok
-                            </h3>
+                    <div class="card-header text-dark ">
+                        <div class="d-flex justify-content-end align-items-end">
                             <form action="{{ route('monev.index') }}" method="GET" class="">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control" placeholder="Cari..."
@@ -168,11 +166,9 @@
                     </div>
 
                     @elserole('dosen')
-                    <div class="card-header  text-white py-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="mb-0 text-dark">
-                                <i class="fas fa-clipboard-list me-3"></i>Monitoring dan Evaluasi Kelompok
-                            </h3>
+                    <div class="card-header  text-white ">
+                        <div class="d-flex justify-content-end align-items-end">
+                            
                             <form action="{{ route('monev.index') }}" method="GET" class="">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control" placeholder="Cari..."

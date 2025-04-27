@@ -1,5 +1,7 @@
 @extends('layout.app')
 @section('title', 'Cek Pendaftaran')
+@section('description', 'Kelola Pendaftaran')
+
 @section('content')
     <div class="w-full px-4 py-4">
         <div class="row">

@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('title', 'Dokumen Teknis')
+@section('description', 'Laporan Akhir')
 
 @section('content')
     <style>

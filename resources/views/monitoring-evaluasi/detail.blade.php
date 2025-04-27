@@ -1,5 +1,7 @@
 @extends('layout.app')
-@section('title', 'Nilai Monitoring dan Evaluasi')
+@section('title', 'Nilai Proposal')
+@section('description', 'Monitoring dan Evaluasi')
+
 @section('content')
     @php
         $curentUser = auth()->user()->name;

@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('title', 'Nilai Proposal')
+@section('description', 'Kelola Pendaftaran')
 
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -90,24 +91,19 @@
             </div>
         </div>
         @elserole('reviewer')
-        <div class="container-fluid">
+        <div class="w-full container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow-sm border-0">
-                        <div class="card-header bg-primary text-white">
-                            <h4 class="card-title mb-0 d-flex align-items-center text-light">
-                                <i class="me-2 bi bi-clipboard-check"></i>Nilai Proposal
-                            </h4>
-                        </div>
                         <div class="card-body">
                             <div class="card mb-4 border-light">
                                 <div class="table-responsive">
                                     <table class="table table-hover border">
-                                        <thead class="table-primary">
+                                        <thead class="table-primary ">
                                             <tr>
-                                                <th style="width: 60%">Aspek Penilaian</th>
-                                                <th style="width: 20%">Bobot</th>
-                                                <th style="width: 20%">Skor yang Diberikan</th>
+                                                <th class="bg-dark text-light w-50">Aspek Penilaian</th>
+                                                <th class="w-20 text-center bg-dark text-light">Bobot</th>
+                                                <th class="w-30 text-center bg-dark text-light">Skor</th>
                                             </tr>
                                         </thead>
                                         <tbody>

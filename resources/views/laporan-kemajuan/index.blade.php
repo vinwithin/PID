@@ -1,6 +1,11 @@
 {{-- resources/views/registration/create.blade.php --}}
 @extends('layout.app')
-@section('title', 'Laporan Kemajuan')
+@role('admin|reviewer|dosen|super admin')
+    @section('title', 'Daftar Dokumen')
+@elserole('mahasiswa')
+    @section('title', 'Unggah Dokumen')
+@endrole
+@section('description', 'Laporan Kemajuan')
 @section('content')
     <style>
         .modal {

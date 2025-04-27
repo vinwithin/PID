@@ -1,5 +1,7 @@
 @extends('layout.app')
 @section('title', 'Dokumentasi Kegiatan')
+@section('description', 'Laporan Akhir')
+
 
 @section('content')
     <div class="w-100">

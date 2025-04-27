@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('title', 'Cek Pendaftaran')
+@section('description', 'Daftar Pro-IDe')
 @section('content')
     @php
         $statuses = ['Belum valid', 'valid', 'lolos', 'Lanjutkan Program'];

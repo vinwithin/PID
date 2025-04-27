@@ -1,14 +1,13 @@
 {{-- resources/views/registration/create.blade.php --}}
 @extends('layout.app')
 @section('title', 'Pendaftaran')
+@section('description', 'Daftar Pro-IDe')
 
 @section('content')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- 2. Load Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-    <!-- 3. Load Select2 JS AFTER jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
         .step {
@@ -150,7 +149,6 @@
                                 <select class="form-select" name="program_studi" id="program_studi" style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
                                  required>
                                     <option value="" selected="selected" hidden="hidden">Pilih Program Studi</option>
-                                        <option value=""></option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -467,8 +465,7 @@
         </div>
     </div>
 
-    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script> --}}
+
 
 
 

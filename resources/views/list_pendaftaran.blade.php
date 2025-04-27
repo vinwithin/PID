@@ -1,5 +1,6 @@
 @extends('layout.app')
-@section('title', 'Kelola Pendaftaran')
+@section('title', 'Daftar Proposal')
+@section('description', 'Kelola Pendaftaran')
 @section('content')
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
     <div class="w-100" id="conntainer-card">
