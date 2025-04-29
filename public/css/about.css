@@ -1,0 +1,397 @@
+.hero-wrapper {
+    height: 80vh;
+}
+.card-about {
+    background: rgba(241, 255, 225, 0.3);
+    border: 1.12px solid rgba(101, 176, 58, 1);
+    box-shadow: 34.85px 29.63px 48.34px 0px rgba(47, 161, 97, 0.1);
+    /* height:30rem; */
+    border-radius: 20px;
+}
+.card-about h1 {
+    font-size: 3rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    line-height: 140%;
+}
+.card-about p {
+    font-size: 1.3rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
+    line-height: 140%;
+}
+.img-about {
+    width: 120%;
+    height: 120%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-about img {
+    width: 120%;
+    height: 120%;
+    object-fit: contain; /* atau cover, tergantung efek yang kamu mau */
+}
+
+#about-me {
+    position: relative;
+    height: 100vh;
+    background-image: url("/assets/footer-about.svg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: bottom center;
+}
+
+#about-me::after {
+    content: "";
+    position: absolute;
+    top: 0; /* mulai dari atas */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("/assets/Ellipse17.svg") no-repeat 10% 85%,
+        url("/assets/Ellipse17.svg") no-repeat 90% 75%;
+    background-size: 70px 70px, 100px 100px; /* masing-masing ukuran */
+    pointer-events: none; /* biar tidak ganggu klik */
+    z-index: 0; /* pastikan di belakang konten */
+}
+
+.card-aboutme {
+    width: 842px;
+    height: 476px;
+    padding: 60px;
+    /* position: relative; */
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(229, 244, 242, 1);
+    box-shadow: 34.85px 29.63px 48.34px 0px rgba(47, 161, 97, 0.1);
+}
+
+.card-aboutme::before {
+    content: "";
+    position: absolute;
+    top: -8%;
+    left: -5%;
+    width: 350px;
+    height: 350px;
+    background: url("/assets/element.svg") no-repeat left top;
+    background-size: 100px;
+    z-index: -1; /* Increase from 0, but keep lower than parent */
+}
+
+.card-aboutme > * {
+    position: relative;
+}
+
+#text-about {
+    font-size: 2.5rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    line-height: 120%;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+.card-aboutme p {
+    font-size: 1.3rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
+    line-height: 150%;
+    text-align: justify;
+}
+#misi-tujuan-section{
+    padding: 1.5rem 8%; 
+    height:100vh;
+}
+#panduan-section{
+    padding: 1.5rem 8%; 
+    background: rgba(47, 161, 97, 1); 
+    height: 90dvh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;"
+}
+.handphone-container {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    overflow: visible; /* supaya HP bisa keluar dari container */
+}
+
+.handphone-container::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    width: 370px;
+    height: 330px;
+    background: url("/assets/Subtract.svg") no-repeat 0% 20%,
+        url("/assets/Subtract-2.svg") no-repeat 90% 70%,
+        url("/assets/overlay-aboutme.svg") no-repeat center center;
+    background-size: 85px, 60px, contain, 75px;
+    transform: translate(-50%, -50%);
+    z-index: 0; /* overlay tetap di belakang */
+}
+
+.element-panduan {
+    position: absolute;
+    top: 17%;
+    right: 12%;
+    z-index: 2;
+}
+.handphone {
+    width: 820px !important;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+
+    position: relative;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+#misi-tujuan {
+    font-size: 2.5rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    line-height: 120%;
+}
+#misi-title {
+    font-size: 2rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+    line-height: 150%;
+    text-align: justify;
+}
+
+#tujuan-title {
+    font-size: 2rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+    line-height: 150%;
+    text-align: justify;
+}
+
+#misi li {
+    font-size: 1rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 400;
+    line-height: 150%;
+    text-align: justify;
+    color: rgba(125, 121, 135, 1);
+}
+#tujuan li {
+    font-size: 1rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 400;
+    line-height: 150%;
+    text-align: justify;
+    color: rgba(125, 121, 135, 1);
+}
+.text-panduan {
+    font-size: 2.1rem;
+    margin-bottom: 20px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    line-height: 150%;
+    text-align: center;
+    color: white;
+}
+#card-panduan {
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(229, 244, 242, 1);
+    box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+#card-panduan i {
+    font-size: 1.8rem;
+}
+.icon {
+    background: linear-gradient(
+        180deg,
+        #eefff2 11.54%,
+        #d5f3dc 52.4%,
+        #b4e4be 100%
+    );
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+.card-template {
+    font-size: 1.2rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 400;
+    line-height: 120%;
+    color: rgba(45, 45, 45, 1);
+}
+
+@media (max-width: 768px) {
+    .hero-wrapper {
+        height: 35vh;
+    }
+    #about-me {
+        height: 65vh;
+        padding-bottom: 10px;
+    }
+    .card-aboutme {
+        height: 350px;
+        width: 550px;
+        padding: 25px;
+    }
+    #about-me::after {
+        display: none !important;
+    }
+
+    .card-about {
+        gap: 10px;
+        padding: 1.5rem;
+    }
+    .card-about {
+        flex-direction: column;
+        text-align: start;
+    }
+
+    .img-about {
+        display: none;
+    }
+
+    .img-about img {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    #hero-misi-tujuan {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        text-align: center;
+    }
+
+    #hero-misi-tujuan img {
+        width: 200px;
+    }
+
+    #misi,
+    #tujuan {
+        padding-left: 1rem; /* tambahkan padding agar list tidak nempel */
+        text-align: left;
+    }
+    #panduan-section {
+        height:100vh;
+    }
+    #panduan-section .container-fluid {
+        margin-top: 250px;
+        padding: 0 15px;
+        
+    }
+    
+    .handphone-container {
+        position: relative;
+        width: 800px;
+        height: 800px;
+        overflow: visible; /* supaya HP bisa keluar dari container */
+    }
+    .handphone {
+        width: 820px !important;
+        height: 500px;
+        object-fit: cover;
+        display: block;
+    
+        position: relative;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+    .handphone-container::after {
+        content: "";
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        width: 370px;
+        height: 330px;
+        background: url("/assets/Subtract.svg") no-repeat 0% 20%,
+            url("/assets/Subtract-2.svg") no-repeat 90% 70%,
+            url("/assets/overlay-aboutme.svg") no-repeat center center;
+        background-size: 85px, 60px, contain, 75px;
+        transform: translate(-50%, -50%);
+        z-index: 0; /* overlay tetap di belakang */
+    }
+    .element-panduan{
+        display:none;
+    }
+}
+
+/* Breakpoint: Mobile (≤ 576px) */
+@media (max-width: 576px) {
+    #hero {
+        padding: 1rem 5%;
+    }
+    .hero-wrapper {
+        height: 35vh;
+    }
+    #about-me {
+        height: 65vh;
+        padding-bottom: 10px;
+    }
+    .card-aboutme {
+        height: 300px;
+        width: 300px;
+        padding: 15px;
+    }
+    #about-me::after {
+        display: none !important;
+    }
+
+    .card-about {
+        gap: 10px;
+        padding: 1.5rem;
+    }
+
+    #hero h1 {
+        font-size: 1.5rem;
+    }
+
+    #hero p {
+        font-size: 0.95rem;
+    }
+    #misi-tujuan-section{
+        height:70vh;
+    }
+    #hero-misi-tujuan {
+        padding: 1rem;
+        gap: 30px;
+    }
+
+    #hero-misi-tujuan img {
+        display:none;
+    }
+
+    #hero-misi-tujuan .card {
+        padding: 1rem;
+    }
+
+    #misi-title,
+    #tujuan-title {
+        font-size: 1.2rem;
+    }
+
+    #misi li,
+    #tujuan li {
+        font-size: 0.95rem;
+    }
+    #panduan-section{
+        height:50vh;
+    }
+    #panduan-section .container-fluid {
+        margin-top: 0;
+    }
+    .handphone-container{
+        display:none;
+    }
+    .element-panduan{
+        display:none;
+    }
+}

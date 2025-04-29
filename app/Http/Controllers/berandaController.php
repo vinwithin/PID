@@ -61,4 +61,8 @@ class berandaController extends Controller
             'data' => VideoKonten::paginate(12),
         ]);
     }
+
+    public function about(){
+        return view('guest.about.index');
+    }
 }

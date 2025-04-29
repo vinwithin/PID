@@ -7,15 +7,27 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto gap-5">
+        <ul class="navbar-nav me-auto gap-4">
             <li class="nav-item">
-                <a class="nav-link " href="#announcement">Pengumuman</a>
+                <a class="nav-link " href="/tentang-kami">Tentang Kami</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/#announcement">Pengumuman</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/#berita">Berita</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="/daftar-publikasi">Publikasi</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link " href="/#galeri">Galeri</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link " href="/video">Video</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/tentang-kami#panduan-section">Panduan</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="">Hubungi Kami</a>

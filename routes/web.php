@@ -41,6 +41,7 @@ Route::middleware('guest')->group(function () {
 Route::get('/', [berandaController::class, 'index'])->name('beranda');
 Route::get('/daftar-publikasi', [berandaController::class, 'detailPublikasi'])->name('daftar-publikasi');
 Route::get('/video', [berandaController::class, 'video'])->name('video');
+Route::get('/tentang-kami', [berandaController::class, 'about'])->name('about');
 Route::get('/publikasi/detail/{publikasi:slug}', [berandaController::class, 'detail'])->name('daftar-publikasi');
 Route::get('/berita/detail/{berita:slug}', [berandaController::class, 'detailBerita'])->name('detail-berita');
 
