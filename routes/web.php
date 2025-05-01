@@ -13,6 +13,7 @@ use App\Http\Controllers\KelolaArtikel;
 use App\Http\Controllers\KelolaKontenController;
 use App\Http\Controllers\LaporanKemajuanController;
 use App\Http\Controllers\listPendaftaranController;
+use App\Http\Controllers\logbookController;
 use App\Http\Controllers\masterDataController;
 use App\Http\Controllers\mhs\mhsController;
 use App\Http\Controllers\mhs\regisProgramController;
@@ -108,6 +109,23 @@ Route::middleware('auth')->group(function () {
         Route::get('/pendaftaran/detail/{id}', [listPendaftaranController::class, 'show'])->name('pendaftaran.detail');
         Route::get('/pendaftaran/detail-nilai/{id}', [listPendaftaranController::class, 'scoreDetail'])->name('pendaftaran.detail-nilai');
         Route::get('/pendaftaran/generate-nilai/{id_regis}/{reviewer}', [PdfController::class, 'generate'])->name('pendaftaran.generate-nilai');
+    });
+
+    Route::middleware(['can:show logbook'])->group(function () {
+        Route::get('/logbook', [logbookController::class, 'index'])->name('logbook');
+    });
+    Route::middleware(['can:validate logbook'])->group(function () {
+        Route::get('/logbook/detail/{id}', [logbookController::class, 'detail'])->name('logbook.detail');
+        Route::get('/logbook/approve/dospem/{id}', [logbookController::class, 'approve'])->name('logbook.approve');
+        Route::get('/logbook/reject/dospem/{id}', [logbookController::class, 'reject'])->name('logbook.reject');
+        Route::get('/logbook/approve/admin/{id}', [logbookController::class, 'approveAdmin'])->name('logbook.approveAdmin');
+        Route::get('/logbook/reject/admin/{id}', [logbookController::class, 'rejectAdmin'])->name('logbook.rejectAdmin');
+    });
+    Route::middleware(['can:create logbook'])->group(function () {
+        Route::get('/logbook/tambah', [logbookController::class, 'create'])->name('logbook.tambah')->middleware('checkProgressAccess');
+        Route::post('/logbook/tambah', [logbookController::class, 'store'])->name('logbook.tambah')->middleware('checkProgressAccess');
+        Route::get('/logbook/edit/{id}', [logbookController::class, 'edit'])->name('logbook.edit')->middleware('checkProgressAccess');
+        Route::post('/logbook/update/{id}', [logbookController::class, 'update'])->name('logbook.update')->middleware('checkProgressAccess');
     });
 
     Route::middleware(['can:read laporan kemajuan'])->group(function () {

@@ -42,13 +42,9 @@
                             Pro-IDe</span>
                     </a>
                 </li>
-
-                {{-- <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('publikasi') }}">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Publikasi</span>
-                    </a>
-                </li> --}}
             @endcan
+
+
 
             @role('admin|reviewer|dosen')
                 <li class="sidebar-item {{ Request::is(['pendaftaran*', 'reviewer*']) ? 'active' : '' }}">
@@ -57,6 +53,15 @@
                             Pendaftaran</span>
                     </a>
                 </li>
+                @if (Auth::user()->can('show logbook'))
+                    <li class="sidebar-header">Log Book</li>
+                    <li class="sidebar-item {{ Request::is(['logbook*']) ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('logbook') }}">
+                            <i class="fa-regular fa-note-sticky"></i>
+                            <span class="align-middle">Daftar Log Book</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="sidebar-header">Laporan Kemajuan</li>
                 <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
@@ -93,6 +98,7 @@
                     </a>
                 </li>
             @endrole
+
             @php
                 $hasAccessToProgress =
                     auth()->user()->hasRole('mahasiswa') &&
@@ -105,6 +111,13 @@
                         ->exists();
             @endphp
             @if ($hasAccessToProgress)
+                <li class="sidebar-header">Log Book</li>
+                <li class="sidebar-item {{ Request::is(['logbook*']) ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('logbook') }}">
+                        <i class="fa-regular fa-note-sticky"></i> <span class="align-middle">Daftar Logbook</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-header">Laporan Kemajuan</li>
                 <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
@@ -127,6 +140,12 @@
             @endphp
 
             @if ($hasAccessToPublication)
+                <li class="sidebar-header">Log Book</li>
+                <li class="sidebar-item {{ Request::is(['logbook*']) ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('logbook') }}">
+                        <i class="fa-regular fa-note-sticky"></i> <span class="align-middle">Daftar Logbook</span>
+                    </a>
+                </li>
                 <li class="sidebar-header">Laporan Kemajuan</li>
                 <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
@@ -198,7 +217,7 @@
                     </a>
                 </li>
             @endrole
-            
+
             @role('super admin')
                 <li class="sidebar-header">
                     Kelola Konten

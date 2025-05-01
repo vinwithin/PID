@@ -156,14 +156,22 @@ class roleSeeder extends Seeder
             ['name' => 'manage roles'],
             ['name' => 'manage roles'],
         );
+        $permission23 = Permission::updateOrCreate(
+            ['name' => 'create logbook'],
+            ['name' => 'create logbook'],
+        );
+        $permission24 = Permission::updateOrCreate(
+            ['name' => 'approve logbook'],
+            ['name' => 'approve logbook'],
+        );
        
         $user1->assignRole('mahasiswa');
         $user2->assignRole('reviewer');
         $user3->assignRole('admin');
-        $role1->givePermissionTo($permission1, $permission5, $permission6, $permission7, $permission13, $permission15, $permission16, $permission17, $permission18, $permission20);
+        $role1->givePermissionTo($permission1, $permission5, $permission6, $permission7, $permission13, $permission15, $permission16, $permission17, $permission18, $permission20, $permission23);
         $role2->givePermissionTo($permission2, $permission3, $permission5, $permission9, $permission13, $permission18);
-        $role3->givePermissionTo($permission2, $permission4, $permission5, $permission8, $permission9, $permission11, $permission12, $permission13, $permission14, $permission14, $permission17, $permission18, $permission19, $permission20, $permission21);
-        $role4->givePermissionTo($permission2, $permission5, $permission9, $permission10, $permission13, $permission18);
+        $role3->givePermissionTo($permission2, $permission4, $permission5, $permission8, $permission9, $permission11, $permission12, $permission13, $permission14, $permission14, $permission17, $permission18, $permission19, $permission20, $permission21, $permission24);
+        $role4->givePermissionTo($permission2, $permission5, $permission9, $permission10, $permission13, $permission18, $permission24);
         $role5->givePermissionTo($permission22);
         // $role1->givePermissionTo($permission2);
     }

@@ -31,5 +31,8 @@ class TeamMember extends Model
     {
         return $this->hasMany(User::class, 'identifier');
     }
+    public function logbook(){
+        return $this->hasMany(Logbook::class);
+    }
    
 }
