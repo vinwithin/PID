@@ -137,7 +137,7 @@
                 <div class="container-header">
                     <div class="container-title">
                         <h2 class="text-light fw-bold">Publikasi</h2>
-                        <p class="text-light">Artikel Program Pro-IDe</p>
+                        <p class="text-light">Kegiatan Program Pro-IDe</p>
                     </div>
                     <div class="container-button">
                         <div class="circle"></div>

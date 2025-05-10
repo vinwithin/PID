@@ -17,7 +17,7 @@
                         <a class="btn btn-primary" href="{{ route('logbook.tambah') }}"><i
                                 class="fa-solid fa-file-circle-plus me-2"></i>Tambah Logbook</a>
 
-                        <form action="{{ route('laporan-kemajuan') }}" method="GET" class="">
+                        <form action="{{ route('logbook') }}" method="GET" class="">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control" placeholder="Cari.."
                                     value="{{ request('search') }}">
@@ -67,7 +67,7 @@
                                                     @default bg-danger
                                                 @endswitch">
                                                     @if (!empty($item->logbook_validations->status))
-                                                        {{ $item->logbook_validations_status === 'Valid' ? 'Divalidasi Admin' : 'Ditolak Admin' }}
+                                                        {{ $item->logbook_validations->status === 'Valid' ? 'Divalidasi Admin' : 'Ditolak Admin' }}
                                                     @else
                                                         @if ($item->status === 'Valid')
                                                             Divalidasi Dosen Pembimbing
@@ -80,8 +80,19 @@
                                             </td>
                                             <td class="fw-bold
                                                     text-start">
-                                                <a href="/logbook/edit/{{ $item->id }}" class="btn btn-outline-warning"><i
-                                                        class="fa-solid fa-pen me-2"></i>Edit</a>
+                                                @if (!empty($item->logbook_validations->status))
+                                                    @if ($item->logbook_validations->status === 'Valid')
+                                                        Tidak Ada Aksi
+                                                    @else
+                                                        <a href="/logbook/edit/{{ $item->id }}"
+                                                            class="btn btn-outline-warning"><i
+                                                                class="fa-solid fa-pen me-2"></i>Edit</a>
+                                                    @endif
+                                                @else
+                                                    <a href="/logbook/edit/{{ $item->id }}"
+                                                        class="btn btn-outline-warning"><i
+                                                            class="fa-solid fa-pen me-2"></i>Edit</a>
+                                                @endif
                                             </td>
 
 

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->text('proposal');
             $table->string('nama_dosen_pembimbing');
             $table->string('nohp_dosen_pembimbing');
+            $table->enum('status_supervisor', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
         Schema::create('team_members', function (Blueprint $table) {

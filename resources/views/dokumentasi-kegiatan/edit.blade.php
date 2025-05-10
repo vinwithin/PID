@@ -26,8 +26,8 @@
                     </div>
 
                     <div class="mb-3" id="inputAlbumContainer">
-                        <label for="nama_album" class="form-label">Nama Album</label>
-                        <input type="text" class="form-control" id="nama_album" name="nama" value="{{$data->album->nama}}">
+                        <label for="nama" class="form-label">Nama Album</label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="{{$data->album->nama}}">
                     </div>
                     <div class="mb-3" id="inputFotoContainer">
                         <label for="album_photos" class="form-label">Unggah Foto Dokumentasi Kegiatan</label>
@@ -35,8 +35,8 @@
                             accept="image/*">
                         <small class="text-muted">Minimal 3 file.
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <a href="/dokumentasi-kegiatan" class="btn btn-warning">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="/dokumentasi-kegiatan" class="btn btn-secondary">Kembali</a>
 
                 </form>
 

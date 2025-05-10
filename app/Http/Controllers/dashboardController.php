@@ -14,8 +14,19 @@ class dashboardController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+
+        // Cek apakah user adalah anggota tim dan statusnya masih pending
+        $pendingMember = TeamMember::where('identifier', $user->identifier)
+            ->where('status', 'pending')
+            ->first();
+        if ($pendingMember) {
+            session()->flash('pending_approval');
+        }
         return view('dashboard', [
+
             'alreadyRegist' => TeamMember::where('identifier', Auth::user()->identifier)->exists(),
+            'pendingMember' => $pendingMember,
             'data' => Registration::with(['registration_validation', 'ormawa', 'user'])
                 ->whereHas('teamMembers', function ($query) {
                     $query->where('identifier', Auth::user()->identifier);  // Cek apakah NIM ada di tabel teammember
@@ -32,7 +43,7 @@ class dashboardController extends Controller
     }
     public function updateFotoProfil(Request $request)
     {
-        // try {
+        try {
             // Validasi
             $request->validate([
                 'foto_profil' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -60,10 +71,10 @@ class dashboardController extends Controller
             );
 
             return redirect()->back()->with('success', 'Foto profil berhasil diperbarui!');
-        // } catch (\Illuminate\Validation\ValidationException $e) {
-        //     return redirect()->back()->withErrors($e->validator)->withInput();
-        // } catch (\Exception $e) {
-        //     return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui foto: ' . $e->getMessage());
-        // }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui foto: ' . $e->getMessage());
+        }
     }
 }

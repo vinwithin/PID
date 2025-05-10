@@ -76,7 +76,7 @@ class LaporanKemajuanController extends Controller
 
         // Jika laporan sudah ada, update; jika belum, buat baru
         if ($existingLaporan) {
-            $existingLaporan->update(['file_path' => $filename, 'status' => 'pending', 'komentar' => '']);
+            $existingLaporan->update(['file_path' => $filename, 'status' => 'Belum Valid', 'komentar' => '']);
         } else {
             LaporanKemajuan::create([
                 'team_id' => $team_id,

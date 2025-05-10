@@ -11,7 +11,7 @@
             <x-error-modal :message="session('error')" />
         @endif
         <div class="card">
-            @role('admin|dosen|super admin')
+            @role('admin|super admin')
                 <div class="card-header  text-dark py-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="text-dark">
@@ -113,7 +113,19 @@
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
                                                 @can('approve proposal')
-                                                    @if ($item->registration_validation->status === 'Belum valid')
+                                                    @if ($item->registration_validation->status === 'valid')
+                                                        @if ($item->reviewAssignments->where('registration_id', $item->id)->isEmpty())
+                                                            <a href="{{ route('pilih-reviewer', ['id' => $item->id]) }}"
+                                                                class="btn btn-sm btn-outline-success">
+                                                                <i class="fa-solid fa-user-plus me-2"></i>Pilih Juri
+                                                            </a>
+                                                        @elseif(!isset($totalId[$item->id]))
+                                                            <a href="/edit-reviewer/{{ $item->id }}"
+                                                                class="btn btn-sm btn-outline-success">
+                                                                <i class="fa-solid fa-user-plus me-2"></i>Edit Juri
+                                                            </a>
+                                                        @endif
+                                                    @elseif ($item->registration_validation->status === 'Belum valid')
                                                         <!-- Tombol untuk membuka modal -->
                                                         <button type="button" class="btn btn-sm btn-outline-success"
                                                             data-bs-toggle="modal"
@@ -128,19 +140,36 @@
                                                             action-url="{{ route('approve', ['id' => $item->id]) }}"
                                                             confirm-text="Ya, Setujui" />
 
-                                                        {{-- <button type="button" class="btn btn-sm btn-outline-warning"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#approveModal{{ $item->id }}">
-                                                                    <i class="fas fa-check me-1"></i> Tolak
-                                                                </button>
+                                                        <button type="button" class="btn btn-sm btn-outline-warning"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#rejectModal{{ $item->id }}">
+                                                            <i class="fas fa-check me-1"></i> Tolak
+                                                        </button>
 
-                                                                <!-- Gunakan komponen modal -->
-                                                                <x-confirm-modal modal-id="approveModal{{ $item->id }}"
-                                                                    title="Konfirmasi Persetujuan"
-                                                                    message="Apakah Anda yakin ingin menolak proposal ini?"
-                                                                    action-url="{{ route('approve', ['id' => $item->id]) }}"
-                                                                    confirm-text="Ya, Setujui" /> --}}
-                                                    @elseif ($item->registration_validation->status === 'valid' && isset($totalId[$item->id]) && count($totalId[$item->id]) == 2)
+                                                        <!-- Gunakan komponen modal -->
+                                                        <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
+                                                            title="Konfirmasi Persetujuan"
+                                                            message="Apakah Anda yakin ingin menolak proposal ini?"
+                                                            action-url="{{ route('reject', ['id' => $item->id]) }}"
+                                                            confirm-text="Ya, Setujui" />
+                                                    @elseif($item->registration_validation->status === 'Tidak Lolos')
+                                                        <button type="button" class="btn btn-sm btn-outline-success"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#approveModal{{ $item->id }}">
+                                                            <i class="fas fa-check me-1"></i> Setujui
+                                                        </button>
+
+                                                        <!-- Gunakan komponen modal -->
+                                                        <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                            title="Konfirmasi Persetujuan"
+                                                            message="Apakah Anda yakin ingin menyetujui proposal ini?"
+                                                            action-url="{{ route('approve', ['id' => $item->id]) }}"
+                                                            confirm-text="Ya, Setujui" />
+                                                    @endif
+                                                    @if (
+                                                        $item->registration_validation->status === 'valid' &&
+                                                            isset($totalId[$item->id]) &&
+                                                            count($totalId[$item->id]) === 2)
                                                         <button type="button" class="btn btn-sm btn-outline-success"
                                                             data-bs-toggle="modal" data-bs-target="#lolosModal{{ $item->id }}">
                                                             <i class="fas fa-award me-1"></i> Lolos
@@ -160,14 +189,12 @@
                                                         </a>
                                                     @endif
                                                 @endcan
-
                                                 @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
                                                     <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
                                                         class="btn btn-sm btn-outline-primary">
                                                         <i class="fas fa-eye me-1"></i>Lihat Nilai
                                                     </a>
                                                 @endif
-
                                                 <a href="/pendaftaran/detail/{{ $item->id }}"
                                                     class="btn btn-sm btn-outline-info">
                                                     <i class="fas fa-info-circle me-1"></i>Detail
@@ -191,7 +218,7 @@
 
                     </div>
                 </div>
-                @elserole('reviewer')
+                @elserole('reviewer|dosen')
                 <div class="card-header text-white py-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="mb-0 text-dark">

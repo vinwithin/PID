@@ -1,6 +1,6 @@
 @extends('layout.app')
-@section('title', 'Publikasi Artikel')
-@section('description', 'Publikasi Artikel')
+@section('title', 'Publikasi Kegiatan')
+@section('description', 'Publikasi Kegiatan')
 
 @section('content')
     <div class="w-100">
@@ -37,7 +37,7 @@
                     </form>
                     <form action="{{ route('publikasi') }}" method="GET" class="mb-3">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Cari artikel..."
+                            <input type="text" name="search" class="form-control" placeholder="Cari kegiatan..."
                                 value="{{ request('search') }}">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-search"></i> Cari

@@ -13,7 +13,8 @@ class TeamMember extends Model
         'identifier',
         'prodi',
         'fakultas',
-        'jabatan'
+        'jabatan',
+        'status',
     ];
     public function fakultas_model()
     {

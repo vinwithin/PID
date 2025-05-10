@@ -14,14 +14,14 @@
             <div class="container-fluid px-4 ">
                 <div class="card-header d-flex justify-content-end align-items-end">
 
-                    <form action="{{ route('laporan-kemajuan') }}" method="GET" class="">
+                    <form action="{{ route('logbook') }}" method="GET" class="">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" placeholder="Cari.."
                                 value="{{ request('search') }}">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-search"></i> Cari
                             </button>
-                            <a href="{{ route('laporan-kemajuan') }}" class="btn btn-success ms-2">Reset</a>
+                            <a href="{{ route('logbook') }}" class="btn btn-success ms-2">Reset</a>
 
                         </div>
                     </form>
@@ -48,7 +48,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td class="fw-bold text-start">{{ $item->registration->judul }}</td>
                                             <td class="text-start">{{ $item->registration->nama_ketua }}</td>
-                                            <td class="fw-bold text-start">{{ $item->registration->nama_dosen_pembimbing }}</td>
+                                            <td class="fw-bold text-start">{{ $item->registration->dospem->name }}</td>
                                             <td class="fw-bold text-start">
                                                 <a href="/logbook/detail/{{ $item->team_id }}" class="btn btn-outline-success">
                                                     <i class="fa-solid fa-eye me-2"></i>Detail</a>
@@ -91,7 +91,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td class="fw-bold text-start">{{ $item->registration->judul }}</td>
                                             <td class="text-start">{{ $item->registration->nama_ketua }}</td>
-                                            <td class="fw-bold text-start">{{ $item->registration->nama_dosen_pembimbing }}</td>
+                                            <td class="fw-bold text-start">{{ $item->registration->dospem->name }}</td>
                                             <td class="fw-bold text-start">
                                                 <a href="/logbook/detail/{{ $item->team_id }}" class="btn btn-outline-success">
                                                     <i class="fa-solid fa-eye me-2"></i>Detail</a>

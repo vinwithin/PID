@@ -12,6 +12,9 @@ class Sub_kriteria_penilaian extends Model
         'kriteria_penilaian_id',
         'nama',
     ];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     public function kriteria_penilaian()
     {
         return $this->belongsTo(Kriteria_penilaian::class);

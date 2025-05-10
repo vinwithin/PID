@@ -17,6 +17,8 @@ class DokumenPublikasi extends Model
         'link_artikel',
         'file_haki',
         'status_haki',
+        'file_bukti_publikasi',
+        'status_publikasi',
         'status',
         'komentar',
     ];

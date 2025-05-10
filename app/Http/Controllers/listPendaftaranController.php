@@ -13,6 +13,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class listPendaftaranController extends Controller
 {
@@ -41,14 +42,16 @@ class listPendaftaranController extends Controller
 
     public function index()
     {
-        $dataNilai = Registration::with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
+        $dataNilai = Registration::with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
             $query->where('reviewer_id', Auth::user()->id); // Kondisi yang ingin dicek
         })->paginate(10);
         $totalId = ProposalReviewController::calculateScores();
         // dd($totalId['totalId']);
         return view('list_pendaftaran', [
-            'data' => Registration::with(['bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])->whereHas('registration_validation', function ($query) {
-                $query->whereIn('status', ['Belum valid', 'valid', 'lolos']);
+            'data' => Registration::with(['user', 'bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])
+                ->where('status_supervisor', 'approved')
+                ->whereHas('registration_validation', function ($query) {
+                    $query->whereIn('status', ['Belum valid', 'Tidak Lolos', 'valid', 'lolos']);
                 })->paginate(10),
             'dataNilai' => $dataNilai,
             'totalId' => $totalId['totalId'],
@@ -86,33 +89,118 @@ class listPendaftaranController extends Controller
         try {
             Registrasi_validation::where('registration_id', $id)
                 ->update(['status' => 'valid', 'validator_id' => Auth::user()->name]);
-            $availableReviewers = User::role('reviewer')
-                ->withCount(['reviewAssignments as pending_reviews_count' => function ($query) {
-                    $query->where('status', 'Menunggu Review');
-                }])
-                ->get();
+            return redirect()->route('pendaftaran')->with('success', 'berhasil mengubah data');
+        } catch (Exception $e) {
+            return redirect()->route('pendaftaran')->with("error", "Gagal mengubah data!");
+        };
+    }
+    public function createReviewer($id)
+    {
+        $registration = Registration::findOrFail($id); // ID registrasi yang sedang dilihat
+        $supervisorId = $registration->nama_dosen_pembimbing;
+        return view('kelola-reviewer.index', [
+            'data' => Registration::with(['fakultas', 'program_studi', 'ormawa'])->find($id),
+            'reviewer' => User::with(['registration'])->role(['dosen', 'reviewer'])
+                ->where('id', '!=', $supervisorId)
+                ->get(),
 
-            if ($availableReviewers->count() < 2) {
-                throw new \Exception('Jumlah reviewer yang tersedia kurang dari 2');
+        ]);
+    }
+    public function storeReviewer(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            // Validasi input
+            $data = $request->validate([
+                'reviewer_id' => 'required|array|min:2|max:2', // Harus memilih 2 reviewer
+                'reviewer_id.*' => 'required',
+            ]);
+            // Ambil reviewer dari request
+            $reviewer_1 = $data['reviewer_id'][0];
+            $reviewer_2 = $data['reviewer_id'][1];
+
+            // Pastikan reviewer_1 dan reviewer_2 tidak sama
+            if ($reviewer_1 === $reviewer_2) {
+                throw new Exception('Reviewer 1 dan 2 tidak boleh sama');
             }
+            // Simpan ke database
+            ReviewAssignment::create([
+                'reviewer_id' => $reviewer_1,
+                'registration_id' => $id,
+                'status' => 'Menunggu Review',
+                'feedback' => ''
+            ]);
+            ReviewAssignment::create([
+                'reviewer_id' => $reviewer_2,
+                'registration_id' => $id,
+                'status' => 'Menunggu Review',
+                'feedback' => ''
+            ]);
 
-            // Pilih 2 reviewer dengan beban tugas paling sedikit
-            $selectedReviewers = $availableReviewers
-                ->sortBy('pending_reviews_count')
-                ->take(2);
-            
-                // dd($selectedReviewers);
+            DB::commit();
+            return redirect()->route('pendaftaran')->with('success', 'Berhasil menambah data');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('pendaftaran')->with('error', $e->getMessage());
+        }
+    }
+    public function edit($id)
+    {
+        $registration = Registration::findOrFail($id); // ID registrasi yang sedang dilihat
+        $supervisorId = $registration->nama_dosen_pembimbing;
+        return view('kelola-reviewer.edit', [
+            'data' => Registration::find($id),
+            'data_reviewer' => ReviewAssignment::where('registration_id', $id)->get(),
+            'reviewer' => User::with(['registration'])->role(['dosen', 'reviewer'])
+                ->where('id', '!=', $supervisorId)
+                ->get(),
 
-            // Buat assignment untuk kedua reviewer terpilih
-            foreach ($selectedReviewers as $reviewer) {
-                ReviewAssignment::create([
-                    'registration_id' => $id,
-                    'reviewer_id' => $reviewer->id,
-                    'status' => 'Menunggu Review',
-                    'feedback' => ''
-                ]);
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $data = $request->validate([
+                'reviewer_id' => 'required|array|min:2|max:2', // Harus memilih 2 reviewer
+                'reviewer_id.*' => 'required',
+            ]);
+            $reviewer_1 = $data['reviewer_id'][0];
+            $reviewer_2 = $data['reviewer_id'][1];
+
+            // Pastikan reviewer_1 dan reviewer_2 tidak sama
+            if ($reviewer_1 === $reviewer_2) {
+                throw new Exception('Reviewer 1 dan 2 tidak boleh sama');
             }
+            ReviewAssignment::where('registration_id', $id)->delete();
+            // Simpan reviewer baru
+            ReviewAssignment::create([
+                'reviewer_id' => $reviewer_1,
+                'registration_id' => $id,
+                'status' => 'Menunggu Review',
+                'feedback' => ''
+            ]);
+            ReviewAssignment::create([
+                'reviewer_id' => $reviewer_2,
+                'registration_id' => $id,
+                'status' => 'Menunggu Review',
+                'feedback' => ''
+            ]);
+            DB::commit();
+            return redirect()->route('pendaftaran')->with('success', 'Berhasil menambah data');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('pendaftaran')->with('error', $e->getMessage());
 
+        }
+    }
+
+
+    public function reject($id)
+    {
+        try {
+            Registrasi_validation::where('registration_id', $id)
+                ->update(['status' => 'Tidak Lolos', 'validator_id' => Auth::user()->name]);
             return redirect()->route('pendaftaran')->with('success', 'berhasil mengubah data');
         } catch (Exception $e) {
             return redirect()->route('pendaftaran')->with("error", "Gagal mengubah data!");

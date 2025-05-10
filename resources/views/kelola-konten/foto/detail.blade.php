@@ -1,6 +1,6 @@
 @extends('layout.app')
-
-@section('title', 'Detail Album')
+@section('title', 'Konten Galeri')
+@section('description', 'Kelola Konten')
 @section('content')
     <div class="w-100">
         <div class="card shadow-sm border-0">

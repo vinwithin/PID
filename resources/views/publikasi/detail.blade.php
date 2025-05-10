@@ -1,6 +1,6 @@
 @extends('layout.app')
-@section('title', 'Publikasi Artikel')
-@section('description', 'Publikasi Artikel')
+@section('title', 'Publikasi Kegiatan')
+@section('description', 'Publikasi Kegiatan')
 @section('content')
     <style>
         p img {
@@ -27,7 +27,7 @@
             border-top-right-radius: 10px;
         }
     </style>
-    <div class="container-fluid">
+    <div class="w-full">
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card shadow-sm">

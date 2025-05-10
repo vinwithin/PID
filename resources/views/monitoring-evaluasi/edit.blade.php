@@ -17,7 +17,7 @@
                                         <dd class="col-7">{{ $data->nama_ketua }}</dd>
 
                                         <dt class="col-5">Nama Tim</dt>
-                                        <dd class="col-7">{{ $data->nama_tim }}</dd>
+                                        <dd class="col-7">{{ $data->judul }}</dd>
 
                                         <dt class="col-5">Prodi Ketua</dt>
                                         <dd class="col-7">{{ $data->program_studi->nama }}</dd>

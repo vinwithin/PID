@@ -31,10 +31,11 @@
                             <tr>
                                 <th style="width: 5%" class="text-center">No</th>
                                 <th style="width: 10%" class="text-center">Tim</th>
-                                <th style="width: 15%" class="text-center">Konten</th>
                                 <th style="width: 15%" class="text-center">File draf Artikel Berita Media Massa</th>
                                 <th style="width: 15%" class="text-center">Bukti Ketercapaian HAKI (Sertifikat
                                     Haki/Draft Pendaftaran HAKI)</th>
+                                <th style="width: 20%" class="text-center">Bukti Ketercapaian Seminar atau Publikasi Artikel
+                                </th>
                                 <th style="width: 15%" class="text-center">Link Artikel</th>
                                 <th style="width: 10%" class="text-center">Status</th>
                                 @can('agree publication')
@@ -45,41 +46,97 @@
                         <tbody>
                             @foreach ($dataAdmin as $item)
                                 <tr>
-                                    <td rowspan="2" class="text-center">{{ $loop->iteration }}</td>
-                                    <td rowspan="2" class="fw-bold text-center">Tim {{ $item->judul }}</td>
-                                    <td>Dokumen</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="fw-bold text-center">Tim {{ $item->judul }}</td>
+
                                     <td class="text-center">
                                         @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_artikel)
-                                            <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_artikel) }}"
-                                                class="btn btn-sm btn-outline-primary" target="_blank"><i
-                                                    class="fas fa-eye me-1"></i>Lihat File</a>
+                                            <div class="d-flex justify-content-center align-items-center gap-2">
+
+                                                <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_artikel) }}"
+                                                    class="btn btn-sm btn-outline-primary" target="_blank"><i
+                                                        class="fas fa-eye me-1"></i>Lihat File</a>
+                                                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="{{ $item->dokumenPublikasi->status_artikel }}">
+                                                    <i
+                                                        class="fa-solid 
+                                                                        @switch($item->dokumenPublikasi->status_artikel)
+                                                                            @case('Publish') fa-circle-check @break
+                                                                            @case('Draft') fa-bookmark @break
+                                                                            @default fa-question-circle
+                                                                        @endswitch
+                                                                me-2"></i>
+                                                </span>
+                                            </div>
+                                        @else
+                                            <span class="badge bg-danger"><i
+                                                    class="fa-solid fa-circle-exclamation me-1"></i>Belum
+                                                Upload</span>
                                     </td>
-                                @else
-                                    <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
-                                        Upload</span>
                             @endif
                             <td class="text-center">
                                 @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_haki)
-                                    <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_haki) }}"
-                                        class="btn btn-sm btn-outline-primary" target="_blank"><i
-                                            class="fas fa-eye me-1"></i>Lihat
-                                        File</a>
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+
+                                        <a href="{{ asset('storage/dokumen-publikasi/' . $item->dokumenPublikasi->file_haki) }}"
+                                            class="btn btn-sm btn-outline-primary" target="_blank"><i
+                                                class="fas fa-eye me-1"></i>Lihat
+                                            File</a>
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ $item->dokumenPublikasi->status_haki }}">
+                                            <i
+                                                class="fa-solid 
+                                                                        @switch($item->dokumenPublikasi->status_haki)
+                                                                            @case('Publish') fa-circle-check @break
+                                                                            @case('Draft') fa-bookmark @break
+                                                                            @default fa-question-circle
+                                                                        @endswitch
+                                                                me-2"></i>
+                                        </span>
+                                    </div>
+                                @else
+                                    <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
+                                        Upload</span>
                             </td>
-                        @else
-                            <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
-                                Upload</span>
                             @endif
-                            <td rowspan="2" class="text-center">
+                            <td class="text-center">
+                                @if ($item->dokumenPublikasi && $item->dokumenPublikasi->file_bukti_publikasi)
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <a href="{{ asset('storage/dokumen-teknis/' . $item->dokumenPublikasi->file_bukti_publikasi) }}"
+                                            class="btn btn-sm btn-outline-primary" target="_blank">
+                                            <i class="fas fa-eye me-1"></i> Lihat File
+                                        </a>
+
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ $item->dokumenPublikasi->status_publikasi }}">
+                                            <i
+                                                class="fa-solid 
+                                                                        @switch($item->dokumenPublikasi->status_publikasi)
+                                                                            @case('Publish') fa-circle-check @break
+                                                                            @case('Draft') fa-bookmark @break
+                                                                            @case('Submited') fa-bookmark @break
+                                                                            @default fa-question-circle
+                                                                        @endswitch
+                                                                me-2"></i>
+                                        </span>
+                                    </div>
+                                @else
+                                    <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
+                                        Upload</span>
+                                @endif
+
+                            </td>
+                            <td class="text-center">
                                 @if ($item->dokumenPublikasi && $item->dokumenPublikasi->link_artikel)
                                     <a href="{{ $item->dokumenPublikasi->link_artikel }}"
                                         class="btn btn-sm btn-outline-primary" target="_blank"><i
                                             class="fas fa-eye me-1"></i>Link Artikel</a>
+                                @else
+                                    <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
+                                        Upload</span>
+                                @endif
                             </td>
-                        @else
-                            <span class="badge bg-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Belum
-                                Upload</span>
-                            @endif
-                            <td rowspan="2" class="text-center">
+                            <td class="text-center">
                                 @if ($item->dokumenPublikasi && $item->dokumenPublikasi->status === 'Ditolak')
                                     <span class="badge bg-danger" tabindex="0" role="button" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal" style="cursor: pointer;">
@@ -117,10 +174,11 @@
                             </td>
 
                             @can('agree publication')
-                                <td rowspan="2" class="text-center">
+                                <td class="text-center">
                                     @if ($item->dokumenPublikasi)
                                         @if ($item->dokumenPublikasi->status === 'Ditolak')
-                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-sm btn-outline-success"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#approveModal{{ $item->dokumenPublikasi->id }}">
                                                 <i class="fas fa-check me-1"></i> Terima
                                             </button>
@@ -164,22 +222,10 @@
                             @endcan
 
                             </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td class="text-center">
-                                    <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
-                                        {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_artikel : 'Belum Upload' }}
-                                    </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge {{ $item->dokumenPublikasi ? 'bg-primary' : 'bg-danger' }}">
-                                        {{ $item->dokumenPublikasi ? $item->dokumenPublikasi->status_haki : 'Belum Upload' }}
-                                    </span>
-                                </td>
 
-                            </tr>
-                            @endforeach
                         </tbody>
+                        @endforeach
+
                     </table>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
@@ -189,4 +235,12 @@
         </div>
 
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        });
+    </script>
 @endsection

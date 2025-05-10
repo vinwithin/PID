@@ -11,6 +11,9 @@ use App\Http\Controllers\DokumenPublikasiController;
 use App\Http\Controllers\DokumenTeknisController;
 use App\Http\Controllers\KelolaArtikel;
 use App\Http\Controllers\KelolaKontenController;
+use App\Http\Controllers\KelolaOrmawaController;
+use App\Http\Controllers\kelolaTimPendamping;
+use App\Http\Controllers\laporanAkhirController;
 use App\Http\Controllers\LaporanKemajuanController;
 use App\Http\Controllers\listPendaftaranController;
 use App\Http\Controllers\logbookController;
@@ -100,6 +103,11 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['can:approve proposal'])->group(function () {
         Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
+        Route::get('/pilih-reviewer/{id}', [listPendaftaranController::class, 'createReviewer'])->name('pilih-reviewer');
+        Route::post('/pilih-reviewer/{id}', [listPendaftaranController::class, 'storeReviewer'])->name('pilih-reviewer');
+        Route::get('/edit-reviewer/{id}', [listPendaftaranController::class, 'edit'])->name('edit-reviewer');
+        Route::post('/update-reviewer/{id}', [listPendaftaranController::class, 'update'])->name('update-reviewer');
+        Route::get('/reject/{id}', [listPendaftaranController::class, 'reject'])->name('reject');
         Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
     });
 
@@ -168,6 +176,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dokumentasi-kegiatan/album/{id}', [DokumenKegiatanController::class, 'detail'])->name('dokumentasi-kegiatan.album.detail');
     });
     Route::middleware(['can:create final report', 'checkProgressAcceptAccess'])->group(function () {
+        Route::get('/laporan-akhir', [laporanAkhirController::class, 'index'])->name('laporan-akhir');
         Route::post('/dokumen-teknis', [DokumenTeknisController::class, 'store'])->name('dokumen-teknis');
 
         Route::post('/dokumen-publikasi', [DokumenPublikasiController::class, 'store'])->name('dokumen-publikasi');
@@ -217,9 +226,6 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['role:admin'])->group(function () {
-
-        // Route::get('announcement/publish/{id}', [annouceController::class, 'publish'])->name('announcement.publish');
-        // Route::get('announcement/draft/{id}', [annouceController::class, 'draft'])->name('announcement.draft');
         Route::get('/kelola-konten/video', [KelolaKontenController::class, 'index'])->name('kelola-konten.video');
         Route::get('/kelola-konten/video/create', [KelolaKontenController::class, 'create'])->name('kelola-konten.video.create');
         Route::post('/kelola-konten/video/create', [KelolaKontenController::class, 'store'])->name('kelola-konten.video.store');
@@ -243,13 +249,24 @@ Route::middleware('auth')->group(function () {
         Route::post('/berita/update/{id}', [beritaController::class, 'update'])->name('berita.update');
         Route::get('/berita/delete/{id}', [beritaController::class, 'destroy'])->name('berita.delete');
         Route::get('/berita/detail/{id}', [beritaController::class, 'detail'])->name('berita.detail');
+        Route::get('kelola-ormawa/delete/{id}', [KelolaOrmawaController::class, 'destroyFromLink'])->name('kelola-ormawa.destroyFromLink');
+        Route::resource('kelola-ormawa', KelolaOrmawaController::class);
     });
 
 
 
 
+    Route::middleware(['role:dosen'])->group(function () {
+        Route::get('/kelola-tim-pendamping', [kelolaTimPendamping::class, 'index'])->name('kelola.tim.pendamping');
+        Route::get('/kelola-tim-pendamping/approved/{id}', [kelolaTimPendamping::class, 'approve'])->name('kelola.tim.pendamping.approve');
+        Route::get('/kelola-tim-pendamping/rejected/{id}', [kelolaTimPendamping::class, 'reject'])->name('kelola.tim.pendamping.reject');
+    });
+
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
+        Route::get('/approve/{id}', [regisProgramController::class, 'approve'])->name('mahasiswa.approve');
+        Route::get('/reject/{id}', [regisProgramController::class, 'reject'])->name('mahasiswa.reject');
+        Route::get('/submit/{id}', [regisProgramController::class, 'submit'])->name('mahasiswa.submit')->middleware('allTeamApprove');
         Route::get('/editProgram/{id}', [regisProgramController::class, 'edit'])->name('mahasiswa.edit');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');

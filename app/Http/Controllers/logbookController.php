@@ -21,23 +21,69 @@ class logbookController extends Controller
     public function index()
     {
 
-        $logbooks = Logbook::with(['teamMembers', 'logbook_validations', 'registration'])
+        $search = request('search');
+
+        $logbooksQuery = Logbook::with(['teamMembers', 'logbook_validations', 'registration'])
             ->whereIn('id', function ($query) {
                 $query->selectRaw('MIN(id)')
                     ->from('logbooks')
                     ->groupBy('team_id');
             })
-            ->where('status', 'Valid')
-            ->paginate(10);
-        $dospem = Logbook::with(['teamMembers', 'logbook_validations', 'registration'])
+            ->where('status', 'Valid');
+
+        if ($search) {
+            $logbooksQuery->where(function ($query) use ($search) {
+                $query->whereHas('registration', function ($q) use ($search) {
+                    $q->where('nama_ketua', 'like', "%{$search}%")
+                        ->orWhere('judul', 'like', "%{$search}%");
+                });
+            })->orWhereHas('registration.user', function ($query) use ($search) {
+                $query->where('nama_dosen_pembimbing', 'like', "%{$search}%");
+            });
+        }
+
+
+        $logbooks = $logbooksQuery->paginate(10);
+
+
+        // Untuk dospem
+        $dospemQuery = Logbook::with(['teamMembers', 'logbook_validations', 'registration'])
             ->whereIn('id', function ($query) {
                 $query->selectRaw('MIN(id)')
                     ->from('logbooks')
                     ->groupBy('team_id');
-            })
-            ->paginate(10);
+            })->whereHas('registration', function ($query) {
+                $query->where('nama_dosen_pembimbing', Auth::user()->id);
+            });
+
+        if ($search) {
+            $dospemQuery->where(function ($query) use ($search) {
+                $query->whereHas('registration', function ($q) use ($search) {
+                    $q->where('nama_ketua', 'like', "%{$search}%")
+                        ->orWhere('judul', 'like', "%{$search}%");
+                });
+            })->orWhereHas('registration.user', function ($query) use ($search) {
+                $query->where('nama_dosen_pembimbing', 'like', "%{$search}%");
+            });
+        }
+
+        $dospem = $dospemQuery->paginate(10);
+
+        $data_user = Logbook::with(['registration', 'teamMembers', 'logbook_validations'])->where('team_id', $this->teamIdService->getRegistrationId());
+
+        if ($search) {
+            $data_user->where(function ($query) use ($search) {
+                $query->where('status', 'like', "%{$search}%")
+                    ->orWhere('date', 'like', "%{$search}%")
+                    ->orWhere('link_bukti', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $data = $data_user->paginate(10);
+
         return view('logbook.index', [
-            'data' => Logbook::where('team_id', $this->teamIdService->getRegistrationId())->paginate(10),
+            'data' => $data,
             'dataAdmin' => $logbooks,
             'dataDospem' => $dospem
         ]);
@@ -46,6 +92,9 @@ class logbookController extends Controller
     public function detail($id)
     {
         return view('logbook.admin.detail', [
+            'data_dospem' => Logbook::with(['teamMembers', 'logbook_validations', 'registration'])
+                ->where('team_id', $id)
+                ->paginate(10),
             'data' => Logbook::with(['teamMembers', 'logbook_validations', 'registration'])
                 ->where('team_id', $id)
                 ->where('status', 'Valid')
@@ -151,21 +200,21 @@ class logbookController extends Controller
     {
         try {
             DB::beginTransaction();
-        $result = LogbookValidations::updateOrCreate(
-            [
-                'logbook_id' => $id, // cari berdasarkan id
-                'validated_by' => Auth::user()->id, // cari berdasarkan id
-                'role' =>  Auth::user()->getRoleNames()->first(), // cari berdasarkan id
-                'status' => 'Valid'
-            ] // update jika ada, atau create baru jika tidak ada
-        );
+            $result = LogbookValidations::updateOrCreate(
+                [
+                    'logbook_id' => $id, // cari berdasarkan id
+                    'validated_by' => Auth::user()->id, // cari berdasarkan id
+                    'role' =>  Auth::user()->getRoleNames()->first(), // cari berdasarkan id
+                    'status' => 'Valid'
+                ] // update jika ada, atau create baru jika tidak ada
+            );
 
-        DB::commit();
-        if ($result) {
-            return redirect()->back()->with('success', 'berhasil mengubah data');
-        } else {
-            return redirect()->route('logbook')->with("error", "Gagal mengubah data!");
-        }
+            DB::commit();
+            if ($result) {
+                return redirect()->back()->with('success', 'berhasil mengubah data');
+            } else {
+                return redirect()->route('logbook')->with("error", "Gagal mengubah data!");
+            }
         } catch (Exception $e) {
             DB::rollBack(); // Rollback transaksi jika terjadi kesalahan
 

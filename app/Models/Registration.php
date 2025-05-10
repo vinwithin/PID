@@ -19,11 +19,17 @@ class Registration extends Model
         'judul',
         'bidang_id',
         'nama_dosen_pembimbing',
-        'nohp_dosen_pembimbing'
+        'nohp_dosen_pembimbing',
+        'status',
+        'status_supervisor',
     ];
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function dospem()
+    {
+        return $this->belongsTo(User::class, 'nama_dosen_pembimbing');
     }
     public function teamMembers()
     {

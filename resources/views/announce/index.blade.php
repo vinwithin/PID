@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('title', 'Pengumuman')
+@section('description', 'Kelola Pengumuman')
 @section('content')
     <style>
         /* Custom styling for larger toggle */

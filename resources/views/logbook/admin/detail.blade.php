@@ -13,17 +13,7 @@
             <div class="container-fluid px-4 ">
                 <div class="card-header d-flex justify-content-end align-items-end">
 
-                    <form action="{{ route('laporan-kemajuan') }}" method="GET" class="">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Cari.."
-                                value="{{ request('search') }}">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-search"></i> Cari
-                            </button>
-                            <a href="{{ route('laporan-kemajuan') }}" class="btn btn-success ms-2">Reset</a>
 
-                        </div>
-                    </form>
                 </div>
 
                 <div class="card-body p-0">
@@ -45,7 +35,7 @@
                             </thead>
                             @role('dosen')
                                 <tbody>
-                                    @foreach ($data as $item)
+                                    @foreach ($data_dospem as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td class="fw-bold text-start">Tim {{ $item->registration->judul }}</td>

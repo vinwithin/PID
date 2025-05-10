@@ -15,7 +15,7 @@
                     </div>
 
                     <!-- Judul -->
-                    <h4 class="fw-bold mt-3">Success</h4>
+                    <h4 class="fw-bold mt-3 text-success">Berhasil!</h4>
 
                     <!-- Pesan -->
                     <p class="text-muted px-4">

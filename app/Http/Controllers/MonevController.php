@@ -21,6 +21,7 @@ class MonevController extends Controller
         $total = ScoreDetailMonev::scores();
         $search = $request->input('search');
         $data =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with([
+            'user',
             'bidang',
             'fakultas',
             'program_studi',
@@ -45,7 +46,7 @@ class MonevController extends Controller
         }
         $data = $data->paginate(10);
 
-        $dataNilai =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with(['reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereHas('status_monev', function ($query) {
+        $dataNilai =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereHas('status_monev', function ($query) {
             $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
         });
         if ($search) {
@@ -107,9 +108,13 @@ class MonevController extends Controller
 
     public function createReviewer($id)
     {
+        $registration = Registration::findOrFail($id); // ID registrasi yang sedang dilihat
+        $supervisorId = $registration->nama_dosen_pembimbing;
         return view('monitoring-evaluasi.reviewer-monev', [
-            'data' => Registration::find($id),
-            'reviewer_monev' => User::Role('dosen')->get(),
+            'data' => Registration::with(['fakultas', 'ormawa', 'program_studi'])->find($id),
+            'reviewer_monev' => User::with(['registration'])->role(['dosen', 'reviewer'])
+                ->where('id', '!=', $supervisorId)
+                ->get(),
 
         ]);
     }

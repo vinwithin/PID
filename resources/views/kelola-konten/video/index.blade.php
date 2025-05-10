@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('title', 'Kelola Video')
+@section('description', 'Kelola Konten')
 @section('content')
     <style>
         /* Custom styling for larger toggle */

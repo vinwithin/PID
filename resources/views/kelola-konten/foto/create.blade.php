@@ -1,5 +1,6 @@
 @extends('layout.app')
-@section('title', 'Tambah Album')
+@section('title', 'Konten Galeri')
+@section('description', 'Kelola Konten')
 @section('content')
     <div class="w-100">
         <div class="card">

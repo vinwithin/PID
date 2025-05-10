@@ -45,8 +45,6 @@
 
         .modal {
             display: none;
-            /* Sembunyikan modal secara default */
-
             width: 100%;
             height: 100%;
             overflow: auto;
@@ -55,13 +53,6 @@
             padding-top: 60px;
         }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
 
         .close-button {
             color: #aaa;
@@ -79,15 +70,35 @@
     </style>
 
 
+
     <div class="w-100">
-        {{-- success modal --}}
-        <div id="successModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" id="closeModal">&times;</span>
-                <h2>Registration Successful</h2>
-                <p>Your registration has been submitted successfully!</p>
+
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Registrasi Berhasil</h5>
+                        <button type="button" class="btn btn-success" id="modalHeaderClose" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body text-center">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                        <p class="mt-3">Pendaftaran Anda telah berhasil dikirim!</p>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="modalFooterClose">Tutup</button>
+                    </div>
+
+
+                </div>
             </div>
         </div>
+
         <!-- Modal Gagal Register -->
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -146,9 +157,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="program_studi" class="form-label fw-bold">Program Studi</label>
-                                <select class="form-select" name="program_studi" id="program_studi" style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
-                                 required>
-                                    <option value="" selected="selected" hidden="hidden">Pilih Program Studi</option>
+                                <select class="form-select" name="program_studi" id="program_studi"
+                                    style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
+                                    required>
+                                    <option value="" selected="selected" hidden="hidden">Pilih Program Studi
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -223,8 +236,7 @@
                                         <div class="col-lg-2 mb-3">
                                             <label for="nama" class="form-label fw-bold">Nama</label>
                                             <input type="text" id="nama" name="anggota_tim[0][nama]"
-                                                class="form-control" value="{{ auth()->user()->name }}"
-                                                readonly>
+                                                class="form-control" value="{{ auth()->user()->name }}" readonly>
                                         </div>
                                         <div class="col-lg-2 mb-3">
                                             <label for="fakultas" class="form-label fw-bold">Fakultas</label>
@@ -264,10 +276,11 @@
                         <!-- Step 3 -->
                         <div class="step">
                             <div style="margin-bottom: 1rem;">
-                                <label for="nama_dosen_pembimbing_val" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
+                                <label for="nama_dosen_pembimbing_val"
+                                    style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
                                     Nama Dosen Pembimbing
                                 </label>
-                                <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val" 
+                                <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val"
                                     style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
                                     <option value=""></option>
                                 </select>
@@ -338,17 +351,60 @@
 
                         <button type="button" id="prevStep" class="btn btn-secondary mt-2">Kembali</button>
                         <button type="button" id="next" class="btn btn-primary mt-2">Selanjutnya</button>
-                        <button type="submit" id="submitForm" class="btn btn-success">Submit</button>
+                        <button type="submit" id="submitForm" class="btn btn-success mt-2">Submit</button>
 
                     </form>
                 </div>
             @else
                 <div class="container-fluid px-4 py-4">
+
                     @if (session('success'))
                         <x-success-modal :message="session('success')" />
                     @endif
                     @if (session('error'))
                         <x-error-modal :message="session('error')" />
+                    @endif
+                    @if (session('pending_approval'))
+                        <!-- Modal -->
+                        <div class="modal fade" id="pendingApprovalModal" tabindex="-1"
+                            aria-labelledby="pendingApprovalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-dark">
+                                        <h5 class="modal-title" id="pendingApprovalLabel">
+                                            <i class="fas fa-exclamation-circle me-2"></i> Konfirmasi Anggota Tim
+                                        </h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="d-flex flex-column align-items-center justify-content-center gap-2">
+                                            <img src="/assets/assets_confirm_mhs2.png" alt="confirm-image"
+                                                style="max-width: 225px;">
+                                            <p class="text-center">Anda diundang dalam sebuah tim namun belum memberikan
+                                                persetujuan.
+                                                Silakan
+                                                pilih
+                                                untuk
+                                                menyetujui
+                                                atau menolak keikutsertaan Anda.</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/program/cek/{{ $data[0]->id }}" class="btn btn-success">Lihat Detail
+                                            <i class="fa-solid fa-arrow-right ml-2"></i></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var myModal = new bootstrap.Modal(document.getElementById('pendingApprovalModal'));
+                                myModal.show();
+                            });
+                        </script>
+                        <!-- Script untuk otomatis membuka modal -->
                     @endif
                     <div class="card-header text-dark d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0 text-dark">Status Pendaftaran</h5>
@@ -358,12 +414,13 @@
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">No</th>
+
                                         <th>Nama Ketua</th>
                                         <th class="d-none d-xl-table-cell">NIM</th>
                                         <th class="d-none d-xl-table-cell">Fakultas</th>
                                         <th>Bidang</th>
                                         <th class="d-none d-md-table-cell">Judul Proyek</th>
+                                        <th>Status Tim</th>
                                         <th>Status</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
@@ -371,7 +428,7 @@
                                 <tbody>
                                     @foreach ($data as $index => $item)
                                         <tr>
-                                            <td class="text-center fw-bold">{{ $index + 1 }}</td>
+
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center"
@@ -394,9 +451,20 @@
                                                     {{ $item->judul }}
                                                 </div>
                                             </td>
+                                            <td class="d-none d-xl-table-cell">
+                                                @if ($item->teamMembers->contains(fn($member) => $member->status === 'reject'))
+                                                    <span class="badge bg-danger">Ditolak oleh Anggota</span>
+                                                @elseif ($item->teamMembers->contains(fn($member) => $member->status !== 'approve'))
+                                                    <span class="badge bg-warning text-dark">Menunggu Tim</span>
+                                                @else
+                                                    <span class="badge bg-success">Persetujuan Tim Lengkap</span>
+                                                @endif
+
+                                            </td>
+
                                             <td>
                                                 <span
-                                                    class="badge {{ $item->registration_validation->status === 'valid' ? 'bg-warning text-dark' : 'bg-danger' }}">
+                                                    class="badge {{ in_array($item->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']) ? 'bg-success' : 'bg-danger' }}">
                                                     {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }}
                                                 </span>
                                             </td>
@@ -405,22 +473,37 @@
                                                     class="btn btn-sm btn-outline-secondary">
                                                     <i class="fas fa-eye me-1"></i>Cek
                                                 </a>
+
                                                 @if (
                                                     !in_array($item->registration_validation->status, [
                                                         'valid',
-                                                        'tidak valid',
+                                                        'Tidak Lolos',
                                                         'lolos',
                                                         'Lanjutkan Program',
                                                         'Hentikan Program',
-                                                    ]))
-                                                    @if ($item->nama_ketua === Auth()->user()->name)
+                                                    ]) && $item->status === 'draft')
+                                                    @if ($item->nim_ketua === Auth()->user()->identifier)
                                                         <a href="/editProgram/{{ $item->id }}"
                                                             class="btn btn-sm btn-outline-warning">
                                                             <i class="fas fa-pen me-1"></i>Edit
                                                         </a>
                                                     @endif
                                                 @endif
+                                                @if ($item->teamMembers->every(fn($member) => $member->status === 'approve') && $item->nim_ketua === Auth()->user()->identifier && $item->status === 'draft')
+                                                  
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#submitModal{{ $item->id }}">
+                                                            <i class="fa-brands fa-telegram me-2"></i>Kirim Proposal
+                                                        </button>
 
+                                                        <!-- Gunakan komponen modal -->
+                                                        <x-confirm-modal modal-id="submitModal{{ $item->id }}"
+                                                            title="Konfirmasi Persetujuan"
+                                                            message="Apakah Anda yakin ingin mengirim proposal ini?"
+                                                            action-url="/submit/{{ $item->id }}"
+                                                            confirm-text="Yakin" />
+                                                @endif
 
                                             </td>
                                         </tr>
@@ -558,7 +641,8 @@
                 });
 
                 if (response.ok) {
-                    document.getElementById('successModal').style.display = 'block';
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
                 } else {
                     const data = await response.json();
                     var modalElement = document.getElementById("errorModal");
@@ -572,10 +656,16 @@
 
             }
         });
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('successModal').style.display = 'none';
+
+        document.getElementById('modalHeaderClose').addEventListener('click', function() {
             window.location.href = '/dashboard';
         });
+
+        document.getElementById('modalFooterClose').addEventListener('click', function() {
+            window.location.href = '/dashboard';
+        });
+
+
 
         // Menutup modal ketika klik di luar modal
         window.addEventListener('click', (event) => {
@@ -628,7 +718,7 @@
                     </div>
                     <div class="col-lg-2 mb-3">
                         <label for="jabatan" class="form-label">Jabatan</label>
-                        <input type="text" name="anggota_tim[${memberCount}][jabatan]" class="form-control">
+                        <input type="text" name="anggota_tim[${memberCount}][jabatan]" value="Anggota" readonly class="form-control">
                     </div>
                     <div class="col-lg-2 mb-3 d-flex align-items-end">
                         <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
@@ -922,7 +1012,7 @@
                         return {
                             results: $.map(data, function(item) {
                                 return {
-                                    id: item.name,
+                                    id: item.id,
                                     text: item.name
                                 };
                             })
@@ -931,9 +1021,7 @@
                     cache: true
                 }
             }).on('change', function() {
-                // Perbarui hidden input dengan nama yang dipilih
-                const selectedOption = $(this).find(':selected');
-                $('#nama_dosen_pembimbing').val(selectedOption.text());
+                $('#nama_dosen_pembimbing').val($(this).val());;
 
                 if (!$(this).val()) {
                     $('#nama_dosen_pembimbing').val('');
@@ -967,6 +1055,5 @@
                 }
             });
         });
-        
     </script>
 @endsection

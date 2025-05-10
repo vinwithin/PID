@@ -67,7 +67,7 @@ class DokumenKegiatanController extends Controller
             'link_social_media' => 'required|string',
             'link_dokumentasi' => 'required|string',
             'nama' => 'required|string',
-            'album_photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'album_photos.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         // Ekstrak video ID dari link YouTube
@@ -78,7 +78,7 @@ class DokumenKegiatanController extends Controller
 
         // Menambahkan team_id dan link_video ke dalam array validatedData
         $validatedData['team_id'] = $this->teamIdService->getRegistrationId();
-        $validatedData['status'] = 'pending';
+        $validatedData['status'] = 'Belum Valid';
         $validatedData['link_youtube'] = "https://www.youtube.com/embed/" . $videoId;
 
         // Mulai transaksi database
@@ -129,7 +129,7 @@ class DokumenKegiatanController extends Controller
 
         // Ekstrak video ID dari link YouTube
         $videoId = $this->extractYouTubeVideoId($validatedData['link_youtube']);
-        $validatedData['status'] = 'pending';
+        $validatedData['status'] = 'Belum Valid';
         $validatedData['komentar'] = '';
 
 

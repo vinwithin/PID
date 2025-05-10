@@ -66,9 +66,30 @@
                             <option value="Draft">Draft</option>
                         </select>
                     </div>
+                    <p>Upload bukti ketercapaian seminar atau publikasi artikel</p>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control @error('file_bukti_publikasi') is-invalid @enderror"
+                            id="file_bukti_publikasi" name="file_bukti_publikasi"
+                            accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <label class="input-group-text" for="file_bukti_publikasi">Upload File</label>
+                        @error('file_bukti_publikasi')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="status_publikasi" class="form-label">Status Ketercapaian Luaran</label>
+                        <select class="form-select" name="status_publikasi" id="status_publikasi" required>
+                            <option value="" selected="selected" hidden="hidden">Pilih Status</option>
+                            <option value="Publish">Publish</option>
+                            <option value="Draft">Draft</option>
+                            <option value="Submited">Submited</option>
+                        </select>
+                    </div>
 
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <a href="/dokumen-publikasi" class="btn btn-warning">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="/dokumen-publikasi" class="btn btn-secondary">Kembali</a>
 
             </div>
         </div>

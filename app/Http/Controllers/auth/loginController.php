@@ -22,7 +22,7 @@ class loginController extends Controller
         if(Auth::attempt($validateData)){
             $request->session()->regenerate();
             $user = Auth::user();
-            return redirect()->route('dashboard')->with("success", "Login Success as Admin");
+            return redirect()->route('dashboard');
             
         }
         return back()->withInput()->with('error', 'Wrong Email and Password!');

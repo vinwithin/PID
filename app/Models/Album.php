@@ -9,6 +9,8 @@ class Album extends Model
     protected $table = 'album';
     public $album = 'album';
     protected $fillable = [
+        'team_id',
+        'media_dokumentasi_id',
         'nama',
         'status'
     ];

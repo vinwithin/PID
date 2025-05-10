@@ -12,8 +12,6 @@ class DokumenTeknis extends Model
         'team_id',
         'file_manual',
         'status_manual',
-        'file_bukti_publikasi',
-        'status_publikasi',
         'file_proposal',
         'file_laporan_keuangan',
         'status',

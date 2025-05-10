@@ -37,7 +37,7 @@
                                         </dd>
                                         <dt class="col-5">Nama Dosen Pembimbing</dt>
                                         <dd class="col-7">
-                                            {{ $data->nama_dosen_pembimbing}}
+                                            {{ $data->dospem->name}}
                                         </dd>
 
                                     </dl>

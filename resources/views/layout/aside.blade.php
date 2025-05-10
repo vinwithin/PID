@@ -20,12 +20,6 @@
                 </div>
             </div>
 
-            {{-- <li class="sidebar-header">
-                Pengaturan
-            </li>
-            <li class="sidebar-header">
-                Keluar
-            </li> --}}
 
 
             <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
@@ -36,7 +30,7 @@
             {{-- @endrole --}}
 
             @can('register program')
-                <li class="sidebar-item {{ Request::is(['daftarProgram*', 'program*']) ? 'active' : '' }}">
+                <li class="sidebar-item {{ Request::is(['daftarProgram*', 'program*', 'editProgram*']) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('mahasiswa.daftar') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Daftar
                             Pro-IDe</span>
@@ -44,10 +38,18 @@
                 </li>
             @endcan
 
-
+            @role('dosen')
+                <li class="sidebar-item {{ Request::is(['kelola-tim-pendamping*']) ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('kelola.tim.pendamping') }}">
+                        <i class="fa-solid fa-person-chalkboard"></i> <span class="align-middle">Kelola
+                            Tim Pendamping</span>
+                    </a>
+                </li>
+            @endrole
 
             @role('admin|reviewer|dosen')
-                <li class="sidebar-item {{ Request::is(['pendaftaran*', 'reviewer*']) ? 'active' : '' }}">
+                <li
+                    class="sidebar-item {{ Request::is(['pendaftaran*', 'reviewer*', 'pilih-reviewer*', 'edit-reviewer*']) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola
                             Pendaftaran</span>
@@ -79,6 +81,11 @@
                 </li>
 
                 <li class="sidebar-header">Laporan Akhir</li>
+                <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan Akhir</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
                         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
@@ -154,6 +161,12 @@
                     </a>
                 </li>
                 <li class="sidebar-header">Laporan Akhir</li>
+                <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan
+                            Akhir</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
                         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
@@ -178,7 +191,7 @@
                 <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('publikasi') }}">
                         <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
-                            Artikel</span>
+                            Kegiatan</span>
                     </a>
                 </li>
             @endif
@@ -191,7 +204,7 @@
                 <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('publikasi') }}">
                         <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
-                            Artikel</span>
+                            Kegiatan</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('kelola-konten/video*') ? 'active' : '' }}">
@@ -214,6 +227,12 @@
                     <a class="sidebar-link" href="{{ route('berita') }}">
                         <i class="fa-solid fa-newspaper"></i> <span class="align-middle">Kelola
                             Berita</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('kelola-ormawa*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('kelola-ormawa.index') }}">
+                        <i class="fa-solid fa-sitemap"></i> <span class="align-middle">Kelola
+                            Ormawa</span>
                     </a>
                 </li>
             @endrole

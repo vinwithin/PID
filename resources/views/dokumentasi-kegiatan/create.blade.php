@@ -38,8 +38,8 @@
 
                             <!-- Input file yang tersembunyi secara default -->
                             <div class="mb-3 d-none" id="inputAlbumContainer">
-                                <label for="nama_album" class="form-label">Nama Album</label>
-                                <input type="text" class="form-control" id="nama" name="nama_album">
+                                <label for="nama" class="form-label">Nama Album</label>
+                                <input type="text" class="form-control" id="nama" name="nama">
                             </div>
                             <div class="mb-3 d-none" id="inputFotoContainer">
                                 <label for="album_photos" class="form-label">Unggah Foto Dokumentasi Kegiatan</label>
@@ -49,7 +49,9 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="/dokumentasi-kegiatan" class="btn btn-secondary">Kembali</a>
+
 
                         </form>
                     @else

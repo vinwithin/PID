@@ -22,7 +22,7 @@ class ScoreDetailMonev
         foreach (KriteriaMonev::all() as $kriteria) {
             $kriterias[$kriteria->id] = $kriteria->bobot;
         }
-        foreach (ScoreMonev::with('kriteria_monev')->where('registration_id', $id)->get() as $value) {
+        foreach (ScoreMonev::with(['kriteria_monev', 'user'])->where('registration_id', $id)->get() as $value) {
             $nilais[$value->user->name][$value->kriteria_monev_id] = $value->nilai;
             $rubrik[$value->user->name][$value->kriteria_monev->nama][$value->kriteria_monev->deskripsi] = $value->nilai;
             $bobot[$value->kriteria_monev->nama] = $value->kriteria_monev->bobot;
@@ -63,7 +63,7 @@ class ScoreDetailMonev
         foreach (KriteriaMonev::all() as $kriteria) {
             $kriterias[$kriteria->id] = $kriteria->bobot;
         }
-        foreach (KriteriaMonev::with('score_monev', 'user')->get() as $value) {
+        foreach (KriteriaMonev::with(['score_monev.user', 'user'])->get() as $value) {
             if ($value->score_monev->isNotEmpty()) {
                 foreach ($value->score_monev as $scoreMonev) {
                     $nilais[$scoreMonev->registration_id][$scoreMonev->user->name][$value->id] = $scoreMonev->nilai;
@@ -90,16 +90,6 @@ class ScoreDetailMonev
                
             }
         }
-        // dd($total);
-
-        // foreach ($total as $key => $val) {
-        //     foreach ($val as $k => $v) {
-        //         $totalId[$key][$k] = array_sum($v);
-        //     }
-        // }
-        // dd($totalId);
-
-
         return [
             'total' => $total,
         ];

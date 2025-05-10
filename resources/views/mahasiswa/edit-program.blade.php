@@ -83,14 +83,33 @@
 
 
     <div class="w-100">
-        {{-- success modal --}}
-        <div id="successModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" id="closeModal">&times;</span>
-                <h2>Registration Successful</h2>
-                <p>Your updated has been submitted successfully!</p>
+        <!-- Modal -->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Registrasi Berhasil</h5>
+                        <button type="button" class="btn btn-success" id="modalHeaderClose" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body text-center">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                        <p class="mt-3">Pendaftaran Anda telah berhasil dikirim!</p>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="modalFooterClose">Tutup</button>
+                    </div>
+
+
+                </div>
             </div>
         </div>
+
         <!-- Modal Gagal Register -->
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -117,7 +136,7 @@
                     <div id="step1Indicator" class="active">Step 1: Informasi Tim</div>
                     <div id="step2Indicator">Step 2: Anggota Tim</div>
                     <div id="step3Indicator">Step 3: Informasi Dosen Pembimbing</div>
-                    <div id="step4Indicator">Step 4: Dokumen Persyaratan  </div>
+                    <div id="step4Indicator">Step 4: Dokumen Persyaratan </div>
                 </div>
 
                 <form id="registrationForm" method="POST" action="/updateProgram/{{ $data->id }}"
@@ -150,9 +169,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="program_studi" class="form-label fw-bold">Program Studi</label>
-                            <select class="form-select" name="program_studi" id="program_studi" style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
-                             required>
-                                <option value="{{ $data->program_studi->id }}" >{{ $data->program_studi->nama }}</option>
+                            <select class="form-select" name="program_studi" id="program_studi"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
+                                required>
+                                <option value="{{ $data->program_studi->id }}">{{ $data->program_studi->nama }}</option>
 
                             </select>
                         </div>
@@ -297,15 +317,17 @@
                     <!-- Step 3 -->
                     <div class="step">
                         <div style="margin-bottom: 1rem;">
-                            <label for="nama_dosen_pembimbing_val" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
+                            <label for="nama_dosen_pembimbing_val"
+                                style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
                                 Nama Dosen Pembimbing
                             </label>
-                            <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val" 
+                            <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val"
                                 style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
-                                <option value="{{ $data->nama_dosen_pembimbing }}">{{ $data->nama_dosen_pembimbing }}</option>
+                                <option value="{{ $data->nama_dosen_pembimbing }}">{{ $data->dospem->name }}
+                                </option>
                             </select>
                         </div>
-                        
+
 
 
                         <div class="mb-3">
@@ -313,7 +335,8 @@
                                 Pembimbing</label>
                             <input type="text"
                                 class="form-control @error('nohp_dosen_pembimbing') is-invalid @enderror"
-                                id="nohp_dosen_pembimbing" name="nohp_dosen_pembimbing" value="{{$data->nohp_dosen_pembimbing}}" required>
+                                id="nohp_dosen_pembimbing" name="nohp_dosen_pembimbing"
+                                value="{{ $data->nohp_dosen_pembimbing }}" required>
                             @error('nohp_dosen_pembimbing')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -325,7 +348,7 @@
                         <p class="fw-bold">Surat Keputusan Organisasi</p>
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
-                                accept="pdf" >
+                                accept="pdf">
                             <label class="input-group-text" for="sk_organisasi">Unggah</label>
                             @error('sk_organisasi')
                                 <div class="invalid-feedback">
@@ -337,7 +360,7 @@
                             desa</p>
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="surat_kerjasama" name="surat_kerjasama"
-                                accept="pdf" >
+                                accept="pdf">
                             <label class="input-group-text" for="surat_kerjasama">Unggah</label>
                             @error('surat_kerjasama')
                                 <div class="invalid-feedback">
@@ -348,7 +371,7 @@
                         <p class="fw-bold">Surat kesediaan dosen pendamping untuk membimbing kegiatan Pro IDE</p>
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="surat_rekomendasi_pembina"
-                                name="surat_rekomendasi_pembina" accept="pdf" >
+                                name="surat_rekomendasi_pembina" accept="pdf">
                             <label class="input-group-text" for="surat_rekomendasi_pembina">Unggah</label>
                             @error('surat_rekomendasi_pembina')
                                 <div class="invalid-feedback">
@@ -358,8 +381,7 @@
                         </div>
                         <p class="fw-bold">Proposal Pro-IDe</p>
                         <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="proposal" name="proposal" accept="pdf"
-                                >
+                            <input type="file" class="form-control" id="proposal" name="proposal" accept="pdf">
                             <label class="input-group-text" for="proposal">Unggah</label>
                             @error('proposal')
                                 <div class="invalid-feedback">
@@ -475,7 +497,8 @@
                 });
 
                 if (response.ok) {
-                    document.getElementById('successModal').style.display = 'block';
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
                 } else {
                     const data = await response.json();
                     var modalElement = document.getElementById("errorModal");
@@ -489,10 +512,16 @@
 
             }
         });
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('successModal').style.display = 'none';
+
+        document.getElementById('modalHeaderClose').addEventListener('click', function() {
             window.location.href = '/dashboard';
         });
+
+        document.getElementById('modalFooterClose').addEventListener('click', function() {
+            window.location.href = '/dashboard';
+        });
+
+
 
         // Menutup modal ketika klik di luar modal
         window.addEventListener('click', (event) => {
@@ -545,7 +574,7 @@
                     </div>
                     <div class="col-lg-2 mb-3">
                         <label for="jabatan" class="form-label">Jabatan</label>
-                        <input type="text" name="anggota_tim[${memberCount}][jabatan]" class="form-control">
+                        <input type="text" name="anggota_tim[${memberCount}][jabatan]" value="Anggota" class="form-control">
                     </div>
                     <div class="col-lg-2 mb-3 d-flex align-items-end">
                         <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
@@ -617,9 +646,11 @@
                             namaInput.value = '';
                             // Tampilkan pesan error
                             if (data.is_registered) {
-                                showError('NIM sudah mendaftar program, daftarkan mahasiswa lain', parentDiv, 'alert-warning');
+                                showError('NIM sudah mendaftar program, daftarkan mahasiswa lain', parentDiv,
+                                    'alert-warning');
                             } else {
-                                showError('Data mahasiswa tidak ditemukan, daftarkan mahasiswa lain', parentDiv, 'alert-danger');
+                                showError('Data mahasiswa tidak ditemukan, daftarkan mahasiswa lain', parentDiv,
+                                    'alert-danger');
                             }
                         }
                     })
@@ -841,8 +872,7 @@
                 }
             }).on('change', function() {
                 // Perbarui hidden input dengan nama yang dipilih
-                const selectedOption = $(this).find(':selected');
-                $('#nama_dosen_pembimbing').val(selectedOption.text());
+                $('#nama_dosen_pembimbing').val($(this).val());
 
                 if (!$(this).val()) {
                     $('#nama_dosen_pembimbing').val('');

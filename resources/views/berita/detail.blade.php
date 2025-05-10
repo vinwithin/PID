@@ -1,6 +1,6 @@
 @extends('layout.app')
-
-@section('title', 'Detail Berita')
+@section('title', 'Berita')
+@section('description', 'Kelola Berita')
 @section('content')
     <style>
         img {

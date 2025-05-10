@@ -24,7 +24,7 @@ class ProposalReviewController extends Controller
         foreach (Kriteria_penilaian::all() as $kriteria) {
             $kriterias[$kriteria->id] = $kriteria->bobot;
         }
-        foreach (Proposal_score::with('sub_kriteria_penilaian.kriteria_penilaian')->where('registration_id', $id)->get() as $value) {
+        foreach (Proposal_score::with(['user', 'sub_kriteria_penilaian.kriteria_penilaian'])->where('registration_id', $id)->get() as $value) {
             $nilais[$value->user->name][$value->sub_kriteria_penilaian->kriteria_penilaian_id][$value->id] = $value->nilai;
             $rubrik[$value->user->name][$value->sub_kriteria_penilaian->kriteria_penilaian->nama][$value->sub_kriteria_penilaian->nama] = $value->nilai;
             $bobot[$value->sub_kriteria_penilaian->kriteria_penilaian->nama] = $value->sub_kriteria_penilaian->kriteria_penilaian->bobot;
@@ -64,7 +64,7 @@ class ProposalReviewController extends Controller
         foreach (Kriteria_penilaian::all() as $kriteria) {
             $kriterias[$kriteria->id] = $kriteria->bobot;
         }
-        foreach (Sub_kriteria_penilaian::with('kriteria_penilaian', 'proposal_score')->get() as $value) {
+        foreach (Sub_kriteria_penilaian::with(['kriteria_penilaian', 'proposal_score.user'])->get() as $value) {
             if ($value->proposal_score->isNotEmpty()) {
                 foreach ($value->proposal_score as $proposalScore) {
                     $nilais[$proposalScore->registration_id][$proposalScore->user->name][$value->kriteria_penilaian_id][$value->id] = $proposalScore->nilai;

@@ -60,6 +60,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(TeamMember::class, 'identifier', 'identifier');
     }
+    public function registration()
+    {
+        return $this->hasMany(Registration::class);
+    }
    
 
     

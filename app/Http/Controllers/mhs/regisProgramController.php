@@ -20,14 +20,23 @@ class regisProgramController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        // Cek apakah user adalah anggota tim dan statusnya masih pending
+        $pendingMember = TeamMember::where('identifier', $user->identifier)
+            ->where('status', 'pending')
+            ->first();
+        // dd($pendingMember->id);
+        if ($pendingMember) {
+            session()->flash('pending_approval', 'Anda memiliki undangan tim yang belum dikonfirmasi. Silakan terima atau tolak.');
+        }
         return view('mahasiswa.register-program', [
             'bidang' => Bidang::all(),
             'fakultas' => Fakultas::all(),
             'program_studi' => ProgramStudi::all(),
             'ormawa' => Ormawa::all(),
             'registrationExists' => TeamMember::where('identifier', Auth::user()->identifier)->exists(),
-    
-            'data' => Registration::with('registration_validation')
+
+            'data' => Registration::with(['registration_validation', 'teamMembers'])
                 ->whereHas('teamMembers', function ($query) {
                     $query->where('identifier', Auth::user()->identifier);  // Cek apakah NIM ada di tabel teammember
                 })->get()
@@ -35,8 +44,16 @@ class regisProgramController extends Controller
     }
     public function show($id)
     {
+        $user = Auth::user();
+        // Cek apakah user adalah anggota tim dan statusnya masih pending
+        $pendingMember = TeamMember::where('identifier', $user->identifier)
+            ->where('status', 'pending')
+            ->first();
+
+
         return view('mahasiswa.cekPendaftaran', [
-            'data' => Registration::with(['registration_validation', 'document_registration'])->where('id', $id)->first()
+            'data' => Registration::with(['registration_validation', 'document_registration'])->where('id', $id)->first(),
+            'pendingMember' => $pendingMember
         ]);
     }
     public function step(Request $request)
@@ -191,29 +208,31 @@ class regisProgramController extends Controller
                 'judul' => $step1Data['judul'],
                 'bidang_id' => $step1Data['bidang_id'],
                 'nama_dosen_pembimbing' => $step3Data["nama_dosen_pembimbing"],
-                'nohp_dosen_pembimbing' => $step3Data["nohp_dosen_pembimbing"]
+                'nohp_dosen_pembimbing' => $step3Data["nohp_dosen_pembimbing"],
+                'status_supervisor' => 'pending'
             ]);
-
             $createData = [];
             foreach ($validatedData as $key => $file) {
                 // $path = $file->store('registration-documents');
                 $filename = $key . '_' . time() . '_' . $file->getClientOriginalName();
                 $file->storeAs('public', $filename);
                 // $path = $request->file('registration-documents')->store('public');
-                if ($key === 'sk_organisasi') $createData['sk_organisasi'] = $filename;
-                if ($key === 'surat_kerjasama') $createData['surat_kerjasama'] = $filename;
-                if ($key === 'surat_rekomendasi_pembina') $createData['surat_rekomendasi_pembina'] = $filename;
-                if ($key === 'proposal') $createData['proposal'] = $filename;
-
-                if (!empty($createData)) {
-                    $registrationData->document_registration()->create($createData);
-                }
+                $createData[$key] = $filename;
+            }
+            if (!empty($createData)) {
+                $registrationData->document_registration()->create($createData);
             }
 
             // Simpan anggota tim ke tabel terkait
-            foreach ($step2Data['anggota_tim'] as $member) {
+            foreach ($step2Data['anggota_tim'] as $index => $member) {
+                // Tambahkan status "approve" untuk anggota pertama
+                if ($index === 0) {
+                    $member['status'] = 'approve';
+                }
+
                 $registrationData->teamMembers()->create($member);
             }
+
             $registrationData->registration_validation()->create([
                 'status' => 'Belum valid', // atau status yang sesuai
                 'catatan' => 'Menunggu di validasi',
@@ -341,32 +360,28 @@ class regisProgramController extends Controller
             ]);
 
             $existingFiles = DokumenRegistrasi::where('registration_id', $id)->first();
-            $fileKeys = ['sk_organisasi', 'surat_kerjasama', 'surat_rekomendasi_pembina', 'proposal'];
+            $updateData = [];
 
-            foreach ($fileKeys as $key) {
-                if ($request->hasFile($key)) { // Cek apakah user mengunggah file baru
-                    // Hapus file lama jika ada
-                    if (!empty($existingFiles->$key)) {
-                        Storage::delete('public/' . $existingFiles->$key);
-                    }
+            foreach ($validatedData as $key => $value) {
 
-                    // Simpan file baru
-                    $file = $request->file($key);
-                    $filename = $key . '_' . time() . '_' . $file->getClientOriginalName();
-                    $file->storeAs('public', $filename);
-
-                    // Siapkan data untuk update hanya jika ada file baru
-                    $updateData = [];
-                    if ($key === 'sk_organisasi') $updateData['sk_organisasi'] = $filename;
-                    if ($key === 'surat_kerjasama') $updateData['surat_kerjasama'] = $filename;
-                    if ($key === 'surat_rekomendasi_pembina') $updateData['surat_rekomendasi_pembina'] = $filename;
-                    if ($key === 'proposal') $updateData['proposal'] = $filename;
-
-                    if (!empty($updateData)) {
-                        DokumenRegistrasi::where('registration_id', $id)->update($updateData);
-                    }
+                // Hapus file lama jika ada
+                if (!empty($existingFiles->$key)) {
+                    Storage::delete('public/' . $existingFiles->$key);
                 }
+
+                // Simpan file baru
+                $filename = $key . '_' . time() . '_' . $value->getClientOriginalName();
+                $value->storeAs('public', $filename);
+
+                // Masukkan ke array update
+                $updateData[$key] = $filename;
             }
+
+            // Lakukan update hanya jika ada data yang berubah
+            if (!empty($updateData)) {
+                DokumenRegistrasi::where('registration_id', $id)->update($updateData);
+            }
+
 
 
             // Ambil data dari langkah sebelumnya yang disimpan di session
@@ -390,14 +405,21 @@ class regisProgramController extends Controller
                 'judul' => $step1Data['judul'],
                 'bidang_id' => $step1Data['bidang_id'],
                 'nama_dosen_pembimbing' => $step3Data["nama_dosen_pembimbing"],
-                'nohp_dosen_pembimbing' => $step3Data["nohp_dosen_pembimbing"]
+                'nohp_dosen_pembimbing' => $step3Data["nohp_dosen_pembimbing"],
+                'status_supervisor' => 'pending'
+
             ]);
 
 
 
             // Simpan anggota tim ke tabel terkait
             $registrationData->teamMembers()->where('registration_id', $id)->delete();
-            foreach ($step2Data['anggota_tim'] as $member) {
+            foreach ($step2Data['anggota_tim'] as $index => $member) {
+                // Tambahkan status "approve" untuk anggota pertama
+                if ($index === 0) {
+                    $member['status'] = 'approve';
+                }
+
                 $registrationData->teamMembers()->create($member);
             }
             $registrationData->lokasi()->update([
@@ -424,5 +446,41 @@ class regisProgramController extends Controller
                 'message' => 'Error occurred: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    public function approve($id)
+    {
+        $result = TeamMember::where('id', $id)->update(
+            ['status' => 'approve']
+        );
+
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Anda telah menyetujui keikutsertaan dalam tim.');
+        }
+
+        return redirect()->back()->with('error', 'Data anggota tim tidak ditemukan atau sudah diproses.');
+    }
+
+    public function reject($id)
+    {
+        $result = TeamMember::where('id', $id)->update(
+            ['status' => 'reject']
+        );
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Anda telah menolak keikutsertaan dalam tim.');
+        }
+
+        return redirect()->back()->with('error', 'Data anggota tim tidak ditemukan atau sudah diproses.');
+    }
+    public function submit($id)
+    {
+        $result = Registration::where('id', $id)->update(
+            ['status' => 'submit']
+        );
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Proposal anda telah dikirim untuk diproses di tahap selanjutnya.');
+        }
+
+        return redirect()->back()->with('error', 'Gagal mengirim proposal, coba lagi.');
     }
 }

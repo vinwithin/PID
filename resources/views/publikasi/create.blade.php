@@ -1,6 +1,6 @@
 @extends('layout.app')
-@section('title', 'Publikasi Artikel')
-@section('description', 'Publikasi Artikel')
+@section('title', 'Publikasi Kegiatan')
+@section('description', 'Publikasi Kegiatan')
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     {{-- <link rel="stylesheet" href="../../css/ckeditor5.css"> --}}
@@ -26,7 +26,7 @@
         <div class="card">
 
             <div class="card-header">
-                <h3>Publikasi</h3>
+                <h3>Publikasi Kegiatan</h3>
             </div>
             <div class="card-body">
                 <!-- Step Indicator -->
