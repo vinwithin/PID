@@ -42,7 +42,7 @@
 
                 <div class="il-hero">
                     <img class="il-overlay-img" src="/assets/overlay-img.svg" alt="il-hero">
-                    <img class="il-hero-img" src="/assets/il-hero.svg" alt="il-hero">
+                    <img class="il-hero-img" src="/assets/il-hero.png" alt="il-hero">
                     <img class="il-hero-circle" src="/assets/il-hero-circle.svg" alt="il-hero">
                 </div>
             </div>

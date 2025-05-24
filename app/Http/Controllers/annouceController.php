@@ -13,7 +13,7 @@ class annouceController extends Controller
     public function index()
     {
         return view('announce.index', [
-            'data' => Announcement::with('user')->get()
+            'data' => Announcement::with('user')->latest()->get()
         ]);
     }
     public function create()

@@ -14,7 +14,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="date">Tanggal</label>
                         <input type="date" class="form-control @error('date') is-invalid @enderror" id="date"
-                            name="date" value="{{ old('date') }}">
+                            name="date" value="{{ old('date') }}" required>
                         @error('date')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -23,8 +23,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Deskripsi Kegiatan</label>
-                        <textarea class="form-control rounded-2 shadow-sm" id="description" name="description" rows="5"
-                            placeholder="Tulis deskripsi kegiatan harian di sini..."></textarea>
+                        <textarea class="form-control rounded-2 shadow-sm @error('description') is-invalid @enderror" id="description" name="description" rows="5"
+                            placeholder="Tulis deskripsi kegiatan harian di sini..." required></textarea>
+                        @error('description')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
@@ -39,8 +44,9 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="/logbook" class="btn btn-secondary ml-2">Kembali</a>
+                    <a href="/logbook" class="btn btn-secondary me-2">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+
                 </form>
 
             </div>

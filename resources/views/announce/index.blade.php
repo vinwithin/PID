@@ -120,13 +120,13 @@
 
                             <td class="d-none d-md-table-cell">
 
-                                <a href="/announcement/edit/{{ $item->id }}" class="btn btn-sm btn-outline-warning">
-                                    <i class="fa-solid fa-pen-to-square me-2"></i>Edit
+                                <a href="/announcement/edit/{{ $item->id }}" class="btn btn-outline-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                 @can('manage role')
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash me-2"></i>
-                                        Hapus
+                                        data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash"></i>
+                                        
                                     </button>
                                     <!-- Gunakan komponen modal -->
                                     <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"

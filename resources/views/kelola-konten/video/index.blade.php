@@ -48,6 +48,37 @@
         }
     </style>
     <div class="w-100">
+        <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" aria-labelledby="successModalLabel">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4 rounded-3">
+                    <button type="button" class="btn-close position-absolute end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+                    <!-- Icon sukses -->
+                    <div class="d-flex justify-content-center">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 60px; height: 60px;">
+                            <i class="fa-solid fa-circle-check fa-2xl text-white"></i>
+                        </div>
+                    </div>
+
+                    <!-- Judul -->
+                    <h4 class="fw-bold mt-3 text-success">Berhasil!</h4>
+
+                    <!-- Pesan -->
+                    <p class="text-muted px-4">
+                        Status berhasil diperbarui!
+                    </p>
+
+                    <!-- Tombol OK -->
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            aria-label="Close">Tutup</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         @if (session('success'))
             <x-success-modal :message="session('success')" />
         @endif
@@ -58,7 +89,7 @@
 
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Daftar Video</h5>
-                <a class="btn btn-primary" href="/kelola-konten/video/create">Tambah Video</a>
+                <a class="btn btn-success" href="/kelola-konten/video/create">Tambah Video</a>
 
             </div>
             <table class="table table-hover my-0 table-custom">
@@ -109,12 +140,12 @@
                             @role('admin')
                                 <td class="text-center">
                                     <a href="/kelola-konten/video/edit/{{ $item->id }}"
-                                        class="btn btn-sm btn-outline-warning">
-                                        <i class="fa-solid fa-pen me-1"></i>Edit
+                                        class="btn btn-outline-warning">
+                                        <i class="fa-solid fa-pen"></i>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">
-                                        <i class="fa-solid fa-trash me-1"></i> Delete
+                                        <i class="fa-solid fa-trash"></i> 
                                     </button>
                                     <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
                                         message="Apakah Anda yakin ingin menghapus album ini?"
@@ -156,7 +187,9 @@
                         if (response.success) {
                             // Update label status
                             $('#switch-' + itemId).next('label').text(status);
-                            alert('Status berhasil diperbarui!');
+                            const successModal = new bootstrap.Modal(document.getElementById(
+                                'successModal'));
+                            successModal.show();
                         } else {
                             alert('Gagal memperbarui status.');
                         }

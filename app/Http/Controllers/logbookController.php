@@ -18,7 +18,7 @@ class logbookController extends Controller
     {
         $this->teamIdService = $teamIdService;
     }
-    public function index()
+    public function index(Request $request)
     {
 
         $search = request('search');
@@ -41,9 +41,11 @@ class logbookController extends Controller
                 $query->where('nama_dosen_pembimbing', 'like', "%{$search}%");
             });
         }
+        if ($request->filled('tahun')) {
+            $logbooksQuery->whereYear('created_at', $request->tahun);
+        }
 
-
-        $logbooks = $logbooksQuery->paginate(10);
+        $logbooks = $logbooksQuery->latest()->paginate(10);
 
 
         // Untuk dospem
@@ -66,8 +68,10 @@ class logbookController extends Controller
                 $query->where('nama_dosen_pembimbing', 'like', "%{$search}%");
             });
         }
-
-        $dospem = $dospemQuery->paginate(10);
+        if ($request->filled('tahun')) {
+            $dospemQuery->whereYear('created_at', $request->tahun);
+        }
+        $dospem = $dospemQuery->latest()->paginate(10);
 
         $data_user = Logbook::with(['registration', 'teamMembers', 'logbook_validations'])->where('team_id', $this->teamIdService->getRegistrationId());
 
@@ -117,46 +121,38 @@ class logbookController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            $validateData = $request->validate([
-                'date' => 'required|date',
-                'description' => 'required|string|min:5',
-                'link_bukti' => 'required|url|max:255',
-            ]);
-            $validateData['team_id'] = $this->teamIdService->getRegistrationId();
-            $validateData['status'] = 'Menunggu Validasi';
-            $result = Logbook::create($validateData);
-            if ($result) {
-                return redirect()->route('logbook')->with('success', 'berhasil manambah data');
-            } else {
-                return redirect()->route('logbook')->with("error", "Gagal menambah data!");
-            }
-        } catch (Exception $e) {
+
+        $validateData = $request->validate([
+            'date' => 'required|date',
+            'description' => 'required|string|min:50',
+            'link_bukti' => 'required|url|max:255',
+        ]);
+        $validateData['team_id'] = $this->teamIdService->getRegistrationId();
+        $validateData['status'] = 'Menunggu Validasi';
+        $result = Logbook::create($validateData);
+        if ($result) {
+            return redirect()->route('logbook')->with('success', 'berhasil manambah data');
+        } else {
             return redirect()->route('logbook')->with("error", "Gagal menambah data!");
-        };
+        }
     }
 
     public function update(Request $request, $id)
     {
-        try {
-            $validateData = $request->validate([
-                'date' => 'required|date',
-                'description' => 'required|string|min:5',
-                'link_bukti' => 'required|url|max:255',
-            ]);
-            $validateData['status'] = 'Menunggu Validasi';
-            LogbookValidations::where('logbook_id', $id)->delete();
-            $result = Logbook::where('id', $id)->update($validateData);
-            if ($result) {
-                return redirect()->route('logbook')->with('success', 'berhasil mengubah data');
-            } else {
-                return redirect()->route('logbook')->with("error", "Gagal mengubah data!");
-            }
-        } catch (Exception $e) {
 
-
+        $validateData = $request->validate([
+            'date' => 'required|date',
+            'description' => 'required|string|min:50',
+            'link_bukti' => 'required|url|max:255',
+        ]);
+        $validateData['status'] = 'Menunggu Validasi';
+        LogbookValidations::where('logbook_id', $id)->delete();
+        $result = Logbook::where('id', $id)->update($validateData);
+        if ($result) {
+            return redirect()->route('logbook')->with('success', 'berhasil mengubah data');
+        } else {
             return redirect()->route('logbook')->with("error", "Gagal mengubah data!");
-        };
+        }
     }
     public function approve($id)
     {
@@ -202,12 +198,15 @@ class logbookController extends Controller
             DB::beginTransaction();
             $result = LogbookValidations::updateOrCreate(
                 [
-                    'logbook_id' => $id, // cari berdasarkan id
-                    'validated_by' => Auth::user()->id, // cari berdasarkan id
-                    'role' =>  Auth::user()->getRoleNames()->first(), // cari berdasarkan id
+                    'logbook_id' => $id,
+                    'validated_by' => Auth::user()->id,
+                    'role' => Auth::user()->getRoleNames()->first(),
+                ],
+                [
                     'status' => 'Valid'
-                ] // update jika ada, atau create baru jika tidak ada
+                ]
             );
+
 
             DB::commit();
             if ($result) {
@@ -225,14 +224,18 @@ class logbookController extends Controller
     {
         try {
             DB::beginTransaction();
+
             $result = LogbookValidations::updateOrCreate(
                 [
-                    'logbook_id' => $id, // cari berdasarkan id
-                    'validated_by' => Auth::user()->id, // cari berdasarkan id
-                    'role' =>  Auth::user()->getRoleNames()->first(), // cari berdasarkan id 
+                    'logbook_id' => $id,
+                    'validated_by' => Auth::user()->id,
+                    'role' => Auth::user()->getRoleNames()->first(),
+                ],
+                [
                     'status' => 'Ditolak'
-                ] // update jika ada, atau create baru jika tidak ada
+                ]
             );
+
 
             DB::commit();
             if ($result) {

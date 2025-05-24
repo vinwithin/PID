@@ -80,10 +80,40 @@
         @if (session('error'))
             <x-error-modal :message="session('error')" />
         @endif
+        <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" aria-labelledby="successModalLabel">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4 rounded-3">
+                    <button type="button" class="btn-close position-absolute end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+                    <!-- Icon sukses -->
+                    <div class="d-flex justify-content-center">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 60px; height: 60px;">
+                            <i class="fa-solid fa-circle-check fa-2xl text-white"></i>
+                        </div>
+                    </div>
+
+                    <!-- Judul -->
+                    <h4 class="fw-bold mt-3 text-success">Berhasil!</h4>
+
+                    <!-- Pesan -->
+                    <p class="text-muted px-4">
+                        Status berhasil diperbarui!
+                    </p>
+
+                    <!-- Tombol OK -->
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="Close">Tutup</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card flex-fill">
 
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <a class="btn btn-primary" href="/kelola-konten/foto/create">Tambah Album</a>
+            <div class="card-header d-flex justify-content-end align-items-end">
+                <a class="btn btn-success" href="/kelola-konten/foto/create"><i class="fa-solid fa-plus me-2"></i>Tambah Album</a>
 
             </div>
             <table class="table table-hover mb-0">
@@ -107,7 +137,7 @@
                                 <div class="card border-0 shadow-sm position-relative overflow-hidden custom-card"
                                     style="max-width: 220px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
                                     <!-- Gambar Latar Belakang -->
-                                    <img src="{{ asset('/img/icons/image-regular.svg') }}" class="card-img-top"
+                                    <img src="{{ asset('/assets/Desktop.svg') }}" class="card-img-top"
                                         alt="Gambar Tim" style="height: 150px; object-fit: cover; filter: grayscale(30%);">
 
                                     <!-- Overlay -->
@@ -152,12 +182,12 @@
                             @role('admin')
                                 <td class="text-center">
                                     <a href="/kelola-konten/foto/edit/{{ $item->id }}"
-                                        class="btn btn-sm btn-outline-success">
-                                        <i class="fa-solid fa-pen me-1"></i>Edit
+                                        class="btn btn-outline-warning">
+                                        <i class="fa-solid fa-pen"></i>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">
-                                        <i class="fa-solid fa-trash me-1"></i> Delete
+                                        <i class="fa-solid fa-trash"></i> 
                                     </button>
                                     <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
                                         message="Apakah Anda yakin ingin menghapus album ini?"
@@ -200,7 +230,9 @@
                         if (response.success) {
                             // Update label status
                             $('#switch-' + itemId).next('label').text(status);
-                            alert('Status berhasil diperbarui!');
+                            const successModal = new bootstrap.Modal(document.getElementById(
+                                'successModal'));
+                            successModal.show();
                         } else {
                             alert('Gagal memperbarui status.');
                         }

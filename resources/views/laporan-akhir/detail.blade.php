@@ -24,7 +24,7 @@
                             @endforeach
                         @endforeach
                     </div>
-                    <a href="/dokumentasi-kegiatan" class="btn btn-warning">Kembali</a>
+                    <a href="/laporan-akhir" class="btn btn-warning">Kembali</a>
                 </div>
             </div>
         </div>

@@ -72,8 +72,37 @@
 
 
     <div class="w-100">
+        <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" aria-labelledby="successModalLabel">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4 rounded-3">
+                    <button type="button" class="btn-close position-absolute end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close" id="modalHeaderClose"></button>
 
-        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                    <!-- Icon sukses -->
+                    <div class="d-flex justify-content-center">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 60px; height: 60px;">
+                            <i class="fa-solid fa-circle-check fa-2xl text-white"></i>
+                        </div>
+                    </div>
+
+                    <!-- Judul -->
+                    <h4 class="fw-bold mt-3 text-success">Berhasil!</h4>
+
+                    <!-- Pesan -->
+                    <p class="text-muted px-4">
+                        Pendaftaran Anda telah berhasil!
+                    </p>
+
+                    <!-- Tombol OK -->
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-success" id="modalFooterClose">Tutup</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
@@ -97,7 +126,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Modal Gagal Register -->
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
@@ -118,243 +147,266 @@
         </div>
 
         <div class="card">
-
             @if (!$registrationExists)
+                @if (isDeadlineActive('Pendaftaran'))
 
-                <div class="card-body">
-                    <!-- Step Indicator -->
-                    <div class="step-indicator">
-                        <div id="step1Indicator" class="active">Step 1: Informasi Tim</div>
-                        <div id="step2Indicator">Step 2: Anggota Tim</div>
-                        <div id="step3Indicator">Step 3: Informasi Dosen Pembimbing</div>
-                        <div id="step4Indicator">Step 4: Dokumen Persyaratan</div>
-                    </div>
-
-                    <form id="registrationForm" method="POST" action="{{ route('mahasiswa.daftarProgram') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="step" id="currentStep" value="1">
-                        <!-- Step 1 -->
-                        <div class="step active">
-                            <div class="mb-3">
-                                <label for="name" class="form-label fw-bold">Nama Ketua Tim</label>
-                                <input type="text" class="form-control" id="name" name="nama_ketua"
-                                    value="{{ auth()->user()->name }}" readonly required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nim" class="form-label fw-bold">NIM Ketua Tim</label>
-                                <input type="text" class="form-control" id="nim" name="nim_ketua"
-                                    value="{{ auth()->user()->identifier }}" readonly required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fakultas" class="form-label fw-bold">Fakultas</label>
-                                <select class="form-select" name="fakultas_ketua" id="fakultas" required>
-                                    <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
-                                    @foreach ($fakultas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="program_studi" class="form-label fw-bold">Program Studi</label>
-                                <select class="form-select" name="program_studi" id="program_studi"
-                                    style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
-                                    required>
-                                    <option value="" selected="selected" hidden="hidden">Pilih Program Studi
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nohp" class="form-label fw-bold">No.hp Ketua Tim</label>
-                                <input type="text" class="form-control  @error('nohp_ketua') is-invalid @enderror"
-                                    id="nohp" name="nohp_ketua"
-                                    value="{{ old('nohp_ketua', session('registration_step1.nohp_ketua')) }}" required>
-                                @error('nohp_ketua')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="ormawa" class="form-label fw-bold">Ormawa</label>
-                                <select class="form-select" name="nama_ormawa" id="ormawa" required>
-                                    <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
-                                    @foreach ($ormawa as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="judul" class="form-label fw-bold">Judul</label>
-                                <input type="text" class="form-control  @error('judul') is-invalid @enderror"
-                                    id="judul" name="judul"
-                                    value="{{ old('judul', session('registration_step1.judul')) }}" required>
-                                @error('judul')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="bidang" class="form-label fw-bold">Bidang</label>
-                                <select class="form-select" name="bidang_id" id="bidang" required>
-                                    <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
-                                    @foreach ($bidang as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <p class="fw-bold">Pilih Lokasi</p>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold" for="regency_name">Kabupaten:</label>
-                                <select class="form-select" id="regency_name" name="regency_name">
-                                    <option value="">Pilih Kabupaten</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-
-                                <label class="form-label fw-bold" for="district_name">Kecamatan:</label>
-                                <select class="form-select" id="district_name" name="district_name" disabled>
-                                    <option value="">Pilih Kecamatan</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold" for="village_name">Desa:</label>
-                                <select class="form-select" id="village_name" name="village_name" disabled>
-                                    <option value="">Pilih Desa</option>
-                                </select>
-                            </div>
-                            {{-- <button type="button" id="next" class="btn btn-primary" onclick="nextStep()">Next</button> --}}
+                    <div class="card-body">
+                        <!-- Step Indicator -->
+                        <div class="step-indicator">
+                            <div id="step1Indicator" class="active">Step 1: Informasi Tim</div>
+                            <div id="step2Indicator">Step 2: Anggota Tim</div>
+                            <div id="step3Indicator">Step 3: Informasi Dosen Pembimbing</div>
+                            <div id="step4Indicator">Step 4: Dokumen Persyaratan</div>
                         </div>
 
-                        <!-- step 2 -->
-                        <div class="step">
-                            <div id="team-members">
-                                <div class="team-member">
-                                    <div class="row g-2">
-                                        <div class="col-lg-2 mb-3">
-                                            <label for="nim" class="form-label fw-bold">NIM</label>
-                                            <input type="text" id="nim" name="anggota_tim[0][identifier]"
-                                                class="form-control" value="{{ auth()->user()->identifier }}" readonly>
-                                        </div>
-                                        <div class="col-lg-2 mb-3">
-                                            <label for="nama" class="form-label fw-bold">Nama</label>
-                                            <input type="text" id="nama" name="anggota_tim[0][nama]"
-                                                class="form-control" value="{{ auth()->user()->name }}" readonly>
-                                        </div>
-                                        <div class="col-lg-2 mb-3">
-                                            <label for="fakultas" class="form-label fw-bold">Fakultas</label>
-                                            <select class="form-select" name="anggota_tim[0][fakultas]" id="fakultas"
-                                                required>
-                                                <option value="" selected="selected" hidden="hidden">Pilih Fakultas
-                                                </option>
-                                                @foreach ($fakultas as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-2 mb-3">
-                                            <label for="prodi" class="form-label fw-bold">Program Studi</label>
-                                            <select class="form-select" name="anggota_tim[0][prodi]" id="prodi"
-                                                required>
-                                                <option value="" selected="selected" hidden="hidden">Pilih Program
-                                                    Studi</option>
-                                                @foreach ($program_studi as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-2 mb-3">
-                                            <label for="jabatan" class="form-label fw-bold">Jabatan</label>
-                                            <input type="text" id="jabatan" name="anggota_tim[0][jabatan]"
-                                                class="form-control" value="Ketua" readonly>
+                        <form id="registrationForm" method="POST" action="{{ route('mahasiswa.daftarProgram') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="step" id="currentStep" value="1">
+                            <!-- Step 1 -->
+                            <div class="step active">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label fw-bold">Nama Ketua Tim</label>
+                                    <input type="text" class="form-control" id="name" name="nama_ketua"
+                                        value="{{ auth()->user()->name }}" readonly required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nim" class="form-label fw-bold">NIM Ketua Tim</label>
+                                    <input type="text" class="form-control" id="nim" name="nim_ketua"
+                                        value="{{ auth()->user()->identifier }}" readonly required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fakultas" class="form-label fw-bold">Fakultas</label>
+                                    <select class="form-select" name="fakultas_ketua" id="fakultas" required>
+                                        <option value="" selected="selected" hidden="hidden">Pilih Kategori</option>
+                                        @foreach ($fakultas as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="program_studi" class="form-label fw-bold">Program Studi</label>
+                                    <select class="form-select" name="program_studi" id="program_studi"
+                                        style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;"
+                                        required>
+                                        <option value="" selected="selected" hidden="hidden">Pilih Program Studi
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nohp" class="form-label fw-bold">No.hp Ketua Tim</label>
+                                    <input type="text" class="form-control  @error('nohp_ketua') is-invalid @enderror"
+                                        id="nohp" name="nohp_ketua"
+                                        value="{{ old('nohp_ketua', session('registration_step1.nohp_ketua')) }}" required>
+                                    @error('nohp_ketua')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ormawa" class="form-label fw-bold">Ormawa</label>
+                                    <select class="form-select" name="nama_ormawa" id="ormawa" required>
+                                        <option value="" selected="selected" hidden="hidden">Pilih Kategori
+                                        </option>
+                                        @foreach ($ormawa as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="judul" class="form-label fw-bold">Judul</label>
+                                    <input type="text" class="form-control  @error('judul') is-invalid @enderror"
+                                        id="judul" name="judul"
+                                        value="{{ old('judul', session('registration_step1.judul')) }}" required>
+                                    @error('judul')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="bidang" class="form-label fw-bold">Bidang</label>
+                                    <select class="form-select" name="bidang_id" id="bidang" required>
+                                        <option value="" selected="selected" hidden="hidden">Pilih Kategori
+                                        </option>
+                                        @foreach ($bidang as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <p class="fw-bold">Pilih Lokasi</p>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold" for="regency_name">Kabupaten:</label>
+                                    <select class="form-select" id="regency_name" name="regency_name">
+                                        <option value="">Pilih Kabupaten</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+
+                                    <label class="form-label fw-bold" for="district_name">Kecamatan:</label>
+                                    <select class="form-select" id="district_name" name="district_name" disabled>
+                                        <option value="">Pilih Kecamatan</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold" for="village_name">Desa:</label>
+                                    <select class="form-select" id="village_name" name="village_name" disabled>
+                                        <option value="">Pilih Desa</option>
+                                    </select>
+                                </div>
+                                {{-- <button type="button" id="next" class="btn btn-primary" onclick="nextStep()">Next</button> --}}
+                            </div>
+
+                            <!-- step 2 -->
+                            <div class="step">
+                                <div id="team-members">
+                                    <div class="team-member">
+                                        <div class="row g-2">
+                                            <div class="col-lg-2 mb-3">
+                                                <label for="nim" class="form-label fw-bold">NIM</label>
+                                                <input type="text" id="nim" name="anggota_tim[0][identifier]"
+                                                    class="form-control" value="{{ auth()->user()->identifier }}"
+                                                    readonly>
+                                            </div>
+                                            <div class="col-lg-2 mb-3">
+                                                <label for="nama" class="form-label fw-bold">Nama</label>
+                                                <input type="text" id="nama" name="anggota_tim[0][nama]"
+                                                    class="form-control" value="{{ auth()->user()->name }}" readonly>
+                                            </div>
+                                            <div class="col-lg-2 mb-3">
+                                                <label for="fakultas" class="form-label fw-bold">Fakultas</label>
+                                                <select class="form-select" name="anggota_tim[0][fakultas]"
+                                                    id="fakultas" required>
+                                                    <option value="" selected="selected" hidden="hidden">Pilih
+                                                        Fakultas
+                                                    </option>
+                                                    @foreach ($fakultas as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2 mb-3">
+                                                <label for="prodi" class="form-label fw-bold">Program Studi</label>
+                                                <select class="form-select" name="anggota_tim[0][prodi]" id="prodi"
+                                                    required>
+                                                    <option value="" selected="selected" hidden="hidden">Pilih
+                                                        Program
+                                                        Studi</option>
+                                                    @foreach ($program_studi as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2 mb-3">
+                                                <label for="jabatan" class="form-label fw-bold">Jabatan</label>
+                                                <input type="text" id="jabatan" name="anggota_tim[0][jabatan]"
+                                                    class="form-control" value="Ketua" readonly>
+                                            </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <p class="text-muted">Minimal 3 Anggota Tim dan Maksimal 13 Anggota Tim</p>
+                                <button type="button" class="btn btn-sm btn-success rounded mb-2"
+                                    onclick="addTeamMember()"><i class="fa-solid fa-plus me-2"></i>Tambah
+                                    Anggota</button><br>
+
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="step">
+                                <div style="margin-bottom: 1rem;">
+                                    <label for="nama_dosen_pembimbing_val"
+                                        style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
+                                        Nama Dosen Pembimbing
+                                    </label>
+                                    <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val"
+                                        style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
+                                        <option value=""></option>
+                                    </select>
                                 </div>
 
-                            </div>
-                            <button type="button" onclick="addTeamMember()">Add Member</button><br>
 
+                                <div class="mb-3">
+                                    <label for="nohp_dosen_pembimbing" class="form-label fw-bold">No.hp Dosen
+                                        Pembimbing</label>
+                                    <input type="text"
+                                        class="form-control @error('nohp_dosen_pembimbing') is-invalid @enderror"
+                                        id="nohp_dosen_pembimbing" name="nohp_dosen_pembimbing" required>
+                                    @error('nohp_dosen_pembimbing')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                {{-- <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button> --}}
+                            </div>
+
+                            {{-- step 4 --}}
+                            <div class="step">
+                                <p class="fw-bold">Surat Keputusan Organisasi</p>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
+                                        accept="pdf" required>
+                                    <label class="form-label" for="sk_organisasi"></label>
+                                    @error('sk_organisasi')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <p class="fw-bold">Surat pernyataan kerja sama dari khalayak sasaran yang diketahui oleh
+                                    kepala
+                                    desa</p>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" id="surat_kerjasama"
+                                        name="surat_kerjasama" accept="pdf" required>
+                                    <label class="form-label" for="surat_kerjasama"></label>
+                                    @error('surat_kerjasama')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <p class="fw-bold">Surat kesediaan dosen pendamping untuk membimbing kegiatan Pro IDE</p>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" id="surat_rekomendasi_pembina"
+                                        name="surat_rekomendasi_pembina" accept="pdf" required>
+                                    <label class="form-label" for="surat_rekomendasi_pembina"></label>
+                                    @error('surat_rekomendasi_pembina')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <p class="fw-bold">Proposal Pro-IDe</p>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" id="proposal" name="proposal"
+                                        accept="pdf" required>
+                                    <label class="form-label" for="proposal"></label>
+                                    @error('proposal')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <button type="button" id="prevStep" class="btn btn-secondary mt-2">Kembali</button>
+                            <button type="button" id="next" class="btn btn-primary mt-2">Selanjutnya</button>
+                            <button type="submit" id="submitForm" class="btn btn-primary mt-2">Kirim</button>
+
+                        </form>
+                    </div>
+                @else
+                    <div class="card border-danger mb-3">
+                        <div class="card-header bg-danger text-white">
+                            <i class="fas fa-exclamation-triangle me-1"></i> Pendaftaran Ditutup
                         </div>
-
-                        <!-- Step 3 -->
-                        <div class="step">
-                            <div style="margin-bottom: 1rem;">
-                                <label for="nama_dosen_pembimbing_val"
-                                    style="font-weight: bold; display: block; margin-bottom: 0.5rem;">
-                                    Nama Dosen Pembimbing
-                                </label>
-                                <select id="nama_dosen_pembimbing_val" name="nama_dosen_pembimbing_val"
-                                    style="width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 0.25rem; background-color: #fff;">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="nohp_dosen_pembimbing" class="form-label fw-bold">No.hp Dosen
-                                    Pembimbing</label>
-                                <input type="text"
-                                    class="form-control @error('nohp_dosen_pembimbing') is-invalid @enderror"
-                                    id="nohp_dosen_pembimbing" name="nohp_dosen_pembimbing" required>
-                                @error('nohp_dosen_pembimbing')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            {{-- <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button> --}}
+                        <div class="card-body">
+                            <h5 class="card-title">Mohon Maaf</h5>
+                            <p class="card-text">Masa pendaftaran telah ditutup sesuai dengan tenggat waktu yang telah
+                                ditentukan.
+                                Silakan hubungi panitia jika Anda memiliki pertanyaan lebih lanjut.</p>
                         </div>
+                    </div>
 
-                        {{-- step 4 --}}
-                        <div class="step">
-                            <p class="fw-bold">Surat Keputusan Organisasi</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
-                                    accept="pdf" required>
-                                <label class="input-group-text" for="sk_organisasi">Unggah</label>
-                                @error('sk_organisasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <p class="fw-bold">Surat pernyataan kerja sama dari khalayak sasaran yang diketahui oleh kepala
-                                desa</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="surat_kerjasama" name="surat_kerjasama"
-                                    accept="pdf" required>
-                                <label class="input-group-text" for="surat_kerjasama">Unggah</label>
-                                @error('surat_kerjasama')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <p class="fw-bold">Surat kesediaan dosen pendamping untuk membimbing kegiatan Pro IDE</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="surat_rekomendasi_pembina"
-                                    name="surat_rekomendasi_pembina" accept="pdf" required>
-                                <label class="input-group-text" for="surat_rekomendasi_pembina">Unggah</label>
-                                @error('surat_rekomendasi_pembina')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <p class="fw-bold">Proposal Pro-IDe</p>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="proposal" name="proposal"
-                                    accept="pdf" required>
-                                <label class="input-group-text" for="proposal">Unggah</label>
-                                @error('proposal')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <button type="button" id="prevStep" class="btn btn-secondary mt-2">Kembali</button>
-                        <button type="button" id="next" class="btn btn-primary mt-2">Selanjutnya</button>
-                        <button type="submit" id="submitForm" class="btn btn-success mt-2">Submit</button>
-
-                    </form>
-                </div>
+                @endif
             @else
                 <div class="container-fluid px-4 py-4">
 
@@ -380,7 +432,8 @@
                                         <div class="d-flex flex-column align-items-center justify-content-center gap-2">
                                             <img src="/assets/assets_confirm_mhs2.png" alt="confirm-image"
                                                 style="max-width: 225px;">
-                                            <p class="text-center">Anda diundang dalam sebuah tim namun belum memberikan
+                                            <p class="text-center">Anda diundang dalam sebuah tim namun belum
+                                                memberikan
                                                 persetujuan.
                                                 Silakan
                                                 pilih
@@ -391,7 +444,8 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="/program/cek/{{ $data[0]->id }}" class="btn btn-success">Lihat Detail
+                                        <a href="/program/cek/{{ $data[0]->id }}" class="btn btn-success">Lihat
+                                            Detail
                                             <i class="fa-solid fa-arrow-right ml-2"></i></a>
 
                                     </div>
@@ -470,9 +524,11 @@
                                             </td>
                                             <td class="text-center">
                                                 <a href="/program/cek/{{ $item->id }}"
-                                                    class="btn btn-sm btn-outline-secondary">
-                                                    <i class="fas fa-eye me-1"></i>Cek
+                                                    class="btn btn-outline-primary">
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
+
+
 
                                                 @if (
                                                     !in_array($item->registration_validation->status, [
@@ -483,26 +539,29 @@
                                                         'Hentikan Program',
                                                     ]) && $item->status === 'draft')
                                                     @if ($item->nim_ketua === Auth()->user()->identifier)
-                                                        <a href="/editProgram/{{ $item->id }}"
-                                                            class="btn btn-sm btn-outline-warning">
-                                                            <i class="fas fa-pen me-1"></i>Edit
-                                                        </a>
+                                                        @if (isDeadlineActive('Pendaftaran'))
+                                                            <a href="/editProgram/{{ $item->id }}"
+                                                                class="btn  btn-outline-warning ">
+                                                                <i class="fas fa-pen "></i>
+                                                            </a>
+                                                        @endif
                                                     @endif
                                                 @endif
-                                                @if ($item->teamMembers->every(fn($member) => $member->status === 'approve') && $item->nim_ketua === Auth()->user()->identifier && $item->status === 'draft')
-                                                  
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#submitModal{{ $item->id }}">
-                                                            <i class="fa-brands fa-telegram me-2"></i>Kirim Proposal
-                                                        </button>
+                                                @if (
+                                                    $item->teamMembers->every(fn($member) => $member->status === 'approve') &&
+                                                        $item->nim_ketua === Auth()->user()->identifier &&
+                                                        $item->status === 'draft')
+                                                    <button type="button" class="btn btn-outline-success "
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#submitModal{{ $item->id }}">
+                                                        <i class="fa-brands fa-telegram "></i>
+                                                    </button>
 
-                                                        <!-- Gunakan komponen modal -->
-                                                        <x-confirm-modal modal-id="submitModal{{ $item->id }}"
-                                                            title="Konfirmasi Persetujuan"
-                                                            message="Apakah Anda yakin ingin mengirim proposal ini?"
-                                                            action-url="/submit/{{ $item->id }}"
-                                                            confirm-text="Yakin" />
+                                                    <!-- Gunakan komponen modal -->
+                                                    <x-confirm-modal modal-id="submitModal{{ $item->id }}"
+                                                        title="Konfirmasi Persetujuan"
+                                                        message="Apakah Anda yakin ingin mengirim proposal ini?"
+                                                        action-url="/submit/{{ $item->id }}" confirm-text="Yakin" />
                                                 @endif
 
                                             </td>
@@ -626,7 +685,7 @@
         document.getElementById('registrationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            if (confirm('Are you sure you want to submit the registration?')) {
+            if (confirm('Apakah Anda yakin ingin mengirimkan proposal?')) {
                 const formData = new FormData(e.target);
 
                 // Debug: Cek apakah FormData terisi dengan benar
@@ -721,7 +780,7 @@
                         <input type="text" name="anggota_tim[${memberCount}][jabatan]" value="Anggota" readonly class="form-control">
                     </div>
                     <div class="col-lg-2 mb-3 d-flex align-items-end">
-                        <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeMember(this)"><i class="fa-regular fa-trash"></i></button>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
     @php
         $curentUser = auth()->user()->name;
     @endphp
-    @role('admin|dosen|super admin')
+    @role('admin|super admin')
         <div class="w-full container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -19,7 +19,7 @@
                     
                                 <div class="card mb-4 ">
                                     <div class="card-header bg-light border">
-                                        <h5 class="mb-0">Reviewer {{ $loop->iteration }}</h5>
+                                        <h5 class="mb-0">Penilai {{ $loop->iteration }}</h5>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-hover border">
@@ -67,7 +67,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr class="table-secondary">
-                                                    <td class="fw-bold">Reviewer</td>
+                                                    <td class="fw-bold">Penilai</td>
                                                     <td colspan="2" class="text-center text-primary">
                                                         {{ $reviewer }}
                                                     </td>
@@ -90,7 +90,7 @@
                 </div>
             </div>
         </div>
-        @elserole('reviewer')
+        @elserole('reviewer|dosen')
         <div class="w-full container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -147,13 +147,13 @@
                                             </tr>
                                             {{-- Reviewer --}}
                                             <tr class="table-secondary">
-                                                <td>Reviewer</td>
+                                                <td>Penilai</td>
                                                 <td class="text-center fw-bold" colspan="2">{{ $curentUser }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
 
-                                    <div class="text-end mt-3">
+                                    <div class="text-start mt-3">
                                         <a href="/pendaftaran" class="btn btn-secondary">
                                             <i class="fa-solid fa-arrow-left me-2"></i>Kembali
                                         </a>

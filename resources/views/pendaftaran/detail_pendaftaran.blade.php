@@ -37,7 +37,7 @@
                                         </dd>
                                         <dt class="col-5">Nama Dosen Pembimbing</dt>
                                         <dd class="col-7">
-                                            {{ $data->dospem->name}}
+                                            {{ $data->dospem->name }}
                                         </dd>
 
                                     </dl>
@@ -46,17 +46,20 @@
                             <div class="col-md-6">
                                 <h5 class="text-secondary mb-3">Dokumen Pendukung</h5>
                                 <div class="d-flex flex-column gap-2">
-                                    <a href="/storage/{{ $data->document_registration->sk_organisasi }}" class="btn btn-outline-secondary">
+                                    <a href="/storage/{{ $data->document_registration->sk_organisasi }}"
+                                        class="btn btn-outline-secondary">
                                         <i class="fas fa-file-alt me-2"></i>SK Organisasi
                                     </a>
-                                    <a href="/storage/{{ $data->document_registration->surat_kerjasama }}" class="btn btn-outline-secondary">
+                                    <a href="/storage/{{ $data->document_registration->surat_kerjasama }}"
+                                        class="btn btn-outline-secondary">
                                         <i class="fas fa-handshake me-2"></i>Surat Kerjasama
                                     </a>
                                     <a href="/storage/{{ $data->document_registration->surat_rekomendasi_pembina }}"
                                         class="btn btn-outline-secondary">
                                         <i class="fas fa-envelope-open-text me-2"></i>Surat Rekomendasi Pembina
                                     </a>
-                                    <a href="/storage/{{ $data->document_registration->proposal }}" class="btn btn-outline-secondary">
+                                    <a href="/storage/{{ $data->document_registration->proposal }}"
+                                        class="btn btn-outline-secondary">
                                         <i class="fas fa-file-contract me-2"></i>Proposal
                                     </a>
                                 </div>
@@ -74,11 +77,11 @@
                                         <dd class="col-8">{{ $data->judul }}</dd>
 
                                         @forelse ($data->reviewAssignments as $item)
-                                            <dt class="col-4">Juri {{ $loop->iteration }}</dt>
+                                            <dt class="col-4">Penilai {{ $loop->iteration }}</dt>
                                             <dd class="col-8">{{ $item->user->name }}</dd>
                                         @empty
-                                            <dt class="col-4">Juri</dt>
-                                            <dd class="col-8">Belum ada juri yang ditugaskan</dd>
+                                            <dt class="col-4">Penilai</dt>
+                                            <dd class="col-8">Belum ada penilai yang ditugaskan</dd>
                                         @endforelse
 
                                     </dl>
@@ -87,7 +90,7 @@
                             <div class="col-md-6">
                                 <h5 class="text-primary mb-3">Status Validasi</h5>
                                 <div
-                                    class="alert {{ $data->registration_validation->status === 'lolos' || 'Lanjutkan Program' || 'valid' ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
+                                    class="alert {{ in_array($data->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']) ? 'alert-success' : 'alert-warning' }} d-flex align-items-center">
                                     <i
                                         class="fas 
                                     @switch ($data->registration_validation->status) @case('Belum valid') fa-exclamation-triangle @break
@@ -105,7 +108,7 @@
                         </div>
                         <div class="card mb-4">
                             <div class="card-header bg-dark text-white">
-                                <h5 class="mb-0 text-white">Daftar Tim</h5>
+                                <h5 class="mb-0 text-white">Daftar Anggota Tim</h5>
                             </div>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
@@ -134,8 +137,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <a href="/pendaftaran" class="btn btn-secondary">
+                        <div class="text-start">
+                            <a href="javascript:history.back()" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Kembali
                             </a>
                         </div>

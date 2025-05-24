@@ -84,20 +84,50 @@
 
     <div class="w-100">
         <!-- Modal -->
-        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" aria-labelledby="successModalLabel">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4 rounded-3">
+                    <button type="button" class="btn-close position-absolute end-0 m-3" data-bs-dismiss="modal"
+                        aria-label="Close" id="modalHeaderClose"></button>
+
+                    <!-- Icon sukses -->
+                    <div class="d-flex justify-content-center">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 60px; height: 60px;">
+                            <i class="fa-solid fa-circle-check fa-2xl text-white"></i>
+                        </div>
+                    </div>
+
+                    <!-- Judul -->
+                    <h4 class="fw-bold mt-3 text-success">Berhasil!</h4>
+
+                    <!-- Pesan -->
+                    <p class="text-muted px-4">
+                        Pendaftaran Anda telah berhasil diubah!
+                    </p>
+
+                    <!-- Tombol OK -->
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-success" id="modalFooterClose">Tutup</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
                     <!-- Modal Header -->
                     <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title" id="successModalLabel">Registrasi Berhasil</h5>
+                        <h5 class="modal-title" id="successModalLabel">Perubahan Berhasil</h5>
                         <button type="button" class="btn btn-success" id="modalHeaderClose" aria-label="Close"></button>
                     </div>
 
                     <!-- Modal Body -->
                     <div class="modal-body text-center">
                         <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
-                        <p class="mt-3">Pendaftaran Anda telah berhasil dikirim!</p>
+                        <p class="mt-3">Pendaftaran Anda telah berhasil diubah!</p>
                     </div>
 
                     <!-- Modal Footer -->
@@ -108,7 +138,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>  --}}
 
         <!-- Modal Gagal Register -->
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
@@ -300,8 +330,8 @@
                                         </div>
                                         @if ($index > 0)
                                             <div class="col-lg-2 mb-3 d-flex align-items-end">
-                                                <button type="button" class="btn btn-danger"
-                                                    onclick="removeMember(this)">Remove</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    onclick="removeMember(this)"><i class="fa-regular fa-trash"></i></button>
                                             </div>
                                         @endif
                                     </div>
@@ -310,7 +340,10 @@
 
 
                         </div>
-                        <button type="button" onclick="addTeamMember()">Add Member</button><br>
+                        <p class="text-muted">Minimal 3 Anggota Tim dan Maksimal 13 Anggota Tim</p>
+
+                        <button type="button" class="btn btn-sm btn-success rounded mb-2" onclick="addTeamMember()"><i
+                                class="fa-solid fa-plus me-2"></i>Tambah Anggota</button><br>
 
                     </div>
 
@@ -349,7 +382,7 @@
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
                                 accept="pdf">
-                            <label class="input-group-text" for="sk_organisasi">Unggah</label>
+                            <label class="form-label" for="sk_organisasi">Unggah</label>
                             @error('sk_organisasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -361,7 +394,7 @@
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="surat_kerjasama" name="surat_kerjasama"
                                 accept="pdf">
-                            <label class="input-group-text" for="surat_kerjasama">Unggah</label>
+                            <label class="form-label" for="surat_kerjasama">Unggah</label>
                             @error('surat_kerjasama')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -372,7 +405,7 @@
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="surat_rekomendasi_pembina"
                                 name="surat_rekomendasi_pembina" accept="pdf">
-                            <label class="input-group-text" for="surat_rekomendasi_pembina">Unggah</label>
+                            <label class="form-label" for="surat_rekomendasi_pembina">Unggah</label>
                             @error('surat_rekomendasi_pembina')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -382,7 +415,7 @@
                         <p class="fw-bold">Proposal Pro-IDe</p>
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="proposal" name="proposal" accept="pdf">
-                            <label class="input-group-text" for="proposal">Unggah</label>
+                            <label class="form-label" for="proposal">Unggah</label>
                             @error('proposal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -482,7 +515,7 @@
         document.getElementById('registrationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            if (confirm('Are you sure you want to submit the update registration?')) {
+            if (confirm('Apakah Anda yakin ingin mengirimkan perubahan proposal?')) {
                 const formData = new FormData(e.target);
 
                 // Debug: Cek apakah FormData terisi dengan benar
@@ -577,7 +610,7 @@
                         <input type="text" name="anggota_tim[${memberCount}][jabatan]" value="Anggota" class="form-control">
                     </div>
                     <div class="col-lg-2 mb-3 d-flex align-items-end">
-                        <button type="button" class="btn btn-danger" onclick="removeMember(this)">Remove</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeMember(this)"><i class="fa-regular fa-trash"></i></button>
                     </div>
                 </div>
             </div>

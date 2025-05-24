@@ -83,118 +83,75 @@
                 <li class="sidebar-header">Laporan Akhir</li>
                 <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan Akhir</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
-                            Teknis</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Request::is('dokumen-publikasi*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('dokumen-publikasi') }}">
-                        <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Dokumen
-                            Publikasi</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Request::is('dokumentasi-kegiatan*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('dokumentasi-kegiatan') }}">
-                        <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Dokumentasi
-                            Kegiatan</span>
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar Dokumen</span>
                     </a>
                 </li>
             @endrole
 
             @php
-                $hasAccessToProgress =
-                    auth()->user()->hasRole('mahasiswa') &&
-                    App\Models\Registration::whereHas('registration_validation', function ($query) {
-                        $query->where('status', 'lolos');
+                use App\Models\Registration;
+
+                $user = auth()->user();
+                $identifier = $user->identifier;
+
+                $hasLolos = Registration::whereHas('registration_validation', function ($query) {
+                    $query->where('status', 'lolos');
+                })
+                    ->whereHas('teamMembers', function ($query) use ($identifier) {
+                        $query->where('identifier', $identifier);
                     })
-                        ->whereHas('teamMembers', function ($query) {
-                            $query->where('identifier', auth()->user()->identifier);
-                        })
-                        ->exists();
+                    ->exists();
+
+                $hasLanjut = Registration::whereHas('registration_validation', function ($query) {
+                    $query->where('status', 'Lanjutkan Program');
+                })
+                    ->whereHas('teamMembers', function ($query) use ($identifier) {
+                        $query->where('identifier', $identifier);
+                    })
+                    ->exists();
+
+                $isMahasiswa = $user->hasRole('mahasiswa');
             @endphp
-            @if ($hasAccessToProgress)
+
+            @if ($isMahasiswa)
                 <li class="sidebar-header">Log Book</li>
-                <li class="sidebar-item {{ Request::is(['logbook*']) ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('logbook') }}">
+                <li class="sidebar-item {{ Request::is('logbook*') ? 'active' : '' }}">
+                    <a class="sidebar-link {{ $isMahasiswa && ($hasLolos || $hasLanjut) ? '' : 'disabled' }}"
+                        href="{{ route('logbook') }}">
                         <i class="fa-regular fa-note-sticky"></i> <span class="align-middle">Daftar Logbook</span>
                     </a>
                 </li>
 
                 <li class="sidebar-header">Laporan Kemajuan</li>
                 <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Unggah
-                            Dokumen</span>
+                    <a class="sidebar-link {{ $isMahasiswa && ($hasLolos || $hasLanjut) ? '' : 'disabled' }}"
+                        href="{{ route('laporan-kemajuan') }}">
+                        <i class="align-middle" data-feather="book"></i>
+                        <span class="align-middle">Unggah Dokumen</span>
                     </a>
                 </li>
-            @endif
 
-            @php
-                $hasAccessToPublication =
-                    auth()->user()->hasRole('mahasiswa') &&
-                    App\Models\Registration::whereHas('registration_validation', function ($query) {
-                        $query->where('status', 'Lanjutkan Program');
-                    })
-                        ->whereHas('teamMembers', function ($query) {
-                            $query->where('identifier', auth()->user()->identifier);
-                        })
-                        ->exists();
-            @endphp
 
-            @if ($hasAccessToPublication)
-                <li class="sidebar-header">Log Book</li>
-                <li class="sidebar-item {{ Request::is(['logbook*']) ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('logbook') }}">
-                        <i class="fa-regular fa-note-sticky"></i> <span class="align-middle">Daftar Logbook</span>
-                    </a>
-                </li>
-                <li class="sidebar-header">Laporan Kemajuan</li>
-                <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Unggah
-                            Dokumen</span>
-                    </a>
-                </li>
+
                 <li class="sidebar-header">Laporan Akhir</li>
                 <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan
-                            Akhir</span>
+                    <a class="sidebar-link {{ $isMahasiswa && $hasLanjut ? '' : 'disabled' }}"
+                        href="{{ route('laporan-akhir') }}">
+                        <i class="align-middle" data-feather="book"></i>
+                        <span class="align-middle">Daftar Dokumen</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Request::is('dokumen-teknis*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('dokumen-teknis') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Dokumen
-                            Teknis</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Request::is('dokumen-publikasi*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('dokumen-publikasi') }}">
-                        <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Dokumen
-                            Publikasi</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Request::is('dokumentasi-kegiatan*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('dokumentasi-kegiatan') }}">
-                        <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Dokumentasi
-                            Kegiatan</span>
-                    </a>
-                </li>
-                <li class="sidebar-header">
-                    Kelola Konten
-                </li>
+
+                <li class="sidebar-header">Kelola Konten</li>
                 <li class="sidebar-item {{ Request::is('publikasi*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('publikasi') }}">
-                        <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
-                            Kegiatan</span>
+                    <a class="sidebar-link {{ $isMahasiswa && $hasLanjut ? '' : 'disabled' }}"
+                        href="{{ route('publikasi') }}">
+                        <i class="align-middle" data-feather="upload-cloud"></i>
+                        <span class="align-middle">Publikasi Kegiatan</span>
                     </a>
                 </li>
             @endif
+
 
 
             @role('admin')
@@ -205,6 +162,12 @@
                     <a class="sidebar-link" href="{{ route('publikasi') }}">
                         <i class="align-middle" data-feather="upload-cloud"></i> <span class="align-middle">Publikasi
                             Kegiatan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('deadline*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('deadline') }}">
+                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Kelola Tenggat
+                            Waktu</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('kelola-konten/video*') ? 'active' : '' }}">
@@ -240,6 +203,12 @@
             @role('super admin')
                 <li class="sidebar-header">
                     Kelola Konten
+                </li>
+                <li class="sidebar-item {{ Request::is('deadline*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('deadline') }}">
+                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Konten Tenggat
+                            Waktu</span>
+                    </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('announcement*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('announcement') }}">

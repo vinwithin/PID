@@ -11,11 +11,13 @@
             <x-error-modal :message="session('error')" />
         @endif
         <div class="card flex-fill">
+            @role('mahasiswa')
+                <div class="card-header d-flex justify-content-end align-items-end">
+                    <a class="btn btn-success" href="{{ route('publikasi.tambah') }}"><i class="fa-solid fa-plus me-2"></i>Tambah
+                        Publikasi</a>
+                </div>
+            @endrole
 
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <a class="btn btn-success" href="{{ route('publikasi.tambah') }}"><i
-                        class="fa-solid fa-file-circle-plus me-2"></i>Tambah Publikasi</a>
-            </div>
             @can('agree publication')
                 <div class="card-header d-flex justify-content-between align-items-center">
                     {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
@@ -35,17 +37,22 @@
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
                     </form>
-                    <form action="{{ route('publikasi') }}" method="GET" class="mb-3">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Cari kegiatan..."
-                                value="{{ request('search') }}">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-search"></i> Cari
-                            </button>
-                            <a href="{{ route('publikasi') }}" class="btn btn-success ms-2">Reset</a>
+                    <div class="d-flex flex-column justify-content-end align-items-end gap-3">
+                        <a class="btn btn-success" href="{{ route('publikasi.tambah') }}"><i
+                                class="fa-solid fa-plus me-2"></i>Tambah
+                            Publikasi</a>
+                        <form action="{{ route('publikasi') }}" method="GET" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Cari kegiatan..."
+                                    value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-search"></i> Cari
+                                </button>
+                                <a href="{{ route('publikasi') }}" class="btn btn-success ms-2">Reset</a>
 
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             @endcan
             <table class="table table-hover my-0">
@@ -72,8 +79,17 @@
                                         style="max-width: 80px; max-height:80px;"></td>
                                 <td class="">
                                     <p
-                                        class="{{ $item->status === 'Belum valid' ? 'badge text-bg-warning' : 'badge text-bg-primary' }}">
-                                        {{ $item->status }}</p>
+                                        class="badge 
+                                                @switch($item->status)
+                                                    @case('Belum valid') text-bg-warning @break
+                                                    @case('valid') text-bg-primary @break
+                                                    @case('Ditolak') text-bg-danger @break
+                                                    @default text-bg-secondary
+                                                @endswitch
+                                            ">
+                                        {{ $item->status }}
+                                    </p>
+
                                 </td>
                                 <td>
 
@@ -81,9 +97,8 @@
                                     @can('agree publication')
                                         @if ($item->status === 'Belum valid')
                                             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                                data-bs-target="#approveModal{{ $item->id }}"><i
-                                                    class="fa-solid fa-check me-2"></i>
-                                                Setujui
+                                                data-bs-target="#approveModal{{ $item->id }}"><i class="fa-solid fa-check"></i>
+
                                             </button>
                                             <!-- Gunakan komponen modal -->
                                             <x-confirm-modal modal-id="approveModal{{ $item->id }}"
@@ -91,18 +106,29 @@
                                                 message="Apakah Anda yakin ingin menyetujui artikel ini?"
                                                 action-url="{{ route('publikasi.approve', ['id' => $item->id]) }}"
                                                 confirm-text="Iya, Setujui" />
+                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                                data-bs-target="#rejectModal{{ $item->id }}"><i
+                                                    class="fa-solid fa-circle-xmark"></i>
+
+                                            </button>
+                                            <!-- Gunakan komponen modal -->
+                                            <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
+                                                title="Konfirmasi Persetujuan"
+                                                message="Apakah Anda yakin ingin menolak artikel ini?"
+                                                action-url="{{ route('publikasi.reject', ['id' => $item->id]) }}"
+                                                confirm-text="Iya, Tolak" />
                                         @endif
                                     @endcan
 
 
                                     <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-outline-warning"><i
-                                            class="fa-solid fa-pen me-2"></i>Edit</a>
+                                            class="fa-solid fa-pen"></i></a>
                                     <a href="/publikasi/{{ $item->id }}" class="btn btn-outline-primary"><i
-                                            class="fa-solid fa-eye me-2"></i>Cek</a>
+                                            class="fa-solid fa-eye"></i></a>
                                     @can('delete publication')
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash me-2"></i>
-                                            Hapus
+                                            data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash"></i>
+
                                         </button>
                                         <!-- Gunakan komponen modal -->
                                         <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
@@ -125,25 +151,30 @@
                                         style="max-width: 80px"></td>
                                 <td class="">
                                     <p
-                                        class="{{ $item->status === 'Belum valid' ? 'badge text-bg-warning' : 'badge text-bg-primary' }}">
-                                        {{ $item->status }}</p>
+                                        class="badge 
+                                                @switch($item->status)
+                                                    @case('Belum valid') text-bg-warning @break
+                                                    @case('valid') text-bg-primary @break
+                                                    @case('Ditolak') text-bg-danger @break
+                                                    @default text-bg-secondary
+                                                @endswitch
+                                            ">
+                                        {{ $item->status }}
+                                    </p>
                                 </td>
 
                                 <td>
 
                                     {{-- @if ($item->registration_validation->status === 'Belum valid') --}}
-                                    @can('agree publication')
-                                        @if ($item->status === 'Belum valid')
-                                            <a href="{{ route('publikasi.approve', ['id' => $item->id]) }}"
-                                                class="btn btn-success">Setujui</a>
-                                        @endif
-                                    @endcan
+
 
                                     {{-- @endif --}}
-                                    <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
-                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-primary">CEK</a>
+                                    <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning"><i
+                                            class="fa-solid fa-pen"></i></a>
+                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-primary"><i
+                                            class="fa-solid fa-eye"></i></a>
                                     @can('delete publication')
-                                        <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger">Delete</a>
+                                        <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                     @endcan
                                 </td>
                                 <td></td>

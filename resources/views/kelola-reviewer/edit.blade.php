@@ -31,11 +31,11 @@
                                         <dd class="col-7">{{ $data->ormawa->nama }}</dd>
 
                                         @forelse ($data->reviewAssignments as $item)
-                                            <dt class="col-5">Juri {{ $loop->iteration }}</dt>
+                                            <dt class="col-5">Penilai {{ $loop->iteration }}</dt>
                                             <dd class="col-7">{{ $item->user->name }}</dd>
                                         @empty
-                                            <dt class="col-5">Juri</dt>
-                                            <dd class="col-7">Belum ada juri yang ditugaskan</dd>
+                                            <dt class="col-5">Penilai</dt>
+                                            <dd class="col-7">Belum ada penilai yang ditugaskan</dd>
                                         @endforelse
                                     </dl>
                                 </div>
@@ -43,7 +43,7 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-4">
-                                        <label for="reviewer_1" class="form-label fw-bold">Pilih Juri 1</label>
+                                        <label for="reviewer_1" class="form-label fw-bold">Pilih Penilai 1</label>
                                         <select class="form-select" name="reviewer_id[]" id="reviewer_1" required>
                                             <option value="{{$data->reviewAssignments[0]->user->id}}" selected>
                                                 {{$data->reviewAssignments[0]->user->name}}</option>
@@ -54,7 +54,7 @@
                                         </select>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="reviewer_2" class="form-label fw-bold">Pilih Juri 2</label>
+                                        <label for="reviewer_2" class="form-label fw-bold">Pilih Penilai 2</label>
                                         <select class="form-select" name="reviewer_id[]" id="reviewer_2" required>
                                             <option value="{{$data->reviewAssignments[1]->user->id}}" selected>
                                                 {{$data->reviewAssignments[1]->user->name}}</option>
@@ -66,7 +66,7 @@
                                     </div>
 
                                     <a href="/pendaftaran" class="btn btn-secondary me-2">Kembali</a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
 
                                 </form>
                             </div>

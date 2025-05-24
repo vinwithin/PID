@@ -51,8 +51,9 @@
                         </tbody>
                     </table>
 
-                    <button type="submit" class="btn btn-primary me-2">Kirim</button>
-                    <a href="/pendaftaran" class="btn btn-secondary">Kembali</a>
+                    <a href="/pendaftaran" class="btn btn-secondary me-2">Kembali</a>
+                    <button type="submit" class="btn btn-primary ">Kirim</button>
+
                 </form>
             </div>
         </div>

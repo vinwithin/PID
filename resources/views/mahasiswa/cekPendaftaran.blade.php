@@ -104,7 +104,7 @@
 
                 <div class="card mb-3">
                     <div class="card-header bg-dark text-white">
-                        <h6 class="mb-0 text-white fw-bold">Daftar Tim</h6>
+                        <h6 class="mb-0 text-white fw-bold">Daftar Anggota Tim</h6>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -278,27 +278,21 @@
                 </div>
                 @if ($pendingMember)
                     <div class="text-center mt-3">
-                        <!-- Tombol yang memicu modal -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#approveModal{{ $pendingMember->id }}">
-                            <i class="fa-solid fa-circle-check me-2"></i> Terima
-                        </button>
-
-
-                        <x-confirm-modal modal-id="approveModal{{ $pendingMember->id }}" title="Konfirmasi Persetujuan"
-                            message="Apakah Anda yakin ingin memberikan persetujuan tim ini?"
-                            action-url="/approve/{{ $pendingMember->id }}" confirm-text="Ya, Setujui" />
-
-                        <!-- Tombol yang memicu modal -->
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                             data-bs-target="#rejectModal{{ $pendingMember->id }}">
                             <i class="fa-solid fa-triangle-exclamation me-2"></i> Tolak
                         </button>
 
-
                         <x-confirm-modal modal-id="rejectModal{{ $pendingMember->id }}" title="Konfirmasi Persetujuan"
                             message="Apakah Anda yakin ingin menolak persetujuan tim ini?"
                             action-url="/reject/{{ $pendingMember->id }}" confirm-text="Ya, Tolak" />
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#approveModal{{ $pendingMember->id }}">
+                            <i class="fa-solid fa-circle-check me-2"></i> Terima
+                        </button>
+                        <x-confirm-modal modal-id="approveModal{{ $pendingMember->id }}" title="Konfirmasi Persetujuan"
+                            message="Apakah Anda yakin ingin memberikan persetujuan tim ini?"
+                            action-url="/approve/{{ $pendingMember->id }}" confirm-text="Ya, Setujui" />
 
                     </div>
                 @endif

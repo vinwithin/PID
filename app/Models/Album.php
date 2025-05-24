@@ -12,7 +12,8 @@ class Album extends Model
         'team_id',
         'media_dokumentasi_id',
         'nama',
-        'status'
+        'status',
+        'komentar'
     ];
     public function album_photos()
     {

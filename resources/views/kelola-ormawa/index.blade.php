@@ -15,23 +15,23 @@
                 <div class="card-header text-white">
                     <div class="d-flex justify-content-between align-items-center">
                         <!-- Tombol untuk membuka modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#tambahOrmawaModal">
-                            Tambah Ormawa
+                            <i class="fa-solid fa-plus me-2"></i>Tambah Ormawa
                         </button>
 
                         <!-- Modal -->
                         <!-- Modal Tambah Ormawa -->
                         <div class="modal fade" id="tambahOrmawaModal" tabindex="-1" aria-labelledby="tambahOrmawaLabel"
                             aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
                                 <div class="modal-content">
                                     <form action="{{ route('kelola-ormawa.store') }}" method="POST">
                                         @method('POST')
 
                                         @csrf
                                         <div class="modal-header">
-                                            <h5 class="modal-title fw-bold" id="tambahOrmawaLabel">Tambah Ormawa</h5>
+                                            <h5 class="modal-title fw-bold" id="tambahOrmawaLabel"><i class="fa-regular fa-circle-info me-2"></i>Tambah Ormawa</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Tutup"></button>
                                         </div>
@@ -45,7 +45,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <button type="submit" class="btn btn-success">Simpan</button>
                                         </div>
                                     </form>
                                 </div>
@@ -59,6 +59,7 @@
                                 <input type="text" name="search" class="form-control me-2" placeholder="Cari ormawa..."
                                     value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary">Cari</button>
+
                             </form>
                         </div>
                     </div>
@@ -84,20 +85,22 @@
 
                                         <td class="text-center">
                                             <!-- Tombol untuk membuka modal -->
-                                            <a href="#" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                            <a href="#" class="btn btn-outline-warning" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $item->id }}">
-                                                <i class="fa-solid fa-pen me-1"></i>Edit
+                                                <i class="fa-solid fa-pen"></i>
                                             </a>
                                             <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
                                                 aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-dialog modal-lg modal-dialog-centered">
                                                     <div class="modal-content">
-                                                        <form action="{{ route('kelola-ormawa.update', $item->id) }}" method="POST">
+                                                        <form action="{{ route('kelola-ormawa.update', $item->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title fw-bold" id="editModalLabel{{ $item->id }}">
-                                                                    Edit Ormawa</h5>
+                                                                <h5 class="modal-title fw-bold"
+                                                                    id="editModalLabel{{ $item->id }}">
+                                                                    <i class="fa-regular fa-circle-info me-2"></i>Edit Ormawa</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Tutup"></button>
                                                             </div>
@@ -106,14 +109,15 @@
                                                                     <label for="nama" class="form-label text-dark">Nama
                                                                         Ormawa</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="nama" name="nama" value="{{$item->nama}}" required>
+                                                                        id="nama" name="nama"
+                                                                        value="{{ $item->nama }}" required>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <button type="submit"
-                                                                    class="btn btn-primary">Simpan</button>
+                                                                    class="btn btn-success">Simpan</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -122,9 +126,9 @@
 
 
 
-                                            <button type="button" class="btn btn-sm btn-outline-success"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
-                                                <i class="fa-solid fa-trash me-1"></i> Delete
+                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal{{ $item->id }}">
+                                                <i class="fa-solid fa-trash"></i>
                                             </button>
                                             <x-confirm-modal modal-id="deleteModal{{ $item->id }}"
                                                 title="Konfirmasi Persetujuan"

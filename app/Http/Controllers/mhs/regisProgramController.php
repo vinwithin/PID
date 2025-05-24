@@ -292,7 +292,7 @@ class regisProgramController extends Controller
             })->exists();
 
 
-        if ($isRegistered && $isTeam) {
+        if ($isRegistered || $isTeam) {
             return response()->json([
                 'message' => 'NIM sudah terdaftar dalam program',
                 'status' => 'error',
@@ -437,7 +437,7 @@ class regisProgramController extends Controller
             ]);
             return response()->json([
                 'success' => true,
-                'message' => 'Berhasil Mendaftar'
+                'message' => 'Berhasil Mengedit Data'
             ], 200);
         } catch (\Exception $e) {
             DB::rollBack();

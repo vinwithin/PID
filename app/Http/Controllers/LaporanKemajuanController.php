@@ -39,14 +39,16 @@ class LaporanKemajuanController extends Controller
             $search = $request->input('search');
             $dataAll->where('judul', 'like', "%$search%");
         }
-
+        if ($request->filled('tahun')) {
+            $dataAll->whereYear('created_at', $request->tahun);
+        }
         // Cek jika user adalah reviewer, tambahkan filter status valid
         if (Auth::user()->hasRole(['reviewer', 'dosen'])) {
             $dataAll->whereHas('laporan_kemajuan', function ($query) {
                 $query->where('status', 'Valid');
             });
         }
-        $dataAll = $dataAll->paginate(10);
+        $dataAll = $dataAll->latest()->paginate(10);
 
         return view('laporan-kemajuan.index', [
             'data'  => LaporanKemajuan::where('team_id', $team_id)->get(),
@@ -58,7 +60,7 @@ class LaporanKemajuanController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'file' => 'required', // Hanya menerima PDF dan DOC/DOCX, maksimal 2MB
+            'file' => 'required|mimes:pdf,doc,docx|max:5048',
         ]);
 
         $team_id = $this->teamIdService->getRegistrationId();
@@ -81,7 +83,7 @@ class LaporanKemajuanController extends Controller
             LaporanKemajuan::create([
                 'team_id' => $team_id,
                 'file_path' => $filename,
-                'status' => 'pending', // Default status
+                'status' => 'Belum Valid', // Default status
             ]);
         }
 

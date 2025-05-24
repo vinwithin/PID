@@ -79,7 +79,7 @@
         @endif
         <div class="card flex-fill">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a class="btn btn-primary" href="/berita/create">Tambah Berita</a>
+                <a class="btn btn-success" href="/berita/create"><i class="fa-solid fa-plus me-2"></i>Tambah Berita</a>
                 <form action="{{ route('berita') }}" method="GET" class="mb-3">
                     <div class="input-group">
                         <input type="text" name="search" class="form-control" placeholder="Cari berita..."
@@ -131,12 +131,12 @@
                             <td class="d-none d-md-table-cell">
 
                         
-                                <a href="/berita/edit/{{ $item->id }}" class="btn btn-sm btn-outline-warning">
-                                    <i class="fa-solid fa-pen-to-square me-2"></i>Edit
+                                <a href="/berita/edit/{{ $item->id }}" class="btn btn-outline-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal{{ $item->id }}">
-                                    <i class="fa-solid fa-trash me-2"></i>Hapus
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                                 <!-- Gunakan komponen modal -->
                                 <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"

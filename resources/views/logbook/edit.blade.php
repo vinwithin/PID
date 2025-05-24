@@ -29,7 +29,7 @@
                           name="description" 
                           rows="5" 
                           placeholder="Tulis deskripsi kegiatan harian di sini...">{{$data->description}}</textarea>
-                          @error('link_bukti')
+                          @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -47,8 +47,9 @@
                     </div>
                     
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="/logbook" class="btn btn-secondary ml-2">Kembali</a>
+                    <a href="/logbook" class="btn btn-secondary me-2">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+
                 </form>
 
             </div>

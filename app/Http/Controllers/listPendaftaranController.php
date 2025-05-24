@@ -19,19 +19,53 @@ class listPendaftaranController extends Controller
 {
     public function filter(Request $request)
     {
-        $filters = $request->input('filters', []);
-        $dataNilai = Registration::with('fakultas', 'reviewAssignments', 'bidang', 'registration_validation')->whereHas('reviewAssignments', function ($query) {
-            $query->where('reviewer_id', Auth::user()->id); // Kondisi yang ingin dicek
-        })->paginate(10);
-        // Pastikan calculateScores() adalah metode static atau menggunakan Service Class
-        $totalId = ProposalReviewController::calculateScores();
-        if (empty($filters)) {
-            $data = Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua', 'bidang_id')->with('fakultas', 'bidang', 'registration_validation')->paginate(10);
-        } else {
-            $data = Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua', 'bidang_id')->with('fakultas', 'bidang', 'registration_validation')->whereHas('registration_validation', function ($query) use ($filters) {
-                $query->where('status', $filters); // Kondisi yang ingin dicek
-            })->paginate(10);
+        $search = $request->input('search');
+        $tahun = $request->input('tahun');
+
+        // Data untuk reviewer terkait
+        $dataNilai = Registration::with('fakultas', 'reviewAssignments', 'bidang', 'registration_validation')
+            ->whereHas('reviewAssignments', function ($query) {
+                $query->where('reviewer_id', Auth::user()->id);
+            });
+
+        if ($search) {
+            $dataNilai->where(function ($query) use ($search) {
+                $query->where('nama_ketua', 'like', "%{$search}%")
+                    ->orWhere('nim_ketua', 'like', "%{$search}%")
+                    ->orWhere('bidang_id', 'like', "%{$search}%")
+                    ->orWhere('judul', 'like', "%{$search}%")
+                    ->orWhereHas('bidang', function ($query) use ($search) {
+                        $query->where('nama', 'like', "%{$search}%");
+                    });
+            });
         }
+        if ($request->filled('tahun')) {
+            $dataNilai->whereYear('created_at', $request->tahun);
+        }
+        $dataNilai = $dataNilai->latest()->paginate(10);
+
+        // Total skor
+        $totalId = ProposalReviewController::calculateScores();
+
+        // Filter data utama
+        $data = Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua', 'bidang_id')
+            ->with(['user', 'bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])
+            ->where('status_supervisor', 'approved');
+
+        if ($search) {
+            $data->where(function ($query) use ($search) {
+                $query->where('nama_ketua', 'like', "%{$search}%")
+                    ->orWhere('nim_ketua', 'like', "%{$search}%")
+                    ->orWhere('judul', 'like', "%{$search}%")
+                    ->orWhereHas('bidang', function ($query) use ($search) {
+                        $query->where('nama', 'like', "%{$search}%");
+                    });
+            });
+        }
+        if ($request->filled('tahun')) {
+            $data->whereYear('created_at', $request->tahun);
+        }
+        $data = $data->latest()->paginate(10);
 
         return view('list_pendaftaran', [
             'data' => $data,
@@ -40,19 +74,31 @@ class listPendaftaranController extends Controller
         ]);
     }
 
+
     public function index()
     {
         $dataNilai = Registration::with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
             $query->where('reviewer_id', Auth::user()->id); // Kondisi yang ingin dicek
-        })->paginate(10);
+        })->latest()->paginate(10);
         $totalId = ProposalReviewController::calculateScores();
         // dd($totalId['totalId']);
         return view('list_pendaftaran', [
-            'data' => Registration::with(['user', 'bidang', 'fakultas', 'program_studi', 'reviewAssignments', 'registration_validation', 'score_monev', 'status_monev'])
+            'data' => Registration::with([
+                'user',
+                'bidang',
+                'fakultas',
+                'program_studi',
+                'reviewAssignments',
+                'registration_validation',
+                'score_monev',
+                'status_monev'
+            ])
                 ->where('status_supervisor', 'approved')
                 ->whereHas('registration_validation', function ($query) {
                     $query->whereIn('status', ['Belum valid', 'Tidak Lolos', 'valid', 'lolos']);
-                })->paginate(10),
+                })
+                ->latest() // Mengurutkan berdasarkan created_at DESC
+                ->paginate(10),
             'dataNilai' => $dataNilai,
             'totalId' => $totalId['totalId'],
         ]);
@@ -191,7 +237,6 @@ class listPendaftaranController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->route('pendaftaran')->with('error', $e->getMessage());
-
         }
     }
 

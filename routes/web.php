@@ -6,6 +6,7 @@ use App\Http\Controllers\auth\registerController;
 use App\Http\Controllers\berandaController;
 use App\Http\Controllers\beritaController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\deadlineController;
 use App\Http\Controllers\DokumenKegiatanController;
 use App\Http\Controllers\DokumenPublikasiController;
 use App\Http\Controllers\DokumenTeknisController;
@@ -93,6 +94,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware(['can:agree publication'])->group(function () {
         Route::get('/publikasi/approve/{id}', [publikasiController::class, 'approve'])->name('publikasi.approve');
+        Route::get('/publikasi/reject/{id}', [publikasiController::class, 'reject'])->name('publikasi.reject');
         Route::get('/publikasi/cari', [publikasiController::class, 'filter'])->name('publikasi.search');
     });
 
@@ -101,13 +103,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/reviewer/nilai/{id}', [ProposalReviewController::class, 'store'])->name('reviewer.nilai');
     });
 
+
     Route::middleware(['can:approve proposal'])->group(function () {
-        Route::get('/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
+        Route::get('/proposal/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
+        Route::get('/proposal/reject/{id}', [listPendaftaranController::class, 'reject'])->name('reject');
         Route::get('/pilih-reviewer/{id}', [listPendaftaranController::class, 'createReviewer'])->name('pilih-reviewer');
         Route::post('/pilih-reviewer/{id}', [listPendaftaranController::class, 'storeReviewer'])->name('pilih-reviewer');
         Route::get('/edit-reviewer/{id}', [listPendaftaranController::class, 'edit'])->name('edit-reviewer');
         Route::post('/update-reviewer/{id}', [listPendaftaranController::class, 'update'])->name('update-reviewer');
-        Route::get('/reject/{id}', [listPendaftaranController::class, 'reject'])->name('reject');
         Route::get('/approve-to-program/{id}', [listPendaftaranController::class, 'approveUserForProgram'])->name('approve-to-program');
     });
 
@@ -120,7 +123,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['can:show logbook'])->group(function () {
-        Route::get('/logbook', [logbookController::class, 'index'])->name('logbook');
+        Route::get('/logbook', [logbookController::class, 'index'])->name('logbook')->middleware('checkProgressAccess');
     });
     Route::middleware(['can:validate logbook'])->group(function () {
         Route::get('/logbook/detail/{id}', [logbookController::class, 'detail'])->name('logbook.detail');
@@ -170,13 +173,20 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['can:read final report', 'checkProgressAcceptAccess'])->group(function () {
+        Route::get('/laporan-akhir', [laporanAkhirController::class, 'index'])->name('laporan-akhir');
         Route::get('/dokumen-teknis', [DokumenTeknisController::class, 'index'])->name('dokumen-teknis');
         Route::get('/dokumen-publikasi', [DokumenPublikasiController::class, 'index'])->name('dokumen-publikasi');
         Route::get('/dokumentasi-kegiatan', [DokumenKegiatanController::class, 'index'])->name('dokumentasi-kegiatan');
         Route::get('/dokumentasi-kegiatan/album/{id}', [DokumenKegiatanController::class, 'detail'])->name('dokumentasi-kegiatan.album.detail');
+        Route::get('/laporan-akhir/detail/{id}', [laporanAkhirController::class, 'detail'])->name('laporan-akhir.detail');
+        Route::get('/laporan-akhir/album/{id}', [laporanAkhirController::class, 'detailAlbum'])->name('laporan-akhir.album.detail');
     });
     Route::middleware(['can:create final report', 'checkProgressAcceptAccess'])->group(function () {
-        Route::get('/laporan-akhir', [laporanAkhirController::class, 'index'])->name('laporan-akhir');
+        Route::post('/laporan-akhir/file-ketercapaian', [laporanAkhirController::class, 'storeFileKetercapaian'])->name('laporan-akhir.file-ketercapaian');
+        Route::post('/laporan-akhir/file', [laporanAkhirController::class, 'storeFile'])->name('laporan-akhir.file');
+        Route::post('/laporan-akhir/link', [laporanAkhirController::class, 'storeLink'])->name('laporan-akhir.link');
+        Route::post('/laporan-akhir/album', [laporanAkhirController::class, 'storeAlbum'])->name('laporan-akhir.album');
+
         Route::post('/dokumen-teknis', [DokumenTeknisController::class, 'store'])->name('dokumen-teknis');
 
         Route::post('/dokumen-publikasi', [DokumenPublikasiController::class, 'store'])->name('dokumen-publikasi');
@@ -196,6 +206,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['can:approve final report', 'checkProgressAcceptAccess'])->group(function () {
+        Route::post('/laporan-akhir/reject/{id}', [laporanAkhirController::class, 'reject'])->name('laporan-akhir.reject');
+        Route::get('/laporan-akhir/approve/{id}', [laporanAkhirController::class, 'approve'])->name('laporan-akhir.approve');
+
+        Route::post('/laporan-akhir/album/reject/{id}', [laporanAkhirController::class, 'rejectAlbum'])->name('laporan-akhir.album.reject');
+        Route::get('/laporan-akhir/album/approve/{id}', [laporanAkhirController::class, 'approveAlbum'])->name('laporan-akhir.album.approve');
+
         Route::get('/dokumen-teknis/approve/{id}', [DokumenTeknisController::class, 'approve'])->name('dokumen-teknis.approve');
         Route::post('/dokumen-teknis/reject/{id}', [DokumenTeknisController::class, 'reject'])->name('dokumen-teknis.reject');
 
@@ -205,6 +221,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/dokumentasi-kegiatan/approve/{id}', [DokumenKegiatanController::class, 'approve'])->name('dokumentasi-kegiatan.approve');
         Route::post('/dokumentasi-kegiatan/reject/{id}', [DokumenKegiatanController::class, 'reject'])->name('dokumentasi-kegiatan.reject');
     });
+
+    Route::middleware(['can:manage deadline'])->group(function () {
+        Route::get('/deadline', [deadlineController::class, 'index'])->name('deadline');
+        Route::post('/deadline/update/{id}', [deadlineController::class, 'update'])->name('deadline.update');
+        Route::post('/deadline/store', [deadlineController::class, 'store'])->name('deadline.store');
+        Route::get('/deadline/destroy/{id}', [deadlineController::class, 'destroy'])->name('deadline.destroy');
+    });
+    Route::middleware(['can:create deadline'])->group(function () {
+        Route::post('/deadline/store', [deadlineController::class, 'store'])->name('deadline.store');
+    });
+
 
     Route::middleware(['can:manage role'])->group(function () {
         Route::get('/manage-users', [masterDataController::class, 'index'])->name('manage-users');
@@ -235,6 +262,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/update-status-video', [KelolaKontenController::class, 'updateStatus'])->name('update.status-video');
         Route::get('/kelola-konten/foto', [KelolaKontenController::class, 'foto'])->name('kelola-konten.foto');
         Route::get('/kelola-konten/foto/create', [KelolaKontenController::class, 'createFoto'])->name('kelola-konten.foto.create');
+        Route::post('/kelola-konten/foto/create', [KelolaKontenController::class, 'storeFoto'])->name('kelola-konten.foto.create');
         Route::get('/kelola-konten/foto/edit/{id}', [KelolaKontenController::class, 'editFoto'])->name('kelola-konten.foto.edit');
         Route::post('/kelola-konten/foto/update/{id}', [KelolaKontenController::class, 'updateFoto'])->name('kelola-konten.foto.update');
         Route::get('/kelola-konten/foto/delete/{id}', [KelolaKontenController::class, 'deleteFoto'])->name('kelola-konten.foto.delete');
@@ -250,6 +278,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/berita/delete/{id}', [beritaController::class, 'destroy'])->name('berita.delete');
         Route::get('/berita/detail/{id}', [beritaController::class, 'detail'])->name('berita.detail');
         Route::get('kelola-ormawa/delete/{id}', [KelolaOrmawaController::class, 'destroyFromLink'])->name('kelola-ormawa.destroyFromLink');
+
         Route::resource('kelola-ormawa', KelolaOrmawaController::class);
     });
 
@@ -264,13 +293,13 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
-        Route::get('/approve/{id}', [regisProgramController::class, 'approve'])->name('mahasiswa.approve');
-        Route::get('/reject/{id}', [regisProgramController::class, 'reject'])->name('mahasiswa.reject');
+        Route::get('/approve/{id}', [regisProgramController::class, 'approve'])->name('mahasiswa.approve')->middleware('RegisDeadline');
+        Route::get('/reject/{id}', [regisProgramController::class, 'reject'])->name('mahasiswa.reject')->middleware('RegisDeadline');
         Route::get('/submit/{id}', [regisProgramController::class, 'submit'])->name('mahasiswa.submit')->middleware('allTeamApprove');
-        Route::get('/editProgram/{id}', [regisProgramController::class, 'edit'])->name('mahasiswa.edit');
+        Route::get('/editProgram/{id}', [regisProgramController::class, 'edit'])->name('mahasiswa.edit')->middleware('RegisDeadline');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');
         Route::post('/daftarProgram', [regisProgramController::class, 'store'])->name('mahasiswa.daftarProgram');
-        Route::post('/updateProgram/{id}', [regisProgramController::class, 'update'])->name('mahasiswa.update');
+        Route::post('/updateProgram/{id}', [regisProgramController::class, 'update'])->name('mahasiswa.update')->middleware('RegisDeadline');
         Route::post('/upload-image', [publikasiController::class, 'uploadImage'])->name('upload.image');
         Route::get('/program/cek/{id}', [regisProgramController::class, 'show'])->name('program.cek');
         Route::get('/search-users', [regisProgramController::class, 'search'])->name('users.search');

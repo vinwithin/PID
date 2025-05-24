@@ -36,16 +36,28 @@ class masterDataController extends Controller
     public function update(Request $request, $id)
     {
         $validateData = $request->validate([
-            'role' => 'required'
+            'name' => ['required', 'string', 'max:255'],
+            'identifier' => ['required', 'string', 'unique:' . User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class . ',email,' . $id],
+            'password' => ['nullable', 'string'],
+            'role' => ['required', 'string']
         ]);
+        $role = $validateData['role'];
         $user = User::findOrFail($id);
-
-        // Ganti role user dengan yang baru
-        $result = $user->syncRoles($validateData['role']);
-        if ($result) {
-            return redirect()->route('manage-users')->with('success', 'Role berhasil diubah');
+        unset($validateData['role']);
+        if (empty($validateData['password'])) {
+            unset($validateData['password']);
         } else {
-            return redirect()->route('manage-users')->with('error', 'Role gagal diubah');
+            // Hash password jika diisi
+            $validateData['password'] = Hash::make($validateData['password']);
+        }
+        // Ganti role user dengan yang baru
+        $user->syncRoles($role);
+        $result = $user->update($validateData);
+        if ($result) {
+            return redirect()->route('manage-users')->with('success', 'Data berhasil diubah');
+        } else {
+            return redirect()->route('manage-users')->with('error', 'Data gagal diubah');
         }
     }
     public function create()
@@ -58,7 +70,7 @@ class masterDataController extends Controller
     {
         $validateData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'nim' => ['required', 'string'],
+            'identifier' => ['required', 'string', 'unique:' . User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string'],
             'role' => ['required', 'string']
@@ -67,9 +79,9 @@ class masterDataController extends Controller
         $user = User::create($validateData);
         $user->assignRole($validateData['role']);
         if ($user) {
-            return redirect()->route('manage-users')->with('success', 'Registered successfully');
+            return redirect()->route('manage-users')->with('success', 'Data berhasil ditambah');
         } else {
-            return redirect()->back()->withInput()->with('error', 'Failed to Registered');
+            return redirect()->back()->withInput()->with('error', 'Gagal menambah data');
         }
     }
     public function destroy($id)

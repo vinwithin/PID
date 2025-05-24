@@ -23,7 +23,7 @@ class KelolaKontenController extends Controller
     public function index()
     {
         return view('kelola-konten.video.index', [
-            'data' => VideoKonten::with(['dokumentasi_kegiatan'])->paginate(10),
+            'data' => VideoKonten::with(['dokumentasi_kegiatan'])->latest()->paginate(10),
         ]);
     }
     public function updateStatus(Request $request)
@@ -63,7 +63,7 @@ class KelolaKontenController extends Controller
     public function foto()
     {
         return view('kelola-konten.foto.index', [
-            'data' => Album::with(['album_photos'])->paginate(10)
+            'data' => Album::with(['album_photos'])->latest()->paginate(10)
         ]);
     }
     public function createFoto()

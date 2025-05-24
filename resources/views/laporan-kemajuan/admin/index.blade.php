@@ -13,7 +13,14 @@
 
             <div class="container-fluid px-4 ">
 
-                <div class="card-header d-flex justify-content-end align-items-end">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="text-end">
+                        <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#filterSection"
+                            aria-expanded="false" aria-controls="filterSection">
+                            <i class="fas fa-filter me-2"></i>Filter
+                        </button>
+                    </div>
+
                     <form action="{{ route('laporan-kemajuan') }}" method="GET" class="">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" placeholder="Cari tim..."
@@ -26,7 +33,32 @@
                         </div>
                     </form>
                 </div>
-
+                <div class="collapse mt-3" id="filterSection">
+                    <div class="card card-body border shadow-sm">
+                        <form method="GET" action="{{ route('laporan-kemajuan') }}">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-md-4">
+                                    <label for="tahun" class="form-label text-dark fw-semibold">Tahun
+                                        Pendaftaran:</label>
+                                    <select name="tahun" id="tahun" class="form-select">
+                                        <option value="">Semua Tahun</option>
+                                        @foreach (range(date('Y'), 2020) as $year)
+                                            <option value="{{ $year }}"
+                                                {{ request('tahun') == $year ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-dark ">
+                                        <i class="fas fa-filter me-1"></i> Terapkan Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="card-body p-0">
                     <table class="table table-bordered">
                         <thead class="">
@@ -52,8 +84,8 @@
                                     <td class="text-center">
                                         @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)
                                             <a href="{{ asset('storage/laporan-kemajuan/' . $item->laporan_kemajuan->file_path) }}"
-                                                class="btn btn-sm btn-outline-primary" target="_blank"><i
-                                                    class="fas fa-eye me-1"></i>Lihat File</a>
+                                                class="btn btn-outline-primary" target="_blank"><i
+                                                    class="fas fa-eye"></i></a>
                                         @else
                                             <span class="badge bg-danger">Belum Upload</span>
                                         @endif
@@ -90,7 +122,26 @@
                                                 </div>
                                             </div>
                                         @else
-                                            {{ $item->laporan_kemajuan->status }}
+                                            @if ($item->laporan_kemajuan && $item->laporan_kemajuan->file_path)
+                                                @php
+                                                    switch ($item->laporan_kemajuan->status) {
+                                                        case 'Belum Valid':
+                                                            $badgeClass = 'badge bg-warning';
+                                                            break;
+                                                        case 'Valid':
+                                                            $badgeClass = 'badge bg-success';
+                                                            break;
+                                                        default:
+                                                            $badgeClass = 'badge bg-secondary';
+                                                            break;
+                                                    }
+                                                @endphp
+                                                <span class="{{ $badgeClass }}">
+                                                    {{ $item->laporan_kemajuan->status }}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-danger">Belum Upload</span>
+                                            @endif
                                         @endif
                                     </td>
 
@@ -103,13 +154,10 @@
                                                     $item->laporan_kemajuan->file_path &&
                                                     $item->registration_validation->status !== 'Lanjutkan Program')
                                                 @if ($item->laporan_kemajuan->status === 'Valid')
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        data-bs-toggle="modal" data-bs-target="#rejectModal{{ $item->id }}">
-                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
-                                                    </button>
-                                                    <x-reject-with-comment modal-id="rejectModal{{ $item->id }}"
-                                                        action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
-                                                        value="{{ $item->laporan_kemajuan->komentar }}" />
+                                                    <a href="/pendaftaran/detail/{{ $item->id }}"
+                                                        class="btn btn-outline-info">
+                                                        <i class="fa-solid fa-circle-info"></i>
+                                                    </a>
                                                 @elseif($item->laporan_kemajuan->status === 'Ditolak')
                                                     <button type="button" class="btn btn-sm btn-outline-success"
                                                         data-bs-toggle="modal"
@@ -130,6 +178,7 @@
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
                                                     <x-reject-with-comment modal-id="rejectModal{{ $item->id }}"
+                                                        title="Laporan Kemajuan"
                                                         action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
                                                         value="{{ $item->laporan_kemajuan->komentar }}" />
 
@@ -146,7 +195,10 @@
                                                         confirm-text="Iya" />
                                                 @endif
                                             @elseif($item->registration_validation->status === 'Lanjutkan Program')
-                                                <span class="badge bg-secondary">Lanjutkan Program</span>
+                                                <a href="/pendaftaran/detail/{{ $item->id }}"
+                                                    class="btn btn-outline-info">
+                                                    <i class="fa-solid fa-circle-info"></i>
+                                                </a>
                                             @endif
 
                                         </td>
@@ -162,7 +214,5 @@
             </div>
         </div>
     </div>
-    <script>
-       
-    </script>
+    <script></script>
 @endsection

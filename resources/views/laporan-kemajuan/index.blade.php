@@ -110,8 +110,8 @@
                                                     {{ $data[0]->file_path }}
                                                     <div class="mt-2">
                                                         <a href="{{ asset('storage/laporan-kemajuan/' . $data[0]->file_path) }}"
-                                                            class="btn btn-sm btn-outline-primary" target="_blank"><i
-                                                                class="fas fa-eye me-1"></i>Lihat File</a>
+                                                            class="btn btn-outline-primary" target="_blank"><i
+                                                                class="fas fa-eye"></i></a>
                                                     </div>
                                                 @endempty
                                             </div>
@@ -153,7 +153,29 @@
                                                     </div>
                                                 </div>
                                             @else
-                                                {{ $data[0]->status }}
+                                                @php
+                                                    switch ($data[0]->status) {
+                                                        case 'Belum Valid':
+                                                            $badgeClass = 'badge bg-warning';
+                                                            break;
+                                                        case 'Valid':
+                                                            $badgeClass = 'badge bg-success';
+                                                            break;
+                                                        default:
+                                                            $badgeClass = 'badge bg-secondary';
+                                                            break;
+                                                    }
+                                                @endphp
+                                                <span class="{{ $badgeClass }}">
+                                                    @if ($data[0]->status === 'Belum Valid')
+                                                        <i class="fa-solid fa-clock me-1"></i>{{ $data[0]->status }}
+                                                    @elseif($data[0]->status === 'Valid')
+                                                        <i class="fa-solid fa-circle-check me-1"></i>{{ $data[0]->status }}
+                                                    @else
+                                                        {{$data[0]->status}}
+                                                    @endif
+                                                   
+                                                </span>
                                             @endif
                                         @else
                                             <span>Data Tidak Tersedia</span>
@@ -162,19 +184,47 @@
                                     </td>
 
                                     <td class="text-center fw-bold">
-                                        @if ($data[0]->status === 'Ditolak')
-                                            <form id="uploadForm" enctype="multipart/form-data">
-                                                @csrf
-                                                <input type="file" id="fileInput" name="file" class="d-none">
-                                                @if (empty($data) || !isset($data[0]->file_path))
-                                                    <button type="button" id="uploadButton" class="btn btn-primary">Upload
-                                                        File</button>
-                                                @else
-                                                    <button type="button" id="uploadButton" class="btn btn-primary">Ganti
-                                                        File</button>
-                                                @endif
+                                        @if (isDeadlineActive('Laporan Kemajuan'))
 
-                                            </form>
+
+                                            @if (count($data) > 0)
+
+                                                @if ($data[0]->status !== 'Valid')
+                                                    <form id="uploadForm" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input type="file" id="fileInput" name="file" class="d-none"
+                                                            accept=".pdf,.doc,.docx">
+                                                        @if (empty($data) || !isset($data[0]->file_path))
+                                                            <button type="button" id="uploadButton"
+                                                                class="btn btn-outline-primary"><i
+                                                                    class="fa-solid fa-upload"></i></button>
+                                                        @else
+                                                            <button type="button" id="uploadButton"
+                                                                class="btn btn-outline-warning"><i
+                                                                    class="fa-solid fa-pen-to-square"></i></button>
+                                                        @endif
+
+                                                    </form>
+                                                @else
+                                                    Tidak ada aksi
+                                                @endif
+                                            @else
+                                                <form id="uploadForm" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="file" id="fileInput" name="file" class="d-none"
+                                                        accept=".pdf,.doc,.docx">
+                                                    @if (empty($data) || !isset($data[0]->file_path))
+                                                        <button type="button" id="uploadButton"
+                                                            class="btn btn-outline-primary"><i
+                                                                class="fa-solid fa-upload"></i></button>
+                                                    @else
+                                                        <button type="button" id="uploadButton"
+                                                            class="btn btn-outline-warning"><i
+                                                                class="fa-solid fa-pen-to-square"></i></button>
+                                                    @endif
+
+
+                                            @endif
                                         @else
                                             Tidak ada aksi
                                         @endif
@@ -192,7 +242,8 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="statusModalLabel"><i class="fa-solid fa-circle-info me-2"></i>Pemberitahuan</h5>
+                                    <h5 class="modal-title" id="statusModalLabel"><i
+                                            class="fa-solid fa-circle-info me-2"></i>Pemberitahuan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -201,7 +252,8 @@
                                     Klik "i" untuk melihat detail.
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
                                 </div>
                             </div>
                         </div>

@@ -63,18 +63,31 @@
                                                     class="badge 
                                                 @switch($item->status)
                                                     @case('Menunggu Validasi') bg-warning @break
-                                                    @case('Valid') bg-success @break
+                                                    @case('Valid') 
+                                                        @if (optional($item->logbook_validations)->status === 'Valid')
+                                                            bg-success
+                                                        @elseif(optional($item->logbook_validations)->status === 'Ditolak')
+                                                            bg-danger
+                                                        @else
+                                                            bg-success
+                                                        @endif
+                                                        @break
                                                     @default bg-danger
                                                 @endswitch">
                                                     @if (!empty($item->logbook_validations->status))
-                                                        {{ $item->logbook_validations->status === 'Valid' ? 'Divalidasi Admin' : 'Ditolak Admin' }}
+                                                        @if ($item->logbook_validations->status === 'Valid')
+                                                            <i class="fa-solid fa-circle-check me-1"></i> Divalidasi Admin
+                                                        @else
+                                                            <i class="fa-solid fa-circle-xmark me-1"></i>Ditolak Admin
+                                                        @endif
                                                     @else
                                                         @if ($item->status === 'Valid')
-                                                            Divalidasi Dosen Pembimbing
+                                                            <i class="fa-solid fa-circle-check me-1"></i> Divalidasi Dosen Pembimbing
                                                         @elseif($item->status === 'Ditolak')
-                                                            Ditolak Dosen Pembimbing
+                                                            <i class="fa-solid fa-circle-xmark me-1"></i>Ditolak Dosen
+                                                            Pembimbing
                                                         @else
-                                                            {{ $item->status }}
+                                                            <i class="fa-solid fa-clock me-1"></i>{{ $item->status }}
                                                         @endif
                                                     @endif
                                             </td>
@@ -85,13 +98,11 @@
                                                         Tidak Ada Aksi
                                                     @else
                                                         <a href="/logbook/edit/{{ $item->id }}"
-                                                            class="btn btn-outline-warning"><i
-                                                                class="fa-solid fa-pen me-2"></i>Edit</a>
+                                                            class="btn btn-outline-warning"><i class="fa-solid fa-pen "></i></a>
                                                     @endif
                                                 @else
                                                     <a href="/logbook/edit/{{ $item->id }}"
-                                                        class="btn btn-outline-warning"><i
-                                                            class="fa-solid fa-pen me-2"></i>Edit</a>
+                                                        class="btn btn-outline-warning"><i class="fa-solid fa-pen "></i></a>
                                                 @endif
                                             </td>
 

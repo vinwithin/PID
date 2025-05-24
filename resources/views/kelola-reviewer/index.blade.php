@@ -10,7 +10,7 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="bg-success-subtle p-3 rounded-4 ">
-                                    <h5 class="text-primary mb-3">Detail Tim</h5>
+                                    <h5 class="text-dark fw-bold mb-3">Detail Tim</h5>
                                     <dl class="row">
                                         <dt class="col-5">Nama Ketua Tim</dt>
                                         <dd class="col-7">{{ $data->nama_ketua }}</dd>
@@ -35,7 +35,7 @@
                                             <dd class="col-7">{{ $item->user->name }}</dd>
                                         @empty
                                             <dt class="col-5">Juri</dt>
-                                            <dd class="col-7">Belum ada juri yang ditugaskan</dd>
+                                            <dd class="col-7">Belum ada penilai yang ditugaskan</dd>
                                         @endforelse
 
                                     </dl>
@@ -43,10 +43,10 @@
                                 <form method="POST" action="/pilih-reviewer/{{ $data->id }}"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="mb-4">
-                                        <label for="reviewer_1" class="form-label fw-bold">Pilih Juri 1</label>
+                                    <div class="mt-4 mb-4">
+                                        <label for="reviewer_1" class="form-label fw-bold">Penilai 1</label>
                                         <select class="form-select" name="reviewer_id[]" id="reviewer_1" required>
-                                            <option value="" selected="selected" hidden="hidden">Pilih Reviewer
+                                            <option value="" selected="selected" hidden="hidden">Pilih Penilai
                                             </option>
                                             @foreach ($reviewer as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -54,9 +54,9 @@
                                         </select>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="reviewer_2" class="form-label fw-bold">Pilih Juri 2</label>
+                                        <label for="reviewer_2" class="form-label fw-bold">Penilai 2</label>
                                         <select class="form-select" name="reviewer_id[]" id="reviewer_2" required>
-                                            <option value="" selected="selected" hidden="hidden">Pilih Reviewer
+                                            <option value="" selected="selected" hidden="hidden">Pilih Penilai
                                             </option>
                                             @foreach ($reviewer as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -65,7 +65,7 @@
                                     </div>
 
                                     <a href="/pendaftaran" class="btn btn-secondary me-2">Kembali</a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
 
                                 </form>
                             </div>

@@ -11,12 +11,17 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name" required>
+                            name="name" placeholder="Masukkan nama" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="identifier" class="form-label">NIM/NIP</label>
+                        <input type="text" class="form-control @error('identifier') is-invalid @enderror" id="identifier"
+                            name="identifier" placeholder="Masukkan NIM/NIP" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                            name="email" required>
+                            name="email" placeholder="Masukkan email" required>
                     </div>
                     <div class="mb-3">
                         <label for="role" class="form-label">Pilih Role</label>
@@ -31,14 +36,15 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">Kata Sandi</label>
                         <input type="text" class="form-control @error('password') is-invalid @enderror" id="password"
-                            name="password" required>
+                            name="password" placeholder="Masukkan kata sandi" required>
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
                     <a href="/manage-users" class="btn btn-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+
 
                 </form>
 

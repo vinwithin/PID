@@ -44,7 +44,10 @@ class MonevController extends Controller
                     ->orWhere('judul', 'like', "%{$search}%");
             });
         }
-        $data = $data->paginate(10);
+        if ($request->filled('tahun')) {
+            $data->whereYear('created_at', $request->tahun);
+        }
+        $data = $data->latest()->paginate(10);
 
         $dataNilai =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereHas('status_monev', function ($query) {
             $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
@@ -56,8 +59,11 @@ class MonevController extends Controller
                     ->orWhere('judul', 'like', "%{$search}%");
             });
         }
+        if ($request->filled('tahun')) {
+            $dataNilai->whereYear('created_at', $request->tahun);
+        }
 
-        $dataNilai = $dataNilai->paginate(10);
+        $dataNilai = $dataNilai->latest()->paginate(10);
 
 
         return view('monitoring-evaluasi.index', [
@@ -200,6 +206,7 @@ class MonevController extends Controller
         $rubrik = ScoreDetailMonev::scoreDetail($id);
         $total = ScoreDetailMonev::scoreDetail($id);
         $bobot = ScoreDetailMonev::scoreDetail($id);
+        // dd($rubrik['rubrik']);
         return view('monitoring-evaluasi.detail', [
             'id_regis' => Registration::find($id),
             'data_review' => StatusMonev::where('registration_id', $id)->get(),

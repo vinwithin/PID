@@ -23,30 +23,30 @@ class publikasiController extends Controller
     {
         $filters = $request->input('filters', []);
         $search = $request->input('search');
-        
+
         $query = Publikasi::with('registration');
-        
+
         // Filter berdasarkan status jika ada
         if (!empty($filters)) {
             $query->whereIn('status', $filters);
         }
-        
+
         // Filter berdasarkan pencarian jika ada
         if (!empty($search)) {
             $query->where('title', 'like', "%$search%");
         }
-        
+
         // Urutkan berdasarkan tanggal terbaru
-        $dataAll = $query->orderBy('created_at', 'desc')->paginate(10);
-        
+        $dataAll = $query->latest()->paginate(10);
+
         return view('publikasi.index', [
             "data" => Publikasi::with('registration')
                 ->where('team_id', $this->teamIdService->getRegistrationId())
                 ->orderBy('created_at', 'desc')
+                ->latest()
                 ->get(),
             "dataAll" => $dataAll,
         ]);
-        
     }
 
     public function show()
@@ -142,6 +142,7 @@ class publikasiController extends Controller
 
         ]);
         $validateData['user_id'] = Auth::user()->id;
+        $validateData['status'] = 'Belum valid';
         $validateData['slug'] = SlugService::createSlug(Publikasi::class, 'slug', $validateData['title']);
         $validateData["excerpt"] =  Str::limit(strip_tags($request->content), 100);
         if ($request->hasFile('thumbnail')) {
@@ -179,6 +180,16 @@ class publikasiController extends Controller
     {
         $result = Publikasi::where('id', $id)
             ->update(['status' => 'valid']);
+        if ($result) {
+            return redirect()->route('publikasi')->with('success', 'berhasil mengubah data');
+        } else {
+            return redirect()->route('publikasi')->with("error", "Gagal mengubah data!");
+        }
+    }
+    public function reject($id)
+    {
+        $result = Publikasi::where('id', $id)
+            ->update(['status' => 'Ditolak']);
         if ($result) {
             return redirect()->route('publikasi')->with('success', 'berhasil mengubah data');
         } else {

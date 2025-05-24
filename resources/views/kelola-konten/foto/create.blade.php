@@ -11,16 +11,17 @@
                     <!-- Input file yang tersembunyi secara default -->
                     <div class="mb-3 ">
                         <label for="nama_album" class="form-label">Nama Album</label>
-                        <input type="text" class="form-control" id="nama" name="nama_album">
+                        <input type="text" class="form-control" id="nama" name="nama_album" required>
                     </div>
                     <div class="mb-3 ">
                         <label for="album_photos" class="form-label">Unggah Foto Dokumentasi Kegiatan</label>
                         <input type="file" class="form-control" id="album_photos" name="album_photos[]" multiple
-                            accept="image/*">
+                            accept="image/*" required>
                         <small class="text-muted">Minimal 3 file.
                     </div>
-                    <button type="submit" class="btn btn-secondary me-2">Submit</button>
-                    <a href="/kelola-konten/foto" class="btn btn-primary">Kembali</a>
+                    <a href="/kelola-konten/foto" class="btn btn-secondary me-2">Kembali</a>
+                    <button type="submit" class="btn btn-primary me-2">Kirim</button>
+
 
                 </form>
 

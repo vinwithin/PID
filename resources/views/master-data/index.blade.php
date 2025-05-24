@@ -53,12 +53,12 @@
                                         </td>
                                         <td class="text-center">
                                             <a href="/manage-users/edit/{{ $item->id }}"
-                                                class="btn btn-sm btn-outline-success">
-                                                <i class="fa-solid fa-pen me-1"></i>Edit
+                                                class="btn btn-outline-warning">
+                                                <i class="fa-solid fa-pen"></i>
                                             </a>
-                                            <button type="button" class="btn btn-sm btn-outline-success"
+                                            <button type="button" class="btn btn-outline-danger"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
-                                                <i class="fa-solid fa-trash me-1"></i> Delete
+                                                <i class="fa-solid fa-trash "></i> 
                                             </button>
                                             <x-confirm-modal modal-id="deleteModal{{ $item->id }}"
                                                 title="Konfirmasi Persetujuan"

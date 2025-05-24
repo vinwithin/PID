@@ -31,7 +31,10 @@ class kelolaTimPendamping extends Controller
                     ->orWhere('judul', 'like', "%{$search}%");
             });
         }
-        $data = $data->paginate(10);
+        if ($request->filled('tahun')) {
+            $data->whereYear('created_at', $request->tahun);
+        }
+        $data = $data->latest()->paginate(10);
         return view('kelola-tim.index', [
             'data' => $data
         ]);

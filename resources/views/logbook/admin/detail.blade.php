@@ -11,8 +11,13 @@
         @endif
         <div class="card">
             <div class="container-fluid px-4 ">
-                <div class="card-header d-flex justify-content-end align-items-end">
+                <div class="card-header d-flex justify-content-start align-items-start">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="text-dark mb-0">
+                            <i class="fas fa-clipboard-list me-2"></i>Daftar Logbook
+                        </h3>
 
+                    </div>
 
                 </div>
 
@@ -55,25 +60,24 @@
                                                 @case('Valid') bg-success @break
                                                 @default bg-danger
                                             @endswitch">
-                                                    {{ $item->status }}
+                                                    @if ($item->status === 'Valid')
+                                                        <i class="fa-solid fa-circle-check me-1"></i>Valid
+                                                    @elseif($item->status === 'Ditolak')
+                                                        <i class="fa-solid fa-circle-xmark me-1"></i>Ditolak
+                                                    @else
+                                                        <i class="fa-solid fa-clock me-1"></i> {{ $item->status }}
+                                                    @endif
+
                                             </td>
                                             <td class="fw-bold text-start">
 
                                                 @if ($item->status === 'Valid')
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        data-bs-toggle="modal" data-bs-target="#rejectModal{{ $item->id }}">
-                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
-                                                    </button>
-                                                    <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
-                                                        title="Konfirmasi Persetujuan"
-                                                        message="Apakah Anda yakin ingin menolak logbook ini?"
-                                                        action-url="/logbook/reject/dospem/{{ $item->id }}"
-                                                        confirm-text="Iya" />
+                                                    Tidak ada aksi
                                                 @elseif($item->status === 'Ditolak')
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#approveModal{{ $item->id }}">
-                                                        <i class="fas fa-check me-1"></i> Terima
+                                                        <i class="fas fa-check"></i>
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
                                                     <x-confirm-modal modal-id="approveModal{{ $item->id }}"
@@ -82,10 +86,9 @@
                                                         action-url="/logbook/approve/dospem/{{ $item->id }}"
                                                         confirm-text="Iya" />
                                                 @else
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        data-bs-toggle="modal"
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                                         data-bs-target="#rejectModal{{ $item->id }}">
-                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                        <i class="fa-solid fa-xmark"></i>
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
                                                     <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
@@ -94,10 +97,10 @@
                                                         message="Apakah Anda yakin ingin menolak logbook ini?"
                                                         confirm-text="Iya" />
 
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#approveModal{{ $item->id }}">
-                                                        <i class="fas fa-check me-1"></i> Terima
+                                                        <i class="fas fa-check"></i>
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
                                                     <x-confirm-modal modal-id="approveModal{{ $item->id }}"
@@ -132,10 +135,28 @@
                                                     class="badge 
                                             @switch($item->status)
                                                 @case('Menunggu Validasi') bg-warning @break
-                                                @case('Valid') bg-success @break
-                                                @default bg-danger
+                                                @case('Valid')
+                                                    @if (optional($item->logbook_validations)->status === 'Valid')
+                                                        bg-success
+                                                    @elseif(optional($item->logbook_validations)->status === 'Ditolak')
+                                                        bg-danger
+                                                    @else
+                                                        bg-warning
+                                                    @endif
+                                                    @break
+                                                @case('Ditolak') bg-danger @break
+                                                @default bg-warning
                                             @endswitch">
-                                                    {{ optional($item->logbook_validations)->status ?? '-' }}
+                                                    @if (optional($item->logbook_validations)->status === 'Valid')
+                                                        <i
+                                                            class="fa-solid fa-circle-check me-1"></i>{{ $item->logbook_validations->status }}
+                                                    @elseif (optional($item->logbook_validations)->status === 'Ditolak')
+                                                        <i
+                                                            class="fa-solid fa-circle-xmark me-1"></i>{{ $item->logbook_validations->status }}
+                                                    @else
+                                                        <i class="fa-solid fa-clock me-1"></i> Menunggu
+                                                    @endif
+
 
 
                                             </td>
@@ -147,21 +168,12 @@
                                                 @endphp
 
                                                 @if ($status === 'Valid')
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#rejectModal{{ $item->id }}">
-                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
-                                                    </button>
-                                                    <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
-                                                        title="Konfirmasi Penolakan"
-                                                        message="Apakah Anda yakin ingin menolak logbook ini?"
-                                                        action-url="/logbook/reject/admin/{{ $item->id }}"
-                                                        confirm-text="Iya" />
+                                                    Tidak Ada Aksi
                                                 @elseif ($status === 'Ditolak')
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#approveModal{{ $item->id }}">
-                                                        <i class="fas fa-check me-1"></i> Terima
+                                                        <i class="fas fa-check"></i> Terima
                                                     </button>
                                                     <x-confirm-modal modal-id="approveModal{{ $item->id }}"
                                                         title="Konfirmasi Persetujuan"
@@ -169,10 +181,9 @@
                                                         action-url="/logbook/approve/admin/{{ $item->id }}"
                                                         confirm-text="Iya" />
                                                 @else
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        data-bs-toggle="modal"
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                                         data-bs-target="#rejectModal{{ $item->id }}">
-                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                        <i class="fa-solid fa-xmark"></i>
                                                     </button>
                                                     <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
                                                         title="Konfirmasi Penolakan"
@@ -180,10 +191,10 @@
                                                         action-url="/logbook/reject/admin/{{ $item->id }}"
                                                         confirm-text="Iya" />
 
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#approveModal{{ $item->id }}">
-                                                        <i class="fas fa-check me-1"></i> Terima
+                                                        <i class="fas fa-check"></i>
                                                     </button>
                                                     <x-confirm-modal modal-id="approveModal{{ $item->id }}"
                                                         title="Konfirmasi Persetujuan"

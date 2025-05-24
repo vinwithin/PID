@@ -22,7 +22,7 @@ class beritaController extends Controller
                 ->orWhere('content', 'like', "%$search%");
         }
 
-        $data = $query->with('user')->paginate(10);
+        $data = $query->with('user')->latest()->paginate(10);
         return view('berita.index', [
             'data' => $data
         ]);
