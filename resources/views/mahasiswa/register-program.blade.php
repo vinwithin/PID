@@ -518,8 +518,27 @@
 
                                             <td>
                                                 <span
-                                                    class="badge {{ in_array($item->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']) ? 'bg-success' : 'bg-danger' }}">
-                                                    {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }}
+                                                    class="badge {{ in_array($item->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']) &&
+                                                    $item->status_supervisor === 'approved'
+                                                        ? 'bg-success'
+                                                        : 'bg-warning' }}">
+                                                    @if (
+                                                        $item->status_supervisor === 'approved' &&
+                                                            in_array($item->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']))
+                                                        {{ $item->registration_validation->status }}
+                                                    @elseif(
+                                                        $item->status_supervisor === 'approved' &&
+                                                            in_array($item->registration_validation->status, ['Tidak Lolos', 'Hentikan Program']))
+                                                        {{ $item->registration_validation->status }}
+                                                    @elseif($item->status_supervisor === 'approved')
+                                                        {{ 'Belum Valid' }}
+                                                    @elseif($item->status_supervisor === 'pending')
+                                                        {{ 'Belum Valid' }}
+                                                    @else
+                                                        {{ 'Ditolak Dosen Pembimbing' }}
+                                                    @endif
+
+                                                    {{-- {{ $item->registration_validation->status === 'valid' ? 'Valid & Menunggu' : $item->registration_validation->status }} --}}
                                                 </span>
                                             </td>
                                             <td class="text-center">

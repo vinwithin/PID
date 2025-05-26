@@ -34,7 +34,7 @@
                                             <dt class="col-5">Juri {{ $loop->iteration }}</dt>
                                             <dd class="col-7">{{ $item->user->name }}</dd>
                                         @empty
-                                            <dt class="col-5">Juri</dt>
+                                            <dt class="col-5">Penilai</dt>
                                             <dd class="col-7">Belum ada penilai yang ditugaskan</dd>
                                         @endforelse
 

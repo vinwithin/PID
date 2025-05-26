@@ -11,6 +11,7 @@ use App\Models\ProgramStudi;
 use App\Models\Registration;
 use App\Models\TeamMember;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,14 +30,16 @@ class regisProgramController extends Controller
         if ($pendingMember) {
             session()->flash('pending_approval', 'Anda memiliki undangan tim yang belum dikonfirmasi. Silakan terima atau tolak.');
         }
+        $currentYear = Carbon::now()->year;
         return view('mahasiswa.register-program', [
             'bidang' => Bidang::all(),
             'fakultas' => Fakultas::all(),
             'program_studi' => ProgramStudi::all(),
             'ormawa' => Ormawa::all(),
-            'registrationExists' => TeamMember::where('identifier', Auth::user()->identifier)->exists(),
+            'registrationExists' => TeamMember::where('identifier', Auth::user()->identifier)->whereYear('created_at', $currentYear)->exists(),
 
             'data' => Registration::with(['registration_validation', 'teamMembers'])
+                ->whereYear('created_at', $currentYear)
                 ->whereHas('teamMembers', function ($query) {
                     $query->where('identifier', Auth::user()->identifier);  // Cek apakah NIM ada di tabel teammember
                 })->get()
@@ -67,7 +70,7 @@ class regisProgramController extends Controller
                         'nim_ketua' => 'required|string',
                         'prodi_ketua' => 'required|string',
                         'fakultas_ketua' => 'required|string',
-                        'nohp_ketua' => 'required|string',
+                        'nohp_ketua' => 'required|string|regex:/^08[0-9]{9,12}$/',
                         'nama_ormawa' => 'required|string',
                         'judul' => 'required|string',
                         'bidang_id' => 'required',
@@ -80,6 +83,9 @@ class regisProgramController extends Controller
                         'prodi_ketua.required' => 'Program studi ketua wajib diisi.',
                         'fakultas_ketua.required' => 'Fakultas ketua harus diisi.',
                         'nohp_ketua.required' => 'Nomor HP ketua wajib diisi.',
+                        'nohp_dosen_pembimbing.required' => 'Nomor HP dosen pembimbing wajib diisi.',
+                        'nohp_dosen_pembimbing.string' => 'Nomor HP harus berupa teks.',
+                        'nohp_dosen_pembimbing.regex' => 'Nomor HP harus diawali dengan 08 dan terdiri dari 10-13 angka.',
                         'nama_ormawa.required' => 'Nama ORMAWA harus diisi.',
                         'judul.required' => 'Judul program harus diisi.',
                         'bidang_id.required' => 'Bidang harus dipilih.',
@@ -283,12 +289,19 @@ class regisProgramController extends Controller
         }
 
         // Cek apakah NIM sudah terdaftar di tabel registration
-        $isRegistered = TeamMember::where('identifier', $nim)->exists();
+        $currentYear = Carbon::now()->year;
+
+        $isRegistered = TeamMember::where('identifier', $nim)
+            ->whereYear('created_at', $currentYear)
+            ->exists();
+
         $isTeam = TeamMember::where('identifier', $nim)
-            ->whereIn('registration_id', function ($query) {
+            ->whereYear('created_at', $currentYear)
+            ->whereIn('registration_id', function ($query) use ($currentYear) {
                 $query->select('registration_id')
                     ->from('team_members')
-                    ->where('identifier', Auth::user()->identifier);
+                    ->where('identifier', Auth::user()->identifier)
+                    ->whereYear('created_at', $currentYear);
             })->exists();
 
 

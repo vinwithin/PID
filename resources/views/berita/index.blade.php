@@ -102,10 +102,10 @@
                     <tr>
                         <th style="width: 5%">No</th>
                         <th class="d-none d-md-table-cell"style="width: 10%">Pembuat</th>
-                        <th class="d-none d-md-table-cell" style="width: 15%">Title</th>
-                        <th class="d-none d-md-table-cell" style="width: 35%">Konten</th>
-                        <th class="d-none d-md-table-cell" style="width: 15%">Thumbnails</th>
-                        <th class="d-none d-md-table-cell" style="width: 30%">Aksi</th>
+                        <th class="d-none d-md-table-cell" style="width: 40%">Judul</th>
+                       
+                        <th class="d-none d-md-table-cell" style="width: 25%">Thumbnails</th>
+                        <th class="d-none d-md-table-cell" style="width: 25%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,9 +119,7 @@
                             <td class="d-none d-md-table-cell">
                                 {{ $item->title }}
                             </td>
-                            <td class="d-none d-md-table-cell">
-                                {{ $item->excerpt }}
-                            </td>
+                           
                             <td class="d-none d-xl-table-cell"><img class="img-thumbnail"
                                     src="/storage/{{ $item->thumbnail }}" alt=""
                                     style="max-width: 80px; max-height:80px;">

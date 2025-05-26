@@ -77,7 +77,7 @@ class listPendaftaranController extends Controller
 
     public function index()
     {
-        $dataNilai = Registration::with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi'])->whereHas('reviewAssignments', function ($query) {
+        $dataNilai = Registration::with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'total_proposal_scores'])->whereHas('reviewAssignments', function ($query) {
             $query->where('reviewer_id', Auth::user()->id); // Kondisi yang ingin dicek
         })->latest()->paginate(10);
         $totalId = ProposalReviewController::calculateScores();
@@ -91,14 +91,22 @@ class listPendaftaranController extends Controller
                 'reviewAssignments',
                 'registration_validation',
                 'score_monev',
-                'status_monev'
+                'status_monev',
+                'total_proposal_scores'
             ])
+                ->withSum('total_proposal_scores', 'total')
                 ->where('status_supervisor', 'approved')
                 ->whereHas('registration_validation', function ($query) {
                     $query->whereIn('status', ['Belum valid', 'Tidak Lolos', 'valid', 'lolos']);
                 })
-                ->latest() // Mengurutkan berdasarkan created_at DESC
+                ->orderByRaw('(
+                        SELECT SUM(total)
+                        FROM total_proposal_scores
+                        WHERE total_proposal_scores.registration_id = registration.id
+                    ) DESC')
                 ->paginate(10),
+
+
             'dataNilai' => $dataNilai,
             'totalId' => $totalId['totalId'],
         ]);

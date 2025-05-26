@@ -106,13 +106,14 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                            @if ($item->total_proposal_scores->isNotEmpty())
                                                 <span class="badge bg-info">
-                                                    {{ array_sum($totalId[$item->id]) }}
+                                                    {{ $item->total_proposal_scores->sum('total') }}
                                                 </span>
                                             @else
                                                 <span class="badge bg-light text-dark">Belum Dinilai</span>
                                             @endif
+
                                         </td>
                                         <td class="text-center">
                                             @can('approve proposal')
@@ -312,10 +313,16 @@
                                                 {{ $item->reviewAssignments[0]->status }}
                                             </span>
                                         </td>
+                                        @php
+                                            $total_scores = $item->total_proposal_scores->firstWhere(
+                                                'user_id',
+                                                Auth::user()->id,
+                                            );
+                                        @endphp
                                         <td class="text-center">
-                                            @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                            @if ($total_scores)
                                                 <span class="badge bg-primary">
-                                                    {{ $totalId[$item->id][auth()->user()->name] ?? '-' }}
+                                                    {{ $total_scores->total }}
                                                 </span>
                                             @else
                                                 <span class="badge bg-light text-dark">Belum Dinilai</span>

@@ -39,6 +39,10 @@ class Registration extends Model
     {
         return $this->hasMany(Proposal_score::class);
     }
+    public function total_proposal_scores()
+    {
+        return $this->hasMany(TotalProposalScore::class);
+    }
     public function registration_validation()
     {
         return $this->hasOne(Registrasi_validation::class);

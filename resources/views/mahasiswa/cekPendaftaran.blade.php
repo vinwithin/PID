@@ -267,9 +267,21 @@
                                 @case('lolos') fa-check-circle @break @endswitch
                         me-2"></i>
                             <span>
-                                {{ $data->registration_validation->status === 'lolos'
-                                    ? 'Lolos Validator: ' . $data->registration_validation->validator_id
-                                    : $data->registration_validation->status }}
+                                @if (
+                                    $data->status_supervisor === 'approved' &&
+                                        in_array($data->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']))
+                                    {{ $data->registration_validation->status }}
+                                @elseif(
+                                    $data->status_supervisor === 'approved' &&
+                                        in_array($data->registration_validation->status, ['Tidak Lolos', 'Hentikan Program']))
+                                    {{ $data->registration_validation->status }}
+                                @elseif($data->status_supervisor === 'approved')
+                                    {{ 'Belum Valid' }}
+                                @elseif($data->status_supervisor === 'pending')
+                                    {{ 'Belum Valid' }}
+                                @else
+                                    {{ 'Ditolak Dosen Pembimbing' }}
+                                @endif
                             </span>
                         </div>
                     </div>

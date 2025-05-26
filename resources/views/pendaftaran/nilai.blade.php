@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="text-end mt-3">
+                            <div class="text-start mt-3">
                                 <a href="/pendaftaran" class="btn btn-secondary">
                                     <i class="fa-solid fa-arrow-left me-2"></i>Kembali
                                 </a>

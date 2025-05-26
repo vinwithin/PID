@@ -8,6 +8,7 @@ use App\Models\Proposal_score;
 use App\Models\Registration;
 use App\Models\ReviewAssignment;
 use App\Models\Sub_kriteria_penilaian;
+use App\Models\TotalProposalScore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -122,14 +123,30 @@ class ProposalReviewController extends Controller
             'nilai.*' => 'required|max:255',
             'feedback' => 'required|max:255',
         ]);
+        $totalScore = 0;
+        $user =  Auth::user()->id;
         foreach ($validatedData['nilai'] as $subKriteriaId => $nilai) {
+            $subKriteria = Sub_kriteria_penilaian::with('kriteria_penilaian')->findOrFail($subKriteriaId);
+            $bobot = $subKriteria->kriteria_penilaian->bobot ?? 0; // default 0 jika tidak ada
+
+            // Hitung skor berbobot
+            $scoreBerbobot = $nilai * $bobot;
+            $totalScore += $scoreBerbobot;
+
+            // Simpan nilai ke proposal_score
             Proposal_score::create([
-                'user_id' => Auth::user()->id,
-                'registration_id' => $id,
+                'user_id'                  => $user,
+                'registration_id'          => $id,
                 'sub_kriteria_penilaian_id' => $subKriteriaId,
-                'nilai' => $nilai,
+                'nilai'                    => $nilai,
             ]);
         }
+        TotalProposalScore::create([
+            'registration_id' => $id,
+            'user_id' => $user,
+            'total' => $totalScore
+        ]);
+
         $existingReview = ReviewAssignment::where('reviewer_id', Auth::user()->id)
             ->where('registration_id', $id)
             ->first();

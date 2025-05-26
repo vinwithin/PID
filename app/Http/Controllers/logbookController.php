@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Logbook;
 use App\Models\logbookValidations;
 use App\Services\teamIdService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,7 @@ class logbookController extends Controller
         }
         $dospem = $dospemQuery->latest()->paginate(10);
 
+        $currentYear = Carbon::now()->year;
         $data_user = Logbook::with(['registration', 'teamMembers', 'logbook_validations'])->where('team_id', $this->teamIdService->getRegistrationId());
 
         if ($search) {
