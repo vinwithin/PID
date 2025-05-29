@@ -44,7 +44,7 @@ class publikasiController extends Controller
                 ->where('team_id', $this->teamIdService->getRegistrationId())
                 ->orderBy('created_at', 'desc')
                 ->latest()
-                ->get(),
+                ->paginate(10),
             "dataAll" => $dataAll,
         ]);
     }

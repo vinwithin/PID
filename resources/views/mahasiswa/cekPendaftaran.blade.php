@@ -238,21 +238,27 @@
 
                                 @endswitch
                             </p>
-
-                            @if ($data->registration_validation->status == 'Belum valid')
-                                <p class="small text-muted">Silakan tunggu hasil seleksi administrasi.</p>
-                            @elseif($data->registration_validation->status == 'valid')
-                                <p class="small text-muted">Silakan tunggu hasil seleksi. Penilaian proposal</p>
-                            @elseif($data->registration_validation->status == 'Tidak Lolos')
-                                <p class="small text-muted">Proposal anda ditolak! Silahkan mendaftar lagi tahun depan</p>
-                            @elseif($data->registration_validation->status == 'lolos')
-                                <p class="small text-muted">Tim anda telah lolos Pro-IDe, segera lakukan pekerjaan di desa
-                                </p>
-                            @elseif($data->registration_validation->status == 'Lanjutkan Program')
-                                <p class="small text-muted">Tim anda telah lolos monitoring dan evaluasi.</p>
-                            @elseif($data->registration_validation->status == 'Hentikan Program')
-                                <p class="small text-muted">Tim anda telah tidak lolos monitoring dan evaluasi.</p>
+                            @if ($data->status === 'draft')
+                                <p class="small text-muted">Silakan tunggu rekan tim menyetujui.</p>
+                            @else
+                                @if ($data->registration_validation->status == 'Belum valid')
+                                    <p class="small text-muted">Silakan tunggu hasil seleksi administrasi.</p>
+                                @elseif($data->registration_validation->status == 'valid')
+                                    <p class="small text-muted">Silakan tunggu hasil seleksi. Penilaian proposal</p>
+                                @elseif($data->registration_validation->status == 'Tidak Lolos')
+                                    <p class="small text-muted">Proposal anda ditolak! Silahkan mendaftar lagi tahun depan
+                                    </p>
+                                @elseif($data->registration_validation->status == 'lolos')
+                                    <p class="small text-muted">Tim anda telah lolos Pro-IDe, segera lakukan pekerjaan di
+                                        desa
+                                    </p>
+                                @elseif($data->registration_validation->status == 'Lanjutkan Program')
+                                    <p class="small text-muted">Tim anda telah lolos monitoring dan evaluasi.</p>
+                                @elseif($data->registration_validation->status == 'Hentikan Program')
+                                    <p class="small text-muted">Tim anda telah tidak lolos monitoring dan evaluasi.</p>
+                                @endif
                             @endif
+
                         </div>
 
                         <h5 class="text-dark fw-bold mt-3">Status Validasi</h5>

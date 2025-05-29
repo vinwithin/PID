@@ -185,7 +185,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center mt-4">
-                {{ $dataAll->links() }}
+                {{ $data->links() }}
             </div>
         </div>
     </div>

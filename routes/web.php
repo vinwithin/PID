@@ -10,6 +10,7 @@ use App\Http\Controllers\deadlineController;
 use App\Http\Controllers\DokumenKegiatanController;
 use App\Http\Controllers\DokumenPublikasiController;
 use App\Http\Controllers\DokumenTeknisController;
+use App\Http\Controllers\excelController;
 use App\Http\Controllers\KelolaArtikel;
 use App\Http\Controllers\KelolaKontenController;
 use App\Http\Controllers\KelolaOrmawaController;
@@ -105,6 +106,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware(['can:approve proposal'])->group(function () {
+        Route::get('pendaftaran/export', [excelController::class, 'export']);
         Route::get('/proposal/approve/{id}', [listPendaftaranController::class, 'approve'])->name('approve');
         Route::get('/proposal/reject/{id}', [listPendaftaranController::class, 'reject'])->name('reject');
         Route::get('/pilih-reviewer/{id}', [listPendaftaranController::class, 'createReviewer'])->name('pilih-reviewer');

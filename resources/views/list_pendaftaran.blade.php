@@ -19,6 +19,7 @@
                                 aria-expanded="false" aria-controls="filterSection">
                                 <i class="fas fa-filter me-2"></i>Filter
                             </button>
+                            <a href="/pendaftaran/export" class="btn btn-primary">Cetak Excel</a>
                         </div>
                         <form action="{{ route('pendaftaran.search') }}" method="GET" class="">
                             <div class="input-group">

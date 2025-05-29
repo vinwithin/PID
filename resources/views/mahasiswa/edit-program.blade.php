@@ -382,7 +382,7 @@
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="sk_organisasi" name="sk_organisasi"
                                 accept="pdf">
-                            <label class="form-label" for="sk_organisasi">Unggah</label>
+                            <label class="form-label" for="sk_organisasi"></label>
                             @error('sk_organisasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -394,7 +394,7 @@
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="surat_kerjasama" name="surat_kerjasama"
                                 accept="pdf">
-                            <label class="form-label" for="surat_kerjasama">Unggah</label>
+                            <label class="form-label" for="surat_kerjasama"></label>
                             @error('surat_kerjasama')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -405,7 +405,7 @@
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="surat_rekomendasi_pembina"
                                 name="surat_rekomendasi_pembina" accept="pdf">
-                            <label class="form-label" for="surat_rekomendasi_pembina">Unggah</label>
+                            <label class="form-label" for="surat_rekomendasi_pembina"></label>
                             @error('surat_rekomendasi_pembina')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -415,7 +415,7 @@
                         <p class="fw-bold">Proposal Pro-IDe</p>
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="proposal" name="proposal" accept="pdf">
-                            <label class="form-label" for="proposal">Unggah</label>
+                            <label class="form-label" for="proposal"></label>
                             @error('proposal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
