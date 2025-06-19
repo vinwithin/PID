@@ -20,23 +20,25 @@
 
             @can('agree publication')
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-                    <form method="GET" action="{{ route('publikasi') }}">
-                        <label class="form-label">Filter berdasarkan status:</label>
-                        <div class="d-flex align-items-center">
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="Belum valid"
-                                    id="filterManager">
-                                <label class="form-check-label" for="filterManager">Belum Valid</label>
+                    <div class="d-flex flex-column justify-content-end align-items-end gap-3">
+                        {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
+                        <form method="GET" action="{{ route('publikasi') }}">
+                            <label class="form-label">Filter berdasarkan status:</label>
+                            <div class="d-flex align-items-center">
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="checkbox" name="filters[]" value="Belum valid"
+                                        id="filterManager">
+                                    <label class="form-check-label" for="filterManager">Belum Valid</label>
+                                </div>
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="checkbox" name="filters[]" value="valid"
+                                        id="filterEngineer">
+                                    <label class="form-check-label" for="filterEngineer">Valid</label>
+                                </div>
                             </div>
-                            <div class="form-check me-3">
-                                <input class="form-check-input" type="checkbox" name="filters[]" value="valid"
-                                    id="filterEngineer">
-                                <label class="form-check-label" for="filterEngineer">Valid</label>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary mt-3">Terapkan Filter</button>
+                        </form>
+                    </div>
                     <div class="d-flex flex-column justify-content-end align-items-end gap-3">
                         <a class="btn btn-success" href="{{ route('publikasi.tambah') }}"><i
                                 class="fa-solid fa-plus me-2"></i>Tambah
@@ -48,7 +50,7 @@
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i> Cari
                                 </button>
-                                <a href="{{ route('publikasi') }}" class="btn btn-success ms-2">Reset</a>
+                                <a href="{{ route('publikasi') }}" class="btn btn-primary ms-2">Atur Ulang</a>
 
                             </div>
                         </form>
@@ -59,8 +61,8 @@
                 <thead>
                     <tr>
                         <th style="width: 5%">No</th>
-                        <th class="d-none d-xl-table-cell" style="width: 10%">Pembuat</th>
-                        <th class="d-none d-xl-table-cell" style="width: 35%">Judul</th>
+                        <th class="d-none d-xl-table-cell" style="width: 15%">Pembuat</th>
+                        <th class="d-none d-xl-table-cell" style="width: 40%">Judul</th>
                         <th class="d-none d-xl-table-cell" style="width: 15%">Thumbnail</th>
                         <th class="d-none d-xl-table-cell" style="width: 8%">Status</th>
                         <th style="width: 18%">Aksi</th>
@@ -174,7 +176,8 @@
                                     <a href="/publikasi/{{ $item->id }}" class="btn btn-primary"><i
                                             class="fa-solid fa-eye"></i></a>
                                     @can('delete publication')
-                                        <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                        <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger"><i
+                                                class="fa-solid fa-trash"></i></a>
                                     @endcan
                                 </td>
                                 <td></td>

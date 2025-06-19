@@ -18,6 +18,7 @@ class ScoreDetailMonev
         $jumlah = [];
         $kriterias = [];
         $bobot = [];
+        $total = [];
 
         foreach (KriteriaMonev::all() as $kriteria) {
             $kriterias[$kriteria->id] = $kriteria->bobot;

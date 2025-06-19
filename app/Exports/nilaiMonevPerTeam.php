@@ -2,31 +2,32 @@
 
 namespace App\Exports;
 
-use App\Models\Registration;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class nilaiProposalPerTeam implements FromView
+class nilaiMonevPerTeam implements FromView
 {
-
     protected $data;
     protected $title;
     protected $rubrik;
+    protected $nilai;
 
-   public function __construct($data, $rubrik, $title)
+   public function __construct($data, $rubrik, $nilai, $title)
     {
         $this->data = $data;
         $this->rubrik = $rubrik;
+        $this->nilai = $nilai;
         $this->title = $title;
     }
 
     public function view(): View
     {
-        // dd($this->data->reviewAssignments[0]->feedback);
-        return view('excel.nilai-proposal', [
+        // dd($this->nilai);
+        return view('excel.nilai-monev', [
             'data' => $this->data,
-            'dataNilai' => $this->rubrik
+            'dataNilai' => $this->rubrik,
+            'nilai' => $this->nilai
         ]);
     }
 

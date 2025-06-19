@@ -24,7 +24,7 @@
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i> Cari
                                 </button>
-                                <a href="{{ route('laporan-kemajuan') }}" class="btn btn-success ms-2">Reset</a>
+                                <a href="{{ route('laporan-kemajuan') }}" class="btn btn-primary ms-2">Atur Ulang</a>
 
                             </div>
                         </form>

@@ -10,6 +10,7 @@ use App\Models\Registration;
 use App\Models\ReviewAssignment;
 use App\Models\Sub_kriteria_penilaian;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +97,7 @@ class listPendaftaranController extends Controller
             ])
                 ->withSum('total_proposal_scores', 'total')
                 ->where('status_supervisor', 'approved')
+                ->whereYear('created_at', Carbon::now()->year) // hanya data tahun ini
                 ->whereHas('registration_validation', function ($query) {
                     $query->whereIn('status', ['Belum valid', 'Tidak Lolos', 'valid', 'lolos']);
                 })

@@ -11,6 +11,7 @@ use App\Http\Controllers\DokumenKegiatanController;
 use App\Http\Controllers\DokumenPublikasiController;
 use App\Http\Controllers\DokumenTeknisController;
 use App\Http\Controllers\excelController;
+use App\Http\Controllers\excelMonevController;
 use App\Http\Controllers\KelolaArtikel;
 use App\Http\Controllers\KelolaKontenController;
 use App\Http\Controllers\KelolaOrmawaController;
@@ -170,6 +171,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['can:approve monev'])->group(function () {
+        Route::get('monitoring-evaluasi/export', [excelMonevController::class, 'export']);
         Route::get('/monitoring-evaluasi/approve/{id}', [MonevController::class, 'approve'])->name('monev.approve');
         Route::get('/monitoring-evaluasi/reject/{id}', [MonevController::class, 'reject'])->name('monev.reject');
     });
@@ -295,8 +297,8 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/daftarProgram', [regisProgramController::class, 'index'])->name('mahasiswa.daftar');
-        Route::get('/approve/{id}', [regisProgramController::class, 'approve'])->name('mahasiswa.approve')->middleware('RegisDeadline');
-        Route::get('/reject/{id}', [regisProgramController::class, 'reject'])->name('mahasiswa.reject')->middleware('RegisDeadline');
+        Route::get('/approve/{id}', [regisProgramController::class, 'approve'])->name('mahasiswa.approve');
+        Route::get('/reject/{id}', [regisProgramController::class, 'reject'])->name('mahasiswa.reject');
         Route::get('/submit/{id}', [regisProgramController::class, 'submit'])->name('mahasiswa.submit')->middleware('allTeamApprove');
         Route::get('/editProgram/{id}', [regisProgramController::class, 'edit'])->name('mahasiswa.edit')->middleware('RegisDeadline');
         Route::post('/step', [regisProgramController::class, 'step'])->name('mahasiswa.step');

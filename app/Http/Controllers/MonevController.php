@@ -9,6 +9,7 @@ use App\Models\ScoreMonev;
 use App\Models\StatusMonev;
 use App\Models\User;
 use App\Services\ScoreDetailMonev;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,11 @@ class MonevController extends Controller
     {
         $total = ScoreDetailMonev::scores();
         $search = $request->input('search');
-        $data =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with([
+        $year = $request->filled('tahun')
+            ? $request->tahun
+            : Carbon::now()->year;
+
+        $data = Registration::with([
             'user',
             'bidang',
             'fakultas',
@@ -31,25 +36,29 @@ class MonevController extends Controller
             'status_monev',
             'laporan_kemajuan'
         ])
-            ->whereHas('registration_validation', function ($query) {
-                $query->whereIn('status', ['lolos', 'Lanjutkan Program', 'Hentikan Program']);
+            ->whereYear('created_at', $year)
+            ->whereHas('registration_validation', function ($q) {
+                $q->whereIn('status', [
+                    'lolos',
+                    'Lanjutkan Program',
+                    'Hentikan Program'
+                ]);
             })
-            ->whereHas('laporan_kemajuan', function ($query) {
-                $query->where('status', 'Valid');
+            ->whereHas('laporan_kemajuan', function ($q) {
+                $q->where('status', 'Valid');
             });
-        if ($search) {
-            $data->where(function ($query) use ($search) {
-                $query->where('nama_ketua', 'like', "%{$search}%")
-                    ->orWhere('nim_ketua', 'like', "%{$search}%")
-                    ->orWhere('judul', 'like', "%{$search}%");
+
+        if ($search = $request->input('search')) {
+            $data->where(function ($q) use ($search) {
+                $q->where('nama_ketua', 'like', "%{$search}%")
+                    ->orWhere('nim_ketua',  'like', "%{$search}%")
+                    ->orWhere('judul',       'like', "%{$search}%");
             });
         }
-        if ($request->filled('tahun')) {
-            $data->whereYear('created_at', $request->tahun);
-        }
+
         $data = $data->latest()->paginate(10);
 
-        $dataNilai =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereHas('status_monev', function ($query) {
+        $dataNilai =  Registration::select('id', 'nama_ketua', 'nim_ketua', 'judul', 'fakultas_ketua')->with(['user', 'reviewAssignments', 'bidang', 'fakultas', 'program_studi', 'laporan_kemajuan'])->whereYear('created_at', Carbon::now()->year)->whereHas('status_monev', function ($query) {
             $query->where('user_id', Auth::user()->id); // Kondisi yang ingin dicek
         });
         if ($search) {

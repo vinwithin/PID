@@ -112,7 +112,7 @@
         </div>
         <div class="card flex-fill">
 
-            <div class="card-header d-flex justify-content-end align-items-end">
+            <div class="card-header d-flex justify-content-start align-items-start">
                 <a class="btn btn-success" href="/kelola-konten/foto/create"><i class="fa-solid fa-plus me-2"></i>Tambah Album</a>
 
             </div>
@@ -120,9 +120,9 @@
                 <thead>
                     <tr>
                         <th style="width: 10%">No</th>
-                        <th class="d-none d-md-table-cell"style="width: 15%">Pembuat</th>
+                        <th class="d-none d-md-table-cell"style="width: 25%">Pembuat</th>
                         <th class="d-none d-md-table-cell" style="width: 30%">Album</th>
-                        <th class="d-none d-md-table-cell" style="width: 30%">Visibilitas</th>
+                        <th class="d-none d-md-table-cell" style="width: 20%">Visibilitas</th>
                         <th style="width: 15%" class="text-center">Aksi</th>
                     </tr>
                 </thead>

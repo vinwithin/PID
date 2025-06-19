@@ -55,8 +55,8 @@
 
 
         .card {
-            width: 1032px;
-            max-height: 805px;
+            width: 733px;
+            height: 602px;
             background: rgba(255, 255, 255, 1);
             border-radius: 20px;
 
@@ -219,7 +219,7 @@
 
 
                             <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Daftar</button>
                         </form>
                     </div>
                 </div>

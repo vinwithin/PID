@@ -29,8 +29,8 @@
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i> Cari
                                 </button>
-                                <a href="{{ route('logbook') }}" class="btn btn-success ms-2">
-                                    Reset
+                                <a href="{{ route('logbook') }}" class="btn btn-primary ms-2">
+                                    Atur Ulang
                                 </a>
                             </div>
                         </form>

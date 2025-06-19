@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LaporanKemajuan;
 use App\Models\Registration;
 use App\Services\teamIdService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,12 @@ class LaporanKemajuanController extends Controller
     public function index(Request $request)
     {
         $team_id = $this->teamIdService->getRegistrationId();
+        $year = $request->filled('tahun')
+            ? $request->tahun
+            : Carbon::now()->year;
+
         $dataAll = Registration::select('id', 'judul')->with(['laporan_kemajuan', 'registration_validation'])
+            ->whereYear('created_at', $year)
             ->whereHas('registration_validation', function ($query) {
                 $query->whereIn('status', ['lolos', 'lanjutkan program']);
             });
@@ -39,9 +45,7 @@ class LaporanKemajuanController extends Controller
             $search = $request->input('search');
             $dataAll->where('judul', 'like', "%$search%");
         }
-        if ($request->filled('tahun')) {
-            $dataAll->whereYear('created_at', $request->tahun);
-        }
+
         // Cek jika user adalah reviewer, tambahkan filter status valid
         if (Auth::user()->hasRole(['reviewer', 'dosen'])) {
             $dataAll->whereHas('laporan_kemajuan', function ($query) {

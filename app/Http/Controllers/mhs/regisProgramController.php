@@ -173,7 +173,7 @@ class regisProgramController extends Controller
                 'sk_organisasi' => 'required|file|mimes:pdf|max:2048',
                 'surat_kerjasama' => 'required|file|mimes:pdf|max:2048',
                 'surat_rekomendasi_pembina' => 'required|file|mimes:pdf|max:2048',
-                'proposal' => 'required|file|mimes:pdf|max:2048'
+                'proposal' => 'required|file|mimes:pdf|max:5048'
             ], [
                 'sk_organisasi.required' => 'Surat Keputusan organisasi harus diunggah.',
                 'sk_organisasi.mimes' => 'SK Organisasi harus dalam format PDF.',
@@ -357,7 +357,7 @@ class regisProgramController extends Controller
                 'sk_organisasi' => 'file|mimes:pdf|max:2048',
                 'surat_kerjasama' => 'file|mimes:pdf|max:2048',
                 'surat_rekomendasi_pembina' => 'file|mimes:pdf|max:2048',
-                'proposal' => 'file|mimes:pdf|max:2048'
+                'proposal' => 'file|mimes:pdf|max:5048'
             ], [
                 'sk_organisasi.mimes' => 'SK Organisasi harus dalam format PDF.',
                 'sk_organisasi.max' => 'Ukuran SK Organisasi tidak boleh lebih dari 2MB.',

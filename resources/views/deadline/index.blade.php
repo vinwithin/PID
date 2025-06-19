@@ -16,9 +16,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <!-- Tombol untuk membuka modal -->
                         @can('create deadline')
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                 data-bs-target="#tambahOrmawaModal">
-                                Tambah Tenggat Waktu
+                                <i class="fa-solid fa-plus me-2"></i>Tambah Tenggat Waktu
                             </button>
                         @endcan
 

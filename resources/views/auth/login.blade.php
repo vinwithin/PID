@@ -57,8 +57,8 @@
 
 
         .card {
-            width: 1032px;
-            height: 605px;
+            width: 733px;
+            height: 562px;
             background: rgba(255, 255, 255, 1);
             border-radius: 20px;
 

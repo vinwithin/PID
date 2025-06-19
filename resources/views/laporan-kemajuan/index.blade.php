@@ -184,11 +184,11 @@
                                     </td>
 
                                     <td class="text-center fw-bold">
-                                        @if (isDeadlineActive('Laporan Kemajuan'))
+                                        @if (isDeadlineActive('Laporan Kemajuan') && $data[0]->nim_ketua === Auth()->user()->identifier)
 
 
                                             @if (count($data) > 0)
-
+                                                
                                                 @if ($data[0]->status !== 'Valid')
                                                     <form id="uploadForm" enctype="multipart/form-data">
                                                         @csrf

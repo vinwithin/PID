@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Edit Juri Seleksi')
+@section('title', 'Edit Penilai Seleksi')
 @section('description', 'Kelola Pendaftaran ')
 @section('content')
     <div class="w-100 ">

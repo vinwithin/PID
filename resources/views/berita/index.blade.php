@@ -87,7 +87,7 @@
                         <button class="btn btn-primary" type="submit">
                             <i class="fa fa-search"></i> Cari
                         </button>
-                        <a href="{{ route('berita') }}" class="btn btn-success ms-2">Reset</a>
+                        <a href="{{ route('berita') }}" class="btn btn-primary ms-2">Atur Ulang</a>
 
                     </div>
                 </form>
@@ -101,11 +101,11 @@
                 <thead class="table-light">
                     <tr>
                         <th style="width: 5%">No</th>
-                        <th class="d-none d-md-table-cell"style="width: 10%">Pembuat</th>
-                        <th class="d-none d-md-table-cell" style="width: 40%">Judul</th>
+                        <th class="d-none d-md-table-cell"style="width: 25%">Pembuat</th>
+                        <th class="d-none d-md-table-cell" style="width: 35%">Judul</th>
                        
-                        <th class="d-none d-md-table-cell" style="width: 25%">Thumbnails</th>
-                        <th class="d-none d-md-table-cell" style="width: 25%">Aksi</th>
+                        <th class="d-none d-md-table-cell" style="width: 20%">Thumbnails</th>
+                        <th class="d-none d-md-table-cell" style="width: 20%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

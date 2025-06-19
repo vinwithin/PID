@@ -1,20 +1,17 @@
 <?php
 
 namespace App\Exports;
-
-use App\Models\Registration;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class nilaiProposalPerTeam implements FromView
+class FirstProposalExport implements FromView
 {
-
     protected $data;
     protected $title;
     protected $rubrik;
 
-   public function __construct($data, $rubrik, $title)
+    public function __construct($data, $rubrik, $title)
     {
         $this->data = $data;
         $this->rubrik = $rubrik;
@@ -23,10 +20,10 @@ class nilaiProposalPerTeam implements FromView
 
     public function view(): View
     {
-        // dd($this->data->reviewAssignments[0]->feedback);
-        return view('excel.nilai-proposal', [
+        // dd($this->data);
+        return view('excel.first-nilai-proposal', [
             'data' => $this->data,
-            'dataNilai' => $this->rubrik
+            
         ]);
     }
 

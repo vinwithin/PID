@@ -2,17 +2,14 @@
 
 namespace App\Exports;
 
-use App\Http\Controllers\reviewer\ProposalReviewController;
 use App\Models\Registration;
+use App\Services\ScoreDetailMonev;
 use Carbon\Carbon;
-use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class nilaiProposalExport implements WithMultipleSheets
+class nilaiMonevExport implements WithMultipleSheets
 {
-
-
     public function sheets(): array
     {
         $sheets = [];
@@ -27,34 +24,41 @@ class nilaiProposalExport implements WithMultipleSheets
             'registration_validation',
             'score_monev',
             'status_monev',
-            'total_proposal_scores'
+            'laporan_kemajuan'
         ])
-            ->where('status_supervisor', 'approved')
             ->whereYear('created_at', Carbon::now()->year) // hanya data tahun ini
-            ->whereHas('registration_validation', function ($query) {
-                $query->whereIn('status', ['Belum valid', 'Tidak Lolos', 'valid', 'lolos']);
+            ->whereHas('registration_validation', function ($q) {
+                $q->whereIn('status', [
+                    'lolos',
+                    'Lanjutkan Program',
+                    'Hentikan Program'
+                ]);
             })
-            ->orderBy('created_at', 'asc') // atau 'desc' jika ingin dari terbaru
-            ->get();
+            ->whereHas('laporan_kemajuan', function ($q) {
+                $q->where('status', 'Valid');
+            })->get();
 
         foreach ($registrasis as $i => $data) {
-            $rubrik = ProposalReviewController::calculateScoresById($data->id);
+            $rubrik =  ScoreDetailMonev::scores();
+            $nilai =  ScoreDetailMonev::scoreDetail($data->id);
             if ($i === 0) {
                 // first sheet: special
-                $sheets[] = new FirstProposalExport(
+                $sheets[] = new FirstNilaiMonev(
                     $registrasis,
-                    '',
+                    $rubrik,
                     'First ID ' . $data->id
                 );
-                $sheets[] = new NilaiProposalPerTeam(
+                $sheets[] = new nilaiMonevPerTeam(
                     $data,
                     $rubrik,
+                    $nilai,
                     'ID ' . $data->id
                 );
             } else {
-                $sheets[] = new NilaiProposalPerTeam(
+                $sheets[] = new nilaiMonevPerTeam(
                     $data,
                     $rubrik,
+                    $nilai,
                     'ID ' . $data->id
                 );
             }

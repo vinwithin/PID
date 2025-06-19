@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Edit Juri Monev Kelompok')
+@section('title', 'Edit Penilai Monev Kelompok')
 @section('description', 'Monitoring dan Evaluasi ')
 @section('content')
     <div class="w-full px-4 py-4">

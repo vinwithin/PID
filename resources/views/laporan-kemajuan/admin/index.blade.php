@@ -28,7 +28,7 @@
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-search"></i> Cari
                             </button>
-                            <a href="{{ route('laporan-kemajuan') }}" class="btn btn-success ms-2">Reset</a>
+                            <a href="{{ route('laporan-kemajuan') }}" class="btn btn-primary ms-2">Atur Ulang</a>
 
                         </div>
                     </form>
@@ -64,10 +64,10 @@
                         <thead class="">
                             <tr>
                                 <th style="width: 5%">No</th>
-                                <th style="width: 15%" class="text-center">Tim</th>
-                                <th style="width: 15%" class="text-center">File
+                                <th style="width: 25%" class="text-center">Tim</th>
+                                <th style="width: 10%" class="text-center">File
                                 </th>
-                                <th style="width: 15%" class="text-center">Status
+                                <th style="width: 10%" class="text-center">Status
                                 </th>
                                 @can('approve laporan kemajuan')
                                     <th style="width: 15%" class="text-center">Aksi</th>

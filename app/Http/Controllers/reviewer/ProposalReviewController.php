@@ -19,6 +19,8 @@ class ProposalReviewController extends Controller
         $rubrik = [];
         $nilais = [];
         $jumlah = [];
+        $total = [];
+        $totalScores = [];
         $kriterias = [];
         $bobot = [];
 

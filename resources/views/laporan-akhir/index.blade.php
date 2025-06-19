@@ -159,8 +159,11 @@
                                                          @endif
                                                      @endif
                                                      @if ($item->status === 'File & Ketercapaian')
-                                                         @if (isDeadlineActive('Laporan Akhir'))
+                                                     {{-- {{dd($dataRegist)}} --}}
+
+                                                         @if (isDeadlineActive('Laporan Akhir') && $dataRegist[0]->nim_ketua === auth()->user()->identifier)
                                                              <!-- Tombol dan modal jika status_publish == 'yes' -->
+                                                        
                                                              @if ($dokumen)
                                                                  @if ($dokumen->status !== 'Valid')
                                                                      <button type="button" class="btn btn-outline-warning"
@@ -251,7 +254,7 @@
                                                          </div>
                                                      @elseif ($item->status === 'File')
                                                          <!-- Tombol dan modal jika status_publish == 'no' -->
-                                                         @if (isDeadlineActive('Laporan Akhir'))
+                                                         @if (isDeadlineActive('Laporan Akhir') && $dataRegist[0]->nim_ketua === auth()->user()->identifier)
                                                              @if ($dokumen)
                                                                  @if ($dokumen->status !== 'Valid')
                                                                      <button type="button" class="btn btn-outline-warning"
@@ -319,7 +322,7 @@
                                                          </div>
                                                      @elseif ($item->status === 'Link')
                                                          <!-- Tombol dan modal jika status_publish == 'no' -->
-                                                         @if (isDeadlineActive('Laporan Akhir'))
+                                                         @if (isDeadlineActive('Laporan Akhir') && $dataRegist[0]->nim_ketua === auth()->user()->identifier)
                                                              @if ($dokumen)
                                                                  @if (!$dokumen->status !== 'Valid')
                                                                      <button type="button" class="btn btn-outline-warning"
@@ -454,7 +457,7 @@
                                              <td class="text-center">
 
                                                  @if ($data_album->isEmpty())
-                                                     @if (isDeadlineActive('Laporan Akhir'))
+                                                     @if (isDeadlineActive('Laporan Akhir') && $dataRegist[0]->nim_ketua === Auth()->user()->identifier)
                                                          <button type="button" class="btn btn-outline-success"
                                                              data-bs-toggle="modal" data-bs-target="#modalAlbum">
                                                              <i class="fa-solid fa-upload"></i>
@@ -511,7 +514,7 @@
                                                  @else
                                                      <a href="/laporan-akhir/album/{{ $data_album[0]->id }}"
                                                          class="btn btn-outline-primary"><i class="fa-solid fa-eye"></i></a>
-                                                     @if (isDeadlineActive('Laporan Akhir'))
+                                                     @if (isDeadlineActive('Laporan Akhir') && $dataRegist[0]->nim_ketua === Auth()->user()->identifier)
                                                          <button type="button" class="btn btn-outline-warning"
                                                              data-bs-toggle="modal" data-bs-target="#modalAlbum">
                                                              <i class="fa-solid fa-upload"></i>

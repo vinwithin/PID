@@ -7,8 +7,10 @@ use App\Models\AlbumPhotos;
 use App\Models\DocumentFinalReport;
 use App\Models\DocumentTypes;
 use App\Models\DokumenTeknis;
+use App\Models\Registration;
 use App\Models\VideoKonten;
 use App\Services\teamIdService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +35,11 @@ class laporanAkhirController extends Controller
     public function index(Request $request)
     {
         $search = request('search');
-
+        $year = $request->filled('tahun')
+            ? $request->tahun
+            : Carbon::now()->year;
         $dataQuery = DocumentFinalReport::with(['teamMembers', 'registration'])
+            ->whereYear('created_at', $year)
             ->whereIn('id', function ($query) {
                 $query->selectRaw('MIN(id)')
                     ->from('document_final_reports')
@@ -51,13 +56,14 @@ class laporanAkhirController extends Controller
                 $query->where('nama_dosen_pembimbing', 'like', "%{$search}%");
             });
         }
-        if ($request->filled('tahun')) {
-            $dataQuery->whereYear('created_at', $request->tahun);
-        }
+
         $data = $dataQuery->latest()->paginate(10);
 
 
         return view('laporan-akhir.index', [
+            'dataRegist' => Registration::whereHas('teamMembers', function ($query) {
+                $query->where('identifier', Auth::user()->identifier);  // Cek apakah NIM ada di tabel teammember
+            })->get(),
             'dataAdmin' => $data,
             'data' => DocumentFinalReport::where('team_id', $this->teamIdService->getRegistrationId())->get(),
             'document_types' => DocumentTypes::all(),

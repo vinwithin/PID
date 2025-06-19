@@ -88,8 +88,8 @@
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Daftar Video</h5>
-                <a class="btn btn-success" href="/kelola-konten/video/create">Tambah Video</a>
+               
+                <a class="btn btn-success" href="/kelola-konten/video/create"><i class="fa-solid fa-plus me-2"></i>Tambah Video</a>
 
             </div>
             <table class="table table-hover my-0 table-custom">

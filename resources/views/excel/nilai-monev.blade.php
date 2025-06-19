@@ -15,9 +15,10 @@
         </tr>
     </tbody>
 </table>
-
+{{-- {{dd($nilai['rubrik'])}} --}}
 {{-- Assessment Data per Reviewer --}}
-@foreach ($dataNilai['rubrik'] as $reviewer => $rubrikData)
+@if (isset($nilai['rubrik']))
+@foreach ($nilai["rubrik"] as $reviewer => $rubrikData)
     <div style="border: solid 1px black; ">
 
 
@@ -47,7 +48,7 @@
                             {{ $aspek }}
                         </td>
                         <td style="padding: 8px; text-align: center; background-color: green">
-                            {{ $dataNilai['bobot'][$aspek] ?? '' }}
+                            {{ $nilai['bobot'][$aspek] ?? '' }}
                         </td>
                         <td style="padding: 8px; text-align: center; background-color: green">
                             {{-- This will be filled by criteria scores --}}
@@ -75,13 +76,13 @@
         </table>
 
         {{-- Total Score Row --}}
-        @if (isset($dataNilai['total'][$reviewer]))
+        @if (isset($nilai['total'][$reviewer]))
             <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
                 <tr style="background-color: #f0f0f0;">
                     <td style="padding: 8px; font-weight: bold;">Total Skor</td>
                     <td colspan="2"
                         style="padding: 8px; text-align: center; font-weight: bold; color: black; width: 100px;">
-                        {{ $dataNilai['total'][$reviewer] }}
+                        {{ $nilai['total'][$reviewer] }}
                     </td>
                 </tr>
             </table>
@@ -110,3 +111,4 @@
         </table>
     </div>
 @endforeach
+@endif

@@ -79,9 +79,9 @@
         @endif
         <div class="card flex-fill">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Daftar Pengumuman</h5>
+                
                 @can('manage role')
-                    <a class="btn btn-primary" href="{{ route('announcement.tambah') }}">Tambah Pengumuman</a>
+                    <a class="btn btn-success" href="{{ route('announcement.tambah') }}"><i class="fa-solid fa-plus me-2"></i>Tambah Pengumuman</a>
                 @endcan
             </div>
             <table class="table table-striped table-hover mb-0">

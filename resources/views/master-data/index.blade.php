@@ -10,12 +10,11 @@
             <x-error-modal :message="session('error')" />
         @endif
         <div class="card">
-            <div class="container-fluid px-4 py-4">
+            <div class="container-fluid px-2 py-2">
                 <div class="card-header text-white">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="text-dark">
-                            <i class="fa-solid fa-bars-progress me-1"></i>Kelola Role
-                        </h3>
+                    <a href="/manage-users/create" class="btn btn-success"><i class="fa-solid fa-plus me-2"></i>Tambah Pengguna</a>
+                       
                         <div class="mb-3">
                             <form action="{{ route('manage-users.search') }}" method="GET" class="d-flex">
                                 <input type="text" name="search" class="form-control me-2"
@@ -24,7 +23,6 @@
                             </form>
                         </div>
                     </div>
-                    <a href="/manage-users/create" class="btn btn-primary">Tambah Pengguna</a>
 
                 </div>
 
