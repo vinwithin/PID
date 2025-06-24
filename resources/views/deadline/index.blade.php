@@ -102,7 +102,7 @@
                                                 <!-- Tombol untuk membuka modal -->
                                                 <a href="#" class="btn btn-outline-warning" data-bs-toggle="modal"
                                                     data-bs-target="#editModal{{ $item->id }}">
-                                                    <i class="fa-solid fa-pen"></i>
+                                                    <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
                                                 <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
                                                     aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
@@ -113,7 +113,7 @@
                                                                 @csrf
 
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title fw-bold" id="tambahOrmawaLabel">Edit
+                                                                    <h5 class="modal-title fw-bold" id="tambahOrmawaLabel">Ubah
                                                                         Tenggat Waktu</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Tutup"></button>

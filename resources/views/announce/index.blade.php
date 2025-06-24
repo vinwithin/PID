@@ -79,13 +79,14 @@
         @endif
         <div class="card flex-fill">
             <div class="card-header d-flex justify-content-between align-items-center">
-                
+
                 @can('manage role')
-                    <a class="btn btn-success" href="{{ route('announcement.tambah') }}"><i class="fa-solid fa-plus me-2"></i>Tambah Pengumuman</a>
+                    <a class="btn btn-success" href="{{ route('announcement.tambah') }}"><i
+                            class="fa-solid fa-plus me-2"></i>Tambah Pengumuman</a>
                 @endcan
             </div>
-            <table class="table table-striped table-hover mb-0">
-                <thead class="table-light">
+            <table class="table table-hover mb-0">
+                <thead>
                     <tr>
                         <th style="width: 5%">No</th>
                         <th class="d-none d-md-table-cell"style="width: 10%">Pembuat</th>
@@ -111,7 +112,16 @@
                                 {{ $item->title }}
                             </td>
                             <td class="d-none d-md-table-cell">
-                                {{ $item->status }}
+                                @php
+                                    $status = strtolower($item->status); // Biar fleksibel, tidak case sensitive
+                                @endphp
+
+                                @if ($status === 'tutup')
+                                    <span class="badge bg-light text-dark">Tutup</span>
+                                @else
+                                    <span class="badge bg-success text-white">{{ ucfirst($status) }}</span>
+                                @endif
+
                             </td>
                             <td class="d-none d-md-table-cell">
                                 {{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
@@ -126,7 +136,7 @@
                                 @can('manage role')
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash"></i>
-                                        
+
                                     </button>
                                     <!-- Gunakan komponen modal -->
                                     <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"

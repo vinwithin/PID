@@ -161,6 +161,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['can:assessing monev'])->group(function () {
         Route::get('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'createScore'])->name('monev.create');
         Route::post('/monitoring-evaluasi/nilai/{id}', [MonevController::class, 'store'])->name('monev.create');
+        Route::post('/monitoring-evaluasi/track', [MonevController::class, 'trackView'])->name('monev.track-view');
     });
 
     Route::middleware(['can:assign-juri monev'])->group(function () {

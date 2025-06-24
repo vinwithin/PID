@@ -1,16 +1,14 @@
 @extends('layout.app')
 @section('title', 'Pengumuman')
-@section('description', 'Kelola Pengumuman')
+@section('description', 'Kelola Konten')
 @section('content')
     <div class="w-100">
         <div class="card">
 
-            <div class="card-header">
-                <h3>Pengumuman</h3>
-            </div>
+
             <div class="card-body">
                 <!-- Step Indicator -->
-
+                <h1 class="fw-bold mb-3">Pengumuman</h1>
 
                 <form method="POST" action="{{ route('announcement.tambah') }}" enctype="multipart/form-data">
                     @csrf

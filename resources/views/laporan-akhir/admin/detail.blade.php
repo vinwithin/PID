@@ -41,7 +41,7 @@
                                              $dokumen = $data->firstWhere('document_type_id', $item->id);
                                          @endphp
                                          <tr>
-                                             <td>{{ $loop->iteration }}</td>
+                                             <td class="text-center">{{ $loop->iteration }}</td>
                                              <td>
                                                  @if ($dokumen)
                                                      @if ($item->status === 'File & Ketercapaian')
@@ -136,7 +136,7 @@
                                                          </span>
                                                      @endif
                                                  @else
-                                                     <span class="badge bg-danger">Belum Upload</span>
+                                                     <p class="text-muted">Dokumen Belum Diunggah</p>
                                                  @endif
                                              </td>
 
@@ -157,7 +157,7 @@
                                                              <button type="button" class="btn btn-outline-success"
                                                                  data-bs-toggle="modal"
                                                                  data-bs-target="#approveModal{{ $dokumen->id }}">
-                                                                 <i class="fas fa-check"></i> 
+                                                                 <i class="fas fa-check"></i>
                                                              </button>
                                                              <x-confirm-modal modal-id="approveModal{{ $dokumen->id }}"
                                                                  title="Konfirmasi Persetujuan"
@@ -169,7 +169,7 @@
                                                              <button type="button" class="btn btn-outline-success"
                                                                  data-bs-toggle="modal"
                                                                  data-bs-target="#approveModal{{ $dokumen->id }}">
-                                                                 <i class="fas fa-check"></i> 
+                                                                 <i class="fas fa-check"></i>
                                                              </button>
                                                              <x-confirm-modal modal-id="approveModal{{ $dokumen->id }}"
                                                                  title="Konfirmasi Persetujuan"
@@ -179,7 +179,7 @@
                                                              <button type="button" class="btn btn-outline-danger"
                                                                  data-bs-toggle="modal"
                                                                  data-bs-target="#rejectModal{{ $dokumen->id }}">
-                                                                <i class="fa-solid fa-xmark"></i>
+                                                                 <i class="fa-solid fa-xmark"></i>
                                                              </button>
                                                              <x-reject-with-comment modal-id="rejectModal{{ $dokumen->id }}"
                                                                  title="Laporan Akhir"
@@ -188,7 +188,6 @@
                                                          @endif
                                                      @endcan
                                                  @else
-                                                     <span class="badge bg-danger">Belum Upload</span>
                                                  @endif
 
                                              </td>
@@ -196,11 +195,11 @@
                                          </tr>
                                      @endforeach
                                      <tr>
-                                         <td>11</td>
+                                         <td class="text-center">11</td>
                                          <td>Album</td>
                                          <td class="text-center">
                                              @if ($data_album->isEmpty())
-                                                 <span class="badge bg-danger">Belum Upload</span>
+                                                 <p class="text-muted">Belum Diunggah</p>
                                              @elseif ($data_album[0]->status === 'Ditolak')
                                                  <span class="badge bg-danger" tabindex="0" role="button"
                                                      data-bs-toggle="modal"
@@ -258,18 +257,16 @@
                                          </td>
                                          <td class="text-center">
                                              @if ($data_album->isEmpty())
-                                                 <span class="badge bg-danger">Belum Upload</span>
                                              @else
                                                  <a href="/laporan-akhir/album/{{ $data_album[0]->id }}"
-                                                     class="btn btn-outline-primary"><i
-                                                         class="fa-solid fa-eye "></i></a>
+                                                     class="btn btn-outline-primary"><i class="fa-solid fa-eye "></i></a>
 
                                                  @can('approve final report')
                                                      @if ($data_album[0]->status === 'Ditolak')
                                                          <button type="button" class="btn btn-outline-success"
                                                              data-bs-toggle="modal"
                                                              data-bs-target="#approveModal{{ $data_album[0]->id }}">
-                                                             <i class="fas fa-check"></i> 
+                                                             <i class="fas fa-check"></i>
                                                          </button>
                                                          <x-confirm-modal modal-id="approveModal{{ $data_album[0]->id }}"
                                                              title="Konfirmasi Persetujuan"
@@ -281,7 +278,7 @@
                                                          <button type="button" class="btn btn-outline-success"
                                                              data-bs-toggle="modal"
                                                              data-bs-target="#approveModal{{ $data_album[0]->id }}">
-                                                             <i class="fas fa-check"></i> 
+                                                             <i class="fas fa-check"></i>
                                                          </button>
                                                          <x-confirm-modal modal-id="approveModal{{ $data_album[0]->id }}"
                                                              title="Konfirmasi Persetujuan"
@@ -291,7 +288,7 @@
                                                          <button type="button" class="btn btn-outline-danger"
                                                              data-bs-toggle="modal"
                                                              data-bs-target="#rejectModal{{ $data_album[0]->id }}">
-                                                            <i class="fa-solid fa-xmark"></i>
+                                                             <i class="fa-solid fa-xmark"></i>
                                                          </button>
                                                          <x-reject-with-comment modal-id="rejectModal{{ $data_album[0]->id }}"
                                                              title="Laporan Akhir"

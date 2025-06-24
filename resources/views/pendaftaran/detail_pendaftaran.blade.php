@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Cek Pendaftaran')
+@section('title', 'Informasi Tim')
 @section('description', 'Kelola Pendaftaran')
 
 @section('content')
@@ -147,8 +147,18 @@
             </div>
         </div>
     </div>
-@endsection
 
+
+@endsection
+@push('scripts')
+    <script>
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || window.performance.navigation.type === 2) {
+                window.location.reload();
+            }
+        });
+    </script>
+@endpush
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>

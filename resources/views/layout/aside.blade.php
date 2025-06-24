@@ -47,46 +47,54 @@
                 </li>
             @endrole
 
-            @role('admin|reviewer|dosen')
+            @hasanyrole('admin|reviewer|dosen')
                 <li
                     class="sidebar-item {{ Request::is(['pendaftaran*', 'reviewer*', 'pilih-reviewer*', 'edit-reviewer*']) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('pendaftaran') }}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Kelola
-                            Pendaftaran</span>
+                        <i class="align-middle" data-feather="user"></i>
+                        <span class="align-middle">Kelola Pendaftaran</span>
                     </a>
                 </li>
-                @if (Auth::user()->can('show logbook'))
+
+                @can('show logbook')
                     <li class="sidebar-header">Log Book</li>
-                    <li class="sidebar-item {{ Request::is(['logbook*']) ? 'active' : '' }}">
+                    <li class="sidebar-item {{ Request::is('logbook*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('logbook') }}">
                             <i class="fa-regular fa-note-sticky"></i>
                             <span class="align-middle">Daftar Log Book</span>
                         </a>
                     </li>
-                @endif
-                <li class="sidebar-header">Laporan Kemajuan</li>
-                <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
-                        <i class="fa-regular fa-file"></i> <span class="align-middle">Daftar
-                            Dokumen</span>
-                    </a>
-                </li>
-                <li class="sidebar-header">
-                    Monitoring dan Evaluasi
-                </li>
+                @endcan
+
+                @role('admin')
+                    <li class="sidebar-header">Laporan Kemajuan</li>
+                    <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
+                            <i class="fa-regular fa-file"></i>
+                            <span class="align-middle">Daftar Dokumen</span>
+                        </a>
+                    </li>
+                @endrole
+
+                <li class="sidebar-header">Monitoring dan Evaluasi</li>
                 <li class="sidebar-item {{ Request::is('monitoring-evaluasi*') ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('monev.index') }}">
-                        <i class="fa-solid fa-people-group"></i> <span class="align-middle">Daftar Kelompok</span>
+                        <i class="fa-solid fa-people-group"></i>
+                        <span class="align-middle">Daftar Kelompok</span>
                     </a>
                 </li>
 
-                <li class="sidebar-header">Laporan Akhir</li>
-                <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Daftar Dokumen</span>
-                    </a>
-                </li>
-            @endrole
+                @role('admin')
+                    <li class="sidebar-header">Laporan Akhir</li>
+                    <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
+                            <i class="align-middle" data-feather="book"></i>
+                            <span class="align-middle">Daftar Dokumen</span>
+                        </a>
+                    </li>
+                @endrole
+            @endhasanyrole
+
 
             @php
                 use App\Models\Registration;

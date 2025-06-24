@@ -89,12 +89,12 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td class="fw-bold text-start">{{ $item->registration->judul }}</td>
-                                            <td class="text-start">{{ $item->registration->nama_ketua }}</td>
+                                            <td class="text-start fw-bold">{{ $item->registration->nama_ketua }}</td>
                                             <td class="fw-bold text-start">{{ $item->registration->dospem->name }}</td>
                                             <td class="fw-bold text-start">
                                                 <a href="/logbook/detail/{{ $item->team_id }}"
-                                                    class="btn btn-outline-info">
-                                                    <i class="fa-solid fa-eye"></i></a>
+                                                    class="btn btn-outline-primary">
+                                                    <i class="fa-regular fa-circle-info"></i>
                                             </td>
                                         </tr>
                                     @empty

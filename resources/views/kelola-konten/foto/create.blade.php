@@ -6,6 +6,7 @@
         <div class="card">
 
             <div class="card-body">
+                <h1 class="fw-bold mb-3">Galeri</h1>
                 <form method="POST" action="/kelola-konten/foto/create" enctype="multipart/form-data">
                     @csrf
                     <!-- Input file yang tersembunyi secara default -->

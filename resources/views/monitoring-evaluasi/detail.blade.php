@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Nilai Proposal')
+@section('title', 'Nilai Monitoring dan Evaluasi')
 @section('description', 'Monitoring dan Evaluasi')
 
 @section('content')

@@ -207,6 +207,15 @@
 #card-panduan i {
     font-size: 1.8rem;
 }
+.overlay-panduan{
+    position:relative;
+}
+.overlay-panduan{
+    position:absolute;
+    left:0;
+    margin-top:100px;
+}
+
 .icon {
     background: linear-gradient(
         180deg,
@@ -225,6 +234,9 @@
     font-weight: 400;
     line-height: 120%;
     color: rgba(45, 45, 45, 1);
+}
+.card-template{
+    text-decoration:none;
 }
 
 @media (max-width: 768px) {

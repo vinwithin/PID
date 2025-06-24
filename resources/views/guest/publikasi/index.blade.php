@@ -90,25 +90,27 @@
         /* Search Box Styling */
         .search-container {
             display: flex;
+            justify-content: flex-end;
             align-items: center;
             gap: 10px;
-            border: 1px solid white;
-            border-radius: 20px;
+            border: 1px solid rgba(148, 148, 148, 1);
+            border-radius: 10px;
             padding: 5px 15px;
-            color: white;
-            background: transparent;
+            background-color: rgba(240, 240, 240, 1);
+
+            /* background: transparent; */
         }
 
         .search-box {
             background: transparent;
             border: none;
-            color: white;
+            color: black;
             outline: none;
-            width: 150px;
+            width: 230px;
         }
 
         .search-box::placeholder {
-            color: white;
+            color: rgba(148, 148, 148, 1);
             opacity: 0.7;
         }
 
@@ -120,7 +122,7 @@
         #card-title {
             font-size: 1rem;
             font-family: "Plus Jakarta Sans", sans-serif;
-            font-weight: 600;
+            font-weight: 500;
             line-height: 120%;
         }
 
@@ -222,21 +224,7 @@
             </div>
 
             <!-- Search Bar -->
-            <div class="search-container">
-                <form action="/daftar-publikasi" method="GET" class="">
-                    <div class="input-group">
-                        <input type="text" name="search" class="search-box" placeholder="Pencarian"
-                            value="{{ request('search') }}">
-                        <button type="submit" class="btn btn-transparent border-0 p-0">
-                            <span>🔍</span>
-                        </button>
-                        {{-- <a href="{{ route('laporan-kemajuan') }}" class="btn btn-success ms-2">Reset</a> --}}
 
-                    </div>
-                </form>
-                {{-- <input type="text" class="search-box" placeholder="Pencarian">
-                <span>🔍</span> --}}
-            </div>
 
         </div>
 
@@ -252,8 +240,24 @@
         </div>
     </nav>
 
-    <section class="container py-4" style="padding: 1.5rem 6%;">
-        <div class="card w-full p-5 shadow" id="card">
+    <section class="container py-4">
+
+        <div class="card w-full p-4 px-5 shadow" id="card">
+            <div class="d-flex justify-content-end mb-5">
+                <div class="search-container">
+                    <form action="/daftar-publikasi" method="GET" class="">
+                        <div class="input-group">
+                            <input type="text" name="search" class="search-box" placeholder="Pencarian"
+                                value="{{ request('search') }}">
+                            <button type="submit" class="btn btn-transparent border-0 p-0">
+                                <span>🔍</span>
+                            </button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 justify-content-center">
                 @foreach ($data as $item)
                     <div class="col">
@@ -277,7 +281,7 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title" id="card-title">{!! Str::title(Str::limit($item->title, 50)) !!}</h5>
+                                        <h5 class="card-title" id="card-title">{!! Str::title(Str::limit($item->title, 150)) !!}</h5>
                                     </div>
                                 </div>
 

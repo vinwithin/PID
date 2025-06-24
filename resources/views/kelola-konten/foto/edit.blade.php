@@ -6,12 +6,15 @@
         <div class="card">
 
             <div class="card-body">
-                <form method="POST" action="/kelola-konten/foto/update/{{$data->id}}" enctype="multipart/form-data">
+                <h1 class="fw-bold mb-3">Galeri</h1>
+
+                <form method="POST" action="/kelola-konten/foto/update/{{ $data->id }}" enctype="multipart/form-data">
                     @csrf
                     <!-- Input file yang tersembunyi secara default -->
                     <div class="mb-3 ">
                         <label for="nama_album" class="form-label">Nama Album</label>
-                        <input type="text" class="form-control" id="nama" name="nama_album" value="{{$data->nama}}">
+                        <input type="text" class="form-control" id="nama" name="nama_album"
+                            value="{{ $data->nama }}">
                     </div>
                     <div class="mb-3 ">
                         <label for="album_photos" class="form-label">Unggah Foto Dokumentasi Kegiatan</label>

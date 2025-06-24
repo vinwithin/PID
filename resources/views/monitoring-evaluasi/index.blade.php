@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Monitoring dan Evaluasi Kelompok')
+@section('title', 'Monitoring dan Evaluasi')
 @section('description', 'Monitoring dan Evaluasi ')
 @section('content')
     {{-- <h1 class="h3 mb-3"><strong>Admin</strong> Dashboard</h1> --}}
@@ -21,7 +21,9 @@
                                     data-bs-target="#filterSection" aria-expanded="false" aria-controls="filterSection">
                                     <i class="fas fa-filter me-2"></i>Filter
                                 </button>
-                                 <a href="/monitoring-evaluasi/export" class="btn btn-primary">Cetak Excel</a>
+                                <a href="/monitoring-evaluasi/export" class="btn btn-outline-primary fw-bold"
+                                    style="box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.25);"><i
+                                        class="fa-regular fa-file-excel me-2"></i>Cetak Excel</a>
                             </div>
                             <form action="{{ route('monev.index') }}" method="GET" class="">
                                 <div class="input-group">
@@ -118,6 +120,9 @@
 
                                             <td class="text-center">
                                                 {{-- <div class="btn-group" role="group"> --}}
+                                                <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </a>
                                                 @can('approve monev')
                                                     @if (isset($total[$item->id]) &&
                                                             count($total[$item->id]) == 2 &&
@@ -136,7 +141,7 @@
 
                                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                                             data-bs-target="#rejectModal{{ $item->id }}">
-                                                           <i class="fa-solid fa-xmark"></i>
+                                                            <i class="fa-solid fa-xmark"></i>
                                                         </button>
                                                         <!-- Gunakan komponen modal -->
                                                         <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
@@ -145,9 +150,7 @@
                                                             action-url="/monitoring-evaluasi/reject/{{ $item->id }}"
                                                             confirm-text="Iya" />
                                                     @endif
-                                                    <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info">
-                                                        <i class="fas fa-info-circle"></i>
-                                                    </a>
+
                                                     @can('assign-juri monev')
                                                         @if ($item->status_monev->where('registration_id', $item->id)->isEmpty())
                                                             <a href="{{ route('monev.reviewer', ['id' => $item->id]) }}"
@@ -276,9 +279,12 @@
                                             <td class="d-none d-md-table-cell">{{ Str::limit($item->judul, 30) }}</td>
                                             <td class="text-center">
                                                 <a href="{{ asset('storage/laporan-kemajuan/' . $item->laporan_kemajuan->file_path) }}"
-                                                    class="btn btn-sm btn-outline-info" target="_blank"><i
-                                                        class="fas fa-eye"></i></a>
+                                                    class="btn btn-sm btn-outline-info btn-track-view"
+                                                    data-pendaftaran-id="{{ $item->id }}" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
                                             </td>
+
                                             <td class="d-none d-md-table-cell">
                                                 <span
                                                     class="badge 
@@ -299,15 +305,25 @@
                                                     class="btn btn-outline-info">
                                                     <i class="fas fa-info-circle"></i>
                                                 </a>
+                                                @php
+                                                    $sudahLihat = \App\Models\ReviewAccessMonev::where(
+                                                        'reviewer_id',
+                                                        auth()->user()->id,
+                                                    )
+                                                        ->where('pendaftaran_id', $item->id)
+                                                        ->exists();
+                                                @endphp
                                                 @if ($item->score_monev->where('user_id', auth()->user()->id)->isEmpty())
                                                     <a href="/monitoring-evaluasi/nilai/{{ $item->id }}"
-                                                        class="btn btn-outline-warning">
+                                                        class="btn btn-outline-warning" {{ $sudahLihat ? '' : 'disabled' }}
+                                                        style="{{ $sudahLihat ? '' : 'pointer-events: none; opacity: 0.5;' }}"
+                                                        aria-disabled="{{ $sudahLihat ? 'false' : 'true' }}">
                                                         <i class="fas fa-star"></i>
                                                     </a>
                                                 @endif
 
 
-                                                @if (isset($total[$item->id]) && is_array($total[$item->id]))
+                                                @if (isset($total[$item->id][auth()->user()->name]))
                                                     <a href="/monitoring-evaluasi/detail/{{ $item->id }}"
                                                         class="btn btn-outline-primary">
                                                         <i class="fas fa-eye"></i>
@@ -342,4 +358,37 @@
             {{-- </div> --}}
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const viewButtons = document.querySelectorAll('.btn-track-view');
+
+            viewButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const pendaftaranId = this.dataset.pendaftaranId;
+
+                    fetch("{{ route('monev.track-view') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify({
+                                pendaftaran_id: pendaftaranId
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+        });
+    </script>
+
 @endsection

@@ -88,8 +88,9 @@
         <div class="card flex-fill">
 
             <div class="card-header d-flex justify-content-between align-items-center">
-               
-                <a class="btn btn-success" href="/kelola-konten/video/create"><i class="fa-solid fa-plus me-2"></i>Tambah Video</a>
+
+                <a class="btn btn-success" href="/kelola-konten/video/create"><i class="fa-solid fa-plus me-2"></i>Tambah
+                    Video</a>
 
             </div>
             <table class="table table-hover my-0 table-custom">
@@ -139,13 +140,12 @@
                             </td>
                             @role('admin')
                                 <td class="text-center">
-                                    <a href="/kelola-konten/video/edit/{{ $item->id }}"
-                                        class="btn btn-outline-warning">
-                                        <i class="fa-solid fa-pen"></i>
+                                    <a href="/kelola-konten/video/edit/{{ $item->id }}" class="btn btn-outline-warning">
+                                        <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">
-                                        <i class="fa-solid fa-trash"></i> 
+                                        <i class="fa-solid fa-trash"></i>
                                     </button>
                                     <x-confirm-modal modal-id="deleteModal{{ $item->id }}" title="Konfirmasi Persetujuan"
                                         message="Apakah Anda yakin ingin menghapus album ini?"

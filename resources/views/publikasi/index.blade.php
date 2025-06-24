@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('title', 'Publikasi Kegiatan')
-@section('description', 'Publikasi Kegiatan')
+@section('description', 'Kelola Konten')
 
 @section('content')
     <div class="w-100">
@@ -61,10 +61,10 @@
                 <thead>
                     <tr>
                         <th style="width: 5%">No</th>
-                        <th class="d-none d-xl-table-cell" style="width: 15%">Pembuat</th>
-                        <th class="d-none d-xl-table-cell" style="width: 40%">Judul</th>
+                        <th class="d-none d-xl-table-cell" style="width: 10%">Pembuat</th>
+                        <th class="d-none d-xl-table-cell" style="width: 35%">Judul</th>
                         <th class="d-none d-xl-table-cell" style="width: 15%">Thumbnail</th>
-                        <th class="d-none d-xl-table-cell" style="width: 8%">Status</th>
+                        <th class="d-none d-xl-table-cell" style="width: 13%">Status</th>
                         <th style="width: 18%">Aksi</th>
 
                     </tr>
@@ -95,7 +95,8 @@
                                 </td>
                                 <td>
 
-
+                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-outline-primary"><i
+                                            class="fa-solid fa-eye"></i></a>
                                     @can('agree publication')
                                         @if ($item->status === 'Belum valid')
                                             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
@@ -124,9 +125,8 @@
 
 
                                     <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-outline-warning"><i
-                                            class="fa-solid fa-pen"></i></a>
-                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-outline-primary"><i
-                                            class="fa-solid fa-eye"></i></a>
+                                            class="fa-solid fa-pen-to-square"></i></a>
+
                                     @can('delete publication')
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                             data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash"></i>

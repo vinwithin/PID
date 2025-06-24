@@ -31,13 +31,14 @@
 
                                         @csrf
                                         <div class="modal-header">
-                                            <h5 class="modal-title fw-bold" id="tambahOrmawaLabel"><i class="fa-regular fa-circle-info me-2"></i>Tambah Ormawa</h5>
+                                            <h5 class="modal-title fw-bold" id="tambahOrmawaLabel"><i
+                                                    class="fa-regular fa-circle-info me-2"></i>Tambah Ormawa</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Tutup"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <label for="nama" class="form-label text-dark">Nama Ormawa</label>
+                                                <label for="nama" class="form-label fw-bold text-dark">Nama Ormawa</label>
                                                 <input type="text" class="form-control" id="nama" name="nama"
                                                     required>
                                             </div>
@@ -55,10 +56,13 @@
 
 
                         <div class="mb-3">
-                            <form action="{{ route('kelola-ormawa.index') }}" method="GET" class="d-flex">
-                                <input type="text" name="search" class="form-control me-2" placeholder="Cari ormawa..."
-                                    value="{{ request('search') }}">
-                                <button type="submit" class="btn btn-primary">Cari</button>
+                            <form action="{{ route('kelola-ormawa.index') }}" method="GET">
+                                <div class="input-group">
+                                    <input type="text" name="search" class="form-control me-2"
+                                        placeholder="Cari ormawa..." value="{{ request('search') }}">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                    <a href="/kelola-ormawa" class="btn btn-primary ms-2">Atur Ulang</a>
+                                </div>
 
                             </form>
                         </div>
@@ -87,7 +91,7 @@
                                             <!-- Tombol untuk membuka modal -->
                                             <a href="#" class="btn btn-outline-warning" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $item->id }}">
-                                                <i class="fa-solid fa-pen"></i>
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                             <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
                                                 aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
@@ -100,13 +104,15 @@
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title fw-bold"
                                                                     id="editModalLabel{{ $item->id }}">
-                                                                    <i class="fa-regular fa-circle-info me-2"></i>Edit Ormawa</h5>
+                                                                    <i class="fa-regular fa-circle-info me-2"></i>Edit
+                                                                    Ormawa
+                                                                </h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Tutup"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <label for="nama" class="form-label text-dark">Nama
+                                                                <div class="mb-3 text-start">
+                                                                    <label for="nama" class="form-label fw-bold text-dark text-start">Nama
                                                                         Ormawa</label>
                                                                     <input type="text" class="form-control"
                                                                         id="nama" name="nama"

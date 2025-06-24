@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KriteriaMonev;
 use App\Models\Registrasi_validation;
 use App\Models\Registration;
+use App\Models\ReviewAccessMonev;
 use App\Models\ScoreMonev;
 use App\Models\StatusMonev;
 use App\Models\User;
@@ -73,7 +74,7 @@ class MonevController extends Controller
         }
 
         $dataNilai = $dataNilai->latest()->paginate(10);
-
+        // dd($total);
 
         return view('monitoring-evaluasi.index', [
             'data' => $data,
@@ -83,6 +84,27 @@ class MonevController extends Controller
 
         ]);
     }
+    public function trackView(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->hasRole(['reviewer', 'dosen'])) {
+            $sudahPernahLihat = ReviewAccessMonev::where('reviewer_id', $user->id)
+                ->where('pendaftaran_id', $request->pendaftaran_id)
+                ->exists();
+
+            if (!$sudahPernahLihat) {
+                ReviewAccessMonev::create([
+                    'reviewer_id' => $user->id,
+                    'pendaftaran_id' => $request->pendaftaran_id,
+                ]);
+            }
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+
+
 
     public function createScore($id)
     {

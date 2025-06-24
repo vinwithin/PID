@@ -141,9 +141,10 @@
                     </div>
                     <div class="container-button">
                         <div class="circle"></div>
-                        <a href="/daftar-publikasi" class="fw-semibold" >
+                        <a href="/daftar-publikasi" class="fw-semibold me-2" >
                             Selengkapnya <i class="fa-solid fa-arrow-right me-2"></i>
                         </a>
+                        
                     </div>
                 </div>
 
@@ -175,6 +176,7 @@
 
         </main>
     </section>
+    <div class="gelombang-bawah"></div>
     <section class="galeri" id="galeri">
 
         <div class="container-fluid">

@@ -36,8 +36,9 @@
         <div class="container-fluid">
             <h1 class="text-center mb-4 " id="misi-tujuan">Misi dan Tujuan</h1>
 
-            <div class="d-flex flex-row justify-content-between align-items-center" id="hero-misi-tujuan" style="gap: 80px;">
-                <img src="/assets/hero-misi-tujuan.svg" alt="Hero Misi dan Tujuan" style="max-width: 330px; height: auto;" >
+            <div class="d-flex flex-row justify-content-between align-items-center" id="hero-misi-tujuan"
+                style="gap: 80px;">
+                <img src="/assets/hero-misi-tujuan.svg" alt="Hero Misi dan Tujuan" style="max-width: 330px; height: auto;">
 
                 <div class="d-flex flex-column" style="gap: 20px;">
                     <div class="card px-4 py-2" style="box-shadow: 10px 40px 50px 0px #038C341A;">
@@ -77,7 +78,11 @@
     </section>
     <section id="panduan-section">
         <div class="container-fluid">
+            <div class="overlay-panduan">
+                <img src="/assets/circle-about.png" alt="">
+            </div>
             <div class="row align-items-center justify-content-center">
+
                 <!-- KIRI: Cards -->
                 <div class="col-md-6">
                     <h1 class="text-panduan">Panduan dan Template Laporan</h1>
@@ -89,7 +94,7 @@
                                         <i class="fa-regular fa-file-lines"></i>
                                     </div>
 
-                                    <h5 class="card-template">Panduan Pro-IDe</h5>
+                                    <a href="/panduan/panduan.pdf" class="card-template">Panduan Pro-IDe</a>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +104,7 @@
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <i class="fa-regular fa-file-lines"></i>
                                     </div>
-                                    <h5 class="card-template">Template Laporan Kemajuan</h5>
+                                    <a class="card-template">Template Laporan Kemajuan</a>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +114,7 @@
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <i class="fa-regular fa-file-lines"></i>
                                     </div>
-                                    <h5 class="card-template">Template Laporan Kegiatan</h5>
+                                    <a class="card-template">Template Laporan Kegiatan</a>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +124,7 @@
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <i class="fa-regular fa-file-lines"></i>
                                     </div>
-                                    <h5 class="card-template">Template Laporan Keuangan</h5>
+                                    <a class="card-template">Template Laporan Keuangan</a>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +132,7 @@
                 </div>
 
                 <!-- KANAN: Handphone -->
-                <div class="col-md-6 d-flex justify-content-end position-relative" >
+                <div class="col-md-6 d-flex justify-content-end position-relative">
                     <img src="/assets/element-2.svg" alt="" class="element-panduan">
                     <div class="handphone-container">
                         <img src="/assets/handphone.png" alt="Handphone" class="handphone">

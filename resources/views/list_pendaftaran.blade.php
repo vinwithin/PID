@@ -19,7 +19,9 @@
                                 aria-expanded="false" aria-controls="filterSection">
                                 <i class="fas fa-filter me-2"></i>Filter
                             </button>
-                            <a href="/pendaftaran/export" class="btn btn-primary">Cetak Excel</a>
+                            <a href="/pendaftaran/export" class="btn btn-outline-primary fw-bold"
+                                style="box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.25);"><i
+                                    class="fa-regular fa-file-excel me-2"></i>Cetak Excel</a>
                         </div>
                         <form action="{{ route('pendaftaran.search') }}" method="GET" class="">
                             <div class="input-group">
@@ -98,8 +100,8 @@
                                                 class="badge 
                                             @switch($item->registration_validation->status)
                                                 @case('Belum valid') bg-warning @break
-                                                @case('valid') bg-primary @break
-                                                @case('lolos') bg-success @break
+                                                @case('valid') bg-success @break
+                                                @case('lolos') bg-primary @break
                                                 @default bg-secondary
                                             @endswitch
                                         ">
@@ -108,7 +110,7 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($item->total_proposal_scores->isNotEmpty())
-                                                <span class="badge bg-info">
+                                                <span class="badge bg-primary">
                                                     {{ $item->total_proposal_scores->sum('total') }}
                                                 </span>
                                             @else
@@ -329,22 +331,32 @@
                                                 <span class="badge bg-light text-dark">Belum Dinilai</span>
                                             @endif
                                         </td>
+                                        @php
+                                            $sudahLihat = \App\Models\ReviewAccessProposal::where(
+                                                'reviewer_id',
+                                                auth()->id(),
+                                            )
+                                                ->where('pendaftaran_id', $item->id)
+                                                ->exists();
+                                        @endphp
                                         <td class="text-center">
                                             @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
                                                 <a href="/reviewer/nilai/{{ $item->id }}"
-                                                    class="btn btn-outline-primary">
+                                                    class="btn btn-outline-primary {{ $sudahLihat ? '' : 'disabled' }}"
+                                                    style="{{ $sudahLihat ? '' : 'pointer-events: none; opacity: 0.5;' }}"
+                                                    aria-disabled="{{ $sudahLihat ? 'false' : 'true' }}">
                                                     <i class="fas fa-star"></i>
                                                 </a>
                                             @endif
 
-                                            @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
+                                            @if (isset($totalId[$item->id][auth()->user()->name]))
                                                 <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
                                                     class="btn btn-outline-primary">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             @endif
 
-                                            <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info">
+                                            <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info ">
                                                 <i class="fas fa-info-circle"></i>
                                             </a>
 

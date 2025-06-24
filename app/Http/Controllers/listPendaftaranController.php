@@ -7,6 +7,7 @@ use App\Models\Kriteria_penilaian;
 use App\Models\Proposal_score;
 use App\Models\Registrasi_validation;
 use App\Models\Registration;
+use App\Models\ReviewAccessProposal;
 use App\Models\ReviewAssignment;
 use App\Models\Sub_kriteria_penilaian;
 use App\Models\User;
@@ -117,6 +118,19 @@ class listPendaftaranController extends Controller
     public function show($id)
     {
         $data = Registration::with(['bidang', 'fakultas', 'program_studi', 'teamMembers', 'reviewAssignments'])->find($id);
+        $user = Auth::user();
+        if ($user->hasRole(['reviewer', 'dosen'])) {
+            $sudahPernahLihat = ReviewAccessProposal::where('reviewer_id', $user->id)
+                ->where('pendaftaran_id', $id)
+                ->exists();
+
+            if (!$sudahPernahLihat) {
+                ReviewAccessProposal::create([
+                    'reviewer_id' => $user->id,
+                    'pendaftaran_id' => $id,
+                ]);
+            }
+        }
         return view('pendaftaran.detail_pendaftaran', [
             "data" => $data
         ]);

@@ -88,23 +88,22 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid white;
-            border-radius: 20px;
+            border: 1px solid rgba(148, 148, 148, 1);
+            border-radius: 10px;
             padding: 5px 15px;
-            color: white;
-            background: transparent;
+            background-color: rgba(240, 240, 240, 1);
         }
 
         .search-box {
             background: transparent;
             border: none;
-            color: white;
+            color: black;
             outline: none;
-            width: 150px;
+            width: 230px;
         }
 
         .search-box::placeholder {
-            color: white;
+            color: rgba(148, 148, 148, 1);
             opacity: 0.7;
         }
 
@@ -119,8 +118,19 @@
             font-weight: 600;
             line-height: 120%;
         }
-        .album-card iframe{
-            border-radius:10px;
+
+        .album-card {
+            border-radius: 10px;
+
+            box-shadow: 0px 0px 3.75px 0px rgba(0, 0, 0, 0.07);
+
+            box-shadow: 0px 3.75px 5.63px -0.94px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .album-card iframe {
+            border-radius: 10px;
+
         }
 
         /* Responsive Design */
@@ -219,10 +229,7 @@
             </div>
 
             <!-- Search Bar -->
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="Pencarian">
-                <span>🔍</span>
-            </div>
+
 
         </div>
 
@@ -237,23 +244,48 @@
             </div>
         </div>
     </nav>
-    <section class="container vh-100  py-4" style="padding: 1.5rem 6%;">
+    <section class="container vh-100  py-4">
 
-        <div class="card w-full p-4 shadow" id="card">
-            {{-- <div class="container"> --}}
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
-                    @foreach ($data as $item)
-                        <div class="col">
-                            <div class="album-card">
-                                <iframe width="238px" height="147px" src="{{ $item->link_youtube }}" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
-                                    onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';">
-                                </iframe>
+        <div class="card w-full p-4 px-4 shadow" id="card">
+            <div class="d-flex justify-content-end mb-5">
+                <div class="search-container">
+                    <form action="/daftar-publikasi" method="GET" class="">
+                        <div class="input-group">
+                            <input type="text" name="search" class="search-box" placeholder="Pencarian"
+                                value="{{ request('search') }}">
+                            <button type="submit" class="btn btn-transparent border-0 p-0">
+                                <span>🔍</span>
+                            </button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 justify-content-center">
+                @foreach ($data as $item)
+                    <div class="col">
+                        <div class="album-card">
+                            <iframe width="398px" height="237px" src="{{ $item->link_youtube }}" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen title="Embedded YouTube Video" class="youtube-embed"
+                                onerror="this.onerror=null;this.src='//www.youtube.com/embed/invalidVideoId';this.outerHTML='<div class=\'text-danger\'>Video tidak tersedia</div>';">
+                            </iframe>
+                            <div class="card-body d-flex align-items-center gap-2 py-2">
+                                <!-- Avatar -->
+                                <img src="{{ asset('/img/avatars/avatar.jpg') }}" alt="Avatar" class="rounded-circle"
+                                    style="width: 2rem; height: 2rem; object-fit: cover;">
+
+                                <!-- Teks -->
+                                <div class="text-start video-description">
+                                    <h6 class="mb-0">Pro-IDe</h6>
+
+                                </div>
                             </div>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
+            </div>
             {{-- </div> --}}
 
             <div class="d-flex justify-content-center mt-4">

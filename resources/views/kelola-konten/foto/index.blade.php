@@ -183,7 +183,7 @@
                                 <td class="text-center">
                                     <a href="/kelola-konten/foto/edit/{{ $item->id }}"
                                         class="btn btn-outline-warning">
-                                        <i class="fa-solid fa-pen"></i>
+                                       <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">

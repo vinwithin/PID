@@ -97,12 +97,12 @@
                 <p class="text-muted">Hasil pencarian untuk: <strong>{{ request('search') }}</strong></p>
             @endif
 
-            <table class="table table-striped table-hover mb-0">
-                <thead class="table-light">
+            <table class="table table-hover mb-0">
+                <thead class="">
                     <tr>
                         <th style="width: 5%">No</th>
-                        <th class="d-none d-md-table-cell"style="width: 25%">Pembuat</th>
-                        <th class="d-none d-md-table-cell" style="width: 35%">Judul</th>
+                        <th class="d-none d-md-table-cell"style="width: 20%">Pembuat</th>
+                        <th class="d-none d-md-table-cell" style="width: 40%">Judul</th>
                        
                         <th class="d-none d-md-table-cell" style="width: 20%">Thumbnails</th>
                         <th class="d-none d-md-table-cell" style="width: 20%">Aksi</th>
