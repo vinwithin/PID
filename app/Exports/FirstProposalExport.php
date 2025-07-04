@@ -9,12 +9,11 @@ class FirstProposalExport implements FromView
 {
     protected $data;
     protected $title;
-    protected $rubrik;
+    
 
-    public function __construct($data, $rubrik, $title)
+    public function __construct($data, $title)
     {
         $this->data = $data;
-        $this->rubrik = $rubrik;
         $this->title = $title;
     }
 

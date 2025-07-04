@@ -30,42 +30,54 @@ class LaporanKemajuanController extends Controller
     public function index(Request $request)
     {
         $team_id = $this->teamIdService->getRegistrationId();
-        $year = $request->filled('tahun')
-            ? $request->tahun
-            : Carbon::now()->year;
+        $year = $request->filled('tahun') ? $request->tahun : Carbon::now()->year;
+        $search = $request->input('search');
 
-        $dataAll = Registration::select('id', 'judul')->with(['laporan_kemajuan', 'registration_validation'])
+        // Query untuk data Admin / Reviewer / Dosen
+        $dataAllQuery = Registration::select('id', 'judul')
+            ->with(['laporan_kemajuan', 'registration_validation'])
             ->whereYear('created_at', $year)
             ->whereHas('registration_validation', function ($query) {
-                $query->whereIn('status', ['lolos', 'lanjutkan program']);
+                $query->whereIn('status', ['lolos', 'Lanjutkan Program']);
             });
 
-        // Tambahkan pencarian jika ada parameter 'search'
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $dataAll->where('judul', 'like', "%$search%");
+        // Tambahkan filter pencarian jika ada
+        if ($search) {
+            $dataAllQuery->where('judul', 'like', "%$search%");
         }
 
-        // Cek jika user adalah reviewer, tambahkan filter status valid
-        if (Auth::user()->hasRole(['reviewer', 'dosen'])) {
-            $dataAll->whereHas('laporan_kemajuan', function ($query) {
+        // Filter tambahan berdasarkan role user
+        if (Auth::user()->hasRole('reviewer')) {
+            $dataAllQuery->whereHas('laporan_kemajuan', function ($query) {
                 $query->where('status', 'Valid');
             });
+        } elseif (Auth::user()->hasRole('dosen')) {
+            $dataAllQuery->where('nama_dosen_pembimbing', Auth::user()->id);
         }
-        $dataAll = $dataAll->latest()->paginate(10);
+
+        // Paginate hasil query Admin/Reviewer/Dosen
+        $dataAll = $dataAllQuery->latest()->paginate(10);
+
+        // Data Mahasiswa: Laporan Kemajuan milik tim-nya sendiri
+        $currentYear = Carbon::now()->year;
+        $userData = LaporanKemajuan::where('team_id', $team_id)
+            ->whereYear('created_at', $currentYear)
+            ->get();
 
         return view('laporan-kemajuan.index', [
-            'data'  => LaporanKemajuan::where('team_id', $team_id)->get(),
+            'data' => $userData,
             'dataAdmin' => $dataAll,
         ]);
     }
 
 
+
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'file' => 'required|mimes:pdf,doc,docx|max:5048',
+        $request->validate([
+            'file' => 'required|file|mimes:pdf,doc,docx|max:5048',
         ]);
+
 
         $team_id = $this->teamIdService->getRegistrationId();
         // Ambil user yang sedang login

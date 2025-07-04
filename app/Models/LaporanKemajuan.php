@@ -18,4 +18,8 @@ class LaporanKemajuan extends Model
     {
         return $this->belongsTo(TeamMember::class, 'team_id');
     }
+     public function registration()
+    {
+        return $this->belongsTo(Registration::class, 'team_id');
+    }
 }

@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale('id');
         Paginator::useBootstrapFive();
-        Paginator::useBootstrapFour();
+        // Paginator::useBootstrapFour();
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super Admin') ? true : null;
         });

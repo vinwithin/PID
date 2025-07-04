@@ -1,6 +1,6 @@
  @extends('layout.app')
- @section('title', 'Laporan Akhir')
- @section('description', 'Dokumen Laporan Akhir')
+ @section('title', 'Dokumen Laporan Akhir')
+ @section('description', 'Laporan Akhir')
 
  @section('content')
      <div class="w-full container-fluid">
@@ -10,6 +10,16 @@
          @if (session('error'))
              <x-error-modal :message="session('error')" />
          @endif
+         @if ($errors->any())
+             <div class="alert alert-danger">
+                 <ul class="mb-0">
+                     @foreach ($errors->all() as $error)
+                         <li>{{ $error }}</li>
+                     @endforeach
+                 </ul>
+             </div>
+         @endif
+
          <div class="row">
              <div class="col-12">
                  <div class="card shadow-sm border-0">
@@ -139,7 +149,7 @@
                                                              </span>
                                                          @endif
                                                      @else
-                                                        Dokumen Belum Diunggah
+                                                         Dokumen Belum Diunggah
                                                      @endif
 
                                                      {{-- {{ $dokumen->status ?? 'Dokumen Belum Diunggah' }} --}}
@@ -159,11 +169,11 @@
                                                          @endif
                                                      @endif
                                                      @if ($item->status === 'File & Ketercapaian')
-                                                     {{-- {{dd($dataRegist)}} --}}
+                                                         {{-- {{dd($dataRegist)}} --}}
 
                                                          @if (isDeadlineActive('Laporan Akhir') && $dataRegist[0]->nim_ketua === auth()->user()->identifier)
                                                              <!-- Tombol dan modal jika status_publish == 'yes' -->
-                                                        
+
                                                              @if ($dokumen)
                                                                  @if ($dokumen->status !== 'Valid')
                                                                      <button type="button" class="btn btn-outline-warning"

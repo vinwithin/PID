@@ -72,7 +72,7 @@
                                             <td class="fw-bold text-start">
 
                                                 @if ($item->status === 'Valid')
-                                                    Tidak ada aksi
+                                                   
                                                 @elseif($item->status === 'Ditolak')
                                                     <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"
@@ -168,7 +168,7 @@
                                                 @endphp
 
                                                 @if ($status === 'Valid')
-                                                    Tidak Ada Aksi
+                                                   
                                                 @elseif ($status === 'Ditolak')
                                                     <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"

@@ -12,7 +12,7 @@
         @endif
         <div class="card flex-fill">
             @role('mahasiswa')
-                <div class="card-header d-flex justify-content-end align-items-end">
+                <div class="card-header d-flex justify-content-start align-items-end">
                     <a class="btn btn-success" href="{{ route('publikasi.tambah') }}"><i class="fa-solid fa-plus me-2"></i>Tambah
                         Publikasi</a>
                 </div>
@@ -171,9 +171,9 @@
 
 
                                     {{-- @endif --}}
-                                    <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-warning"><i
-                                            class="fa-solid fa-pen"></i></a>
-                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-primary"><i
+                                    <a href="/publikasi/edit/{{ $item->id }}" class="btn btn-outline-warning"><i
+                                            class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="/publikasi/{{ $item->id }}" class="btn btn-outline-primary"><i
                                             class="fa-solid fa-eye"></i></a>
                                     @can('delete publication')
                                         <a href="/publikasi/delete/{{ $item->id }}" class="btn btn-danger"><i
@@ -187,9 +187,15 @@
 
                 </tbody>
             </table>
-            <div class="d-flex justify-content-center mt-4">
-                {{ $data->links() }}
-            </div>
+            @role('mahasiswa')
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $data->links() }}
+                </div>
+                @elserole('admin')
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $dataAll->links() }}
+                </div>
+            @endrole
         </div>
     </div>
 @endsection

@@ -95,7 +95,7 @@
                                                     text-start">
                                                 @if (!empty($item->logbook_validations->status))
                                                     @if ($item->logbook_validations->status === 'Valid')
-                                                        Tidak Ada Aksi
+                                                       
                                                     @else
                                                         <a href="/logbook/edit/{{ $item->id }}"
                                                             class="btn btn-outline-warning"><i class="fa-solid fa-pen "></i></a>

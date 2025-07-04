@@ -303,7 +303,7 @@
                                     </div>
 
                                 </div>
-                                <p class="text-muted">Minimal 3 Anggota Tim dan Maksimal 13 Anggota Tim</p>
+                                <p class="text-muted">Minimal 10 Anggota Tim dan Maksimal 15 Anggota Tim</p>
                                 <button type="button" class="btn btn-sm btn-success rounded mb-2"
                                     onclick="addTeamMember()"><i class="fa-solid fa-plus me-2"></i>Tambah
                                     Anggota</button><br>
@@ -521,7 +521,7 @@
                                                     class="badge {{ in_array($item->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']) &&
                                                     $item->status_supervisor === 'approved'
                                                         ? 'bg-success'
-                                                        : 'bg-warning' }}">
+                                                        : 'bg-danger' }}">
                                                     @if (
                                                         $item->status_supervisor === 'approved' &&
                                                             in_array($item->registration_validation->status, ['lolos', 'Lanjutkan Program', 'valid']))

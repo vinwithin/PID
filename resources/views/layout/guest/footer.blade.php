@@ -37,6 +37,7 @@
                     <a href="https://library.unja.ac.id" class="text-dark py-1 fs-6 text-decoration-none">PERPUSTAKAAN</a>
                     <a href="#" class="text-dark py-1 fs-6 text-decoration-none">LABORATORIUM</a>
                     <a href="https://repository.unja.ac.id" class="text-dark py-1 fs-6 text-decoration-none">REPOSITORY</a>
+                    <a href="https://simawa.unja.ac.id/" class="text-dark py-1 fs-6 text-decoration-none">SIMAWA</a>
                 </div>
             </div>
             <div class="col text-center text-md-start">

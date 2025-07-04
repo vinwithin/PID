@@ -1,6 +1,6 @@
 @extends('layout.app')
-@section('title', 'Laporan Akhir')
-@section('description', 'Dokumen Laporan Akhir')
+@section('title', 'Dokumen Laporan Akhir')
+@section('description', 'Laporan Akhir')
 @section('content')
     <div class="w-100">
         @if (session('success'))

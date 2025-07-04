@@ -1,11 +1,16 @@
 {{-- resources/views/registration/create.blade.php --}}
 @extends('layout.app')
 @role('admin|reviewer|dosen|super admin')
-    @section('title', 'Daftar Dokumen')
-    @elserole('mahasiswa')
-@section('title', 'Unggah Dokumen')
-@endrole
+    @section('title', 'Dokumen Laporan Kemajuan')
 @section('description', 'Laporan Kemajuan')
+@elserole('mahasiswa')
+@section('title', 'Dokumen Laporan Kemajuan')
+@section('description', 'Laporan Kemajuan')
+@endrole
+@section('title', 'Dokumen Laporan Kemajuan')
+@section('description', 'Laporan Kemajuan')
+
+
 @section('content')
 <style>
     .modal {
@@ -53,6 +58,15 @@
             @include('laporan-kemajuan.admin.index')
 
             @elserole('mahasiswa')
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <!-- Modal Success -->
             <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -172,9 +186,9 @@
                                                     @elseif($data[0]->status === 'Valid')
                                                         <i class="fa-solid fa-circle-check me-1"></i>{{ $data[0]->status }}
                                                     @else
-                                                        {{$data[0]->status}}
+                                                        {{ $data[0]->status }}
                                                     @endif
-                                                   
+
                                                 </span>
                                             @endif
                                         @else
@@ -184,11 +198,10 @@
                                     </td>
 
                                     <td class="text-center fw-bold">
-                                        @if (isDeadlineActive('Laporan Kemajuan') && $data[0]->nim_ketua === Auth()->user()->identifier)
-
-
-                                            @if (count($data) > 0)
-                                                
+                                        {{-- {{dd($data)}} --}}
+                                        @if (isDeadlineActive('Laporan Kemajuan'))
+                                            @if (count($data) > 0 && $data[0]->registration->nim_ketua === auth()->user()->identifier)
+                                                {{-- Hanya ketua tim yang dapat melakukan aksi --}}
                                                 @if ($data[0]->status !== 'Valid')
                                                     <form id="uploadForm" enctype="multipart/form-data">
                                                         @csrf
@@ -196,39 +209,39 @@
                                                             accept=".pdf,.doc,.docx">
                                                         @if (empty($data) || !isset($data[0]->file_path))
                                                             <button type="button" id="uploadButton"
-                                                                class="btn btn-outline-primary"><i
-                                                                    class="fa-solid fa-upload"></i></button>
+                                                                class="btn btn-outline-primary">
+                                                                <i class="fa-solid fa-upload"></i>
+                                                            </button>
                                                         @else
                                                             <button type="button" id="uploadButton"
-                                                                class="btn btn-outline-warning"><i
-                                                                    class="fa-solid fa-pen-to-square"></i></button>
+                                                                class="btn btn-outline-warning">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </button>
                                                         @endif
-
                                                     </form>
                                                 @else
+                                                    {{-- Status sudah Valid, tidak ada aksi --}}
                                                     Tidak ada aksi
                                                 @endif
-                                            @else
+                                            @elseif (count($data) == 0)
+                                                {{-- Belum ada data tim, izinkan user untuk upload (asumsi sebagai ketua) --}}
                                                 <form id="uploadForm" enctype="multipart/form-data">
                                                     @csrf
                                                     <input type="file" id="fileInput" name="file" class="d-none"
                                                         accept=".pdf,.doc,.docx">
-                                                    @if (empty($data) || !isset($data[0]->file_path))
-                                                        <button type="button" id="uploadButton"
-                                                            class="btn btn-outline-primary"><i
-                                                                class="fa-solid fa-upload"></i></button>
-                                                    @else
-                                                        <button type="button" id="uploadButton"
-                                                            class="btn btn-outline-warning"><i
-                                                                class="fa-solid fa-pen-to-square"></i></button>
-                                                    @endif
-
-
+                                                    <button type="button" id="uploadButton"
+                                                        class="btn btn-outline-primary">
+                                                        <i class="fa-solid fa-upload"></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                {{-- Bukan ketua tim --}}
+                                                Tidak ada aksi
                                             @endif
                                         @else
+                                            {{-- Deadline tidak aktif --}}
                                             Tidak ada aksi
                                         @endif
-
                                     </td>
 
                                 </tr>

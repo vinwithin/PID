@@ -45,7 +45,11 @@ class laporanAkhirController extends Controller
                     ->from('document_final_reports')
                     ->groupBy('team_id');
             });
-
+        if (Auth::user()->hasRole('dosen')) {
+            $dataQuery->whereHas('registration', function ($query) {
+                $query->where('nama_dosen_pembimbing', Auth::user()->id);
+            });
+        }
         if ($search) {
             $dataQuery->where(function ($query) use ($search) {
                 $query->whereHas('registration', function ($q) use ($search) {
@@ -56,6 +60,7 @@ class laporanAkhirController extends Controller
                 $query->where('nama_dosen_pembimbing', 'like', "%{$search}%");
             });
         }
+
 
         $data = $dataQuery->latest()->paginate(10);
 

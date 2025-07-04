@@ -154,11 +154,11 @@
 
                             <!-- Email Input -->
                             <div class="form-group mb-3">
-                                <label for="email" class="form-label">Nama Pengguna atau Email</label>
+                                <label for="identifier" class="form-label">Nama Pengguna</label>
                                 <div class="input-group">
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        id="email" name="email" value="{{ old('email') }}"
-                                        placeholder="Masukkan Nama Pengguna atau Email" required>
+                                    <input type="text" class="form-control @error('identifier') is-invalid @enderror"
+                                        id="identifier" name="identifier" value="{{ old('identifier') }}"
+                                        placeholder="Masukkan Nama Pengguna" required>
                                     <span class="input-group-text">
                                         <i class="fa-solid fa-user"></i>
                                     </span>

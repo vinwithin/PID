@@ -123,19 +123,22 @@
                                                 @if ($item->registration_validation->status === 'valid')
                                                     @if ($item->reviewAssignments->where('registration_id', $item->id)->isEmpty())
                                                         <a href="{{ route('pilih-reviewer', ['id' => $item->id]) }}"
-                                                            class="btn btn-outline-success">
+                                                            class="btn btn-outline-success" data-bs-toggle="tooltip"
+                                                            title="Pilih Penilai">
                                                             <i class="fa-solid fa-user-plus"></i>
                                                         </a>
                                                     @elseif(!isset($totalId[$item->id]))
                                                         <a href="/edit-reviewer/{{ $item->id }}"
-                                                            class="btn btn-outline-success">
+                                                            class="btn btn-outline-success" data-bs-toggle="tooltip"
+                                                            title="Pilih Penilai">
                                                             <i class="fa-solid fa-user-plus"></i>
                                                         </a>
                                                     @endif
                                                 @elseif ($item->registration_validation->status === 'Belum valid')
                                                     <!-- Tombol untuk membuka modal -->
                                                     <button type="button" class="btn  btn-outline-success" data-bs-toggle="modal"
-                                                        data-bs-target="#approveModal{{ $item->id }}">
+                                                        data-bs-target="#approveModal{{ $item->id }}" data-bs-toggle="tooltip"
+                                                        title="Validasi">
                                                         <i class="fa-solid fa-circle-check"></i>
                                                     </button>
 
@@ -147,7 +150,8 @@
                                                         confirm-text="Ya, Setujui" />
 
                                                     <button type="button" class="btn  btn-outline-warning" data-bs-toggle="modal"
-                                                        data-bs-target="#rejectModal{{ $item->id }}">
+                                                        data-bs-target="#rejectModal{{ $item->id }}" data-bs-toggle="tooltip"
+                                                        title="Tolak">
                                                         <i class="fa-solid fa-circle-xmark"></i>
                                                     </button>
 
@@ -159,7 +163,8 @@
                                                         confirm-text="Ya, Setujui" />
                                                 @elseif($item->registration_validation->status === 'Tidak Lolos')
                                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                                        data-bs-target="#approveModal{{ $item->id }}">
+                                                        data-bs-target="#approveModal{{ $item->id }}"
+                                                        data-bs-toggle="tooltip" title="Validasi">
                                                         <i class="fas fa-check"></i>
                                                     </button>
 
@@ -175,7 +180,8 @@
                                                         isset($totalId[$item->id]) &&
                                                         count($totalId[$item->id]) === 2)
                                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                                        data-bs-target="#lolosModal{{ $item->id }}">
+                                                        data-bs-target="#lolosModal{{ $item->id }}" data-bs-toggle="tooltip"
+                                                        title="Lolos">
                                                         <i class="fas fa-award"></i>
                                                     </button>
                                                     <x-confirm-modal modal-id="lolosModal{{ $item->id }}"
@@ -184,7 +190,8 @@
                                                         action-url="/approve-to-program/{{ $item->id }}"
                                                         confirm-text="Ya, Setujui" />
                                                     <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                                        data-bs-target="#rejectModal{{ $item->id }}">
+                                                        data-bs-target="#rejectModal{{ $item->id }}" data-bs-toggle="tooltip"
+                                                        title="Tidak Lolos">
                                                         <i class="fa-solid fa-xmark"></i>
                                                     </button>
 
@@ -199,11 +206,13 @@
 
                                             @if (isset($totalId[$item->id]) && is_array($totalId[$item->id]) && count($totalId[$item->id]) > 0)
                                                 <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
-                                                    class="btn btn-outline-primary">
+                                                    class="btn btn-outline-primary" data-bs-toggle="tooltip"
+                                                    title="Lihat Nilai">
                                                     <i class="fa-solid fa-eye"></i>
                                                 </a>
                                             @endif
-                                            <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info">
+                                            <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info"
+                                                data-bs-toggle="tooltip" title="Lihat Detail">
                                                 <i class="fa-solid fa-circle-info"></i>
                                             </a>
 
@@ -307,13 +316,13 @@
                                         <td class="d-none d-md-table-cell">
                                             <span
                                                 class="badge 
-                                            @switch($item->reviewAssignments[0]->status)
+                                            @switch($item->reviewAssignments->firstWhere('reviewer_id', auth()->id())->status)
                                                 @case('Menunggu Review') bg-warning @break
                                                 @case('Selesai Direview') bg-success @break
                                                 @default bg-secondary
                                             @endswitch
                                         ">
-                                                {{ $item->reviewAssignments[0]->status }}
+                                                {{ $item->reviewAssignments->firstWhere('reviewer_id', auth()->id())->status }}
                                             </span>
                                         </td>
                                         @php
@@ -340,23 +349,28 @@
                                                 ->exists();
                                         @endphp
                                         <td class="text-center">
-                                            @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
-                                                <a href="/reviewer/nilai/{{ $item->id }}"
-                                                    class="btn btn-outline-primary {{ $sudahLihat ? '' : 'disabled' }}"
-                                                    style="{{ $sudahLihat ? '' : 'pointer-events: none; opacity: 0.5;' }}"
-                                                    aria-disabled="{{ $sudahLihat ? 'false' : 'true' }}">
-                                                    <i class="fas fa-star"></i>
-                                                </a>
+                                            @if (isDeadlineActive('Penilaian Proposal'))
+                                                @if ($item->proposal_score->where('user_id', auth()->user()->id)->isEmpty())
+                                                    <a href="/reviewer/nilai/{{ $item->id }}"
+                                                        class="btn btn-outline-primary {{ $sudahLihat ? '' : 'disabled' }}"
+                                                        style="{{ $sudahLihat ? '' : 'pointer-events: none; opacity: 0.5;' }}"
+                                                        aria-disabled="{{ $sudahLihat ? 'false' : 'true' }}"
+                                                        data-bs-toggle="tooltip" title="Beri Nilai">
+                                                        <i class="fas fa-star"></i>
+                                                    </a>
+                                                @endif
                                             @endif
 
                                             @if (isset($totalId[$item->id][auth()->user()->name]))
                                                 <a href="/pendaftaran/detail-nilai/{{ $item->id }}"
-                                                    class="btn btn-outline-primary">
+                                                    class="btn btn-outline-primary" data-bs-toggle="tooltip"
+                                                    title="Lihat Nilai">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             @endif
 
-                                            <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info ">
+                                            <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info "
+                                                data-bs-toggle="tooltip" title="Lihat Detail">
                                                 <i class="fas fa-info-circle"></i>
                                             </a>
 

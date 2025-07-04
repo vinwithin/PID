@@ -19,7 +19,7 @@
                 <td style="padding: 8px;">{{ $item->nama_ketua }}</td>
                 <td style="padding: 8px;">{{ $item->nim_ketua }}</td>
                 <td style="padding: 8px;">{{ $item->program_studi->nama }}</td>
-                <td style="padding: 8px;">{{ $data->fakultas->nama }}</td>
+                <td style="padding: 8px;">{{ $item->fakultas->nama }}</td>
                 <td style="padding: 8px;">{{ $item->judul }}</td>
                 <td style="padding: 8px;">{{ $item->bidang->nama }}</td>
                 <td style="padding: 8px;">{{ $item->dospem->name }}</td>

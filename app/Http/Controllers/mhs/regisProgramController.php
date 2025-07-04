@@ -102,17 +102,17 @@ class regisProgramController extends Controller
 
                 case 2:
                     $validatedData = $request->validate([
-                        'anggota_tim' => 'required|array|min:3|max:13',
+                        'anggota_tim' => 'required|array|min:10|max:15',
                         'anggota_tim.*.nama' => 'required|string|max:255',
                         'anggota_tim.*.identifier' => 'required|string|max:20',
                         'anggota_tim.*.prodi' => 'required|string|max:255',
                         'anggota_tim.*.fakultas' => 'required|string|max:255',
                         'anggota_tim.*.jabatan' => 'nullable|string|max:20',
                     ], [
-                        'anggota_tim.required' => 'Harus ada minimal 3 anggota tim.',
+                        'anggota_tim.required' => 'Harus ada minimal 10 anggota tim.',
                         'anggota_tim.array' => 'Format anggota tim tidak valid.',
-                        'anggota_tim.min' => 'Minimal harus ada 3 anggota tim.',
-                        'anggota_tim.max' => 'Anggota tim tidak boleh lebih dari 13 orang.',
+                        'anggota_tim.min' => 'Minimal harus ada 10 anggota tim.',
+                        'anggota_tim.max' => 'Anggota tim tidak boleh lebih dari 15 orang.',
 
                         'anggota_tim.*.nama.required' => 'Nama anggota wajib diisi.',
                         'anggota_tim.*.nama.string' => 'Nama anggota harus berupa teks.',
@@ -357,7 +357,7 @@ class regisProgramController extends Controller
                 'sk_organisasi' => 'file|mimes:pdf|max:2048',
                 'surat_kerjasama' => 'file|mimes:pdf|max:2048',
                 'surat_rekomendasi_pembina' => 'file|mimes:pdf|max:2048',
-                'proposal' => 'file|mimes:pdf|max:5048'
+                'proposal' => 'file|mimes:pdf|max:10048'
             ], [
                 'sk_organisasi.mimes' => 'SK Organisasi harus dalam format PDF.',
                 'sk_organisasi.max' => 'Ukuran SK Organisasi tidak boleh lebih dari 2MB.',
@@ -369,7 +369,7 @@ class regisProgramController extends Controller
                 'surat_rekomendasi_pembina.max' => 'Ukuran Surat Rekomendasi Pembina tidak boleh lebih dari 2MB.',
 
                 'proposal.mimes' => 'Proposal harus dalam format PDF.',
-                'proposal.max' => 'Ukuran Proposal tidak boleh lebih dari 2MB.'
+                'proposal.max' => 'Ukuran Proposal tidak boleh lebih dari 10MB.'
             ]);
 
             $existingFiles = DokumenRegistrasi::where('registration_id', $id)->first();

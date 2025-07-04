@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Daftar Dokumen')
+@section('title', 'Dokumen Laporan Kemajuan')
 @section('description', 'Laporan Kemajuan')
 @section('content')
     <div class="w-100">
@@ -159,10 +159,10 @@
                                                         <i class="fa-solid fa-circle-info"></i>
                                                     </a>
                                                 @elseif($item->laporan_kemajuan->status === 'Ditolak')
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#approveModal{{ $item->id }}">
-                                                        <i class="fas fa-check me-1"></i> Terima
+                                                        <i class="fas fa-check"></i> 
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
                                                     <x-confirm-modal modal-id="approveModal{{ $item->id }}"
@@ -171,10 +171,10 @@
                                                         action-url="/laporan-kemajuan/approve/{{ $item->laporan_kemajuan->id }}"
                                                         confirm-text="Iya" />
                                                 @else
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    <button type="button" class="btn btn-outline-danger"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#rejectModal{{ $item->id }}">
-                                                        <i class="fas fa-exclamation-triangle me-1"></i> Tolak
+                                                        <i class="fas fa-exclamation-triangle"></i> 
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
                                                     <x-reject-with-comment modal-id="rejectModal{{ $item->id }}"
@@ -182,10 +182,10 @@
                                                         action-url="/laporan-kemajuan/reject/{{ $item->laporan_kemajuan->id }}"
                                                         value="{{ $item->laporan_kemajuan->komentar }}" />
 
-                                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                                    <button type="button" class="btn btn-outline-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#approveModal{{ $item->id }}">
-                                                        <i class="fas fa-check me-1"></i> Terima
+                                                        <i class="fas fa-check"></i> 
                                                     </button>
                                                     <!-- Gunakan komponen modal -->
                                                     <x-confirm-modal modal-id="approveModal{{ $item->id }}"

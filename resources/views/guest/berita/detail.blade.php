@@ -18,10 +18,9 @@
     <style>
         .navbar-custom {
             background-color: #1c3b2b;
-
+            padding: 1.5rem 6%;
             height: 202px;
             position: relative;
-            padding: 1.5rem 6%;
             z-index: 0;
         }
 
@@ -84,6 +83,7 @@
             width: 1000px;
 
         }
+
 
         /* Search Box Styling */
         .search-container {
@@ -223,11 +223,6 @@
             </div>
 
             <!-- Search Bar -->
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="Pencarian">
-                <span>🔍</span>
-            </div>
-
         </div>
 
         <!-- Wave Background -->
@@ -241,8 +236,8 @@
             </div>
         </div>
     </nav>
-   
-    <section class="container  py-4" style="padding: 1.5rem 6%;">
+
+    <section class="container  py-4">
         <div class="card w-full p-5 shadow" id="card">
             <div class="card-header text-center mb-4 bg-transparent border-0">
                 <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600; font-size:1.5rem;">

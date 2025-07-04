@@ -224,10 +224,7 @@
             </div>
 
             <!-- Search Bar -->
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="Pencarian">
-                <span>🔍</span>
-            </div>
+           
 
         </div>
 
@@ -243,9 +240,9 @@
         </div>
     </nav>
             
-    <section class="container  py-4" style="padding: 1.5rem 6%;">
+    <section class="container py-4">
         <div class="card w-full p-5 shadow" id="card">
-            <div class="card-header text-center mb-4 bg-transparent border-0">
+            <div class="card-header text-center bg-transparent border-0">
                 <h1 style="font-family: Plus Jakarta Sans, sans-serif; font-weight:600; font-size:1.5rem;">
                     {{ $data->title }}</h1>
             </div>

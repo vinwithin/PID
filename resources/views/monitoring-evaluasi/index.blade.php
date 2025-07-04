@@ -120,16 +120,64 @@
 
                                             <td class="text-center">
                                                 {{-- <div class="btn-group" role="group"> --}}
-                                                <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info">
+                                                <a href="/pendaftaran/detail/{{ $item->id }}" class="btn btn-outline-info"
+                                                    data-bs-toggle="tooltip" title="Lihat Detail">
                                                     <i class="fas fa-info-circle"></i>
                                                 </a>
                                                 @can('approve monev')
-                                                    @if (isset($total[$item->id]) &&
+                                                    @if (isset($total[$item->id]) && count($total[$item->id]) == 2)
+
+                                                        @if ($item->registration_validation->status === 'Hentikan Program')
+                                                            {{-- Tampilkan hanya tombol Lanjutkan Program --}}
+                                                            <button type="button" class="btn btn-outline-success"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#approveModal{{ $item->id }}"
+                                                                data-bs-toggle="tooltip" title="Lanjutkan Program">
+                                                                <i class="fas fa-check"></i>
+                                                            </button>
+
+                                                            <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                                title="Konfirmasi Persetujuan"
+                                                                message="Apakah Anda yakin ingin menyetujui proposal ini?"
+                                                                action-url="/monitoring-evaluasi/approve/{{ $item->id }}"
+                                                                confirm-text="Ya, Setujui" />
+                                                        @elseif ($item->registration_validation->status !== 'Lanjutkan Program')
+                                                            {{-- Status selain "Lanjutkan Program", tampilkan dua tombol --}}
+                                                            <button type="button" class="btn btn-outline-success"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#approveModal{{ $item->id }}"
+                                                                data-bs-toggle="tooltip" title="Lanjutkan Program">
+                                                                <i class="fas fa-check"></i>
+                                                            </button>
+
+                                                            <x-confirm-modal modal-id="approveModal{{ $item->id }}"
+                                                                title="Konfirmasi Persetujuan"
+                                                                message="Apakah Anda yakin ingin menyetujui proposal ini?"
+                                                                action-url="/monitoring-evaluasi/approve/{{ $item->id }}"
+                                                                confirm-text="Ya, Setujui" />
+
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#rejectModal{{ $item->id }}"
+                                                                data-bs-toggle="tooltip" title="Berhentikan Program">
+                                                                <i class="fa-solid fa-xmark"></i>
+                                                            </button>
+
+                                                            <x-confirm-modal modal-id="rejectModal{{ $item->id }}"
+                                                                title="Konfirmasi Persetujuan"
+                                                                message="Apakah Anda yakin ingin menolak proposal ini?"
+                                                                action-url="/monitoring-evaluasi/reject/{{ $item->id }}"
+                                                                confirm-text="Iya" />
+                                                        @endif
+                                                    @endif
+
+                                                    {{-- @if (isset($total[$item->id]) &&
                                                             count($total[$item->id]) == 2 &&
                                                             $item->registration_validation->status !== 'Lanjutkan Program')
                                                         <button type="button" class="btn btn-outline-success"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#approveModal{{ $item->id }}">
+                                                            data-bs-target="#approveModal{{ $item->id }}"
+                                                            data-bs-toggle="tooltip" title="Lanjutkan Program">
                                                             <i class="fas fa-check"></i>
                                                         </button>
                                                         <!-- Gunakan komponen modal -->
@@ -139,8 +187,10 @@
                                                             action-url="/monitoring-evaluasi/approve/{{ $item->id }}"
                                                             confirm-text="Ya, Setujui" />
 
-                                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#rejectModal{{ $item->id }}">
+                                                        <button type="button" class="btn btn-outline-danger"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#rejectModal{{ $item->id }}"
+                                                            data-bs-toggle="tooltip" title="Berhentikan Program">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
                                                         <!-- Gunakan komponen modal -->
@@ -149,22 +199,25 @@
                                                             message="Apakah Anda yakin ingin menolak proposal ini?"
                                                             action-url="/monitoring-evaluasi/reject/{{ $item->id }}"
                                                             confirm-text="Iya" />
-                                                    @endif
+                                                    @endif --}}
 
                                                     @can('assign-juri monev')
                                                         @if ($item->status_monev->where('registration_id', $item->id)->isEmpty())
                                                             <a href="{{ route('monev.reviewer', ['id' => $item->id]) }}"
-                                                                class="btn btn-outline-success">
+                                                                class="btn btn-outline-success" data-bs-toggle="tooltip"
+                                                                title="Pilih Penilai">
                                                                 <i class="fa-solid fa-user-plus"></i>
                                                             </a>
                                                         @elseif (isset($total[$item->id]) && is_array($total[$item->id]))
                                                             <a href="/monitoring-evaluasi/detail/{{ $item->id }}"
-                                                                class="btn btn-outline-primary">
+                                                                class="btn btn-outline-primary" data-bs-toggle="tooltip"
+                                                                title="Lihat Nilai">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
                                                         @else
                                                             <a href="/monitoring-evaluasi/reviewer-monev/edit/{{ $item->id }}"
-                                                                class="btn btn-outline-success">
+                                                                class="btn btn-outline-success" data-bs-toggle="tooltip"
+                                                                title="Pilih Penilai">
                                                                 <i class="fa-solid fa-user-plus"></i>
                                                             </a>
                                                         @endif
@@ -172,7 +225,9 @@
                                                 @elsecan('read monev')
                                                     @if (isset($total[$item->id]) && is_array($total[$item->id]))
                                                         <a href="/monitoring-evaluasi/detail/{{ $item->id }}"
-                                                            class="btn btn-outline-primary">
+                                                            class="btn btn-outline-primary" data-bs-toggle="tooltip"
+                                                            title="Lihat Nilai">
+
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     @else
@@ -295,14 +350,17 @@
                                                 @default bg-secondary
                                             @endswitch
                                         ">
-                                                    {{ isset($item->status_monev[0]) && !empty($item->status_monev[0]->status) ? $item->status_monev[0]->status : 'Menunggu Monev' }}
+                                                    {{-- ini perlu diperbaiki --}}
+                                                    {{ optional($item->status_monev->firstWhere('user_id', auth()->id()))->status ?? 'Menunggu Monev' }}
+
 
                                                 </span>
                                             </td>
 
                                             <td class="text-center">
                                                 <a href="/pendaftaran/detail/{{ $item->id }}"
-                                                    class="btn btn-outline-info">
+                                                    class="btn btn-outline-info" data-bs-toggle="tooltip"
+                                                    title="Lihat Detail">
                                                     <i class="fas fa-info-circle"></i>
                                                 </a>
                                                 @php
@@ -313,19 +371,23 @@
                                                         ->where('pendaftaran_id', $item->id)
                                                         ->exists();
                                                 @endphp
-                                                @if ($item->score_monev->where('user_id', auth()->user()->id)->isEmpty())
-                                                    <a href="/monitoring-evaluasi/nilai/{{ $item->id }}"
-                                                        class="btn btn-outline-warning" {{ $sudahLihat ? '' : 'disabled' }}
-                                                        style="{{ $sudahLihat ? '' : 'pointer-events: none; opacity: 0.5;' }}"
-                                                        aria-disabled="{{ $sudahLihat ? 'false' : 'true' }}">
-                                                        <i class="fas fa-star"></i>
-                                                    </a>
+                                                @if (isDeadlineActive('Penilaian Monev'))
+                                                    @if ($item->score_monev->where('user_id', auth()->user()->id)->isEmpty())
+                                                        <a href="/monitoring-evaluasi/nilai/{{ $item->id }}"
+                                                            class="btn btn-outline-warning"
+                                                            {{ $sudahLihat ? '' : 'disabled' }}
+                                                            style="{{ $sudahLihat ? '' : 'pointer-events: none; opacity: 0.5;' }}"
+                                                            aria-disabled="{{ $sudahLihat ? 'false' : 'true' }}"
+                                                            data-bs-toggle="tooltip" title="Beri Nilai">
+                                                            <i class="fas fa-star"></i>
+                                                        </a>
+                                                    @endif
                                                 @endif
-
 
                                                 @if (isset($total[$item->id][auth()->user()->name]))
                                                     <a href="/monitoring-evaluasi/detail/{{ $item->id }}"
-                                                        class="btn btn-outline-primary">
+                                                        class="btn btn-outline-primary" data-bs-toggle="tooltip"
+                                                        title="Lihat Nilai">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 @endif

@@ -66,15 +66,15 @@
                     </li>
                 @endcan
 
-                @role('admin')
-                    <li class="sidebar-header">Laporan Kemajuan</li>
-                    <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
-                            <i class="fa-regular fa-file"></i>
-                            <span class="align-middle">Daftar Dokumen</span>
-                        </a>
-                    </li>
-                @endrole
+
+                <li class="sidebar-header">Laporan Kemajuan</li>
+                <li class="sidebar-item {{ Request::is('laporan-kemajuan*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('laporan-kemajuan') }}">
+                        <i class="fa-regular fa-file"></i>
+                        <span class="align-middle">Daftar Dokumen</span>
+                    </a>
+                </li>
+
 
                 <li class="sidebar-header">Monitoring dan Evaluasi</li>
                 <li class="sidebar-item {{ Request::is('monitoring-evaluasi*') ? 'active' : '' }}">
@@ -84,15 +84,14 @@
                     </a>
                 </li>
 
-                @role('admin')
-                    <li class="sidebar-header">Laporan Akhir</li>
-                    <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
-                            <i class="align-middle" data-feather="book"></i>
-                            <span class="align-middle">Daftar Dokumen</span>
-                        </a>
-                    </li>
-                @endrole
+
+                <li class="sidebar-header">Laporan Akhir</li>
+                <li class="sidebar-item {{ Request::is('laporan-akhir*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('laporan-akhir') }}">
+                        <i class="align-middle" data-feather="book"></i>
+                        <span class="align-middle">Daftar Dokumen</span>
+                    </a>
+                </li>
             @endhasanyrole
 
 

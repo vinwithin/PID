@@ -16,7 +16,7 @@ class loginController extends Controller
 
     public function store(Request $request){
         $validateData = $request->validate([
-            'email' => ['required', 'string','email'],
+            'identifier' => ['required', 'string'],
             'password' => ['required', 'string']
         ]);
         if(Auth::attempt($validateData)){
@@ -25,7 +25,7 @@ class loginController extends Controller
             return redirect()->route('dashboard');
             
         }
-        return back()->withInput()->with('error', 'Wrong Email and Password!');
+        return back()->withInput()->with('error', 'Username atau Password Tidak Valid!');
     }
     
     public function logout(Request $request)
@@ -36,6 +36,6 @@ class loginController extends Controller
         $request->session()->regenerateToken();
         
         return redirect()->route('login')
-            ->with('success', 'Successfully logged out!');
+            ->with('success', 'Berhasil Keluar!');
     }
 }

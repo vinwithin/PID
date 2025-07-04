@@ -75,7 +75,9 @@ class logbookController extends Controller
         $dospem = $dospemQuery->latest()->paginate(10);
 
         $currentYear = Carbon::now()->year;
-        $data_user = Logbook::with(['registration', 'teamMembers', 'logbook_validations'])->where('team_id', $this->teamIdService->getRegistrationId());
+        $data_user = Logbook::with(['registration', 'teamMembers', 'logbook_validations'])
+            ->where('team_id', $this->teamIdService->getRegistrationId())
+            ->whereYear('created_at', $currentYear);
 
         if ($search) {
             $data_user->where(function ($query) use ($search) {

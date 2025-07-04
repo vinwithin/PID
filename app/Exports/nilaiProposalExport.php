@@ -37,28 +37,14 @@ class nilaiProposalExport implements WithMultipleSheets
             ->orderBy('created_at', 'asc') // atau 'desc' jika ingin dari terbaru
             ->get();
 
-        foreach ($registrasis as $i => $data) {
-            $rubrik = ProposalReviewController::calculateScoresById($data->id);
-            if ($i === 0) {
-                // first sheet: special
-                $sheets[] = new FirstProposalExport(
-                    $registrasis,
-                    '',
-                    'First ID ' . $data->id
-                );
-                $sheets[] = new NilaiProposalPerTeam(
-                    $data,
-                    $rubrik,
-                    'ID ' . $data->id
-                );
-            } else {
-                $sheets[] = new NilaiProposalPerTeam(
-                    $data,
-                    $rubrik,
-                    'ID ' . $data->id
-                );
-            }
-        }
+
+        $sheets[] = new FirstProposalExport(
+            $registrasis,
+
+            'First ID '
+        );
+
+
 
         return $sheets;
     }

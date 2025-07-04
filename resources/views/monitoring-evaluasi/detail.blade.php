@@ -61,7 +61,12 @@
                                                 <tr>
                                                     <td class="fw-bold">Feedback</td>
                                                     <td colspan="2" class="text-center text-primary">
-                                                        {{ $data_review[0]->catatan ?? 'Tidak ada feedback' }}
+                                                        {{-- {{ $data_review[0]->catatan ?? 'Tidak ada feedback' }} --}}
+                                                        {{-- {{ dd($data_review->firstWhere('user.name', $reviewer)->catatan) }} --}}
+
+
+                                                        {{ $data_review->firstWhere('user.name', $reviewer)->catatan }}
+
                                                     </td>
                                                 </tr>
                                                 <tr class="table-secondary">
@@ -95,7 +100,7 @@
                     <div class="card shadow-sm border-0">
                         <div class="card-body ">
                             <div class="card mb-4 border-light">
-                               
+
                                 <div class="table-responsive">
                                     <table class="table table-hover border">
                                         <thead class="table-dark">
@@ -147,11 +152,11 @@
                                                 </td>
                                             </tr>
                                             <tr class="table-secondary">
-                                                    <td class="fw-bold">Penilai</td>
-                                                    <td colspan="2" class="text-center text-primary">
-                                                        {{ auth()->user()->name }}
-                                                    </td>
-                                                </tr>
+                                                <td class="fw-bold">Penilai</td>
+                                                <td colspan="2" class="text-center text-primary">
+                                                    {{ auth()->user()->name }}
+                                                </td>
+                                            </tr>
 
                                         </tbody>
                                     </table>

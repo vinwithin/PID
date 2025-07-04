@@ -131,10 +131,13 @@ class MonevController extends Controller
                 'nilai' => $nilai,
             ]);
         }
-        $result = StatusMonev::where('registration_id', $id)->update([
-            'status' => 'telah dinilai',
-            'catatan' => $validatedData['catatan']
-        ]);
+        $result = StatusMonev::where('registration_id', $id)
+            ->where('user_id', Auth::user()->id)
+            ->update([
+                'status' => 'telah dinilai',
+                'catatan' => $validatedData['catatan']
+            ]);
+
 
         if ($result) {
             return redirect()->route('monev.index')->with('success', 'Berhasil menambahkan data');
@@ -237,7 +240,7 @@ class MonevController extends Controller
         $rubrik = ScoreDetailMonev::scoreDetail($id);
         $total = ScoreDetailMonev::scoreDetail($id);
         $bobot = ScoreDetailMonev::scoreDetail($id);
-        // dd($rubrik['rubrik']);
+        // dd($total['total']);
         return view('monitoring-evaluasi.detail', [
             'id_regis' => Registration::find($id),
             'data_review' => StatusMonev::where('registration_id', $id)->get(),

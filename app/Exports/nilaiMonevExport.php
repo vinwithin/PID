@@ -41,27 +41,13 @@ class nilaiMonevExport implements WithMultipleSheets
         foreach ($registrasis as $i => $data) {
             $rubrik =  ScoreDetailMonev::scores();
             $nilai =  ScoreDetailMonev::scoreDetail($data->id);
-            if ($i === 0) {
-                // first sheet: special
-                $sheets[] = new FirstNilaiMonev(
-                    $registrasis,
-                    $rubrik,
-                    'First ID ' . $data->id
-                );
-                $sheets[] = new nilaiMonevPerTeam(
-                    $data,
-                    $rubrik,
-                    $nilai,
-                    'ID ' . $data->id
-                );
-            } else {
-                $sheets[] = new nilaiMonevPerTeam(
-                    $data,
-                    $rubrik,
-                    $nilai,
-                    'ID ' . $data->id
-                );
-            }
+
+            // first sheet: special
+            $sheets[] = new FirstNilaiMonev(
+                $registrasis,
+                $rubrik,
+                'First ID ' . $data->id
+            );
         }
 
         return $sheets;

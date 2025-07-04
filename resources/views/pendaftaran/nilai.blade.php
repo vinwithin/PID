@@ -63,7 +63,7 @@
                                                 <tr>
                                                     <td class="fw-bold">Feedback</td>
                                                     <td colspan="2">
-                                                        {{ $data_review[$loop->index]->feedback ?? 'Tidak ada feedback' }}
+                                                        {{ $data_review->firstWhere('user.name', $reviewer)->feedback ?? 'Tidak ada feedback' }}
                                                     </td>
                                                 </tr>
                                                 <tr class="table-secondary">

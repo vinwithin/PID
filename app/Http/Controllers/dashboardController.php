@@ -6,6 +6,7 @@ use App\Models\Announcement;
 use App\Models\Registration;
 use App\Models\TeamMember;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -23,14 +24,17 @@ class dashboardController extends Controller
         if ($pendingMember) {
             session()->flash('pending_approval');
         }
+        $currentYear = Carbon::now()->year;
         return view('dashboard', [
 
-            'alreadyRegist' => TeamMember::where('identifier', Auth::user()->identifier)->exists(),
+            'alreadyRegist' => TeamMember::where('identifier', Auth::user()->identifier)->whereYear('created_at', $currentYear)->exists(),
             'pendingMember' => $pendingMember,
             'data' => Registration::with(['registration_validation', 'ormawa', 'user'])
                 ->whereHas('teamMembers', function ($query) {
-                    $query->where('identifier', Auth::user()->identifier);  // Cek apakah NIM ada di tabel teammember
-                })->first(),
+                    $query->where('identifier', Auth::user()->identifier);
+                })
+                
+                ->first(),
             'announce' => Announcement::all(),
 
         ]);
